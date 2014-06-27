@@ -1,0 +1,124 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<!-- Notification Drawer -->
+	<n:div id="notifications" class="tile drawer animated">
+		<n:div class="listview narrow">
+			<n:div class="media">
+				<a href="">Notification Settings</a>
+				<n:span class="drawer-close">&#10005;</n:span>
+			</n:div>
+			<n:div class="overflow" style="height: 254px">
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							Nadin Jackson - 2 Hours ago
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Mauris consectetur urna nec tempor
+							adipiscing. Proin sit amet nisi ligula. Sed
+							eu adipiscing lectus
+						</a>
+					</n:div>
+				</n:div>
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							David Villa - 5 Hours ago
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Suspendisse in purus ut nibh placerat Cras
+							pulvinar euismod nunc quis gravida.
+							Suspendisse pharetra
+						</a>
+					</n:div>
+				</n:div>
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/3.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							Harris worgon - On 15/12/2013
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Maecenas venenatis enim condimentum ultrices
+							fringilla. Nulla eget libero rhoncus,
+							bibendum diam eleifend, vulputate mi. Fusce
+							non nibh pulvinar, ornare turpis id
+						</a>
+					</n:div>
+				</n:div>
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/4.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							Mitch Bradberry - On 14/12/2013
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Phasellus interdum felis enim, eu bibendum
+							ipsum tristique vitae. Phasellus feugiat
+							massa orci, sed viverra felis aliquet quis.
+							Curabitur vel blandit odio. Vestibulum
+							sagittis quis sem sit amet tristique.
+						</a>
+					</n:div>
+				</n:div>
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							Nadin Jackson - On 15/12/2013
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Ipsum wintoo consectetur urna nec tempor
+							adipiscing. Proin sit amet nisi ligula. Sed
+							eu adipiscing lectus
+						</a>
+					</n:div>
+				</n:div>
+				<n:div class="media">
+					<n:div class="pull-left">
+						<n:img width="40"
+							src="bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
+					</n:div>
+					<n:div class="media-body">
+						<n:small class="text-muted">
+							David Villa - On 16/12/2013
+						</n:small>
+						<n:br />
+						<a class="t-overflow" href="">
+							Suspendisse in purus ut nibh placerat Cras
+							pulvinar euismod nunc quis gravida.
+							Suspendisse pharetra
+						</a>
+					</n:div>
+				</n:div>
+			</n:div>
+			<n:div class="media text-center whiter l-100">
+				<a href="">
+					<n:small>VIEW ALL</n:small>
+				</a>
+			</n:div>
+		</n:div>
+	</n:div>
+</zk>

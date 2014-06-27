@@ -1,0 +1,163 @@
+<?page complete="true"?>
+<!DOCTYPE html>
+<n:html xmlns:w="client" xmlns:n="native">
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <n:head>
+        <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
+        <?meta name="format-detection" content="telephone=no"?>
+        <?meta charset="UTF-8"?>
+
+        <?meta name="description" content=""?>
+        <?meta name="keywords" content=""?>
+
+        <n:title>${labels.sitename}</n:title>
+                    
+        <!-- CSS -->
+        <?link href="bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/font-awesome.min.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/form.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/calendar.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/style.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/icons.css" rel="stylesheet"?>
+        <?link href="bootstrap/v3/template/css/generics.css" rel="stylesheet"?> 
+    </n:head>
+    
+    <zscript>
+		org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+		org.zkoss.util.resource.Labels.reset();
+	</zscript>
+    <n:body id="skin-blur-violate">
+
+        <n:header id="header">
+            <n:a href="" id="menu-toggle"></n:a> 
+            <n:a class="logo pull-left" href="${pageContext.request.contextPath}">${labels.sitename}</n:a>
+            
+            <n:div class="media-body">
+                <n:div class="media" id="top-menu">
+                    <n:div class="pull-left tm-icon">
+                        <n:a data-drawer="messages" class="drawer-toggle" href="">
+                            <n:i class="sa-top-message"></n:i>
+                            <n:i class="n-count animated">5</n:i>
+                            <n:span>Messages</n:span>
+                        </n:a>
+                    </n:div>
+                    <n:div class="pull-left tm-icon">
+                        <n:a data-drawer="notifications" class="drawer-toggle" href="">
+                            <n:i class="sa-top-updates"></n:i>
+                            <n:i class="n-count animated">9</n:i>
+                            <n:span>Updates</n:span>
+                        </n:a>
+                    </n:div>                   
+
+                    <n:div id="time" class="pull-right">
+                        <n:span id="hours"></n:span>
+                        :
+                        <n:span id="min"></n:span>
+                        :
+                        <n:span id="sec"></n:span>
+                    </n:div>
+                    
+                    <n:div class="media-body">
+                        <n:input type="text" class="main-search"/>
+                    </n:div>
+                </n:div>
+            </n:div>
+        </n:header>
+        
+        <n:div class="clearfix"></n:div>
+        
+        <n:section id="main" class="p-relative" role="main">
+            
+            <!-- Sidebar -->
+            <n:aside id="sidebar">
+            </n:aside>
+        
+            <!-- Content -->
+            <n:section id="content" class="container">
+
+                <include src="/bootstrap/v3/zk/messages.zul"/>
+                <include src="/bootstrap/v3/zk/notifications.zul"/>
+                
+			</n:section>
+
+            <!-- Older IE Message -->
+            <!--[if lt IE 9]>
+                <n:div class="ie-block">
+                    <n:h1 class="Ops">${labels.messages.oops}</n:h1>
+                    <n:p>${labels.messages.oldVersionBrowser}</n:p>
+                    <n:ul class="browsers">
+                        <n:li>
+                            <n:a href="https://www.google.com/intl/en/chrome/browser/">
+                                <img src="bootstrap/v3/template/img/browsers/chrome.png" alt=""/>
+                                <n:div>Google Chrome</n:div>
+                            </n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="http://www.mozilla.org/en-US/firefox/new/">
+                                <n:img src="bootstrap/v3/template/img/browsers/firefox.png" alt=""/>
+                                <n:div>Mozilla Firefox</n:div>
+                            </n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="http://www.opera.com/computer/windows">
+                                <n:img src="bootstrap/v3/template/img/browsers/opera.png" alt=""/>
+                                <n:div>Opera</n:div>
+                            </n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="http://safari.en.softonic.com/">
+                                <img src="bootstrap/v3/template/img/browsers/safari.png" alt=""/>
+                                <div>Safari</n:div>
+                            </n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="http://windows.microsoft.com/en-us/internet-explorer/downloads/ie-10/worldwide-languages">
+                                <n:img src="bootstrap/v3/template/img/browsers/ie.png" alt=""/>
+                                <n:div>Internet Explorer(New)</n:div>
+                            </n:a>
+                        </n:li>
+                    </n:ul>
+                    <n:p>${labels.messages.upgradeBrowser}</n:p>
+                </n:div>   
+            <![endif]-->
+        </n:section>
+        
+        <!-- Javascript Libraries -->
+        <!-- jQuery -->
+        <script src="bootstrap/v3/template/js/jquery.min.js"></script> <!-- jQuery Library -->
+        <script src="bootstrap/v3/template/js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+        <script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></script> <!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
+
+        <!-- Bootstrap -->
+        <script src="bootstrap/v3/template/js/bootstrap.min.js"></script>
+
+        <!-- Charts -->
+        <script src="bootstrap/v3/template/js/charts/jquery.flot.js"></script> <!-- Flot Main -->
+        <script src="bootstrap/v3/template/js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
+        <script src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js"></script> <!-- Flot sub -->
+        <script src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js"></script> <!-- Flot sub - for repaint when resizing the screen -->
+
+        <script src="bootstrap/v3/template/js/sparkline.min.js"></script> <!-- Sparkline - Tiny charts -->
+        <script src="bootstrap/v3/template/js/easypiechart.js"></script> <!-- EasyPieChart - Animated Pie Charts -->
+        <script src="bootstrap/v3/template/js/charts.js"></script> <!-- All the above chart related functions -->
+
+        <!-- Map -->
+        <script src="bootstrap/v3/template/js/maps/jvectormap.min.js"></script> <!-- jVectorMap main library -->
+        <script src="bootstrap/v3/template/js/maps/usa.js"></script> <!-- USA Map for jVectorMap -->
+
+        <!--  Form Related -->
+        <script src="bootstrap/v3/template/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+        <!-- UX -->
+        <script src="bootstrap/v3/template/js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+
+        <!-- Other -->
+        <script src="bootstrap/v3/template/js/calendar.min.js"></script> <!-- Calendar -->
+        <script src="bootstrap/v3/template/js/feeds.min.js"></script> <!-- News Feeds -->
+        
+
+        <!-- All JS functions -->
+        <script src="bootstrap/v3/template/js/functions.js"></script>
+    </n:body>
+</n:html>

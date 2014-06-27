@@ -5,8 +5,32 @@
 -->
 
 <zk>
+	<system-config>
+		<label-location>/WEB-INF/zk-label_ru_RU.properties</label-location>
+	</system-config>
+
 	<device-config>
 		<device-type>ajax</device-type>
 		<timeout-uri>/timeout.zul</timeout-uri><!-- An empty URL can cause the browser to reload the same URL -->
 	</device-config>
+
+	<library-property>
+		<name>org.zkoss.web.classWebResource.cache.CSS.hours</name>
+		<value>-1</value>
+	</library-property>
+
+	<library-property>
+		<name>org.zkoss.zk.WPD.cache</name>
+		<value>false</value>
+	</library-property>
+
+	<library-property>
+		<name>org.zkoss.zk.WCS.cache</name>
+		<value>false</value>
+	</library-property>
+
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>atlantic</value>
+	</library-property>
 </zk>

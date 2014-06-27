@@ -71,6 +71,7 @@ html, body {
 body {
     font-family: 'open-sans-light', sans-serif;
     font-size: 12px;
+    padding: 0;
 }
 
 .ie9 #sidebar {
