@@ -1,0 +1,50 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<!-- Older IE Message -->
+	<!--[if lt IE 9]>
+	<n:div class="ie-block">
+		<n:h1 class="Ops">${labels.messages.oops}</n:h1>
+		<n:p>${labels.messages.oldVersionBrowser}</n:p>
+		<n:ul class="browsers">
+			<n:li>
+				<n:a
+					href="https://www.google.com/intl/en/chrome/browser/">
+					<n:img
+						src="bootstrap/v3/template/img/browsers/chrome.png" alt="" />
+					<n:div>Google Chrome</n:div>
+				</n:a>
+			</n:li>
+			<n:li>
+				<n:a href="http://www.mozilla.org/en-US/firefox/new/">
+					<n:img
+						src="bootstrap/v3/template/img/browsers/firefox.png" alt="" />
+					<n:div>Mozilla Firefox</n:div>
+				</n:a>
+			</n:li>
+			<n:li>
+				<n:a href="http://www.opera.com/computer/windows">
+					<n:img
+						src="bootstrap/v3/template/img/browsers/opera.png" alt="" />
+					<n:div>Opera</n:div>
+				</n:a>
+			</n:li>
+			<n:li>
+				<n:a href="http://safari.en.softonic.com/">
+					<n:img
+						src="bootstrap/v3/template/img/browsers/safari.png" alt="" />
+					<n:div>Safari</n:div>
+				</n:a>
+			</n:li>
+			<n:li>
+				<n:a
+					href="http://windows.microsoft.com/en-us/internet-explorer/downloads/ie-10/worldwide-languages">
+					<n:img
+						src="bootstrap/v3/template/img/browsers/ie.png" alt="" />
+					<n:div>Internet Explorer(New)</n:div>
+				</n:a>
+			</n:li>
+		</n:ul>
+		<n:p>${labels.messages.upgradeBrowser}</n:p>
+	</n:div>
+    <![endif]-->
+</zk>

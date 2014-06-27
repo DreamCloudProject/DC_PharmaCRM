@@ -27,43 +27,9 @@
 		org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
 		org.zkoss.util.resource.Labels.reset();
 	</zscript>
-    <n:body id="skin-blur-violate">
+    <n:body id="${labels.currentTheme}">
 
-        <n:header id="header">
-            <n:a href="" id="menu-toggle"></n:a> 
-            <n:a class="logo pull-left" href="${pageContext.request.contextPath}">${labels.sitename}</n:a>
-            
-            <n:div class="media-body">
-                <n:div class="media" id="top-menu">
-                    <n:div class="pull-left tm-icon">
-                        <n:a data-drawer="messages" class="drawer-toggle" href="">
-                            <n:i class="sa-top-message"></n:i>
-                            <n:i class="n-count animated">5</n:i>
-                            <n:span>Messages</n:span>
-                        </n:a>
-                    </n:div>
-                    <n:div class="pull-left tm-icon">
-                        <n:a data-drawer="notifications" class="drawer-toggle" href="">
-                            <n:i class="sa-top-updates"></n:i>
-                            <n:i class="n-count animated">9</n:i>
-                            <n:span>Updates</n:span>
-                        </n:a>
-                    </n:div>                   
-
-                    <n:div id="time" class="pull-right">
-                        <n:span id="hours"></n:span>
-                        :
-                        <n:span id="min"></n:span>
-                        :
-                        <n:span id="sec"></n:span>
-                    </n:div>
-                    
-                    <n:div class="media-body">
-                        <n:input type="text" class="main-search"/>
-                    </n:div>
-                </n:div>
-            </n:div>
-        </n:header>
+		<include src="/bootstrap/v3/zk/header.zul"/>
         
         <n:div class="clearfix"></n:div>
         
@@ -81,46 +47,8 @@
                 
 			</n:section>
 
-            <!-- Older IE Message -->
-            <!--[if lt IE 9]>
-                <n:div class="ie-block">
-                    <n:h1 class="Ops">${labels.messages.oops}</n:h1>
-                    <n:p>${labels.messages.oldVersionBrowser}</n:p>
-                    <n:ul class="browsers">
-                        <n:li>
-                            <n:a href="https://www.google.com/intl/en/chrome/browser/">
-                                <img src="bootstrap/v3/template/img/browsers/chrome.png" alt=""/>
-                                <n:div>Google Chrome</n:div>
-                            </n:a>
-                        </n:li>
-                        <n:li>
-                            <n:a href="http://www.mozilla.org/en-US/firefox/new/">
-                                <n:img src="bootstrap/v3/template/img/browsers/firefox.png" alt=""/>
-                                <n:div>Mozilla Firefox</n:div>
-                            </n:a>
-                        </n:li>
-                        <n:li>
-                            <n:a href="http://www.opera.com/computer/windows">
-                                <n:img src="bootstrap/v3/template/img/browsers/opera.png" alt=""/>
-                                <n:div>Opera</n:div>
-                            </n:a>
-                        </n:li>
-                        <n:li>
-                            <n:a href="http://safari.en.softonic.com/">
-                                <img src="bootstrap/v3/template/img/browsers/safari.png" alt=""/>
-                                <div>Safari</n:div>
-                            </n:a>
-                        </n:li>
-                        <n:li>
-                            <n:a href="http://windows.microsoft.com/en-us/internet-explorer/downloads/ie-10/worldwide-languages">
-                                <n:img src="bootstrap/v3/template/img/browsers/ie.png" alt=""/>
-                                <n:div>Internet Explorer(New)</n:div>
-                            </n:a>
-                        </n:li>
-                    </n:ul>
-                    <n:p>${labels.messages.upgradeBrowser}</n:p>
-                </n:div>   
-            <![endif]-->
+			<include src="/bootstrap/v3/zk/oldVersionBrowser.zul"/>
+			
         </n:section>
         
         <!-- Javascript Libraries -->
