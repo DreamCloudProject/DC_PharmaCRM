@@ -1,0 +1,4 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<calendars id="calendars" firstDayOfWeek="Monday" height="600px" timeZone="Main=GMT+0" mold="month"/>
+</zk>

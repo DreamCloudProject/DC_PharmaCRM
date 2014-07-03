@@ -1,91 +1,171 @@
 <?page complete="true"?>
 <!DOCTYPE html>
 <n:html xmlns:w="client" xmlns:n="native">
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
-    <n:head>
-        <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
-        <?meta name="format-detection" content="telephone=no"?>
-        <?meta charset="UTF-8"?>
+	<!--[if IE 9 ]><html class="ie9"><![endif]-->
+	<n:head>
+		<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
+		<?meta name="format-detection" content="telephone=no"?>
+		<?meta charset="UTF-8"?>
 
-        <?meta name="description" content=""?>
-        <?meta name="keywords" content=""?>
+		<?meta name="description" content=""?>
+		<?meta name="keywords" content=""?>
 
-        <n:title>${labels.sitename}</n:title>
-                    
-        <!-- CSS -->
-        <?link href="bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/font-awesome.min.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/form.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/calendar.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/style.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/icons.css" rel="stylesheet"?>
-        <?link href="bootstrap/v3/template/css/generics.css" rel="stylesheet"?> 
-    </n:head>
-    
-    <zscript>
-		org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
-		org.zkoss.util.resource.Labels.reset();
+		<n:title>${labels.sitename}</n:title>
+
+		<!-- CSS -->
+		<?link href="bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/font-awesome.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/form.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/calendar.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/style.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/icons.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/generics.css" rel="stylesheet"?>
+	</n:head>
+
+	<zscript><![CDATA[
+	org.zkoss.lang.Library.setProperty(
+			org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+	org.zkoss.util.resource.Labels.reset();
+	void move(Component dragged) {
+		if (self instanceof Listitem) {
+			self.parent.insertBefore(dragged, self);
+		} else {
+			self.appendChild(dragged);
+		}
+	}
+]]>
 	</zscript>
-    <n:body id="${labels.currentTheme}">
+	<n:body id="${labels.currentTheme}">
 
-		<include src="/bootstrap/v3/zk/header.zul"/>
-        
-        <n:div class="clearfix"></n:div>
-        
-        <n:section id="main" class="p-relative" role="main">
-            
-            <!-- Sidebar -->
-            <n:aside id="sidebar">
-            </n:aside>
-        
-            <!-- Content -->
-            <n:section id="content" class="container">
+		<include src="/bootstrap/v3/zk/header.zul" />
 
-                <include src="/bootstrap/v3/zk/messages.zul"/>
-                <include src="/bootstrap/v3/zk/notifications.zul"/>
-                
+		<n:div class="clearfix"></n:div>
+
+		<n:section id="main" class="p-relative" role="main">
+
+			<!-- Sidebar -->
+			<n:aside id="sidebar">
+
+				<!-- Side Menu -->
+				<n:ul class="list-unstyled side-menu">
+					<n:li class="active">
+						<n:a class="sa-side-home" href="index.html">
+							<n:span class="menu-item">Dashboard</n:span>
+						</n:a>
+					</n:li>
+					<n:li>
+						<n:a class="sa-side-calendar"
+							href="calendar.html">
+							<n:span class="menu-item">Calendar</n:span>
+						</n:a>
+					</n:li>
+				</n:ul>
+
+			</n:aside>
+
+			<!-- Content -->
+			<n:section id="content" class="container">
+
+				<include src="/bootstrap/v3/zk/messages.zul" />
+				<include src="/bootstrap/v3/zk/notifications.zul" />
+
+				<!-- Breadcrumb -->
+				<n:ol class="breadcrumb hidden-xs">
+					<n:li>
+						<a href="#">Home</a>
+					</n:li>
+					<n:li>
+						<a href="#">Library</a>
+					</n:li>
+					<n:li class="active">Data</n:li>
+				</n:ol>
+
+				<n:h4 class="page-title">DASHBOARD</n:h4>
+
+				<!-- Quick Stats -->
+				<n:div class="block-area">
+					<n:div class="row">
+						<div class="col-md-3 col-xs-6"
+							style="height: 200px" onDrop="move(event.dragged)"
+							droppable="true">
+							<label draggable="true">Test1</label>
+						</div>
+
+						<div class="col-md-3 col-xs-6"
+							style="height: 200px" onDrop="move(event.dragged)"
+							droppable="true">
+							<label draggable="true">Test2</label>
+						</div>
+
+						<div class="col-md-3 col-xs-6"
+							style="height: 200px" onDrop="move(event.dragged)"
+							droppable="true">
+							<label draggable="true">Test3</label>
+						</div>
+
+						<div class="col-md-3 col-xs-6"
+							style="height: 200px" onDrop="move(event.dragged)"
+							droppable="true">
+							<label draggable="true">Test4</label>
+						</div>
+					</n:div>
+				</n:div>
+
+				<n:hr class="whiter" />
+               
+                <n:div class="col-md-12 clearfix">
+					<include src="/bootstrap/v3/zk/calendar.zul" />
+				</n:div>				
+
 			</n:section>
 
-			<include src="/bootstrap/v3/zk/oldVersionBrowser.zul"/>
 			
-        </n:section>
-        
-        <!-- Javascript Libraries -->
-        <!-- jQuery -->
-        <script src="bootstrap/v3/template/js/jquery.min.js"></script> <!-- jQuery Library -->
-        <script src="bootstrap/v3/template/js/jquery-ui.min.js"></script> <!-- jQuery UI -->
-        <script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></script> <!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
 
-        <!-- Bootstrap -->
-        <script src="bootstrap/v3/template/js/bootstrap.min.js"></script>
+		</n:section>
 
-        <!-- Charts -->
-        <script src="bootstrap/v3/template/js/charts/jquery.flot.js"></script> <!-- Flot Main -->
-        <script src="bootstrap/v3/template/js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
-        <script src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js"></script> <!-- Flot sub -->
-        <script src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js"></script> <!-- Flot sub - for repaint when resizing the screen -->
+		<!-- Javascript Libraries -->
+		<!-- jQuery -->
+		<n:script src="bootstrap/v3/template/js/jquery.min.js"></n:script>
+		<!-- jQuery Library -->
+		<n:script src="bootstrap/v3/template/js/jquery-ui.min.js"></n:script>
+		<!-- jQuery UI -->
+		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
+		<!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
 
-        <script src="bootstrap/v3/template/js/sparkline.min.js"></script> <!-- Sparkline - Tiny charts -->
-        <script src="bootstrap/v3/template/js/easypiechart.js"></script> <!-- EasyPieChart - Animated Pie Charts -->
-        <script src="bootstrap/v3/template/js/charts.js"></script> <!-- All the above chart related functions -->
+		<!-- Bootstrap -->
+		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>
 
-        <!-- Map -->
-        <script src="bootstrap/v3/template/js/maps/jvectormap.min.js"></script> <!-- jVectorMap main library -->
-        <script src="bootstrap/v3/template/js/maps/usa.js"></script> <!-- USA Map for jVectorMap -->
+		<!-- Charts -->
+		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.js"></n:script>
+		<!-- Flot Main -->
+		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.time.js"></n:script>
+		<!-- Flot sub -->
+		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js"></n:script>
+		<!-- Flot sub -->
+		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js"></n:script>
+		<!-- Flot sub - for repaint when resizing the screen -->
 
-        <!--  Form Related -->
-        <script src="bootstrap/v3/template/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+		<n:script src="bootstrap/v3/template/js/sparkline.min.js"></n:script>
+		<!-- Sparkline - Tiny charts -->
+		<n:script src="bootstrap/v3/template/js/easypiechart.js"></n:script>
+		<!-- EasyPieChart - Animated Pie Charts -->
+		<n:script src="bootstrap/v3/template/js/charts.js"></n:script>
+		<!-- All the above chart related functions -->
 
-        <!-- UX -->
-        <script src="bootstrap/v3/template/js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+		<!--  Form Related -->
+		<n:script src="bootstrap/v3/template/js/icheck.js"></n:script>
+		<!-- Custom Checkbox + Radio -->
 
-        <!-- Other -->
-        <script src="bootstrap/v3/template/js/calendar.min.js"></script> <!-- Calendar -->
-        <script src="bootstrap/v3/template/js/feeds.min.js"></script> <!-- News Feeds -->
-        
+		<!-- UX -->
+		<n:script src="bootstrap/v3/template/js/scroll.min.js"></n:script>
+		<!-- Custom Scrollbar -->
+				
+		<n:script src="bootstrap/v3/template/js/feeds.min.js"></n:script>
+		<!-- News Feeds -->
 
-        <!-- All JS functions -->
-        <script src="bootstrap/v3/template/js/functions.js"></script>
-    </n:body>
+		<!-- All JS functions -->
+		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>		
+		
+	</n:body>
 </n:html>
