@@ -4,20 +4,10 @@
 	<n:aside id="sidebar">
 
 		<!-- Side Menu -->
-		<n:ul class="list-unstyled side-menu">
-			<n:li class="active">
-				<n:a class="sa-side-home" href="index.zul">
-					<n:span class="menu-item">Dashboard</n:span>
-				</n:a>
-			</n:li>
-			<n:li>
-				<n:a class="sa-side-calendar" href="calendar.html">
-					<n:span class="menu-item">Calendar</n:span>
-				</n:a>
-			</n:li>
-			<n:li>
-				<n:a class="sa-side-typography" href="patients.zul">
-					<n:span class="menu-item">Typography</n:span>
+		<n:ul class="list-unstyled side-menu">			
+			<n:li forEach="${labels.panels}" class="${each.key == 'index' ? 'active' : ''}">
+				<n:a href="${(c:split(each.value, '#'))[1]}">
+					<n:i class="${(c:split(each.value, '#'))[2]} fa-2x"></n:i><n:span class="menu-item">${(c:split(each.value, '#'))[0]}</n:span>
 				</n:a>
 			</n:li>
 		</n:ul>

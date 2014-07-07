@@ -51,10 +51,10 @@
 					<n:li>						
 						<a href="${(c:split(labels.panels.index, '#'))[1]}">${(c:split(labels.panels.index, '#'))[0]}</a>
 					</n:li>
-					<n:li class="active">${(c:split(labels.panels.patients, '#'))[0]}</n:li>
+					<n:li class="active">${(c:split(labels.panels.events, '#'))[0]}</n:li>
 				</n:ol>
 
-				<n:h4 class="page-title">${(c:split(labels.panels.patients, '#'))[0]}</n:h4>
+				<n:h4 class="page-title">${(c:split(labels.panels.events, '#'))[0]}</n:h4>
 								
 				<div zclass="col-md-12 clearfix">
 					<n:div class="row">
@@ -66,8 +66,8 @@
 	               	<n:div class="row">
 	               		<div zclass="col-md-12 clearfix">
 	               			<div zclass="tile">
-								<n:h2 class="tile-title">Пациенты</n:h2>               		
-								
+								<n:h2 class="tile-title">Календарь</n:h2>               		
+								<include src="/bootstrap/v3/zk/include/calendar.zul" />
 							</div>
 						</div>				
 					</n:div>

@@ -187,6 +187,10 @@ img {
     padding-right: 7px;
 }
 
+.fa {
+	padding: 10px;
+}
+
 /* --------------------------------------------------------
     Dropcaps
 -----------------------------------------------------------*/
@@ -1245,7 +1249,7 @@ hr {
 }
 
 .h1 .label, h2 .label, h3 .label, h4, .label {
-    font-family: open-sans-light;
+    font-family: open-sans-light, sans-serif;
 }
 
 .label-default {

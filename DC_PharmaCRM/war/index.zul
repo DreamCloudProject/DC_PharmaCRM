@@ -1,3 +1,4 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <?page complete="true"?>
 <!DOCTYPE html>
 <n:html xmlns:w="client" xmlns:n="native">
@@ -48,32 +49,20 @@
 				<include src="/bootstrap/v3/zk/include/messages.zul" />
 				<include src="/bootstrap/v3/zk/include/notifications.zul" />
 
-				<!-- Breadcrumb -->
-				<n:ol class="breadcrumb hidden-xs">
-					<n:li>
-						<a href="#">Home</a>
-					</n:li>
-					<n:li>
-						<a href="#">Library</a>
-					</n:li>
-					<n:li class="active">Data</n:li>
-				</n:ol>
-
-				<n:h4 class="page-title">DASHBOARD</n:h4>
+				<n:h4 class="page-title">${(c:split(labels.panels.index, '#'))[0]}</n:h4>
 								
 				<div zclass="col-md-12 clearfix">
 					<n:div class="row">
 						<div zclass="col-md-3 col-xs-6">
 							<div zclass="tile">
 								<n:h2 class="tile-title">Stage 1</n:h2>
-								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+								<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
 									droppable="true">
 									<div zclass="media" draggable="true">		                        
 				                        <div zclass="media-body">
-				                            Test1
+				                            Иванов Иван Петрович
 				                            <div zclass="list-options">
-				                                <n:button class="btn btn-sm">View</n:button>
-				                                <n:button class="btn btn-sm">Delete</n:button>
+				                                <n:button class="btn btn-sm">Открыть карточку</n:button>
 				                            </div>
 				                        </div>
 				                    </div>							
@@ -84,14 +73,21 @@
 						<div zclass="col-md-3 col-xs-6">
 							<div zclass="tile">
 								<n:h2 class="tile-title">Stage 2</n:h2>
-								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+								<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
 									droppable="true">
 									<div zclass="media" draggable="true">		                        
 				                        <div zclass="media-body">
-				                            Test2
+				                            Кошкина Лидия Михайловна
 				                            <div zclass="list-options">
-				                                <n:button class="btn btn-sm">View</n:button>
-				                                <n:button class="btn btn-sm">Delete</n:button>
+				                                <n:button class="btn btn-sm">Открыть карточку</n:button>
+				                            </div>
+				                        </div>
+				                    </div>
+				                   	<div zclass="media" draggable="true">		                        
+				                        <div zclass="media-body">
+				                            Барсук Николай Сидорович
+				                            <div zclass="list-options">
+				                                <n:button class="btn btn-sm">Открыть карточку</n:button>
 				                            </div>
 				                        </div>
 				                    </div>							
@@ -102,14 +98,13 @@
 						<div zclass="col-md-3 col-xs-6">
 							<div zclass="tile">
 								<n:h2 class="tile-title">Stage 3</n:h2>
-								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+								<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
 									droppable="true">
 									<div zclass="media" draggable="true">		                        
 				                        <div zclass="media-body">
-				                            Test3
+				                            Петрова Мария Анатольевна
 				                            <div zclass="list-options">
-				                                <n:button class="btn btn-sm">View</n:button>
-				                                <n:button class="btn btn-sm">Delete</n:button>
+				                                <n:button class="btn btn-sm">Открыть карточку</n:button>
 				                            </div>
 				                        </div>
 				                    </div>							
@@ -120,14 +115,13 @@
 						<div zclass="col-md-3 col-xs-6">
 							<div zclass="tile">
 								<n:h2 class="tile-title">Stage 4</n:h2>
-								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+								<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
 									droppable="true">
 									<div zclass="media" draggable="true">		                        
 				                        <div zclass="media-body">
-				                            Test4
+				                            Кукушкин Василий Григорьевич 
 				                            <div zclass="list-options">
-				                                <n:button class="btn btn-sm">View</n:button>
-				                                <n:button class="btn btn-sm">Delete</n:button>
+				                                <n:button class="btn btn-sm">Открыть карточку</n:button>				                                
 				                            </div>
 				                        </div>
 				                    </div>							
@@ -141,7 +135,7 @@
 	               	<n:div class="row">
 	               		<div zclass="col-md-12 clearfix">
 	               			<div zclass="tile">
-								<n:h2 class="tile-title">Calendar</n:h2>               		
+								<n:h2 class="tile-title">Календарь</n:h2>               		
 								<include src="/bootstrap/v3/zk/include/calendar.zul" />
 							</div>
 						</div>				
