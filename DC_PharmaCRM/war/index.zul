@@ -23,52 +23,30 @@
 		<?link href="bootstrap/v3/template/css/generics.css" rel="stylesheet"?>
 	</n:head>
 
-	<zscript><![CDATA[
-	org.zkoss.lang.Library.setProperty(
-			org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
-	org.zkoss.util.resource.Labels.reset();
-	void move(Component dragged) {
-		if (self instanceof Listitem) {
-			self.parent.insertBefore(dragged, self);
-		} else {
-			self.appendChild(dragged);
-		}
-	}
-]]>
+	<zscript>
+		<![CDATA[
+			org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+			org.zkoss.util.resource.Labels.reset();
+			void move(Component dragged) {		
+				self.appendChild(dragged);
+			}
+		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
 
-		<include src="/bootstrap/v3/zk/header.zul" />
+		<include src="/bootstrap/v3/zk/include/header.zul" />
 
 		<n:div class="clearfix"></n:div>
 
 		<n:section id="main" class="p-relative" role="main">
 
-			<!-- Sidebar -->
-			<n:aside id="sidebar">
-
-				<!-- Side Menu -->
-				<n:ul class="list-unstyled side-menu">
-					<n:li class="active">
-						<n:a class="sa-side-home" href="index.html">
-							<n:span class="menu-item">Dashboard</n:span>
-						</n:a>
-					</n:li>
-					<n:li>
-						<n:a class="sa-side-calendar"
-							href="calendar.html">
-							<n:span class="menu-item">Calendar</n:span>
-						</n:a>
-					</n:li>
-				</n:ul>
-
-			</n:aside>
+			<include src="/bootstrap/v3/zk/include/sidebar.zul" />
 
 			<!-- Content -->
 			<n:section id="content" class="container">
 
-				<include src="/bootstrap/v3/zk/messages.zul" />
-				<include src="/bootstrap/v3/zk/notifications.zul" />
+				<include src="/bootstrap/v3/zk/include/messages.zul" />
+				<include src="/bootstrap/v3/zk/include/notifications.zul" />
 
 				<!-- Breadcrumb -->
 				<n:ol class="breadcrumb hidden-xs">
@@ -82,48 +60,98 @@
 				</n:ol>
 
 				<n:h4 class="page-title">DASHBOARD</n:h4>
-
-				<!-- Quick Stats -->
-				<n:div class="block-area">
+								
+				<div zclass="col-md-12 clearfix">
 					<n:div class="row">
-						<div class="col-md-3 col-xs-6"
-							style="height: 200px" onDrop="move(event.dragged)"
-							droppable="true">
-							<label draggable="true">Test1</label>
+						<div zclass="col-md-3 col-xs-6">
+							<div zclass="tile">
+								<n:h2 class="tile-title">Stage 1</n:h2>
+								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+									droppable="true">
+									<div zclass="media" draggable="true">		                        
+				                        <div zclass="media-body">
+				                            Test1
+				                            <div zclass="list-options">
+				                                <n:button class="btn btn-sm">View</n:button>
+				                                <n:button class="btn btn-sm">Delete</n:button>
+				                            </div>
+				                        </div>
+				                    </div>							
+								</div>
+							</div>
 						</div>
-
-						<div class="col-md-3 col-xs-6"
-							style="height: 200px" onDrop="move(event.dragged)"
-							droppable="true">
-							<label draggable="true">Test2</label>
+	
+						<div zclass="col-md-3 col-xs-6">
+							<div zclass="tile">
+								<n:h2 class="tile-title">Stage 2</n:h2>
+								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+									droppable="true">
+									<div zclass="media" draggable="true">		                        
+				                        <div zclass="media-body">
+				                            Test2
+				                            <div zclass="list-options">
+				                                <n:button class="btn btn-sm">View</n:button>
+				                                <n:button class="btn btn-sm">Delete</n:button>
+				                            </div>
+				                        </div>
+				                    </div>							
+								</div>
+							</div>
 						</div>
-
-						<div class="col-md-3 col-xs-6"
-							style="height: 200px" onDrop="move(event.dragged)"
-							droppable="true">
-							<label draggable="true">Test3</label>
+	
+						<div zclass="col-md-3 col-xs-6">
+							<div zclass="tile">
+								<n:h2 class="tile-title">Stage 3</n:h2>
+								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+									droppable="true">
+									<div zclass="media" draggable="true">		                        
+				                        <div zclass="media-body">
+				                            Test3
+				                            <div zclass="list-options">
+				                                <n:button class="btn btn-sm">View</n:button>
+				                                <n:button class="btn btn-sm">Delete</n:button>
+				                            </div>
+				                        </div>
+				                    </div>							
+								</div>
+							</div>
 						</div>
-
-						<div class="col-md-3 col-xs-6"
-							style="height: 200px" onDrop="move(event.dragged)"
-							droppable="true">
-							<label draggable="true">Test4</label>
+	
+						<div zclass="col-md-3 col-xs-6">
+							<div zclass="tile">
+								<n:h2 class="tile-title">Stage 4</n:h2>
+								<div zclass="listview" style="height: 200px" onDrop="move(event.dragged)"
+									droppable="true">
+									<div zclass="media" draggable="true">		                        
+				                        <div zclass="media-body">
+				                            Test4
+				                            <div zclass="list-options">
+				                                <n:button class="btn btn-sm">View</n:button>
+				                                <n:button class="btn btn-sm">Delete</n:button>
+				                            </div>
+				                        </div>
+				                    </div>							
+								</div>
+							</div>
 						</div>
 					</n:div>
-				</n:div>
+					
+					<n:hr class="whiter" />
+	               
+	               	<n:div class="row">
+	               		<div zclass="col-md-12 clearfix">
+	               			<div zclass="tile">
+								<n:h2 class="tile-title">Calendar</n:h2>               		
+								<include src="/bootstrap/v3/zk/include/calendar.zul" />
+							</div>
+						</div>				
+					</n:div>
+				</div>		
 
-				<n:hr class="whiter" />
-               
-                <n:div class="col-md-12 clearfix">
-					<include src="/bootstrap/v3/zk/calendar.zul" />
-				</n:div>				
-
-			</n:section>
-
-			
+			</n:section>		
 
 		</n:section>
-
+	
 		<!-- Javascript Libraries -->
 		<!-- jQuery -->
 		<n:script src="bootstrap/v3/template/js/jquery.min.js"></n:script>
@@ -132,38 +160,44 @@
 		<!-- jQuery UI -->
 		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
 		<!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
-
+	
 		<!-- Bootstrap -->
 		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>
-
+	
 		<!-- Charts -->
 		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.js"></n:script>
 		<!-- Flot Main -->
-		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.time.js"></n:script>
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.time.js">
+		</n:script>
 		<!-- Flot sub -->
-		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js"></n:script>
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js">
+		</n:script>
 		<!-- Flot sub -->
-		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js"></n:script>
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js">
+		</n:script>
 		<!-- Flot sub - for repaint when resizing the screen -->
-
+	
 		<n:script src="bootstrap/v3/template/js/sparkline.min.js"></n:script>
 		<!-- Sparkline - Tiny charts -->
 		<n:script src="bootstrap/v3/template/js/easypiechart.js"></n:script>
 		<!-- EasyPieChart - Animated Pie Charts -->
 		<n:script src="bootstrap/v3/template/js/charts.js"></n:script>
 		<!-- All the above chart related functions -->
-
+	
 		<!--  Form Related -->
 		<n:script src="bootstrap/v3/template/js/icheck.js"></n:script>
 		<!-- Custom Checkbox + Radio -->
-
+	
 		<!-- UX -->
 		<n:script src="bootstrap/v3/template/js/scroll.min.js"></n:script>
 		<!-- Custom Scrollbar -->
-				
+	
 		<n:script src="bootstrap/v3/template/js/feeds.min.js"></n:script>
 		<!-- News Feeds -->
-
+	
 		<!-- All JS functions -->
 		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>		
 		

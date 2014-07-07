@@ -1,0 +1,127 @@
+<?page complete="true"?>
+<!DOCTYPE html>
+<n:html xmlns:w="client" xmlns:n="native">
+	<!--[if IE 9 ]><html class="ie9"><![endif]-->
+	<n:head>
+		<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
+		<?meta name="format-detection" content="telephone=no"?>
+		<?meta charset="UTF-8"?>
+
+		<?meta name="description" content=""?>
+		<?meta name="keywords" content=""?>
+
+		<n:title>${labels.sitename}</n:title>
+
+		<!-- CSS -->
+		<?link href="bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/font-awesome.min.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/form.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/calendar.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/style.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/icons.css" rel="stylesheet"?>
+		<?link href="bootstrap/v3/template/css/generics.css" rel="stylesheet"?>
+	</n:head>
+
+	<zscript>
+		<![CDATA[
+			org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+			org.zkoss.util.resource.Labels.reset();
+		]]>
+	</zscript>
+	<n:body id="${labels.currentTheme}">
+
+		<include src="/bootstrap/v3/zk/include/header.zul" />
+
+		<n:div class="clearfix"></n:div>
+
+		<n:section id="main" class="p-relative" role="main">
+
+			<include src="/bootstrap/v3/zk/include/sidebar.zul" />
+
+			<!-- Content -->
+			<n:section id="content" class="container">
+
+				<include src="/bootstrap/v3/zk/include/messages.zul" />
+				<include src="/bootstrap/v3/zk/include/notifications.zul" />
+
+				<!-- Breadcrumb -->
+				<n:ol class="breadcrumb hidden-xs">
+					<n:li>
+						<a href="#">Home</a>
+					</n:li>
+					<n:li>
+						<a href="#">Library</a>
+					</n:li>
+					<n:li class="active">Data</n:li>
+				</n:ol>
+
+				<n:h4 class="page-title">DASHBOARD</n:h4>
+								
+				<div zclass="col-md-12 clearfix">
+					<n:div class="row">
+	
+					</n:div>
+					
+					<n:hr class="whiter" />
+	               
+	               	<n:div class="row">
+		
+					</n:div>
+				</div>		
+
+			</n:section>		
+
+		</n:section>
+	
+		<!-- Javascript Libraries -->
+		<!-- jQuery -->
+		<n:script src="bootstrap/v3/template/js/jquery.min.js"></n:script>
+		<!-- jQuery Library -->
+		<n:script src="bootstrap/v3/teamplate/js/jquery-ui.min.js"></n:script>
+		<!-- jQuery UI -->
+		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
+		<!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
+	
+		<!-- Bootstrap -->
+		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>
+	
+		<!-- Charts -->
+		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.js"></n:script>
+		<!-- Flot Main -->
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.time.js">
+		</n:script>
+		<!-- Flot sub -->
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js">
+		</n:script>
+		<!-- Flot sub -->
+		<n:script
+			src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js">
+		</n:script>
+		<!-- Flot sub - for repaint when resizing the screen -->
+	
+		<n:script src="bootstrap/v3/template/js/sparkline.min.js"></n:script>
+		<!-- Sparkline - Tiny charts -->
+		<n:script src="bootstrap/v3/template/js/easypiechart.js"></n:script>
+		<!-- EasyPieChart - Animated Pie Charts -->
+		<n:script src="bootstrap/v3/template/js/charts.js"></n:script>
+		<!-- All the above chart related functions -->
+	
+		<!--  Form Related -->
+		<n:script src="bootstrap/v3/template/js/icheck.js"></n:script>
+		<!-- Custom Checkbox + Radio -->
+	
+		<!-- UX -->
+		<n:script src="bootstrap/v3/template/js/scroll.min.js"></n:script>
+		<!-- Custom Scrollbar -->
+	
+		<n:script src="bootstrap/v3/template/js/feeds.min.js"></n:script>
+		<!-- News Feeds -->
+	
+		<!-- All JS functions -->
+		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>		
+		
+	</n:body>
+</n:html>
