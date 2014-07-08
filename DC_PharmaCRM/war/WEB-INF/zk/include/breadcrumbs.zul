@@ -1,0 +1,12 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.widgets.BreadcrumbsVM')">
+		<!-- Breadcrumbs -->
+		<n:ol class="breadcrumb hidden-xs">
+			<n:li forEach="${vm.breadCrumbs}">
+				<a href="${each.value.URL}">${each.value.title}</a>
+			</n:li>
+			<n:li class="active">${vm.currentPage.name}</n:li>
+		</n:ol>
+	</div>
+</zk>

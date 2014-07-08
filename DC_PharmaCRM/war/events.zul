@@ -32,48 +32,33 @@
 	</zscript>
 	<n:body id="${labels.currentTheme}">
 
-		<include src="/bootstrap/v3/zk/include/header.zul" />
+		<include src="/WEB-INF/zk/include/header.zul" />
 
 		<n:div class="clearfix"></n:div>
 
 		<n:section id="main" class="p-relative" role="main">
 
-			<include src="/bootstrap/v3/zk/include/sidebar.zul" />
+			<include currentPage="events" src="/WEB-INF/zk/include/sidebar.zul" />
 
 			<!-- Content -->
 			<n:section id="content" class="container">
 
-				<include src="/bootstrap/v3/zk/include/messages.zul" />
-				<include src="/bootstrap/v3/zk/include/notifications.zul" />
+				<include src="/WEB-INF/zk/include/messages.zul" />
+				<include src="/WEB-INF/zk/include/notifications.zul" />
 
-				<!-- Breadcrumb -->
-				<n:ol class="breadcrumb hidden-xs">
-					<n:li>						
-						<a href="${(c:split(labels.panels.index, '#'))[1]}">${(c:split(labels.panels.index, '#'))[0]}</a>
-					</n:li>
-					<n:li class="active">${(c:split(labels.panels.events, '#'))[0]}</n:li>
-				</n:ol>
+				<include breadcrumbs="${labels.panels.events.breadcrumbs}"
+						 currentPage="${labels.panels.events}"
+						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 
-				<n:h4 class="page-title">${(c:split(labels.panels.events, '#'))[0]}</n:h4>
+				<n:h4 class="page-title">${labels.panels.events.name}</n:h4>
 								
 				<div zclass="col-md-12 clearfix">
-					<n:div class="row">
-	
-					</n:div>
-					
-					<n:hr class="whiter" />
-	               
-	               	<n:div class="row">
-	               		<div zclass="col-md-12 clearfix">
-	               			<div zclass="tile">
-								<n:h2 class="tile-title">Календарь</n:h2>               		
-								<include src="/bootstrap/v3/zk/include/calendar.zul" />
-							</div>
-						</div>				
-					</n:div>
+					<include src="/WEB-INF/zk/include/calendarjs.zul" />
 				</div>		
 
-			</n:section>		
+			</n:section>
+			
+			<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />		
 
 		</n:section>
 	
@@ -81,50 +66,23 @@
 		<!-- jQuery -->
 		<n:script src="bootstrap/v3/template/js/jquery.min.js"></n:script>
 		<!-- jQuery Library -->
-		<n:script src="bootstrap/v3/teamplate/js/jquery-ui.min.js"></n:script>
+		<n:script src="bootstrap/v3/template/js/jquery-ui.min.js"></n:script>
 		<!-- jQuery UI -->
 		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
 		<!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
 	
 		<!-- Bootstrap -->
-		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>
-	
-		<!-- Charts -->
-		<n:script src="bootstrap/v3/template/js/charts/jquery.flot.js"></n:script>
-		<!-- Flot Main -->
-		<n:script
-			src="bootstrap/v3/template/js/charts/jquery.flot.time.js">
-		</n:script>
-		<!-- Flot sub -->
-		<n:script
-			src="bootstrap/v3/template/js/charts/jquery.flot.animator.min.js">
-		</n:script>
-		<!-- Flot sub -->
-		<n:script
-			src="bootstrap/v3/template/js/charts/jquery.flot.resize.min.js">
-		</n:script>
-		<!-- Flot sub - for repaint when resizing the screen -->
-	
-		<n:script src="bootstrap/v3/template/js/sparkline.min.js"></n:script>
-		<!-- Sparkline - Tiny charts -->
-		<n:script src="bootstrap/v3/template/js/easypiechart.js"></n:script>
-		<!-- EasyPieChart - Animated Pie Charts -->
-		<n:script src="bootstrap/v3/template/js/charts.js"></n:script>
-		<!-- All the above chart related functions -->
-	
+		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>	
+
 		<!--  Form Related -->
 		<n:script src="bootstrap/v3/template/js/icheck.js"></n:script>
 		<!-- Custom Checkbox + Radio -->
 	
 		<!-- UX -->
 		<n:script src="bootstrap/v3/template/js/scroll.min.js"></n:script>
-		<!-- Custom Scrollbar -->
-	
-		<n:script src="bootstrap/v3/template/js/feeds.min.js"></n:script>
-		<!-- News Feeds -->
-	
-		<!-- All JS functions -->
-		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>		
+		<!-- Custom Scrollbar -->		
 		
+		<!-- All JS functions -->
+		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>
 	</n:body>
 </n:html>

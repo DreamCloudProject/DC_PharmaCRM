@@ -1,0 +1,205 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<n:div id="calendar" class="p-relative p-10 m-b-20">
+		<!-- Calendar Views -->
+		<n:ul class="calendar-actions list-inline clearfix">
+			<n:li class="p-r-0">
+				<n:a data-view="month"
+					href="#" class="tooltips" title="Month">
+					<n:i
+						class="sa-list-month">
+					</n:i>
+				</n:a>
+			</n:li>
+			<n:li class="p-r-0">
+				<n:a data-view="agendaWeek" href="#" class="tooltips"
+					title="Week">
+					<n:i
+						class="sa-list-week">
+					</n:i>
+				</n:a>
+			</n:li>
+			<n:li class="p-r-0">
+				<n:a data-view="agendaDay" href="#" class="tooltips"
+					title="Day">
+					<n:i class="sa-list-day">
+					</n:i>
+				</n:a>
+			</n:li>
+		</n:ul>
+	</n:div>
+	
+	<!-- Add event -->
+	<n:div class="modal fade" id="addNew-event">
+		<n:div class="modal-dialog">
+			<n:div class="modal-content">
+				<n:div
+					class="modal-header">
+					<n:button type="button"
+						class="close" data-dismiss="modal" aria-hidden="true">
+						times;
+					</n:button>
+					<n:h4
+						class="modal-title">
+						Add an Event
+					</n:h4>
+				</n:div>
+				<n:div class="modal-body">
+					<n:form
+						class="form-validation" role="form">
+						<n:div
+							class="form-group">
+							<n:label
+								for="eventName">
+								Event Name
+							</n:label>
+							<n:input
+								type="text"
+								class="input-sm form-control validate[required]"
+								id="eventName" placeholder="..." />
+						</n:div>
+	
+						<n:input
+							type="hidden" id="getStart" />
+						<n:input
+							type="hidden" id="getEnd" />
+					</n:form>
+				</n:div>
+	
+				<n:div
+					class="modal-footer">
+					<n:input type="submit"
+						class="btn btn-info btn-sm" id="addEvent"
+						value="Add Event" />
+					<n:button type="button"
+						class="btn btn-info btn-sm" data-dismiss="modal">
+						Close
+					</n:button>
+				</n:div>
+			</n:div>
+		</n:div>
+	</n:div>
+	
+	<!-- Modal Resize alert -->
+	<n:div class="modal fade" id="editEvent">
+		<n:div class="modal-dialog">
+			<n:div class="modal-content">
+				<n:div
+					class="modal-header">
+					<n:button type="button"
+						class="close" data-dismiss="modal" aria-hidden="true">
+						times;
+					</n:button>
+					<n:h4
+						class="modal-title">
+						Edit Event
+					</n:h4>
+				</n:div>
+				<n:div class="modal-body">
+					<n:div id="eventInfo"></n:div>
+				</n:div>
+	
+				<n:div
+					class="modal-footer">
+					<n:button type="button"
+						class="btn btn-info btn-sm" data-dismiss="modal">
+						Okay
+					</n:button>
+					<n:button type="button"
+						class="btn btn-info btn-sm" id="editCancel"
+						data-dismiss="modal">
+						Cancel
+					</n:button>
+				</n:div>
+			</n:div>
+		</n:div>
+	</n:div>
+	
+	<!-- Other -->
+	<n:script src="bootstrap/v3/template/js/moment.min.js"></n:script> <!-- Calendar -->
+  	<n:script src="bootstrap/v3/template/js/fullcalendar.min.js"></n:script> <!-- Calendar -->
+   	<n:script src="bootstrap/v3/template/js/lang/ru.js"></n:script> <!-- Calendar -->
+
+	<!--  Form Related -->
+   	<n:script src="bootstrap/v3/template/js/validation/validate.min.js"></n:script> <!-- jQuery Form Validation Library -->
+   	<n:script src="bootstrap/v3/template/js/validation/validationEngine.min.js"></n:script> <!-- jQuery Form Validation Library - requirred with above js -->
+  
+    <n:script type="text/javascript">
+        $(document).ready(function() {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+            $('#calendar').fullCalendar({
+                header: {
+                     center: 'title',
+                     left: 'prev, next',
+                     right: ''
+                },
+                lang: 'ru',
+                aspectRatio: 2.5,
+                selectable: true,
+                selectHelper: true,
+                editable: true,                
+                //On Day Select
+                select: function(start, end, allDay) {
+                    $('#addNew-event').modal('show');   
+                    $('#addNew-event input:text').val('');
+                    $('#getStart').val(start);
+                    $('#getEnd').val(end);
+                },
+                 
+                eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                    $('#editEvent').modal('show');
+
+                    var info =
+                        "The end date of " + event.title + "has been moved " +
+                        dayDelta + " days and " +
+                        minuteDelta + " minutes."
+                    ;
+                    
+                    $('#eventInfo').html(info);
+            
+            
+                    $('#editEvent #editCancel').click(function(){
+                         revertFunc();
+                    }) 
+                }
+            });
+            
+            $('body').on('click', '#addEvent', function(){
+                 var eventForm =  $(this).closest('.modal').find('.form-validation');
+                 eventForm.validationEngine('validate');
+                 
+                 if (!(eventForm).find('.formErrorContent')[0]) {
+                      
+                      //Event Name
+                      var eventName = $('#eventName').val();
+
+                      //Render Event
+                      $('#calendar').fullCalendar('renderEvent',{
+                           title: eventName,
+                           start: $('#getStart').val(),
+                           end:  $('#getEnd').val(),
+                           allDay: true,
+                      },true ); //Stick the event
+                      
+                      $('#addNew-event form')[0].reset()
+                      $('#addNew-event').modal('hide');
+                 } 
+            });   
+        });    
+        
+        //Calendar views
+        $('body').on('click', '.calendar-actions > li > a', function(e){
+            e.preventDefault();
+            var dataView = $(this).attr('data-view');
+            $('#calendar').fullCalendar('changeView', dataView);
+            
+            //Custom scrollbar
+            var overflowRegular, overflowInvisible = false;
+            overflowRegular = $('.overflow').niceScroll();     
+        });                    
+        
+   </n:script>
+</zk>

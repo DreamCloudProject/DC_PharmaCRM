@@ -1,0 +1,18 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<!-- Sidebar -->
+	<n:aside id="sidebar">
+		
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.widgets.SidebarVM')">
+			<!-- Side Menu -->
+			<n:ul class="list-unstyled side-menu">			
+				<n:li forEach="${labels.panels}" class="${each.key == vm.currentPage ? 'active' : ''}">
+					<n:a href="${each.value.URL}">
+						<n:i class="${each.value.menuIconClassFA} fa-2x"></n:i><n:span class="menu-item">${each.value.name}</n:span>
+					</n:a>
+				</n:li>
+			</n:ul>
+		</div>
+
+	</n:aside>
+</zk>
