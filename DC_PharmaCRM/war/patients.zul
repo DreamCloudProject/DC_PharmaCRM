@@ -82,7 +82,7 @@
 		<n:script src="bootstrap/v3/template/js/jquery-ui.min.js"></n:script>
 		<!-- jQuery UI -->
 		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
-		<!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
+		<!-- jQuery Easing - Required for Lightbox + Pie Charts-->
 	
 		<!-- Bootstrap -->
 		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>

@@ -1,0 +1,87 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<zscript>
+		<![CDATA[			
+			void move(Component dragged) {		
+				self.appendChild(dragged);
+			}
+		]]>
+	</zscript>
+	<n:div class="row">
+		<div zclass="col-md-3 col-xs-6">
+			<div zclass="tile">
+				<n:h2 class="tile-title">Stage 1</n:h2>
+				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
+					droppable="true">
+					<div zclass="media" draggable="true">		                        
+	                       <div zclass="media-body">
+	                           Иванов Иван Петрович
+	                           <div zclass="list-options">
+	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
+	                           </div>
+	                       </div>
+	                   </div>							
+				</div>
+			</div>
+		</div>
+	
+		<div zclass="col-md-3 col-xs-6">
+			<div zclass="tile">
+				<n:h2 class="tile-title">Stage 2</n:h2>
+				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
+					droppable="true">
+					<div zclass="media" draggable="true">		                        
+	                       <div zclass="media-body">
+	                           Кошкина Лидия Михайловна
+	                           <div zclass="list-options">
+	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
+	                           </div>
+	                       </div>
+	                   </div>
+	                  	<div zclass="media" draggable="true">		                        
+	                       <div zclass="media-body">
+	                           Барсук Николай Сидорович
+	                           <div zclass="list-options">
+	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
+	                           </div>
+	                       </div>
+	                   </div>							
+				</div>
+			</div>
+		</div>
+	
+		<div zclass="col-md-3 col-xs-6">
+			<div zclass="tile">
+				<n:h2 class="tile-title">Stage 3</n:h2>
+				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
+					droppable="true">
+					<div zclass="media" draggable="true">		                        
+	                       <div zclass="media-body">
+	                           Петрова Мария Анатольевна
+	                           <div zclass="list-options">
+	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
+	                           </div>
+	                       </div>
+	                   </div>							
+				</div>
+			</div>
+		</div>
+	
+		<div zclass="col-md-3 col-xs-6">
+			<div zclass="tile">
+				<n:h2 class="tile-title">Stage 4</n:h2>
+				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
+					droppable="true">
+					<div zclass="media" draggable="true">		                        
+	                       <div zclass="media-body">
+	                           Кукушкин Василий Григорьевич 
+	                           <div zclass="list-options">
+	                               <n:button class="btn btn-sm">Открыть карточку</n:button>				                                
+	                           </div>
+	                       </div>
+	                   </div>							
+				</div>
+			</div>
+		</div>
+	</n:div>
+</zk>
