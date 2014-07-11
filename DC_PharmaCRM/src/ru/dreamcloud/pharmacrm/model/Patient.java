@@ -3,11 +3,17 @@ package ru.dreamcloud.pharmacrm.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,11 +32,16 @@ public class Patient implements Serializable {
 	
 	private Integer age;
 	
-	@Column(name="resolution_type")
-	private Integer resolutionType;
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "resolution_type", referencedColumnName = "resolution_id")
+	private Resolution resolutionType;
 	
-	@Column(name="diagnosis_type")
-	private Integer diagnosisType;
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "diagnosis_type", referencedColumnName = "diagnosis_id")
+	private Diagnosis diagnosisType;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient_id")
+    public List<Event> events;
 
 	public Integer getPatientId() {
 		return patientId;
@@ -72,21 +83,30 @@ public class Patient implements Serializable {
 		this.age = age;
 	}
 
-	public Integer getResolutionType() {
+	public Resolution getResolutionType() {
 		return resolutionType;
 	}
 
-	public void setResolutionType(Integer resolutionType) {
+	public void setResolutionType(Resolution resolutionType) {
 		this.resolutionType = resolutionType;
 	}
 
-	public Integer getDiagnosisType() {
+	public Diagnosis getDiagnosisType() {
 		return diagnosisType;
 	}
 
-	public void setDiagnosisType(Integer diagnosisType) {
+	public void setDiagnosisType(Diagnosis diagnosisType) {
 		this.diagnosisType = diagnosisType;
 	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+	
 	
 
 }
