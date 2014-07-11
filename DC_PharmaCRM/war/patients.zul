@@ -50,25 +50,154 @@
 						 currentPage="${labels.panels.patients}"
 						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 
-				<n:h4 class="page-title">${labels.panels.patients.name}</n:h4>
+				<n:h4 class="page-title b-0">${labels.panels.patients.name}</n:h4>
 								
-				<div zclass="col-md-12 clearfix">
-					<n:div class="row">
+				<n:div class="col-md-12 clearfix">
+					<n:div class="message-list list-container">
+	                    <n:header class="listview-header media">
+	                        <n:input type="checkbox" class="pull-left list-parent-check" value=""/>
+	                            
+	                        <n:ul class="list-inline pull-right m-t-5 m-b-0">
+	                            <n:li class="pagin-value hidden-xs">35-70</n:li>
+	                            <n:li>
+	                                <n:a href="" title="Previous" class="tooltips">
+	                                    <n:i class="sa-list-back"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                            <n:li>
+	                                <n:a href="" title="Next" class="tooltips">
+	                                    <n:i class="sa-list-forwad"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                        </n:ul>
+	                        
+	                        <n:ul class="list-inline list-mass-actions pull-left">
+	                            <n:li>
+	                                <n:a data-toggle="modal" href="#compose-message" title="Add" class="tooltips">
+	                                    <n:i class="sa-list-add"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                            <n:li>
+	                                <n:a href="" title="Refresh" class="tooltips">
+	                                    <n:i class="sa-list-refresh"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                            <n:li class="show-on" style="display: none;">
+	                                <n:a href="" title="Move" class="tooltips">
+	                                    <n:i class="sa-list-move"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                            <n:li class="show-on" style="display: none;">
+	                                <n:a href="" title="Delete" class="tooltips">
+	                                    <n:i class="sa-list-delete"></n:i>
+	                                </n:a>
+	                            </n:li>
+	                        </n:ul>
 	
-					</n:div>
-					
-					<n:hr class="whiter" />
-	               
-	               	<n:div class="row">
-	               		<div zclass="col-md-12 clearfix">
-	               			<div zclass="tile">
-								<n:h2 class="tile-title">${labels.panels.patients.name}</n:h2>               		
-								
-							</div>
-						</div>				
-					</n:div>
-				</div>		
-
+	                        <n:input class="input-sm col-md-4 pull-right message-search" type="text" placeholder="Search...."/>
+	                        
+	                        <n:div class="clearfix"></n:div>
+	                    </n:header>
+	                    
+	                    <n:div class="media">
+	                        <n:input type="checkbox" class="pull-left list-check"/>
+	
+	                        <n:a class="media-body" href="message-detail.html">
+	                            <n:div class="pull-left list-title">
+	                                <n:span class="t-overflow f-bold">Christian Bale</n:span>
+	                            </n:div>
+	                            <n:div class="pull-right list-date">9.46 am</n:div> 
+	                            <n:div class="media-body hidden-xs">
+	                                <n:span class="t-overflow">Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam</n:span>
+	                            </n:div>
+	                        </n:a>
+	                    </n:div>
+	                    
+	                    <n:div class="media">
+	                        <n:input type="checkbox" class="pull-left list-check"/>
+	
+	                        <n:a class="media-body" href="message-detail.html">
+	                            <n:div class="pull-left list-title">
+	                                <n:span class="t-overflow f-bold">Angel Norton Junior</n:span>
+	                            </n:div>
+	                            <n:div class="pull-right list-date">7.56 am</n:div>
+	                            <n:div class="media-body hidden-xs">
+	                                <n:span class="t-overflow">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum sem ligula, vulputate et</n:span>
+	                            </n:div>
+	                        </n:a>
+	                    </n:div>
+	                    
+	                    <n:div class="media">
+	                        <n:input type="checkbox" class="pull-left list-check"/>
+	
+	                        <n:a class="media-body" href="message-detail.html">
+	                            <n:div class="pull-left list-title">
+	                                <n:span class="t-overflow">Stirling Sheard</n:span>
+	                            </n:div>
+	                            <n:div class="pull-right list-date">Feb 1</n:div>
+	                            <n:div class="media-body hidden-xs">
+	                                <n:span class="t-overflow">Nullam adipiscing tempus ornare. Sed varius nisl ac feugiat feugiat. Nam rhoncus nibh a eros ullamcorper pulvinar</n:span>
+	                            </n:div>
+	                        </n:a>
+	                    </n:div>
+	                    
+	                    <n:div class="media">
+	                        <n:input type="checkbox" class="pull-left list-check"/>
+	
+	                        <n:a class="media-body" href="message-detail.html">
+	                            <n:div class="pull-left list-title">
+	                                <n:span class="t-overflow">Reginald Horace</n:span>
+	                            </n:div>
+	                            <n:div class="pull-right list-date">Jan 31</n:div>
+	                            <n:div class="media-body hidden-xs">
+	                                <n:span class="t-overflow">Sed varius nisl ac feugiat feugiat. Nam rhoncus nibh a eros ullamcorper pulvinar</n:span>
+	                            </n:div>
+	                        </n:a>
+	                    </n:div>
+	                    
+	                    <n:div class="media">
+	                        <n:input type="checkbox" class="pull-left list-check"/>
+	
+	                        <n:a class="media-body" href="message-detail.html">
+	                            <n:div class="pull-left list-title">
+	                                <n:span class="t-overflow">Jeremy Robbins</n:span>
+	                            </n:div>
+	                            <n:div class="pull-right list-date">Jan 30</n:div>
+	                            <n:div class="media-body hidden-xs">
+	                                <n:span class="t-overflow">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</n:span>
+	                            </n:div>
+	                        </n:a>
+	                    </n:div>
+	                </n:div>
+				</n:div>
+                <!-- Compose -->
+                <n:div class="modal fade" id="compose-message">
+                    <n:div class="modal-dialog">
+                        <n:div class="modal-content">
+                            <n:div class="modal-header">
+                                <n:button type="button" class="close" data-dismiss="modal" aria-hidden="true">times</n:button>
+                                <n:h4 class="modal-title">NEW MESSAGE</n:h4>
+                            </n:div>
+                            <n:div class="modal-header p-0">
+                                <n:input type="text" class="form-control input-sm input-transparent" placeholder="To..."/>
+                            </n:div>
+                            <n:div class="modal-header p-0">
+                                <n:input type="text" class="form-control input-sm input-transparent" placeholder="Subject..."/>
+                            </n:div>
+                            <n:div class="p-relative">
+                                <n:div class="message-options">
+                                    <n:img src="bootstrap/v3/template/img/icon/tile-actions.png" alt=""/>
+                                </n:div>
+                                <n:textarea class="message-editor" placeholder="Message..."></n:textarea>
+                            </n:div>
+                            <n:div class="modal-footer m-0">
+                                <n:button class="btn">Send</n:button>
+                                <n:button class="btn">Save</n:button>
+                            </n:div>
+                        </n:div>
+                    </n:div>
+                </n:div>
+                
 			</n:section>
 			
 			<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />		
