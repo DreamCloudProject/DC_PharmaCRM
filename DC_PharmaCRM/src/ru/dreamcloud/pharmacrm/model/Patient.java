@@ -40,7 +40,7 @@ public class Patient implements Serializable {
     @JoinColumn(name = "diagnosis_type", referencedColumnName = "diagnosis_id")
 	private Diagnosis diagnosisType;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient_id")
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient")
     public List<Event> events;
 
 	public Integer getPatientId() {

@@ -32,7 +32,8 @@ label {
    text-shadow: none;
    color: #fff;
    box-shadow: none;
-   font-family: open-sans-regular;
+   /*font-family: open-sans-regular;*/
+   margin: 7px;
    -webkit-appearance: none;
 }
 

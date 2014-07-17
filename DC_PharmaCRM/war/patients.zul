@@ -1,7 +1,7 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <?page complete="true"?>
 <!DOCTYPE html>
-<n:html xmlns:w="client" xmlns:n="native">
+<n:html xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
 	<!--[if IE 9 ]><html class="ie9"><![endif]-->
 	<n:head>
 		<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
@@ -51,153 +51,47 @@
 						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 
 				<n:h4 class="page-title b-0">${labels.panels.patients.name}</n:h4>
-								
-				<n:div class="col-md-12 clearfix">
-					<n:div class="message-list list-container">
-	                    <n:header class="listview-header media">
-	                        <n:input type="checkbox" class="pull-left list-parent-check" value=""/>
-	                            
-	                        <n:ul class="list-inline pull-right m-t-5 m-b-0">
-	                            <n:li class="pagin-value hidden-xs">35-70</n:li>
-	                            <n:li>
-	                                <n:a href="" title="Previous" class="tooltips">
-	                                    <n:i class="sa-list-back"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                            <n:li>
-	                                <n:a href="" title="Next" class="tooltips">
-	                                    <n:i class="sa-list-forwad"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                        </n:ul>
-	                        
-	                        <n:ul class="list-inline list-mass-actions pull-left">
-	                            <n:li>
-	                                <n:a data-toggle="modal" href="#compose-message" title="Add" class="tooltips">
-	                                    <n:i class="sa-list-add"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                            <n:li>
-	                                <n:a href="" title="Refresh" class="tooltips">
-	                                    <n:i class="sa-list-refresh"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                            <n:li class="show-on" style="display: none;">
-	                                <n:a href="" title="Move" class="tooltips">
-	                                    <n:i class="sa-list-move"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                            <n:li class="show-on" style="display: none;">
-	                                <n:a href="" title="Delete" class="tooltips">
-	                                    <n:i class="sa-list-delete"></n:i>
-	                                </n:a>
-	                            </n:li>
-	                        </n:ul>
+				
+				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.PatientsViewModel')">				
+					<n:div class="col-md-12 clearfix">	
 	
-	                        <n:input class="input-sm col-md-4 pull-right message-search" type="text" placeholder="Search...."/>
-	                        
-	                        <n:div class="clearfix"></n:div>
-	                    </n:header>
-	                    
-	                    <n:div class="media">
-	                        <n:input type="checkbox" class="pull-left list-check"/>
-	
-	                        <n:a class="media-body" href="message-detail.html">
-	                            <n:div class="pull-left list-title">
-	                                <n:span class="t-overflow f-bold">Christian Bale</n:span>
-	                            </n:div>
-	                            <n:div class="pull-right list-date">9.46 am</n:div> 
-	                            <n:div class="media-body hidden-xs">
-	                                <n:span class="t-overflow">Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam</n:span>
-	                            </n:div>
-	                        </n:a>
-	                    </n:div>
-	                    
-	                    <n:div class="media">
-	                        <n:input type="checkbox" class="pull-left list-check"/>
-	
-	                        <n:a class="media-body" href="message-detail.html">
-	                            <n:div class="pull-left list-title">
-	                                <n:span class="t-overflow f-bold">Angel Norton Junior</n:span>
-	                            </n:div>
-	                            <n:div class="pull-right list-date">7.56 am</n:div>
-	                            <n:div class="media-body hidden-xs">
-	                                <n:span class="t-overflow">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum sem ligula, vulputate et</n:span>
-	                            </n:div>
-	                        </n:a>
-	                    </n:div>
-	                    
-	                    <n:div class="media">
-	                        <n:input type="checkbox" class="pull-left list-check"/>
-	
-	                        <n:a class="media-body" href="message-detail.html">
-	                            <n:div class="pull-left list-title">
-	                                <n:span class="t-overflow">Stirling Sheard</n:span>
-	                            </n:div>
-	                            <n:div class="pull-right list-date">Feb 1</n:div>
-	                            <n:div class="media-body hidden-xs">
-	                                <n:span class="t-overflow">Nullam adipiscing tempus ornare. Sed varius nisl ac feugiat feugiat. Nam rhoncus nibh a eros ullamcorper pulvinar</n:span>
-	                            </n:div>
-	                        </n:a>
-	                    </n:div>
-	                    
-	                    <n:div class="media">
-	                        <n:input type="checkbox" class="pull-left list-check"/>
-	
-	                        <n:a class="media-body" href="message-detail.html">
-	                            <n:div class="pull-left list-title">
-	                                <n:span class="t-overflow">Reginald Horace</n:span>
-	                            </n:div>
-	                            <n:div class="pull-right list-date">Jan 31</n:div>
-	                            <n:div class="media-body hidden-xs">
-	                                <n:span class="t-overflow">Sed varius nisl ac feugiat feugiat. Nam rhoncus nibh a eros ullamcorper pulvinar</n:span>
-	                            </n:div>
-	                        </n:a>
-	                    </n:div>
-	                    
-	                    <n:div class="media">
-	                        <n:input type="checkbox" class="pull-left list-check"/>
-	
-	                        <n:a class="media-body" href="message-detail.html">
-	                            <n:div class="pull-left list-title">
-	                                <n:span class="t-overflow">Jeremy Robbins</n:span>
-	                            </n:div>
-	                            <n:div class="pull-right list-date">Jan 30</n:div>
-	                            <n:div class="media-body hidden-xs">
-	                                <n:span class="t-overflow">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</n:span>
-	                            </n:div>
-	                        </n:a>
-	                    </n:div>
-	                </n:div>
-				</n:div>
-                <!-- Compose -->
-                <n:div class="modal fade" id="compose-message">
-                    <n:div class="modal-dialog">
-                        <n:div class="modal-content">
-                            <n:div class="modal-header">
-                                <n:button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#10005;</n:button>
-                                <n:h4 class="modal-title">NEW MESSAGE</n:h4>
-                            </n:div>
-                            <n:div class="modal-header p-0">
-                                <n:input type="text" class="form-control input-sm input-transparent" placeholder="To..."/>
-                            </n:div>
-                            <n:div class="modal-header p-0">
-                                <n:input type="text" class="form-control input-sm input-transparent" placeholder="Subject..."/>
-                            </n:div>
-                            <n:div class="p-relative">
-                                <n:div class="message-options">
-                                    <n:img src="bootstrap/v3/template/img/icon/tile-actions.png" alt=""/>
-                                </n:div>
-                                <n:textarea class="message-editor" placeholder="Message..."></n:textarea>
-                            </n:div>
-                            <n:div class="modal-footer m-0">
-                                <n:button class="btn">Send</n:button>
-                                <n:button class="btn">Save</n:button>
-                            </n:div>
-                        </n:div>
-                    </n:div>
-                </n:div>
-                
+						<n:header class="listview-header media">
+										
+							<n:ul class="list-inline list-mass-actions pull-left">
+								<n:li>
+									<a tooltiptext="${labels.panels.patients.messages.addPatientButton}" zclass="tooltips" onClick="@command('addPatientItem')">
+										<n:i class="fa fa-plus-square fa-2x"></n:i>
+									</a>
+								</n:li>								
+							</n:ul>			
+
+							<textbox id="searchBox" zclass="input-sm col-md-4 pull-right message-search" placeholder="${labels.messages.searchInputPlaceholder}" onOK="@command('search', searchTerm=self.value)"/>
+				
+							<n:div class="clearfix"></n:div>
+						</n:header>
+										
+						<listbox emptyMessage="${labels.messages.tableEmptyMessage}" mold="paging" pageSize="10" model="@load(vm.patientsList)"	selectedItem="@bind(vm.selected)" sclass="tile">
+							<listhead sizable="true">
+								<listheader width="10%" label="Видимость" />
+								<listheader width="20%" label="Дата публикации" />
+								<listheader width="50%" label="Заголовок" />						
+								<listheader width="20%" label="Действия" />
+							</listhead>
+							<template name="model" var="record">
+								<listitem>
+									<listcell><checkbox checked="@bind(record.visible)" onCheck="@command('changeVisibility', newsItem=record)"/></listcell>
+									<listcell label="@load(record.publishingDate) @converter('formatedDate', format='dd.MM.yyyy')" />
+									<listcell label="@load(record.title)" />
+									<listcell >
+										<button onClick="@command('editNewsItem', newsItem=record)" zclass="btn btn-success fa fa-pencil-square-o" style="margin: 2px;"></button>
+			                  			<button onClick="@command('removeNewsItem', newsItem=record)" zclass="btn btn-danger fa fa-times" style="margin: 2px;"></button>
+			                  		</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</n:div>
+				</div>			
+								                
 			</n:section>
 			
 			<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />		
@@ -213,47 +107,16 @@
 		<n:script src="bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script><!-- jQuery Easing - Required for Lightbox + Pie Charts-->
 	
 		<!-- Bootstrap -->
-		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>
-	
-		<!--  Form Related -->
-		<n:script src="bootstrap/v3/template/js/icheck.js"></n:script><!-- Custom Checkbox + Radio -->
+		<n:script src="bootstrap/v3/template/js/bootstrap.min.js"></n:script>		
 		
-		<!-- Text Editor -->
-        <n:script src="bootstrap/v3/template/js/editor.min.js"></n:script> <!-- WYSIWYG Editor -->
-	
 		<!-- UX -->
 		<n:script src="bootstrap/v3/template/js/scroll.min.js"></n:script>
 		<!-- Custom Scrollbar -->
 	
 		<n:script src="bootstrap/v3/template/js/feeds.min.js"></n:script><!-- News Feeds -->
-	
+		
 		<!-- All JS functions -->
-		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>
-		
-		<n:script type="text/javascript">
-            $(document).ready(function(){
-                //Editor
-                $('.message-editor').summernote({
-                    toolbar: [
-                      //['style', ['style']], // no style button
-                      ['style', ['bold', 'italic', 'underline', 'clear']],
-                      ['fontsize', ['fontsize']],
-                      ['color', ['color']],
-                      ['para', ['ul', 'ol', 'paragraph']],
-                      //['height', ['height']],
-                      ['insert', ['picture', 'link']], // no insert buttons
-                      //['table', ['table']], // no table button
-                      //['help', ['help']] //no help button
-                    ],
-                    height: 200,
-                    resizable: false
-                });
-                
-                $('.message-options').click(function(){
-                    $(this).closest('.modal').find('.note-toolbar').toggle(); 
-                });  
-            });
-        </n:script>		
-		
+		<n:script src="bootstrap/v3/template/js/functions.js"></n:script>	
+	
 	</n:body>
 </n:html>

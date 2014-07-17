@@ -1,0 +1,150 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<n:div class="message-list list-container">
+		<n:header class="listview-header media">
+			<n:input type="checkbox" class="pull-left list-parent-check"
+				value="" />
+
+			<n:ul class="list-inline pull-right m-t-5 m-b-0">
+				<n:li class="pagin-value hidden-xs">35-70</n:li>
+				<n:li>
+					<n:a href="" title="Previous" class="tooltips">
+						<n:i class="sa-list-back"></n:i>
+					</n:a>
+				</n:li>
+				<n:li>
+					<n:a href="" title="Next" class="tooltips">
+						<n:i class="sa-list-forwad"></n:i>
+					</n:a>
+				</n:li>
+			</n:ul>
+
+			<n:ul class="list-inline list-mass-actions pull-left">
+				<n:li>
+					<n:a data-toggle="modal" href="#compose-message"
+						title="Add" class="tooltips">
+						<n:i class="sa-list-add"></n:i>
+					</n:a>
+				</n:li>
+				<n:li>
+					<n:a href="" title="Refresh" class="tooltips">
+						<n:i class="sa-list-refresh"></n:i>
+					</n:a>
+				</n:li>
+				<n:li class="show-on" style="display: none;">
+					<n:a href="" title="Move" class="tooltips">
+						<n:i class="sa-list-move"></n:i>
+					</n:a>
+				</n:li>
+				<n:li class="show-on" style="display: none;">
+					<n:a href="" title="Delete" class="tooltips">
+						<n:i class="sa-list-delete"></n:i>
+					</n:a>
+				</n:li>
+			</n:ul>
+
+			<n:input class="input-sm col-md-4 pull-right message-search"
+				type="text" placeholder="Search...." />
+
+			<n:div class="clearfix"></n:div>
+		</n:header>
+
+		<n:div class="media">
+			<n:input type="checkbox" class="pull-left list-check" />
+
+			<n:a class="media-body" href="message-detail.html">
+				<n:div class="pull-left list-title">
+					<n:span class="t-overflow f-bold">
+						Christian Bale
+					</n:span>
+				</n:div>
+				<n:div class="pull-right list-date">9.46 am</n:div>
+				<n:div class="media-body hidden-xs">
+					<n:span class="t-overflow">
+						Per an error perpetua, fierent fastidii recteque
+						ad pro. Mei id brute intellegam
+					</n:span>
+				</n:div>
+			</n:a>
+		</n:div>
+
+		<n:div class="media">
+			<n:input type="checkbox" class="pull-left list-check" />
+
+			<n:a class="media-body" href="message-detail.html">
+				<n:div class="pull-left list-title">
+					<n:span class="t-overflow f-bold">
+						Angel Norton Junior
+					</n:span>
+				</n:div>
+				<n:div class="pull-right list-date">7.56 am</n:div>
+				<n:div class="media-body hidden-xs">
+					<n:span class="t-overflow">
+						Cum sociis natoque penatibus et magnis dis
+						parturient montes, nascetur ridiculus mus.
+						Vestibulum sem ligula, vulputate et
+					</n:span>
+				</n:div>
+			</n:a>
+		</n:div>
+
+		<n:div class="media">
+			<n:input type="checkbox" class="pull-left list-check" />
+
+			<n:a class="media-body" href="message-detail.html">
+				<n:div class="pull-left list-title">
+					<n:span class="t-overflow">Stirling Sheard</n:span>
+				</n:div>
+				<n:div class="pull-right list-date">Feb 1</n:div>
+				<n:div class="media-body hidden-xs">
+					<n:span class="t-overflow">
+						Nullam adipiscing tempus ornare. Sed varius nisl
+						ac feugiat feugiat. Nam rhoncus nibh a eros
+						ullamcorper pulvinar
+					</n:span>
+				</n:div>
+			</n:a>
+		</n:div>
+
+		<n:div class="media">
+			<n:input type="checkbox" class="pull-left list-check" />
+
+			<n:a class="media-body" href="message-detail.html">
+				<n:div class="pull-left list-title">
+					<n:span class="t-overflow">Reginald Horace</n:span>
+				</n:div>
+				<n:div class="pull-right list-date">Jan 31</n:div>
+				<n:div class="media-body hidden-xs">
+					<n:span class="t-overflow">
+						Sed varius nisl ac feugiat feugiat. Nam rhoncus
+						nibh a eros ullamcorper pulvinar
+					</n:span>
+				</n:div>
+			</n:a>
+		</n:div>
+
+		<n:div class="media">
+			<n:input type="checkbox" class="pull-left list-check" />
+
+			<n:a class="media-body" href="message-detail.html">
+				<n:div class="pull-left list-title">
+					<n:span class="t-overflow">Jeremy Robbins</n:span>
+				</n:div>
+				<n:div class="pull-right list-date">Jan 30</n:div>
+				<n:div class="media-body hidden-xs">
+					<n:span class="t-overflow">
+						Sed ut perspiciatis unde omnis iste natus error
+						sit voluptatem accusantium doloremque
+					</n:span>
+				</n:div>
+			</n:a>
+		</n:div>
+	</n:div>
+	
+	<!--  Form Related -->	
+	<n:script src="bootstrap/v3/template/js/icheck.js"></n:script><!-- Custom Checkbox + Radio -->
+		
+	<!-- All JS functions -->
+	<n:script src="bootstrap/v3/template/js/functions.js"></n:script>
+	
+</zk>

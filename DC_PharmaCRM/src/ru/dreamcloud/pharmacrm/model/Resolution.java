@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="resolution")
+@Table(name="resolutions")
 public class Resolution implements Serializable{
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
@@ -24,7 +24,7 @@ public class Resolution implements Serializable{
 	private String title;
 	private String description;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient_id")
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="resolutionType")
     public List<Patient> patients;
 
 	public Integer getResolutionId() {
@@ -57,8 +57,6 @@ public class Resolution implements Serializable{
 
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
-	}
-	
-	
+	}	
 
 }

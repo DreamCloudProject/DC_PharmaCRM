@@ -2,6 +2,7 @@ package ru.dreamcloud.pharmacrm.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="diagnosis")
-public class Diagnosis {
+public class Diagnosis implements Serializable {
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
 	@Column(name="diagnosis_id")
@@ -23,7 +24,7 @@ public class Diagnosis {
 	private String title;
 	private String description;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient_id")
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="diagnosisType")
 	public List<Patient> patients;
 
 }

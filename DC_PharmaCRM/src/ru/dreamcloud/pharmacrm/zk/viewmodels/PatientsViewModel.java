@@ -14,6 +14,9 @@ import ru.dreamcloud.pharmacrm.utils.DataSourceLoader;
 
 public class PatientsViewModel {
 	
+	/**************************************
+	  Property selected	 
+	***************************************/
 	private Patient selected;
 	
     public Patient getSelected() {
@@ -23,13 +26,25 @@ public class PatientsViewModel {
 	public void setSelected(Patient selected) {
 		this.selected = selected;
 	}
-
+	
+	/**************************************
+	  Property patientsList	 
+	***************************************/
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<Patient> patientsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Patient", null));
-
+	
+	public ArrayList<Patient> getPatientsList() {
+		return patientsList;
+	}
+	
+	/**************************************
+	  Methods	 
+	***************************************/
 	@Init
     public void init() {
-        selected = patientsList.get(0);
+		if(!patientsList.isEmpty()){
+			selected = patientsList.get(0);
+		}
     }
 	
     @Command
@@ -39,13 +54,7 @@ public class PatientsViewModel {
     	params.put("patientItem", null);
     	params.put("actionType", "NEW");
     	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/patientwindow.zul", null, params);
-        window.doModal();
+    	window.doModal();
     }
-    
-    
-	public ArrayList<Patient> getPatientsList() {
-		return patientsList;
-	}
-
 
 }

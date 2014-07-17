@@ -37,7 +37,7 @@
 					class="modal-header">
 					<n:button type="button"
 						class="close" data-dismiss="modal" aria-hidden="true">
-						times;
+						&#10005;
 					</n:button>
 					<n:h4
 						class="modal-title">

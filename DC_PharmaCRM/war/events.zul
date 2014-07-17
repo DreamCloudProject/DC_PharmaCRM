@@ -53,7 +53,7 @@
 				<n:h4 class="page-title">${labels.panels.events.name}</n:h4>
 								
 				<div zclass="col-md-12 clearfix">
-					<include src="/WEB-INF/zk/include/calendarjs.zul" />
+					<include src="/WEB-INF/zk/include/calendar.zul" />
 				</div>		
 
 			</n:section>
