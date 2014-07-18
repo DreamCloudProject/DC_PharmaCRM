@@ -1187,7 +1187,7 @@ hr {
     background: none;
     float: right;
     margin: 0;
-    padding: 8px 15px;
+    padding: 6px 15px;
     font-size: 11px;
 }
 
@@ -2320,7 +2320,7 @@ a.list-group-item.active > .badge,
     /* Messages */
     .message-search:not(:focus) {
         width: 25px;
-        margin-right: -5px;
+        margin-right: 5px;
         border: 0;
         font-size: 0px;
         background-color: transparent;
