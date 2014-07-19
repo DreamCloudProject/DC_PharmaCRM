@@ -53,7 +53,7 @@
 
 				<n:h4 class="page-title">${labels.panels.events.name}</n:h4>
 				
-				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.EventsViewModel')">				
+				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.EventsViewModel')">				
 					<div zclass="col-md-12 clearfix">
 						<include src="/WEB-INF/zk/include/calendar.zul" />
 						<textbox value="@bind(vm.testLabel)" />

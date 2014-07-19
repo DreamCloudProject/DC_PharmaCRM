@@ -3,7 +3,7 @@
 	<!-- Sidebar -->
 	<n:aside id="sidebar">
 		
-		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.widgets.SidebarVM')">
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.SidebarVM')">
 			<!-- Side Menu -->
 			<n:ul class="list-unstyled side-menu">			
 				<n:li forEach="${labels.panels}" class="${each.key == vm.currentPage ? 'active' : ''}">

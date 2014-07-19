@@ -53,7 +53,7 @@
 
 				<n:h4 class="page-title b-0">${labels.panels.patients.name}</n:h4>
 				
-				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.PatientsViewModel')">				
+				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientsViewModel')">				
 					<n:div class="col-md-12 clearfix">	
 	
 						<n:header class="listview-header media">
@@ -78,20 +78,17 @@
 										
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}" mold="paging" pageSize="10" model="@load(vm.patientsList)"	selectedItem="@bind(vm.selected)" sclass="tile">
 							<listhead sizable="true">
-								<listheader width="10%" label="Видимость" />
-								<listheader width="20%" label="Дата публикации" />
-								<listheader width="50%" label="Заголовок" />						
-								<listheader width="20%" label="Действия" />
+								<listheader width="30%" label="Фамилия" />
+								<listheader width="30%" label="Имя" />
+								<listheader width="30%" label="Отчество" />						
+								<listheader width="10%" label="Возраст" />
 							</listhead>
 							<template name="model" var="record">
 								<listitem>
-									<listcell><checkbox checked="@bind(record.visible)" onCheck="@command('changeVisibility', newsItem=record)"/></listcell>
-									<listcell label="@load(record.publishingDate) @converter('formatedDate', format='dd.MM.yyyy')" />
-									<listcell label="@load(record.title)" />
-									<listcell >
-										<button onClick="@command('editNewsItem', newsItem=record)" zclass="btn btn-success fa fa-pencil-square-o" style="margin: 2px;"></button>
-			                  			<button onClick="@command('removeNewsItem', newsItem=record)" zclass="btn btn-danger fa fa-times" style="margin: 2px;"></button>
-			                  		</listcell>
+									<listcell label="@load(record.lastname)" />
+									<listcell label="@load(record.firstname)" />
+									<listcell label="@load(record.middlename)" />
+									<listcell label="@load(record.age)"/>
 								</listitem>
 							</template>
 						</listbox>						
