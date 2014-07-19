@@ -6,7 +6,8 @@
 
 <zk>
 	<system-config>
-		<label-location>/WEB-INF/zk-label_ru_RU.properties</label-location>
+		<label-location>/WEB-INF/labels/general.properties</label-location>
+    	<label-location>/WEB-INF/labels/pages.properties</label-location>    	
 	</system-config>
 
 	<device-config>

@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
-encoding//war/WEB-INF/zk-label_ru_RU.properties=UTF-8
+encoding//war/WEB-INF/labels/general.properties=UTF-8
+encoding//war/WEB-INF/labels/pages.properties=UTF-8
 encoding/<project>=UTF-8
