@@ -20,14 +20,14 @@ public class BreadcrumbsVM {
 	/**************************************
 	  Property currentPage	 
 	***************************************/
-	private Object currentPage;
+	private String currentPageName;
 	
-	public Object getCurrentPage() {
-		return currentPage;
+	public String getCurrentPageName() {
+		return currentPageName;
 	}
 
-	public void setCurrentPage(Object currentPage) {
-		this.currentPage = currentPage;
+	public void setCurrentPageName(String currentPageName) {
+		this.currentPageName = currentPageName;
 	}	
 
 	/**************************************
@@ -35,8 +35,8 @@ public class BreadcrumbsVM {
 	***************************************/
 	@Init
 	public void init(@ExecutionArgParam("breadcrumbs") Object bCrumbs,
-					 @ExecutionArgParam("currentPage") Object page) {
+					 @ExecutionArgParam("currentPageName") String page) {
 		breadCrumbs = bCrumbs;
-		currentPage = page;
+		currentPageName = page;
 	}
 }

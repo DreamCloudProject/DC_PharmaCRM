@@ -48,7 +48,7 @@
 				<include src="/WEB-INF/zk/include/notifications.zul" />
 
 				<include breadcrumbs="${labels.panels.events.breadcrumbs}"
-						 currentPage="${labels.panels.events}"
+						 currentPageName="${labels.panels.events.name}"
 						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 
 				<n:h4 class="page-title">${labels.panels.events.name}</n:h4>

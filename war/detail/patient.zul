@@ -48,7 +48,7 @@
 				<include src="/WEB-INF/zk/include/notifications.zul" />
 
 				<include breadcrumbs="${labels.pages.detail.patient.breadcrumbs}"
-						 currentPage="${labels.pages.detail.patient}"
+						 currentPageName="Имя пациента"
 						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 
 				<n:h4 class="page-title b-0">Имя пациента</n:h4>

@@ -24,7 +24,28 @@ public class Diagnosis implements Serializable {
 	private String title;
 	private String description;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="diagnosisType")
-	public List<Patient> patients;
-
+	public Integer getDiagnosisId() {
+		return diagnosisId;
+	}
+	
+	public void setDiagnosisId(Integer diagnosisId) {
+		this.diagnosisId = diagnosisId;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}	
+	
 }

@@ -5,6 +5,8 @@
 		<class>ru.dreamcloud.pharmacrm.model.Event</class>
 		<class>ru.dreamcloud.pharmacrm.model.Diagnosis</class>
 		<class>ru.dreamcloud.pharmacrm.model.Resolution</class>
+		<class>ru.dreamcloud.pharmacrm.model.Region</class>
+		<class>ru.dreamcloud.pharmacrm.model.District</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>

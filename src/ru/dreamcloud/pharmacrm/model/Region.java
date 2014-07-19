@@ -3,7 +3,6 @@ package ru.dreamcloud.pharmacrm.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,33 +15,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="events")
-public class Event implements Serializable{
+@Table(name="regions")
+public class Region implements Serializable{
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
-	@Column(name="event_id")
-	private Integer eventId;
-	
+	@Column(name="region_id")
+	private Integer regionId;	
 	private String title;
-	
 	private String description;
 	
-	@Column(name="date_time_start")
-	private Date dateTimeStart;
-	
-	@Column(name="date_time_end")
-	private Date dateTimeEnd;
-
 	@ManyToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-	private Patient patient;
+    @JoinColumn(name = "district")
+	private District district;
 
-	public Integer getEventId() {
-		return eventId;
+	public Integer getRegionId() {
+		return regionId;
 	}
 
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
 	}
 
 	public String getTitle() {
@@ -61,29 +52,14 @@ public class Event implements Serializable{
 		this.description = description;
 	}
 
-	public Date getDateTimeStart() {
-		return dateTimeStart;
+	public District getDistrict() {
+		return district;
 	}
 
-	public void setDateTimeStart(Date dateTimeStart) {
-		this.dateTimeStart = dateTimeStart;
-	}
-
-	public Date getDateTimeEnd() {
-		return dateTimeEnd;
-	}
-
-	public void setDateTimeEnd(Date dateTimeEnd) {
-		this.dateTimeEnd = dateTimeEnd;
-	}
-
-	public Patient getPatient() {
-		return patient;
-	}
-
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setDistrict(District district) {
+		this.district = district;
 	}
 	
 	
+
 }

@@ -32,16 +32,16 @@ public class Patient implements Serializable {
 	
 	private Integer age;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "resolution_type", referencedColumnName = "resolution_id")
 	private Resolution resolutionType;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "diagnosis_type", referencedColumnName = "diagnosis_id")
-	private Diagnosis diagnosisType;
+	private Diagnosis diagnosisType;	
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="patient")
-    public List<Event> events;
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patient")
+    private List<Event> events;
 
 	public Integer getPatientId() {
 		return patientId;
