@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.zk.viewmodels;
+package ru.dreamcloud.alexion.zk.viewmodels;
 
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -9,7 +9,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.pharmacrm.model.Patient;
+import ru.dreamcloud.alexion.model.Patient;
 
 public class PatientsWindowViewModel {
 

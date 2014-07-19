@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.model;
+package ru.dreamcloud.alexion.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

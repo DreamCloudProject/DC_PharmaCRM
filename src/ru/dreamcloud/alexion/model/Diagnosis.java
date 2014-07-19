@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.model;
+package ru.dreamcloud.alexion.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -8,30 +8,28 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="districts")
-public class District implements Serializable{
+@Table(name="diagnosis")
+public class Diagnosis implements Serializable {
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
-	@Column(name="district_id")
-	private Integer districtId;	
+	@Column(name="diagnosis_id")
+	private Integer diagnosisId;
 	private String title;
 	private String description;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="district")
-    private List<Region> regions;
-	
-	public Integer getDistrictId() {
-		return districtId;
+	public Integer getDiagnosisId() {
+		return diagnosisId;
 	}
 	
-	public void setDistrictId(Integer districtId) {
-		this.districtId = districtId;
+	public void setDiagnosisId(Integer diagnosisId) {
+		this.diagnosisId = diagnosisId;
 	}
 	
 	public String getTitle() {
@@ -48,14 +46,6 @@ public class District implements Serializable{
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<Region> getRegions() {
-		return regions;
-	}
-
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
-	}
+	}	
 	
 }

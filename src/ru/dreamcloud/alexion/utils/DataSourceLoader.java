@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.utils;
+package ru.dreamcloud.alexion.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

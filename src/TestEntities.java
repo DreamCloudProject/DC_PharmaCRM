@@ -1,14 +1,3 @@
-import java.sql.Date;
-import java.util.Calendar;
-
-import ru.dreamcloud.pharmacrm.model.District;
-import ru.dreamcloud.pharmacrm.model.Event;
-import ru.dreamcloud.pharmacrm.model.Patient;
-import ru.dreamcloud.pharmacrm.model.Region;
-import ru.dreamcloud.pharmacrm.model.Resolution;
-import ru.dreamcloud.pharmacrm.utils.DataSourceLoader;
-
-
 public class TestEntities {
 	
 	public static void main(String[] args) {

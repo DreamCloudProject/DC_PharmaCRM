@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.zk.viewmodels;
+package ru.dreamcloud.alexion.zk.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,15 +6,12 @@ import java.util.HashMap;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Page;
-import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.pharmacrm.model.Patient;
-import ru.dreamcloud.pharmacrm.utils.DataSourceLoader;
+import ru.dreamcloud.alexion.model.Patient;
+import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
 public class PatientsViewModel {
 	

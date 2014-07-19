@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.zk.viewmodels.widgets;
+package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;

@@ -1,4 +1,4 @@
-package ru.dreamcloud.pharmacrm.model;
+package ru.dreamcloud.alexion.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -15,37 +15,37 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="diagnosis")
-public class Diagnosis implements Serializable {
+@Table(name="resolutions")
+public class Resolution implements Serializable{
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
-	@Column(name="diagnosis_id")
-	private Integer diagnosisId;
+	@Column(name="resolution_id")
+	private Integer resolutionId;	
 	private String title;
 	private String description;
-	
-	public Integer getDiagnosisId() {
-		return diagnosisId;
+
+	public Integer getResolutionId() {
+		return resolutionId;
 	}
-	
-	public void setDiagnosisId(Integer diagnosisId) {
-		this.diagnosisId = diagnosisId;
+
+	public void setResolutionId(Integer resolutionId) {
+		this.resolutionId = resolutionId;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
-	}	
-	
+	}
+
 }
