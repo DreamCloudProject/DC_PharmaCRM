@@ -11,7 +11,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">
@@ -28,7 +28,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">
@@ -45,7 +45,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/3.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/3.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">
@@ -63,7 +63,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/4.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/4.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">
@@ -82,7 +82,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/1.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">
@@ -99,7 +99,7 @@
 				<n:div class="media">
 					<n:div class="pull-left">
 						<n:img width="40"
-							src="bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
+							src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/2.jpg" alt="" />
 					</n:div>
 					<n:div class="media-body">
 						<n:small class="text-muted">

@@ -1,0 +1,89 @@
+/* --------------------------------------------------------
+    Bootstrap Overrides
+-----------------------------------------------------------*/
+.z-listbox-header {
+	background: rgba(0, 0, 0, 0.34);	
+}
+.z-listheader {
+	border-top: 1px solid #29404f;
+	border-left: 1px solid #29404f;
+	background: rgba(0, 0, 0, 0.14);
+}
+
+.z-calendars-month-header .z-calendars-day-of-week,
+.z-listheader-content {
+	font-family: 'open-sans-light', sans-serif;
+}
+
+.z-window {
+	background: rgba(0, 0, 0, 0.68);
+}
+
+.z-window-content {
+	background: rgba(0, 0, 0, 0.34);
+}
+
+.z-messagebox .z-label {	
+	color: #fff;
+}
+
+.z-listbox,
+.z-listbox-header-border {
+	border: none;	
+}
+
+.z-calendars-month-date{
+	font-size: 12px;
+	color: #fff;
+	opacity: 0.7;
+}
+
+.z-calendars-month-header .z-calendars-day-of-week {
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: normal;
+	color: #fff;
+}
+
+.z-calendars-inner {
+	background: rgba(0,0,0,0.2);
+	padding: 0;
+	border: none;
+}
+
+.z-calendars-month-date,
+.z-calendars-month-header {
+	background: rgba(0,0,0,0.3);
+}
+
+.z-calendars-month-date{
+	border: none;
+}
+
+.z-calendars-month-header .z-calendars-day-of-week,
+.z-calendars-day-of-month-bg td {
+	border: 1px solid rgba(255,255,255,0.15);
+}
+
+.z-calendars-month-date.z-calendars-week-today,
+.z-calendars-day-of-month-bg .z-calendars-week-today {
+	background: rgba(252, 248, 227, 0.11);
+}
+
+.z-calendars-body{
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.z-calendars-fl,
+.z-calendars-fr,
+.z-calendars-fm,
+.z-calendars-body,
+.z-calendars-t1,
+.z-calendars-t2,
+.z-calendars-t3,
+.z-calendars-b1, 
+.z-calendars-b2, 
+.z-calendars-b3,
+.z-calendars-month-body {
+	background: none;	
+}

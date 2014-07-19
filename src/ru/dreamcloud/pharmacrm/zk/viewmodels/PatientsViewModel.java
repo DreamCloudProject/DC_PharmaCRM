@@ -6,7 +6,11 @@ import java.util.HashMap;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Page;
+import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.pharmacrm.model.Patient;
@@ -14,6 +18,16 @@ import ru.dreamcloud.pharmacrm.utils.DataSourceLoader;
 
 public class PatientsViewModel {
 	
+	private String postMessage;
+	
+	public String getPostMessage() {
+		return postMessage;
+	}
+
+	public void setPostMessage(String postMessage) {
+		this.postMessage = postMessage;
+	}
+
 	/**************************************
 	  Property selected	 
 	***************************************/
@@ -41,7 +55,7 @@ public class PatientsViewModel {
 	  Methods	 
 	***************************************/
 	@Init
-    public void init() {
+    public void init() {		
 		if(!patientsList.isEmpty()){
 			selected = patientsList.get(0);
 		}
@@ -55,6 +69,14 @@ public class PatientsViewModel {
     	params.put("actionType", "NEW");
     	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/patientwindow.zul", null, params);
     	window.doModal();
+    }
+    
+    @Command
+    @NotifyChange("patientsList")
+    public void test() {
+    	Sessions.getCurrent().setAttribute("test", getPostMessage());
+    	Executions.sendRedirect("events.zul");
+    	
     }
 
 }

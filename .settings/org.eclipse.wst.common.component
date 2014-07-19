@@ -3,6 +3,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/war"/>
         <property name="java-output-path" value="/DC_PharmaCRM/build/classes"/>
-        <property name="context-root" value="DC_PharmaCRM"/>
+        <property name="context-root" value="/"/>
     </wb-module>
 </project-modules>

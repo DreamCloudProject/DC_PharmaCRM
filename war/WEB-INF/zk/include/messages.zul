@@ -11,7 +11,7 @@
 	        <n:div class="overflow" style="height: 254px">
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/1.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/1.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Nadin Jackson - 2 Hours ago</n:small><n:br/>
@@ -20,7 +20,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/2.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/2.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">David Villa - 5 Hours ago</n:small><n:br/>
@@ -29,7 +29,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/3.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/3.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Harris worgon - On 15/12/2013</n:small><n:br/>
@@ -38,7 +38,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/4.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/4.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Mitch Bradberry - On 14/12/2013</n:small><n:br/>
@@ -47,7 +47,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/1.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/1.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Nadin Jackson - On 15/12/2013</n:small><n:br/>
@@ -56,7 +56,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/2.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/2.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">David Villa - On 16/12/2013</n:small><n:br/>
@@ -65,7 +65,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/3.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/3.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Harris worgon - On 17/12/2013</n:small><n:br/>
@@ -74,7 +74,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/4.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/4.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Mitch Bradberry - On 18/12/2013</n:small><n:br/>
@@ -83,7 +83,7 @@
 	            </n:div>
 	            <n:div class="media">
 	                <n:div class="pull-left">
-	                    <n:img width="40" src="bootstrap/v3/template/img/profile-pics/5.jpg" alt=""/>
+	                    <n:img width="40" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pics/5.jpg" alt=""/>
 	                </n:div>
 	                <n:div class="media-body">
 	                    <n:small class="text-muted">Wendy Mitchell - On 19/12/2013</n:small><n:br/>
