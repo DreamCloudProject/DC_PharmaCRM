@@ -7,6 +7,7 @@
 		<class>ru.dreamcloud.alexion.model.Resolution</class>
 		<class>ru.dreamcloud.alexion.model.Region</class>
 		<class>ru.dreamcloud.alexion.model.District</class>
+		<class>ru.dreamcloud.alexion.model.ContactInfo</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>

@@ -24,7 +24,7 @@ public class Region implements Serializable{
 	private String title;
 	private String description;
 	
-	@ManyToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "district")
 	private District district;
 
@@ -58,8 +58,6 @@ public class Region implements Serializable{
 
 	public void setDistrict(District district) {
 		this.district = district;
-	}
-	
-	
+	}	
 
 }

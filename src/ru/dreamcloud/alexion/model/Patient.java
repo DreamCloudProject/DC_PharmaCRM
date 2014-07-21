@@ -42,6 +42,9 @@ public class Patient implements Serializable {
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patient")
     private List<Event> events;
+	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patient")
+	private List<ContactInfo> contacts;
 
 	public Integer getPatientId() {
 		return patientId;
@@ -106,7 +109,13 @@ public class Patient implements Serializable {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
-	
-	
+
+	public List<ContactInfo> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<ContactInfo> contacts) {
+		this.contacts = contacts;
+	}	
 
 }

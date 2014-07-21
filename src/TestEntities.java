@@ -1,3 +1,7 @@
+import ru.dreamcloud.alexion.model.District;
+import ru.dreamcloud.alexion.model.Region;
+import ru.dreamcloud.alexion.utils.DataSourceLoader;
+
 public class TestEntities {
 	
 	public static void main(String[] args) {
@@ -41,7 +45,20 @@ public class TestEntities {
 		
 		DataSourceLoader.getInstance().removeRecord(ds, 1);*/
 		
+		Region reg = new Region();
 		
+		reg.setTitle("Тест регион");
+		reg.setDescription("Москва");		
+		
+		District ds = new District();
+		ds.setTitle("Центр");
+		ds.setDescription("Простой округ");
+		
+		reg.setDistrict(ds);		
+		
+		//DataSourceLoader.getInstance().addRecord(reg);
+		//DataSourceLoader.getInstance().removeRecord(reg, 2);
+		DataSourceLoader.getInstance().removeRecord(ds, 6);
 	}
 
 }
