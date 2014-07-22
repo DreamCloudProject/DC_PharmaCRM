@@ -15,6 +15,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/*delimiter $$
+
+CREATE TABLE `events` (
+  `event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(1024) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  `date_time_start` datetime NOT NULL,
+  `date_time_end` datetime NOT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`event_id`),
+  UNIQUE KEY `event_id_UNIQUE` (`event_id`),
+  KEY `fk_patient_id_idx` (`patient_id`),
+  CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8$$
+*/
+
 @Entity
 @Table(name="events")
 public class Event implements Serializable{

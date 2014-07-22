@@ -13,6 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/*
+delimiter $$
+
+CREATE TABLE `districts` (
+  `district_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`district_id`),
+  UNIQUE KEY `district_id_UNIQUE` (`district_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8$$
+*/
+
 @Entity
 @Table(name="districts")
 public class District implements Serializable{

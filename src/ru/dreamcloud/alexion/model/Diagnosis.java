@@ -1,17 +1,25 @@
 package ru.dreamcloud.alexion.model;
 
+/*delimiter $$
+
+CREATE TABLE `diagnosis` (
+  `diagnosis_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`diagnosis_id`),
+  UNIQUE KEY `diagnosis_id_UNIQUE` (`diagnosis_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+
+*/
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity

@@ -77,7 +77,7 @@
 						</n:header>
 										
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}" mold="paging" pageSize="10" model="@load(vm.patientsList)"	selectedItem="@bind(vm.selected)" sclass="tile">
-							<listhead sizable="true">
+							<listhead sizable="false">
 								<listheader width="30%" label="Фамилия" />
 								<listheader width="30%" label="Имя" />
 								<listheader width="30%" label="Отчество" />						

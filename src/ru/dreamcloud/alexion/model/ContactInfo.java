@@ -14,6 +14,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/*delimiter $$
+
+CREATE TABLE `contact_info` (
+  `contact_id` int(11) NOT NULL AUTO_INCREMENT,
+  `city` varchar(20) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  `region` int(11) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `postal_code` varchar(20) DEFAULT NULL,
+  `address1` varchar(80) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`contact_id`),
+  UNIQUE KEY `contact_id_UNIQUE` (`contact_id`),
+  KEY `fk_region_idx` (`region`),
+  KEY `fk_patient_id_idx` (`patient_id`),
+  CONSTRAINT `fk_patient_id_contact` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_region` FOREIGN KEY (`region`) REFERENCES `regions` (`region_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+*/
+
 @Entity
 @Table(name="contact_info")
 public class ContactInfo implements Serializable {

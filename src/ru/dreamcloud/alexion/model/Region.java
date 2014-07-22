@@ -14,6 +14,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/*delimiter $$
+
+CREATE TABLE `regions` (
+  `region_id` int(11) NOT NULL AUTO_INCREMENT,
+  `district` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`region_id`),
+  UNIQUE KEY `region_id_UNIQUE` (`region_id`),
+  KEY `fk_district_idx` (`district`),
+  CONSTRAINT `fk_district` FOREIGN KEY (`district`) REFERENCES `districts` (`district_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8$$
+
+*/
+
 @Entity
 @Table(name="regions")
 public class Region implements Serializable{
