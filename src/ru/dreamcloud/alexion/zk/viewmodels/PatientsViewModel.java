@@ -72,7 +72,7 @@ public class PatientsViewModel {
     @NotifyChange("patientsList")
     public void test() {
     	Sessions.getCurrent().setAttribute("test", getPostMessage());
-    	Executions.sendRedirect("events.zul");
+    	Executions.sendRedirect("/pages/events");
     	
     }
 

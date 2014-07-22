@@ -1,0 +1,38 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?page id="404Page" complete="true"?>
+<!DOCTYPE html>
+<n:html xmlns:w="client" xmlns:n="native">
+	<!--[if IE 9 ]><html class="ie9"><![endif]-->
+	<n:head>
+		<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" ?>
+		<?meta name="format-detection" content="telephone=no"?>
+		<?meta charset="UTF-8"?>
+
+		<?meta name="description" content=""?>
+		<?meta name="keywords" content=""?>
+
+		<n:title>${labels.sitename}</n:title>
+
+		<!-- CSS -->
+		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
+		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/style.css" rel="stylesheet"?>
+		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/generics.css" rel="stylesheet"?>
+	</n:head>
+	<zscript>
+		<![CDATA[
+			org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+			org.zkoss.util.resource.Labels.reset();
+		]]>
+	</zscript>
+	<n:body id="${labels.currentTheme}">
+		<n:section id="error-page" class="tile">
+			<n:h1 class="m-b-10">${labels.messages.message404}</n:h1>
+			<n:p>
+				${labels.messages.description404}
+			</n:p>
+			<n:a class="underline" href="javascript:window.history.go(-1); return false;">${labels.messages.backTo}</n:a>
+			или
+			<n:a class="underline" href="${labels.panels.index.URL}">${labels.panels.index.name}</n:a>
+		</n:section>
+	</n:body>
+</n:html>

@@ -12,13 +12,18 @@
 
 	<rule>
         <from>^/pages/([^\.]+)$</from>
-        <to>/pages/$1.zul</to>
+        <to>/WEB-INF/zk/pages/$1.zul</to>
     </rule>
     
     <rule>
         <from>^/detail/([^\.]+)$</from>
-        <to>/detail/$1.zul</to>
-    </rule>         
+        <to>/WEB-INF/zk/detail/$1.zul</to>
+    </rule>
+    
+    <rule>
+        <from>^/timeout$</from>
+        <to>/WEB-INF/zk/pages/timeout.zul</to>
+    </rule>           
 	
     <!--
 

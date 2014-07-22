@@ -46,7 +46,12 @@
       <url-pattern>/*</url-pattern>
       <dispatcher>REQUEST</dispatcher>
       <dispatcher>FORWARD</dispatcher>
-  </filter-mapping>
+  </filter-mapping>  
+
+  <error-page>
+      <error-code>404</error-code>
+      <location>/404.zul</location>
+  </error-page>
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
