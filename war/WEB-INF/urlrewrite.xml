@@ -21,6 +21,11 @@
     </rule>
     
     <rule>
+        <from>^/admin/([^\.]+)$</from>
+        <to>/WEB-INF/zk/admin/$1.zul</to>
+    </rule>
+    
+    <rule>
         <from>^/timeout$</from>
         <to>/WEB-INF/zk/pages/timeout.zul</to>
     </rule>           

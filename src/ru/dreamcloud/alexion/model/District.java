@@ -22,7 +22,7 @@ CREATE TABLE `districts` (
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`district_id`),
   UNIQUE KEY `district_id_UNIQUE` (`district_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -34,6 +34,11 @@ public class District implements Serializable{
 	private Integer districtId;	
 	private String title;
 	private String description;
+	
+	public District(String title, String description) {
+		setTitle(title);
+		setDescription(description);
+	}
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="district")
     private List<Region> regions;

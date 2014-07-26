@@ -8,7 +8,7 @@ CREATE TABLE `diagnosis` (
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`diagnosis_id`),
   UNIQUE KEY `diagnosis_id_UNIQUE` (`diagnosis_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 
 */
 
@@ -31,6 +31,11 @@ public class Diagnosis implements Serializable {
 	private Integer diagnosisId;
 	private String title;
 	private String description;
+	
+	public Diagnosis(String title, String description) {
+		setTitle(title);
+		setDescription(description);
+	}
 	
 	public Integer getDiagnosisId() {
 		return diagnosisId;

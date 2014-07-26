@@ -19,8 +19,7 @@ CREATE TABLE `resolutions` (
   PRIMARY KEY (`resolution_id`),
   UNIQUE KEY `resolution_id_UNIQUE` (`resolution_id`),
   UNIQUE KEY `title_UNIQUE` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8$$
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -32,6 +31,11 @@ public class Resolution implements Serializable{
 	private Integer resolutionId;	
 	private String title;
 	private String description;
+	
+	public Resolution(String title, String description) {
+		setTitle(title);
+		setDescription(description);
+	}
 
 	public Integer getResolutionId() {
 		return resolutionId;

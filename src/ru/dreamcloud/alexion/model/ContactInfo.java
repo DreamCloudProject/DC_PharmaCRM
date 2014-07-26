@@ -3,6 +3,7 @@ package ru.dreamcloud.alexion.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*delimiter $$
@@ -21,17 +24,18 @@ CREATE TABLE `contact_info` (
   `city` varchar(20) DEFAULT NULL,
   `country` varchar(20) DEFAULT NULL,
   `region` int(11) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
-  `address1` varchar(80) DEFAULT NULL,
-  `patient_id` int(11) DEFAULT NULL,
+  `address` int(11) DEFAULT NULL,
   PRIMARY KEY (`contact_id`),
   UNIQUE KEY `contact_id_UNIQUE` (`contact_id`),
   KEY `fk_region_idx` (`region`),
-  KEY `fk_patient_id_idx` (`patient_id`),
-  CONSTRAINT `fk_patient_id_contact` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_phone_idx` (`phone`),
+  KEY `fk_address_idx` (`address`),
+  CONSTRAINT `fk_phone` FOREIGN KEY (`phone`) REFERENCES `phone_numbers` (`phone_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_address` FOREIGN KEY (`address`) REFERENCES `addresses` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_region` FOREIGN KEY (`region`) REFERENCES `regions` (`region_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -48,18 +52,25 @@ public class ContactInfo implements Serializable {
 	
 	private String country;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="region")
 	private Region region;
 	
-	private String phone;
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="phoneId")
+	private List<PhoneNumber> phonesList;
 	
 	@Column(name="postal_code")
 	private String postalCode;
 	
-	private String address1;
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="addressId")
+	private List<Address> addressList;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-	private Patient patient;
+	public ContactInfo(String city, String country, Region region, List<PhoneNumber> phonesList, String postalCode, List<Address> addressList) {
+		setCity(city);
+		setCountry(country);
+		setRegion(region);
+		setPostalCode(postalCode);
+	}
 
 	public Integer getContactId() {
 		return contactId;
@@ -93,12 +104,12 @@ public class ContactInfo implements Serializable {
 		this.region = region;
 	}
 
-	public String getPhone() {
-		return phone;
+	public List<PhoneNumber> getPhonesList() {
+		return phonesList;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhonesList(List<PhoneNumber> phonesList) {
+		this.phonesList = phonesList;
 	}
 
 	public String getPostalCode() {
@@ -109,12 +120,12 @@ public class ContactInfo implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public String getAddress1() {
-		return address1;
+	public List<Address> getAddressList() {
+		return addressList;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}	
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}		
 	
 }

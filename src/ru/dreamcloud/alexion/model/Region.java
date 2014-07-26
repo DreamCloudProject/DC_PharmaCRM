@@ -14,7 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/*delimiter $$
+/*
+delimiter $$
 
 CREATE TABLE `regions` (
   `region_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,13 +26,12 @@ CREATE TABLE `regions` (
   UNIQUE KEY `region_id_UNIQUE` (`region_id`),
   KEY `fk_district_idx` (`district`),
   CONSTRAINT `fk_district` FOREIGN KEY (`district`) REFERENCES `districts` (`district_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8$$
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
 @Table(name="regions")
-public class Region implements Serializable{
+public class Region implements Serializable {
 	
 	@Id	@GeneratedValue(strategy = IDENTITY)
 	@Column(name="region_id")
@@ -42,6 +42,12 @@ public class Region implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "district")
 	private District district;
+	
+	public Region(District district, String title, String description) {
+		setDistrict(district);
+		setTitle(title);
+		setDescription(description);
+	}
 
 	public Integer getRegionId() {
 		return regionId;

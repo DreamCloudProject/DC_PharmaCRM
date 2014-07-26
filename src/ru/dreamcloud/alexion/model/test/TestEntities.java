@@ -1,3 +1,4 @@
+package ru.dreamcloud.alexion.model.test;
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /*delimiter $$
@@ -23,12 +25,13 @@ CREATE TABLE `events` (
   `description` varchar(1024) DEFAULT NULL,
   `date_time_start` datetime NOT NULL,
   `date_time_end` datetime NOT NULL,
-  `patient_id` int(11) DEFAULT NULL,
+  `patient` int(11) DEFAULT NULL,
+  `notification_create_flag` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
-  KEY `fk_patient_id_idx` (`patient_id`),
-  CONSTRAINT `fk_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8$$
+  KEY `fk_patient_id_idx` (`patient`),
+  CONSTRAINT `fk_patient_event` FOREIGN KEY (`patient`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -49,9 +52,27 @@ public class Event implements Serializable{
 	@Column(name="date_time_end")
 	private Date dateTimeEnd;
 
-	@ManyToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "patient")
 	private Patient patient;
+	
+	@Column(name="notification_create_flag")
+	private String notificationCreateFlag;
+	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
+    private List<Notification> notifications;
+	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
+    private List<Document> documents;
+	
+	public Event(String title, String description, Date dateTimeStart, Date dateTimeEnd, Patient patient, String notificationCreateFlag) {
+		setTitle(title);
+		setDescription(description);
+		setDateTimeStart(dateTimeStart);
+		setDateTimeEnd(dateTimeEnd);
+		setNotificationCreateFlag(notificationCreateFlag);
+		setPatient(patient);
+	}
 
 	public Integer getEventId() {
 		return eventId;
@@ -100,6 +121,13 @@ public class Event implements Serializable{
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
+
+	public String getNotificationCreateFlag() {
+		return notificationCreateFlag;
+	}
+
+	public void setNotificationCreateFlag(String notificationCreateFlag) {
+		this.notificationCreateFlag = notificationCreateFlag;
+	}	
 	
 }
