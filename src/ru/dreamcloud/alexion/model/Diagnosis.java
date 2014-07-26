@@ -32,6 +32,10 @@ public class Diagnosis implements Serializable {
 	private String title;
 	private String description;
 	
+	public Diagnosis() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Diagnosis(String title, String description) {
 		setTitle(title);
 		setDescription(description);

@@ -35,6 +35,10 @@ public class District implements Serializable{
 	private String title;
 	private String description;
 	
+	public District() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public District(String title, String description) {
 		setTitle(title);
 		setDescription(description);

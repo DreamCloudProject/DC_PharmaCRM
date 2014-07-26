@@ -65,6 +65,10 @@ public class Event implements Serializable{
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
     private List<Document> documents;
 	
+	public Event() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Event(String title, String description, Date dateTimeStart, Date dateTimeEnd, Patient patient, String notificationCreateFlag) {
 		setTitle(title);
 		setDescription(description);

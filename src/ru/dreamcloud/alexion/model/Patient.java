@@ -72,6 +72,10 @@ public class Patient implements Serializable {
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patient")
     private List<Event> events;
 	
+	public Patient() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Patient(String firstname, String middlename, String lastname, Integer age, Resolution resolution, Diagnosis diagnosis, ContactInfo contactInfo) {
 		setFirstname(firstname);
 		setLastname(lastname);

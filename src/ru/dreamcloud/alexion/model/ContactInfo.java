@@ -56,14 +56,18 @@ public class ContactInfo implements Serializable {
 	@JoinColumn(name="region")
 	private Region region;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="phoneId")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="contactInfo")
 	private List<PhoneNumber> phonesList;
 	
 	@Column(name="postal_code")
 	private String postalCode;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="addressId")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="contactInfo")
 	private List<Address> addressList;
+	
+	public ContactInfo() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public ContactInfo(String city, String country, Region region, List<PhoneNumber> phonesList, String postalCode, List<Address> addressList) {
 		setCity(city);

@@ -37,6 +37,10 @@ public class AttendantPerson implements Serializable {
 	private String lastname;
 
 	private String middlename;
+	
+	public AttendantPerson() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public AttendantPerson(String firstname, String middlename, String lastname, ContactInfo contactInfo) {
 		setFirstname(firstname);

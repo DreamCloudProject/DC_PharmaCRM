@@ -54,6 +54,10 @@ public class Notification implements Serializable{
     @JoinColumn(name = "event")
 	private Event event;
 	
+	public Notification() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Notification(Date dateTimeStart, Date dateTimeEnd, String title, String description, Event event) {
 		setDateTimeStart(dateTimeStart);
 		setDateTimeEnd(dateTimeEnd);

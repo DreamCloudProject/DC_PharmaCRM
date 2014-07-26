@@ -43,6 +43,10 @@ public class Region implements Serializable {
     @JoinColumn(name = "district")
 	private District district;
 	
+	public Region() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Region(District district, String title, String description) {
 		setDistrict(district);
 		setTitle(title);

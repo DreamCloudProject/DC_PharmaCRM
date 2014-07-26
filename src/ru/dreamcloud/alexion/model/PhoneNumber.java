@@ -10,24 +10,21 @@ CREATE TABLE `phone_numbers` (
   `phone_id` int(11) NOT NULL AUTO_INCREMENT,
   `phone_number` varchar(45) DEFAULT NULL,
   `phone_type` enum('HOME','MOBILE','WORK') DEFAULT NULL,
-  PRIMARY KEY (`phone_id`)
+  `contact_info` int(11) DEFAULT NULL,
+  PRIMARY KEY (`phone_id`),
+  KEY `fk_contact_info_phone_idx` (`contact_info`),
+  CONSTRAINT `fk_contact_info_phone` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8$$
 */
+
 @Entity
 @Table(name="phone_numbers")
 public class PhoneNumber implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public enum PhoneType {		
-	    HOME,
-	    MOBILE,
-	    WORK
-	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "phone_id")
+	@Column(name = "phone_id")
 	private int phoneId;
 
 	@Column(name="phone_number")
@@ -35,7 +32,15 @@ public class PhoneNumber implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="phone_type")
-	private PhoneType phoneType;	
+	private PhoneType phoneType;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "contact_info")
+	private ContactInfo contactInfo;
+	
+	public PhoneNumber() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public PhoneNumber(String phoneNumber, PhoneType phoneType) {
 		setPhoneNumber(phoneNumber);
@@ -65,5 +70,13 @@ public class PhoneNumber implements Serializable {
 	public void setPhoneType(PhoneType phoneType) {
 		this.phoneType = phoneType;
 	}
+
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}	
 
 }

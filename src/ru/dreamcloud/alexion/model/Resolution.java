@@ -32,6 +32,10 @@ public class Resolution implements Serializable{
 	private String title;
 	private String description;
 	
+	public Resolution() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Resolution(String title, String description) {
 		setTitle(title);
 		setDescription(description);

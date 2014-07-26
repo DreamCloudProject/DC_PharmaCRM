@@ -60,6 +60,10 @@ public class Document implements Serializable{
     @JoinColumn(name = "event", referencedColumnName = "event_id")
 	private Event event;
 	
+	public Document() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Document(String extension, String title, String description, String fileURL, Date dateCreated, Date dateModified, Event event) {
 		setExtension(extension);
 		setDescription(description);

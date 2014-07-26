@@ -23,8 +23,7 @@ public class Address implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "address_id")
+	@Column(name = "address_id")
 	private int addressId;
 
 	@Column(name="apartment_number")
@@ -39,6 +38,13 @@ public class Address implements Serializable {
 	private String street;
 
 	private String title;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "contact_info")
+	private ContactInfo contactInfo;
+	
+	public Address() {
+	}
 
 	public Address(int apartment, int corps, int home, String street, String title) {
 		setApartmentNumber(apartment);
@@ -95,5 +101,13 @@ public class Address implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}	
 
 }
