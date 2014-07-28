@@ -28,17 +28,23 @@ CREATE TABLE `patients` (
   `age` int(3) DEFAULT NULL,
   `resolution` int(11) DEFAULT NULL,
   `diagnosis` int(11) DEFAULT NULL,
+  `attperson` int(11) DEFAULT NULL,
+  `medical_expert` int(11) DEFAULT NULL,
+  `nurse` int(11) DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`patient_id`),
   UNIQUE KEY `patient_id_UNIQUE` (`patient_id`),
   KEY `fk_contact_info_idx` (`contact_info`),
   KEY `fk_diagnosis_idx` (`diagnosis`),
   KEY `fk_resolution_idx` (`resolution`),
+  KEY `fk_medexpert_idx` (`medical_expert`),
+  KEY `fk_nurse_idx` (`nurse`),
+  CONSTRAINT `fk_nurse` FOREIGN KEY (`nurse`) REFERENCES `nurses` (`nurse_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_contact_info_patient` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_diagnosis` FOREIGN KEY (`diagnosis`) REFERENCES `diagnosis` (`diagnosis_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_medexpert` FOREIGN KEY (`medical_expert`) REFERENCES `medical_experts` (`medical_expert_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_resolution` FOREIGN KEY (`resolution`) REFERENCES `resolutions` (`resolution_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
-
 */
 
 @Entity
@@ -69,6 +75,14 @@ public class Patient implements Serializable {
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "medical_expert", referencedColumnName = "medical_expert_id")
+	private MedicalExpert medicalExpert;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "nurse", referencedColumnName = "nurse_id")
+	private Nurse nurse;
+	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patient")
     private List<Event> events;
 	
@@ -76,13 +90,16 @@ public class Patient implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Patient(String firstname, String middlename, String lastname, Integer age, Resolution resolution, Diagnosis diagnosis, ContactInfo contactInfo) {
+	public Patient(String firstname, String middlename, String lastname, Integer age, Resolution resolution, Diagnosis diagnosis, MedicalExpert medExpert, Nurse nurse, ContactInfo contactInfo) {
 		setFirstname(firstname);
 		setLastname(lastname);
 		setMiddlename(middlename);
 		setAge(age);
 		setResolution(resolution);
-		setDiagnosis(diagnosis);		
+		setDiagnosis(diagnosis);
+		setMedicalExpert(medExpert);
+		setNurse(nurse);
+		setContactInfo(contactInfo);
 	}
 	
 	public Integer getPatientId() {
@@ -139,6 +156,22 @@ public class Patient implements Serializable {
 
 	public void setDiagnosis(Diagnosis diagnosis) {
 		this.diagnosis = diagnosis;
+	}	
+
+	public MedicalExpert getMedicalExpert() {
+		return medicalExpert;
+	}
+
+	public void setMedicalExpert(MedicalExpert medicalExpert) {
+		this.medicalExpert = medicalExpert;
+	}
+
+	public Nurse getNurse() {
+		return nurse;
+	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
 	}
 
 	public ContactInfo getContactInfo() {

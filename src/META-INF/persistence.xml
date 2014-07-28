@@ -13,6 +13,8 @@
 		<class>ru.dreamcloud.alexion.model.PhoneNumber</class>
 		<class>ru.dreamcloud.alexion.model.Address</class>
 		<class>ru.dreamcloud.alexion.model.AttendantPerson</class>
+		<class>ru.dreamcloud.alexion.model.MedicalExpert</class>
+		<class>ru.dreamcloud.alexion.model.Nurse</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>
