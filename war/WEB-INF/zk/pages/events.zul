@@ -33,7 +33,7 @@
 	</zscript>
 	<n:body id="${labels.currentTheme}">
 
-		<include src="/WEB-INF/zk/include/header.zul" />
+		<include admin="false" src="/WEB-INF/zk/include/header.zul" />
 
 		<n:div class="clearfix"></n:div>
 

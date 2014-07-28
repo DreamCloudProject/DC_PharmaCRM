@@ -313,7 +313,7 @@ blockquote small {
 }
 
 #top-menu .tm-icon:hover span, #top-menu .tm-icon.open span, .drawer-toggle.open span {
-    width: 70px !important;
+    width: 120px !important;
 }
 
 #top-menu .tm-icon:hover, #top-menu .tm-icon.open {
@@ -2214,7 +2214,7 @@ a.list-group-item.active > .badge,
     .side-menu .menu-item {
         float: left;
         border-left: 1px solid rgba(255,255,255,0.1);
-        margin-left: 45px;
+        /*margin-left: 45px;*/
     }
 
     .side-menu ul.menu-item {

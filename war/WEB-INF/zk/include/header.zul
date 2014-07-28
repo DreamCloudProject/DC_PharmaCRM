@@ -5,25 +5,30 @@
 		<n:a class="logo pull-left"	href="${pageContext.request.contextPath}">
 			${labels.sitename}
 		</n:a>
-
-		<n:div class="media-body">
+		<div sclass="media-body" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.HeaderVM')" style="height:0;">
 			<n:div class="media" id="top-menu">
-				<n:div class="pull-left tm-icon">
+				<n:div class="pull-left tm-icon" if="${!vm.adminPage}" >
 					<n:a data-drawer="messages" class="drawer-toggle"
 						href="">
-						<n:i class="sa-top-message"></n:i>
+						<n:i class="fa fa-envelope fa-2x"></n:i>
 						<n:i class="n-count animated">5</n:i>
-						<n:span>Messages</n:span>
+						<n:span>События</n:span>
+					</n:a>
+				</n:div>
+				<n:div class="pull-left tm-icon" if="${!vm.adminPage}">
+					<n:a data-drawer="notifications"
+						class="drawer-toggle" href="">
+						<n:i class="fa fa-crosshairs fa-2x"></n:i>
+						<n:i class="n-count animated">9</n:i>
+						<n:span>Уведомления</n:span>
 					</n:a>
 				</n:div>
 				<n:div class="pull-left tm-icon">
-					<n:a data-drawer="notifications"
-						class="drawer-toggle" href="">
-						<n:i class="sa-top-updates"></n:i>
-						<n:i class="n-count animated">9</n:i>
-						<n:span>Updates</n:span>
+					<n:a href="/admin/settings">
+						<n:i class="fa fa-cogs fa-2x"></n:i>						
+						<n:span>Администрирование</n:span>
 					</n:a>
-				</n:div>
+				</n:div>				
 
 				<n:div id="time" class="pull-right">
 					<n:span id="hours"></n:span>
@@ -36,7 +41,7 @@
 				<n:div class="media-body">
 					<n:input type="text" class="main-search" />
 				</n:div>
-			</n:div>
-		</n:div>
+			</n:div>			
+		</div>
 	</n:header>
 </zk>
