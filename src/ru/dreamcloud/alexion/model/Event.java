@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ CREATE TABLE `events` (
   `date_time_end` datetime NOT NULL,
   `patient` int(11) DEFAULT NULL,
   `notification_create_flag` varchar(5) DEFAULT NULL,
+  `message_type` enum('READ','UNREAD') DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
   KEY `fk_patient_id_idx` (`patient`),
@@ -64,6 +67,10 @@ public class Event implements Serializable{
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
     private List<Document> documents;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="message_type")
+	private MessageType messageType;
 	
 	public Event() {
 		// TODO Auto-generated constructor stub
@@ -132,6 +139,32 @@ public class Event implements Serializable{
 
 	public void setNotificationCreateFlag(String notificationCreateFlag) {
 		this.notificationCreateFlag = notificationCreateFlag;
-	}	
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
+	}
+
+	public MessageType getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(MessageType messageType) {
+		this.messageType = messageType;
+	}
+	
+	
 	
 }

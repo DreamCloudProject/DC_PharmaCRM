@@ -32,34 +32,34 @@
 		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
-
-		<include admin="false" src="/WEB-INF/zk/include/header.zul" />
-
-		<n:div class="clearfix"></n:div>
-
-		<n:section id="main" class="p-relative" role="main">
-
-			<include currentPage="patients" src="/WEB-INF/zk/include/sidebar.zul" />
-
-			<!-- Content -->
-			<n:section id="content" class="container">
-
-				<include src="/WEB-INF/zk/include/messages.zul" />
-				<include src="/WEB-INF/zk/include/notifications.zul" />
-
-				<include breadcrumbs="${labels.pages.detail.patient.breadcrumbs}"
-						 currentPageName="Имя пациента"
-						 src="/WEB-INF/zk/include/breadcrumbs.zul" />
-
-				<n:h4 class="page-title b-0">Имя пациента</n:h4>
-				
-								                
-			</n:section>
-			
-			<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />		
-
-		</n:section>
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.DetailPatientViewModel')" style="height:100%">
+			<include admin="false" src="/WEB-INF/zk/include/header.zul" />
 	
+			<n:div class="clearfix"></n:div>
+	
+			<n:section id="main" class="p-relative" role="main">
+	
+				<include currentPage="patients" src="/WEB-INF/zk/include/sidebar.zul" />
+	
+				<!-- Content -->
+				<n:section id="content" class="container">
+	
+					<include src="/WEB-INF/zk/include/messages.zul" />
+					<include src="/WEB-INF/zk/include/notifications.zul" />
+					
+					<include breadcrumbs="${labels.pages.detail.patient.breadcrumbs}"
+							 currentPageName="${vm.patient.lastname} ${vm.patient.firstname} ${vm.patient.middlename}"
+							 src="/WEB-INF/zk/include/breadcrumbs.zul" />
+	
+					<n:h4 class="page-title b-0">${vm.patient.lastname} ${vm.patient.firstname} ${vm.patient.middlename}</n:h4>
+					
+									                
+				</n:section>
+				
+				<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />		
+	
+			</n:section>
+		</div>
 		<!-- Javascript Libraries -->
 		<!-- jQuery -->
 		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery.min.js"></n:script>

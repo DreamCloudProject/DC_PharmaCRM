@@ -65,8 +65,8 @@
 									</a>
 								</n:li>
 								<n:li>
-									<a tooltiptext="TEST" zclass="tooltips" onClick="@command('test')">
-										<n:i class="fa fa-plus-square fa-2x"></n:i>
+									<a tooltiptext="Карточка пациента" zclass="tooltips" onClick="@command('viewPatientCard')">
+										<n:i class="fa fa-user fa-2x"></n:i>
 									</a>
 								</n:li>									
 							</n:ul>			
@@ -92,7 +92,6 @@
 								</listitem>
 							</template>
 						</listbox>						
-						<textbox value="@bind(vm.postMessage)" />
 					</n:div>
 				</div>			
 								                

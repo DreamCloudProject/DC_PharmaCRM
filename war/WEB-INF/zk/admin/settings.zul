@@ -63,100 +63,15 @@
 				<n:div class="block-area" id="tabs">
 					<n:div class="tab-container tile">
 						<n:ul class="nav tab nav-tabs">
-							<n:li class="active">
-								<n:a href="#home">Home</n:a>
-							</n:li>
-							<n:li>
-								<n:a href="#profile">Profile</n:a>
-							</n:li>
-							<n:li>
-								<n:a href="#messages23">Messages</n:a>
-							</n:li>
-							<n:li>
-								<n:a href="#settings1">Settings</n:a>
+							<n:li class="${each.key == 'nurses' ? 'active' : ''}" forEach="${labels.pages.admin.settings.tabs}">
+								<n:a href="#${each.key}">${each.value.name}</n:a>
 							</n:li>
 						</n:ul>
 
 						<n:div class="tab-content">
-							<n:div class="tab-pane active" id="home">
+							<n:div class="tab-pane ${each.key == 'nurses' ? 'active' : ''}" id="${each.key}" forEach="${labels.pages.admin.settings.tabs}">
 								<n:p>
-									Duis eleifend sapien nec nisl
-									semper, vitae accumsan arcu feugiat.
-									Suspendisse potenti. Aenean
-									vestibulum massa ut congue accumsan.
-									Donec sapien nulla, sollicitudin eu
-									odio fringilla, vulputate ornare
-									quam. Morbi congue in sem non
-									congue. Vivamus diam velit, lacinia
-									eu lorem ac, pellentesque lobortis
-									arcu. Morbi congue dolor sed arcu
-									imperdiet posuere.
-								</n:p>
-								<n:p>
-									Lorem ipsum dolor sit amet,
-									consectetur adipiscing elit. In vel
-									enim non dui fermentum sollicitudin.
-									In id metus dolor. Suspendisse
-									dapibus, metus vitae posuere
-									gravida, odio orci dictum purus,
-									vitae lobortis elit lacus id sem.
-									Vestibulum ut rhoncus dui. Sed
-									congue vestibulum fermentum. Nulla
-									imperdiet quam et ipsum lobortis
-									laoreet. Phasellus in lectus ligula.
-									Suspendisse potenti. Aliquam massa
-									nulla, congue ut quam sed,
-									scelerisque laoreet massa. Ut
-									ultrices aliquet suscipit.
-								</n:p>
-							</n:div>
-							<n:div class="tab-pane" id="profile">
-								<n:p>
-									Quisque hendrerit lorem lectus, id
-									vestibulum nibh facilisis lobortis.
-									Vestibulum interdum massa rhoncus
-									lorem vehicula faucibus. Class
-									aptent taciti sociosqu ad litora
-									torquent per conubia nostra, per
-									inceptos himenaeos. Proin convallis
-									venenatis pulvinar. In hac habitasse
-									platea dictumst. Aliquam quis ipsum
-									commodo, venenatis sapien at,
-									ullamcorper neque. Integer vitae
-									lacus volutpat, molestie elit eget,
-									sollicitudin erat. Aliquam ac nisl
-									ligula. Etiam vulputate sodales
-									elit, et interdum mauris semper eu.
-									Nam rhoncus nibh quis quam
-									ullamcorper volutpat. Nam sed
-									ultricies libero, a commodo lorem.
-									Interdum et malesuada fames ac ante
-									ipsum primis in faucibus.
-									Pellentesque sed tincidunt turpis.
-									Vivamus blandit, libero sit amet
-									laoreet convallis, enim nisl
-									tristique dolor, et fringilla arcu
-									ipsum eu quam.
-								</n:p>
-							</n:div>
-							<n:div class="tab-pane" id="messages23">
-								<n:p>
-									Duis eleifend sapien nec nisl
-									semper, vitae accumsan arcu feugiat.
-									Suspendisse potenti. Aenean
-									vestibulum massa ut congue accumsan.
-									Donec sapien nulla, sollicitudin eu
-									odio fringilla, vulputate ornare
-									quam. Morbi congue in sem non
-									congue. Vivamus diam velit, lacinia
-									eu lorem ac, pellentesque lobortis
-									arcu. Morbi congue dolor sed arcu
-									imperdiet posuere.
-								</n:p>
-							</n:div>
-							<n:div class="tab-pane" id="settings1">
-								<n:p>
-									test
+									${each.value.name}
 								</n:p>
 							</n:div>
 						</n:div>
@@ -171,37 +86,27 @@
 
 		<!-- Javascript Libraries -->
 		<!-- jQuery -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery.min.js">
-		</n:script>
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery.min.js"></n:script>
+		
 		<!-- jQuery Library -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery-ui.min.js">
-		</n:script>
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery-ui.min.js"></n:script>
+		
 		<!-- jQuery UI -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery.easing.1.3.js">
-		</n:script><!-- jQuery Easing - Required for Lightbox + Pie Charts-->
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/jquery.easing.1.3.js"></n:script>
+		<!-- jQuery Easing - Required for Lightbox + Pie Charts-->
 
 		<!-- Bootstrap -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/bootstrap.min.js">
-		</n:script>
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/bootstrap.min.js"></n:script>
 
 		<!-- UX -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js">
-		</n:script>
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
 		<!-- Custom Scrollbar -->
 
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/feeds.min.js">
-		</n:script><!-- News Feeds -->
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/feeds.min.js"></n:script>
+		<!-- News Feeds -->
 
 		<!-- All JS functions -->
-		<n:script
-			src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js">
-		</n:script>
+		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
 
 	</n:body>
 </n:html>

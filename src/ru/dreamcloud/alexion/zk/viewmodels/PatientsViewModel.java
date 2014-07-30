@@ -14,7 +14,9 @@ import ru.dreamcloud.alexion.model.Patient;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
 public class PatientsViewModel {
-	
+	/**************************************
+	  Property selected	 
+	***************************************/
 	private String postMessage;
 	
 	public String getPostMessage() {
@@ -70,9 +72,9 @@ public class PatientsViewModel {
     
     @Command
     @NotifyChange("patientsList")
-    public void test() {
-    	Sessions.getCurrent().setAttribute("test", getPostMessage());
-    	Executions.sendRedirect("/pages/events");
+    public void viewPatientCard() {
+    	Sessions.getCurrent().setAttribute("patient", getSelected());
+    	Executions.sendRedirect("/detail/patient");
     	
     }
 

@@ -8,6 +8,8 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,11 +27,12 @@ CREATE TABLE `notifications` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `event` int(11) DEFAULT NULL,
+  `message_type` enum('READ','UNREAD') DEFAULT NULL,
   PRIMARY KEY (`notification_id`),
   UNIQUE KEY `notification_id_UNIQUE` (`notification_id`),
   KEY `fk_event_id_idx` (`event`),
   CONSTRAINT `fk_event_notification` FOREIGN KEY (`event`) REFERENCES `events` (`event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -53,6 +56,10 @@ public class Notification implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "event")
 	private Event event;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="message_type")
+	private MessageType messageType;
 	
 	public Notification() {
 		// TODO Auto-generated constructor stub
@@ -112,6 +119,14 @@ public class Notification implements Serializable{
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}
+
+	public MessageType getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(MessageType messageType) {
+		this.messageType = messageType;
 	}
 
 }

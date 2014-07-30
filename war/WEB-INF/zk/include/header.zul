@@ -10,23 +10,23 @@
 				<n:div class="pull-left tm-icon" if="${!vm.adminPage}" >
 					<n:a data-drawer="messages" class="drawer-toggle"
 						href="">
-						<n:i class="fa fa-envelope fa-2x"></n:i>
+						<n:i class="${labels.header.menu.events.menuIconClassFA} fa-2x"></n:i>
 						<n:i class="n-count animated">5</n:i>
-						<n:span>События</n:span>
+						<n:span>${labels.header.menu.events.name}</n:span>
 					</n:a>
 				</n:div>
 				<n:div class="pull-left tm-icon" if="${!vm.adminPage}">
 					<n:a data-drawer="notifications"
 						class="drawer-toggle" href="">
-						<n:i class="fa fa-crosshairs fa-2x"></n:i>
+						<n:i class="${labels.header.menu.notifications.menuIconClassFA} fa-2x"></n:i>
 						<n:i class="n-count animated">9</n:i>
-						<n:span>Уведомления</n:span>
+						<n:span>${labels.header.menu.notifications.name}</n:span>
 					</n:a>
 				</n:div>
 				<n:div class="pull-left tm-icon">
 					<n:a href="/admin/settings">
-						<n:i class="fa fa-cogs fa-2x"></n:i>						
-						<n:span>Администрирование</n:span>
+						<n:i class="${labels.header.menu.settings.menuIconClassFA} fa-2x"></n:i>						
+						<n:span>${labels.header.menu.settings.name}</n:span>
 					</n:a>
 				</n:div>				
 
