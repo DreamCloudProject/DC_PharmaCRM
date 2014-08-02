@@ -61,7 +61,7 @@
 
 				<!-- Tab -->
 				<n:div class="block-area" id="tabs">
-					<n:div class="tab-container tile">
+					<n:div class="tab-container">
 						<n:ul class="nav tab nav-tabs">
 							<n:li class="${each.key == 'nurses' ? 'active' : ''}" forEach="${labels.pages.admin.settings.tabs}">
 								<n:a href="#${each.key}">${each.value.name}</n:a>
@@ -70,9 +70,7 @@
 
 						<n:div class="tab-content">
 							<n:div class="tab-pane ${each.key == 'nurses' ? 'active' : ''}" id="${each.key}" forEach="${labels.pages.admin.settings.tabs}">
-								<n:p>
-									${each.value.name}
-								</n:p>
+								<include src="/WEB-INF/zk/admin/include/${each.key}.zul" />									
 							</n:div>
 						</n:div>
 					</n:div>

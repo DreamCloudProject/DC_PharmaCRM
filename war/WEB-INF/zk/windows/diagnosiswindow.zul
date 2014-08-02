@@ -1,0 +1,37 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="DiagnosisWindow" title="Добавление нового диагноза"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		maximizable="true"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DiagnosisWindowViewModel')"
+		width="800px" height="300px"
+		contentStyle="position:relative; overflow:auto">
+
+		<!-- Horizontal -->
+		<n:div class="block-area" id="horizontal">			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Заголовок"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.currentDiagnosisItem.title)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Описание"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.currentDiagnosisItem.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:hr class="whiter m-t-20" />
+			<div zclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
+	</window>
+</zk>

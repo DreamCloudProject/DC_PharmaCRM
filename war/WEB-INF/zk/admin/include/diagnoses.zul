@@ -1,0 +1,56 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DiagnosisViewModel')">
+		<n:div class="col-md-12 clearfix">
+
+			<n:header class="listview-header media">
+
+				<n:ul class="list-inline list-mass-actions pull-left">
+					<n:li>
+						<a tooltiptext="${labels.pages.admin.settings.messages.addDiagnosisButton}" zclass="tooltips" onClick="@command('addDiagnosisItem')">
+							<n:i class="fa fa-plus-square fa-2x"></n:i>
+						</a>
+					</n:li>
+					<n:li>
+						<a tooltiptext="${labels.pages.admin.settings.messages.editDiagnosisButton}" zclass="tooltips" onClick="@command('editDiagnosisItem')">
+							<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
+						</a>
+					</n:li>
+					<n:li>
+						<a tooltiptext="${labels.pages.admin.settings.messages.removeDiagnosisButton}" zclass="tooltips" onClick="@command('removeDiagnosisItem')">
+							<n:i class="fa fa-trash-o fa-2x"></n:i>
+						</a>
+					</n:li>							
+				</n:ul>
+
+				<textbox id="searchBox" sclass="input-sm col-md-4 pull-right message-search"
+					placeholder="${labels.messages.searchInputPlaceholder}"
+					onOK="@command('search', searchTerm=self.value)" />
+
+				<n:div class="clearfix"></n:div>
+			</n:header>
+			<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
+				mold="paging" pageSize="10" model="@load(vm.diagnosisList)"
+				selectedItem="@bind(vm.selected)" sclass="tile">
+				<template name="model" var="record">
+					<listitem>
+						<listcell>
+							<n:div class="media p-l-5">
+								<n:div class="pull-left">
+									<n:i class="fa fa-stethoscope fa-2x"></n:i>
+								</n:div>
+								<n:div class="media-body">
+									<n:span class="news-title" href=""><label value="@load(record.title)"/></n:span>
+									<n:div class="clearfix"></n:div>
+									<n:span href="">
+										<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
+									</n:span>
+								</n:div>
+							</n:div>						
+						</listcell>						
+					</listitem>
+				</template>
+			</listbox>
+		</n:div>
+	</div>
+</zk>

@@ -65,7 +65,7 @@
 									</a>
 								</n:li>
 								<n:li>
-									<a tooltiptext="Карточка пациента" zclass="tooltips" onClick="@command('viewPatientCard')">
+									<a tooltiptext="${labels.panels.patients.messages.viewPatientCard}" zclass="tooltips" onClick="@command('viewPatientCard')">
 										<n:i class="fa fa-user fa-2x"></n:i>
 									</a>
 								</n:li>									

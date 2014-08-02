@@ -1,15 +1,22 @@
 /* --------------------------------------------------------
     ZKOSS Overrides
 -----------------------------------------------------------*/
+.z-auxheader,
+.z-column {
+	background: rgba(0, 0, 0, 0.56);	
+}
+
 .z-listbox-header {
 	background: rgba(0, 0, 0, 0.34);	
 }
+
 .z-listheader {
 	border-top: 1px solid #29404f;
 	border-left: 1px solid #29404f;
 	background: rgba(0, 0, 0, 0.14);
 }
 
+.z-window-header,
 .z-calendars-month-header .z-calendars-day-of-week,
 .z-listheader-content {
 	font-family: 'open-sans-light', sans-serif;
@@ -23,14 +30,16 @@
 	background: rgba(0, 0, 0, 0.34);
 }
 
-.z-messagebox .z-label {	
-	color: #fff;
-}
-
+.z-grid,
+.z-auxheader,
 .z-listbox,
+.z-row .z-row-inner,
 .z-listbox-header-border {
 	border: none;	
 }
+
+.z-row-content,
+.z-messagebox .z-label,
 .z-listcell-content,
 .z-listitem-selected .z-listcell-content {
 	color: #fff;	
@@ -38,13 +47,16 @@
 
 .z-listitem-selected .z-listcell-content,
 .z-listitem-selected:hover>.z-listcell,
-.z-listitem:hover>.z-listcell {
+.z-listitem:hover>.z-listcell,
+.z-row:hover>.z-row-inner, .z-row:hover>.z-cell {
 	background: rgba(0,0,0,0.2);
 }
 
+.z-column,
+.z-grid-header-border,
 .z-listitem-selected .z-listcell, 
 .z-listitem-selected:hover>.z-listcell {
-	border-color: rgba(187, 187, 187, 0.1);
+	border-color: rgba(55, 55, 55, 0.43);
 }
 
 .z-listitem .z-listcell {
@@ -104,7 +116,11 @@
 .z-calendars-b2, 
 .z-calendars-b3,
 .z-calendars-month-body,
+.z-grid,
+.z-grid-header,
 .z-listitem .z-listcell,
+.z-row .z-row-inner, 
+.z-row .z-cell,
 .z-listbox-odd.z-listitem {
 	background: none;	
 }
