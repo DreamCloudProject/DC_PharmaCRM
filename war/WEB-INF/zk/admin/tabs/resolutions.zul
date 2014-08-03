@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.ResolutionsViewModel')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.ResolutionViewModel')">
 		<n:div class="col-md-12 clearfix">
 
 			<n:header class="listview-header media">
@@ -40,9 +40,9 @@
 									<n:i class="fa fa-chevron-circle-right fa-2x"></n:i>
 								</n:div>
 								<n:div class="media-body">
-									<n:span class="news-title" href=""><label value="@load(record.title)"/></n:span>
+									<n:span class="news-title"><label value="@load(record.title)"/></n:span>
 									<n:div class="clearfix"></n:div>
-									<n:span href="">
+									<n:span>
 										<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
 									</n:span>
 								</n:div>

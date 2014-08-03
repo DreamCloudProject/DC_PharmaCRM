@@ -21,8 +21,8 @@ import javax.persistence.Table;
 
 CREATE TABLE `contact_info` (
   `contact_id` int(11) NOT NULL AUTO_INCREMENT,
-  `city` varchar(20) DEFAULT NULL,
-  `country` varchar(20) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
   `region` int(11) DEFAULT NULL,
   `phone` int(11) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,

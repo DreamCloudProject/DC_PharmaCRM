@@ -40,9 +40,9 @@
 									<n:i class="fa fa-stethoscope fa-2x"></n:i>
 								</n:div>
 								<n:div class="media-body">
-									<n:span class="news-title" href=""><label value="@load(record.title)"/></n:span>
+									<n:span class="news-title"><label value="@load(record.title)"/></n:span>
 									<n:div class="clearfix"></n:div>
-									<n:span href="">
+									<n:span>
 										<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
 									</n:span>
 								</n:div>

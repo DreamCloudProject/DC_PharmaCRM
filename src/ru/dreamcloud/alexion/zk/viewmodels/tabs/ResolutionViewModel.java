@@ -19,7 +19,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Resolution;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
-public class ResolutionsViewModel {
+public class ResolutionViewModel {
 
 	/**************************************
 	 * Property selected

@@ -1,6 +1,11 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
-	<window border="none" title="new page title" closable="true" maximizable="true" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.PatientsWindowViewModel')" width="800px" height="600px" contentStyle="position:relative; overflow:auto">
+	<window border="none" title="new page title" closable="true" maximizable="true" viewModel="@id('vm') @init('ru.dreamcloud.pharmacrm.zk.viewmodels.PatientsWindowViewModel')" width="100%" height="600px" contentStyle="position:relative; overflow:auto">
 	New Content Here!
 	</window>
+	<!-- UX -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	<!-- Custom Scrollbar -->
+	<!-- All JS functions -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
 </zk>

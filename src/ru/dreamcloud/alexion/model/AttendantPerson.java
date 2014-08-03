@@ -28,7 +28,7 @@ public class AttendantPerson implements Serializable {
 	@Column(name="att_person_id")
 	private int attPersonId;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 

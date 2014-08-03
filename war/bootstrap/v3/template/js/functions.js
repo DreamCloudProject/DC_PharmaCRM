@@ -112,12 +112,13 @@ $(document).ready(function(){
 
     /* --------------------------------------------------------
 	Custom Scrollbar
-    -----------------------------------------------------------*/
+    ----------------------------------------------------------*/    
     (function() {
-	if($('.overflow')[0]) {
-	    var overflowRegular, overflowInvisible = false;
-	    overflowRegular = $('.overflow').niceScroll();
-	}
+    	$('.z-window-content').niceScroll();
+		if($('.overflow')[0]) {
+		    var overflowRegular, overflowInvisible = false;
+		    overflowRegular = $('.overflow').niceScroll();
+		}
     })();
 
     /* --------------------------------------------------------
