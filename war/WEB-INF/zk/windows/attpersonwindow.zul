@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
-	<window id="AttPersonWindow" title="Добавление сопровождающего"
+	<window id="AttPersonWindow" title="${labels.pages.admin.settings.tabs.attendantPersons.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="true"
 		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.AttPersonWindowViewModel')"
@@ -8,7 +8,7 @@
 		contentStyle="position:relative; overflow:auto">
 
 		<!-- Horizontal -->
-		<n:div class="block-area" id="horizontal">			
+		<n:div class="block-area">			
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Фамиилия"></label>
 		
@@ -30,40 +30,6 @@
 					<textbox value="@bind(vm.currentAttPersonItem.middlename)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
-			<n:hr class="whiter m-t-20" />
-			<n:h3 class="block-title">Контактная информация</n:h3>
-			<n:div class="form-group">
-				<label zclass="control-label col-md-2" value="Адрес"></label>
-		
-				<n:div class="col-md-10">
-					<textbox value="@bind(vm.addressItem.title)" placeholder="Название адреса" maxlength="255" sclass="form-control input-sm"/>
-				</n:div>
-			</n:div>
-			<n:div class="form-group">
-				<div sclass="col-md-2"></div>
-		
-				<n:div class="col-md-4">
-					<textbox value="@bind(vm.addressItem.street)" placeholder="Улица" maxlength="255" sclass="form-control input-sm"/>
-				</n:div>
-				
-				<n:div class="col-md-2">					
-					<intbox value="@bind(vm.addressItem.homeNumber)" placeholder="Дом" maxlength="11" sclass="form-control input-sm"/>
-				</n:div>
-				
-				<n:div class="col-md-2">					
-					<intbox value="@bind(vm.addressItem.corpsNumber)" placeholder="Корпус" maxlength="11" sclass="form-control input-sm"/>
-				</n:div>
-				
-				<n:div class="col-md-2">					
-					<intbox value="@bind(vm.addressItem.apartmentNumber)" placeholder="Квартира" maxlength="11" sclass="form-control input-sm"/>
-				</n:div>				
-			</n:div>
-			<n:div class="form-group">
-				<div sclass="col-md-2"></div>                    
-				<n:div class="col-md-10">
-					<button id="addNewAddress" zclass="btn btn-success" label="Добавить новый адрес" onClick="@command('addNewAddress')" />					
-				</n:div>
-			</n:div>			
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Город"></label>
 		
@@ -98,9 +64,148 @@
 				<n:div class="col-md-10">
 					<textbox value="@bind(vm.contactInfoItem.postalCode)" placeholder="..." maxlength="20" sclass="form-control input-sm"/>
 				</n:div>
+			</n:div>
+		</n:div>
+					
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Форма добавления нового адреса</n:h3>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Адрес"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.addressItem.title)" placeholder="Название адреса" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>
+		
+				<n:div class="col-md-4">
+					<textbox value="@bind(vm.addressItem.street)" placeholder="Улица" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@bind(vm.addressItem.homeNumber)" placeholder="Дом" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@bind(vm.addressItem.corpsNumber)" placeholder="Корпус" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@bind(vm.addressItem.apartmentNumber)" placeholder="Квартира" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>				
 			</n:div>			
-			<n:hr class="whiter m-t-20" />
-			<div zclass="col-lg-12">
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewAddress" zclass="btn btn-success" label="Добавить новый адрес" onClick="@command('addNewAddress')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Список адресов</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="AddressesListbox" emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.addressList)" zclass="listview" >
+						<template name="model" var="address">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-map-marker fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(address.title)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><label value="@load(address.street)"/></n:small>
+											</n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><n:span if="${not empty address.homeNumber}">д. <label value="@load(address.homeNumber)"/></n:span><n:span if="${not empty address.corpsNumber}">, корп. <label value="@load(address.corpsNumber)"/></n:span><n:span if="${not empty address.apartmentNumber}">, кв. <label value="@load(address.apartmentNumber)"/></n:span></n:small>
+											</n:span>
+											<n:div class="list-options">
+												<button zclass="btn btn-success" label="Удалить" onClick="@command('removeAddress', addressItem=address)" />
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Форма добавления нового номера телефона</n:h3>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Телефон"></label>		
+
+				<n:div class="col-md-2">
+					<listbox if="${not empty vm.phoneTypes}" mold="select" sclass="form-control input-sm" model="@load(vm.phoneTypes)" selectedItem="@bind(vm.phoneItem.phoneType)">
+						<template name="model" var="type">
+							<listitem label="${type.name}" value="${type}"/>
+						</template>				
+					</listbox>
+				</n:div>
+								
+				<n:div class="col-md-8">
+					<textbox value="@bind(vm.phoneItem.phoneNumber)" placeholder="Номер телефона в формате (9991235577)" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewPhoneNumber" zclass="btn btn-success" label="Добавить номер телефона" onClick="@command('addNewPhoneNumber')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+				
+		<n:hr class=" whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Список телефонов</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="PhonesListbox" emptyMessage="Не добавлено ни одного номера телефона" mold="paging" sclass="m-b-10" model="@load(vm.phonesList)" zclass="listview">
+						<template name="model" var="phone">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa ${phone.phoneType.icon} fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(phone.phoneNumber)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><label value="@load(phone.phoneType.name)"/></n:small>
+											</n:span>
+											<n:div class="list-options">
+												<button sclass="btn btn-success" label="Удалить" onClick="@command('removePhoneNumber', phoneItem=phone)" />
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>		
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div sclass="col-lg-12">
 				<div zclass="form-group">
 					<div align="center">
 						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
@@ -109,6 +214,7 @@
 				</div>
 			</div>
 		</n:div>
+
 	</window>
 	<!-- UX -->
 	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>

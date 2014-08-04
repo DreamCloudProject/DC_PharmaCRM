@@ -7,14 +7,17 @@ import javax.persistence.*;
 delimiter $$
 
 CREATE TABLE `addresses` (
-  `address_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `street` varchar(255) DEFAULT NULL,
-  `home_number` int(11) DEFAULT NULL,
-  `corps_number` int(11) DEFAULT NULL,
-  `apartment_number` int(11) DEFAULT NULL,
-  PRIMARY KEY (`address_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+  `home_number` varchar(15) DEFAULT NULL,
+  `corps_number` varchar(5) DEFAULT NULL,
+  `apartment_number` varchar(15) DEFAULT NULL,
+  `contact_info` int(11) DEFAULT NULL,
+  PRIMARY KEY (`address_id`),
+  KEY `fk_contact_info_address_idx` (`contact_info`),
+  CONSTRAINT `fk_contact_info_address` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
  */
 @Entity
 @Table(name="addresses")
@@ -27,13 +30,13 @@ public class Address implements Serializable {
 	private int addressId;
 
 	@Column(name="apartment_number")
-	private int apartmentNumber;
+	private String apartmentNumber;
 
 	@Column(name="corps_number")
-	private int corpsNumber;
+	private String corpsNumber;
 
 	@Column(name="home_number")
-	private int homeNumber;
+	private String homeNumber;
 
 	private String street;
 
@@ -46,7 +49,7 @@ public class Address implements Serializable {
 	public Address() {
 	}
 
-	public Address(int apartment, int corps, int home, String street, String title) {
+	public Address(String apartment, String corps, String home, String street, String title) {
 		setApartmentNumber(apartment);
 		setCorpsNumber(corps);
 		setHomeNumber(home);
@@ -62,27 +65,27 @@ public class Address implements Serializable {
 		this.addressId = addressId;
 	}
 
-	public int getApartmentNumber() {
+	public String getApartmentNumber() {
 		return this.apartmentNumber;
 	}
 
-	public void setApartmentNumber(int apartmentNumber) {
+	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
 
-	public int getCorpsNumber() {
+	public String getCorpsNumber() {
 		return this.corpsNumber;
 	}
 
-	public void setCorpsNumber(int corpsNumber) {
+	public void setCorpsNumber(String corpsNumber) {
 		this.corpsNumber = corpsNumber;
 	}
 
-	public int getHomeNumber() {
+	public String getHomeNumber() {
 		return this.homeNumber;
 	}
 
-	public void setHomeNumber(int homeNumber) {
+	public void setHomeNumber(String homeNumber) {
 		this.homeNumber = homeNumber;
 	}
 

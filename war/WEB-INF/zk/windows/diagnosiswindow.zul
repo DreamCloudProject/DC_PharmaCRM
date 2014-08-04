@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
-	<window id="DiagnosisWindow" title="Добавление нового диагноза"
+	<window id="DiagnosisWindow" title="${labels.pages.admin.settings.tabs.diagnoses.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="true"
 		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DiagnosisWindowViewModel')"

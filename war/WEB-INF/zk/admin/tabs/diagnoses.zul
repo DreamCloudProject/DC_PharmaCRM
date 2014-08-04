@@ -7,17 +7,17 @@
 
 				<n:ul class="list-inline list-mass-actions pull-left">
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.addDiagnosisButton}" zclass="tooltips" onClick="@command('addDiagnosisItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.diagnoses.messages.addDiagnosisButton}" zclass="tooltips" onClick="@command('addDiagnosisItem')">
 							<n:i class="fa fa-plus-square fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.editDiagnosisButton}" zclass="tooltips" onClick="@command('editDiagnosisItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.diagnoses.messages.editDiagnosisButton}" zclass="tooltips" onClick="@command('editDiagnosisItem')">
 							<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.removeDiagnosisButton}" zclass="tooltips" onClick="@command('removeDiagnosisItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.diagnoses.messages.removeDiagnosisButton}" zclass="tooltips" onClick="@command('removeDiagnosisItem')">
 							<n:i class="fa fa-trash-o fa-2x"></n:i>
 						</a>
 					</n:li>							

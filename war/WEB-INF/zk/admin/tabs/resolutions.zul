@@ -7,17 +7,17 @@
 
 				<n:ul class="list-inline list-mass-actions pull-left">
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.addResolutionButton}" zclass="tooltips" onClick="@command('addResolutionItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.resolution.messages.addResolutionButton}" zclass="tooltips" onClick="@command('addResolutionItem')">
 							<n:i class="fa fa-plus-square fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.editResolutionButton}" zclass="tooltips" onClick="@command('editResolutionItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.resolution.messages.editResolutionButton}" zclass="tooltips" onClick="@command('editResolutionItem')">
 							<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.removeResolutionButton}" zclass="tooltips" onClick="@command('removeResolutionItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.resolution.messages.removeResolutionButton}" zclass="tooltips" onClick="@command('removeResolutionItem')">
 							<n:i class="fa fa-trash-o fa-2x"></n:i>
 						</a>
 					</n:li>							
