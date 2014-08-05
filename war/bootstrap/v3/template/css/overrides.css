@@ -41,7 +41,9 @@
 .z-row-content,
 .z-messagebox .z-label,
 .z-listcell-content,
+.z-listitem:first-child .z-listcell-content,
 .z-listitem-selected .z-listcell-content {
+	padding:0;
 	color: #fff;	
 }
 

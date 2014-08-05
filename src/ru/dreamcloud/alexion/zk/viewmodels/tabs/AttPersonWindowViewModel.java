@@ -154,6 +154,16 @@ public class AttPersonWindowViewModel {
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
 	}
+	
+	/**************************************
+	 * Property itemsToRemove
+	 ***************************************/
+	
+	private List<Object> itemsToRemove;
+	
+	/**************************************
+	  Methods	 
+	***************************************/
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
@@ -161,6 +171,7 @@ public class AttPersonWindowViewModel {
 					 @ExecutionArgParam("actionType") String currentAction) {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
+		itemsToRemove = new ArrayList<Object>();
 		addressItem = new Address();
 		phoneItem = new PhoneNumber();
 		
@@ -184,6 +195,7 @@ public class AttPersonWindowViewModel {
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
+		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
 		
@@ -212,7 +224,8 @@ public class AttPersonWindowViewModel {
     
     @Command
     @NotifyChange("addressList")
-    public void removeAddress(@BindingParam("addressItem") final Address adrItem) {    	
+    public void removeAddress(@BindingParam("addressItem") final Address adrItem) {
+    	itemsToRemove.add(adrItem);
     	addressList.remove(adrItem);
     }
     
@@ -228,11 +241,18 @@ public class AttPersonWindowViewModel {
     @Command
     @NotifyChange("phonesList")
     public void removePhoneNumber(@BindingParam("phoneItem") final PhoneNumber phnItem) {
+    	itemsToRemove.add(phnItem);
     	phonesList.remove(phnItem);
     }
 	
 	@Command
 	public void closeThis() {
 		win.detach();
+	}
+	
+	private void clearAllRemovedItems(){		
+		for (Object entityObj : itemsToRemove) {
+			DataSourceLoader.getInstance().removeRecord(entityObj);
+		}		
 	}
 }

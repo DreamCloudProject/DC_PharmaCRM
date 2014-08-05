@@ -5,16 +5,16 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.metamodel.EntityType;
 
+import org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl;
 import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
 
 public class DataSourceLoader {
 	private static final String PERSISTENCE_UNIT_NAME = "DCPharmaCRMPU";
-	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+	private static EntityManagerFactoryImpl factory = (EntityManagerFactoryImpl)Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private static EntityManagerImpl em = (EntityManagerImpl)factory.createEntityManager();
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
@@ -77,6 +77,17 @@ public class DataSourceLoader {
 		em.getTransaction().begin();
 		em.remove(entityObject);
 		em.getTransaction().commit();
+	}
+	
+	public void removeRecord(Object entity) {
+		Object pk = factory.getPersistenceUnitUtil().getIdentifier(entity);
+		//System.out.println(id.toString());
+		Object entityObject = em.find(entity.getClass(), pk);
+		em.getTransaction().begin();
+		em.remove(entityObject);
+		em.getTransaction().commit();
+	
+
 	}
 	
 	public List<Object> getAllEntities(String where) {
