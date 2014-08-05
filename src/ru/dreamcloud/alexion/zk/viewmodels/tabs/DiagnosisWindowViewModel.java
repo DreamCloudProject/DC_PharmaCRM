@@ -82,7 +82,7 @@ public class DiagnosisWindowViewModel {
 		}
 
 		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentDiagnosisItem, currentDiagnosisItem.getDiagnosisId());
+			DataSourceLoader.getInstance().updateRecord(currentDiagnosisItem);
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

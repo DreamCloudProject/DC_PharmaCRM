@@ -1,8 +1,8 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
-	<window id="AttPersonWindow" title="${labels.pages.admin.settings.tabs.attendantPersons.messages.windowTitle}"
+	<window id="NurseWindow" title="${labels.pages.admin.settings.tabs.nurses.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.AttPersonWindowViewModel')"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.NurseWindowViewModel')"
 		width="100%" height="100%"				
 		contentStyle="position:relative; overflow:auto">
 
@@ -12,21 +12,21 @@
 				<label zclass="control-label col-md-2" value="Фамилия"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentAttPersonItem.lastname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@bind(vm.currentNurseItem.lastname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Имя"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentAttPersonItem.firstname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@bind(vm.currentNurseItem.firstname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Отчество"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentAttPersonItem.middlename)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@bind(vm.currentNurseItem.middlename)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">

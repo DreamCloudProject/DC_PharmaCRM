@@ -28,7 +28,7 @@ public class Nurse implements Serializable {
 	@Column(name="nurse_id")
 	private int nurseId;
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 

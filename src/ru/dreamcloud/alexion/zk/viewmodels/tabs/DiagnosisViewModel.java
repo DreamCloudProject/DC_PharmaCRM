@@ -35,13 +35,13 @@ public class DiagnosisViewModel {
 	}
 
 	/**************************************
-	 * Property diagnosisList
+	 * Property diagnosesList
 	 ***************************************/
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private ArrayList<Diagnosis> diagnosisList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", null));
+	private ArrayList<Diagnosis> diagnosesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", null));
 
-	public ArrayList<Diagnosis> getDiagnosisList() {
-		return diagnosisList;
+	public ArrayList<Diagnosis> getDiagnosesList() {
+		return diagnosesList;
 	}
 
 	/**************************************
@@ -49,13 +49,13 @@ public class DiagnosisViewModel {
 	 ***************************************/
 	@Init
 	public void init() {
-		if (!diagnosisList.isEmpty()) {
-			selected = diagnosisList.get(0);
+		if (!diagnosesList.isEmpty()) {
+			selected = diagnosesList.get(0);
 		}
 	}
 	
     @Command
-    @NotifyChange("diagnosisList")
+    @NotifyChange("diagnosesList")
     public void addDiagnosisItem() {
     	final HashMap<String, Object> params = new HashMap<String, Object>();
     	params.put("diagnosisItem", null);
@@ -65,38 +65,42 @@ public class DiagnosisViewModel {
     }
     
     @Command
-    @NotifyChange("diagnosisList")
+    @NotifyChange("diagnosesList")
     public void editDiagnosisItem() {
-    	final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("diagnosisItem", selected);
-    	params.put("actionType", "EDIT");
-        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/diagnosiswindow.zul", null, params);
-        window.doModal();
+    	if(!diagnosesList.isEmpty()) {
+	    	final HashMap<String, Object> params = new HashMap<String, Object>();
+	    	params.put("diagnosisItem", selected);
+	    	params.put("actionType", "EDIT");
+	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/diagnosiswindow.zul", null, params);
+	        window.doModal();
+    	}
     }
     
     @Command
-    @NotifyChange("diagnosisList")
+    @NotifyChange("diagnosesList")
     public void removeDiagnosisItem() {
-    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-			@Override
-			public void onEvent(Event event) throws Exception {
-				if (Messagebox.ON_YES.equals(event.getName())){
-					final HashMap<String, Object> params = new HashMap<String, Object>();
-					params.put("searchTerm", new String());
-					DataSourceLoader.getInstance().removeRecord(selected, selected.getDiagnosisId());
-					BindUtils.postGlobalCommand(null, null, "search", params);
-					Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	if(!diagnosesList.isEmpty()) {
+	    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (Messagebox.ON_YES.equals(event.getName())){
+						final HashMap<String, Object> params = new HashMap<String, Object>();
+						params.put("searchTerm", new String());
+						DataSourceLoader.getInstance().removeRecord(selected);
+						BindUtils.postGlobalCommand(null, null, "search", params);
+						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+					}
+					
 				}
-				
-			}
-		});
+			});
+    	}
     }
     
     @GlobalCommand
     @Command
-    @NotifyChange("diagnosisList")
+    @NotifyChange("diagnosesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	diagnosisList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	diagnosesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

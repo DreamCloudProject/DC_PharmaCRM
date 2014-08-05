@@ -7,17 +7,17 @@
 
 				<n:ul class="list-inline list-mass-actions pull-left">
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.addAttPersonButton}" zclass="tooltips" onClick="@command('addAttPersonItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.attendantPersons.messages.addAttPersonButton}" zclass="tooltips" onClick="@command('addAttPersonItem')">
 							<n:i class="fa fa-plus-square fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.editAttPersonButton}" zclass="tooltips" onClick="@command('editAttPersonItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.attendantPersons.messages.editAttPersonButton}" zclass="tooltips" onClick="@command('editAttPersonItem')">
 							<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.messages.removeAttPersonButton}" zclass="tooltips" onClick="@command('removeAttPersonItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.attendantPersons.messages.removeAttPersonButton}" zclass="tooltips" onClick="@command('removeAttPersonItem')">
 							<n:i class="fa fa-trash-o fa-2x"></n:i>
 						</a>
 					</n:li>							

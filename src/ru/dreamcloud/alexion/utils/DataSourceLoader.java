@@ -71,6 +71,28 @@ public class DataSourceLoader {
 			e.printStackTrace();
 		}
 	}
+	
+	public void updateRecord(Object entity) {
+		Class<?> entityClass = entity.getClass();
+		Object pk = factory.getPersistenceUnitUtil().getIdentifier(entity);
+		Object entityObject = em.find(entityClass, pk);
+		try {
+			for (Field f : entityClass.getDeclaredFields()) {
+				if (!Modifier.isStatic(f.getModifiers())) {
+					f.setAccessible(true);
+					//System.out.println(f.getName() + ": " + f.get(entityObject) + " = " + f.get(entity));
+					if (f.get(entity) != null) {
+						f.set(entityObject, f.get(entity));
+					}	
+				}			
+			}
+			em.getTransaction().begin();
+			em.persist(entityObject);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void removeRecord(Object entity, Object pk) {
 		Object entityObject = em.find(entity.getClass(), pk);
@@ -86,8 +108,6 @@ public class DataSourceLoader {
 		em.getTransaction().begin();
 		em.remove(entityObject);
 		em.getTransaction().commit();
-	
-
 	}
 	
 	public List<Object> getAllEntities(String where) {

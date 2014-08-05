@@ -28,7 +28,7 @@ public class MedicalExpert implements Serializable {
 	@Column(name="medical_expert_id")
 	private int medicalExpertId;
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 

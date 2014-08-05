@@ -82,7 +82,7 @@ public class ResolutionWindowViewModel {
 		}
 
 		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentResolutionItem, currentResolutionItem.getResolutionId());
+			DataSourceLoader.getInstance().updateRecord(currentResolutionItem);
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

@@ -16,32 +16,33 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.alexion.model.Resolution;
+import ru.dreamcloud.alexion.model.AttendantPerson;
+import ru.dreamcloud.alexion.model.Nurse;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
-public class ResolutionViewModel {
+public class NurseViewModel {
 
 	/**************************************
 	 * Property selected
 	 ***************************************/
-	private Resolution selected;
+	private Nurse selected;
 
-	public Resolution getSelected() {
+	public Nurse getSelected() {
 		return selected;
 	}
 
-	public void setSelected(Resolution selected) {
+	public void setSelected(Nurse selected) {
 		this.selected = selected;
 	}
 
 	/**************************************
-	 * Property resolutionsList
+	 * Property attPersonsList
 	 ***************************************/
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private ArrayList<Resolution> resolutionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", null));
+	private ArrayList<Nurse> nursesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Nurse", null));
 
-	public ArrayList<Resolution> getResolutionsList() {
-		return resolutionsList;
+	public ArrayList<Nurse> getNursesList() {
+		return nursesList;
 	}
 
 	/**************************************
@@ -49,37 +50,37 @@ public class ResolutionViewModel {
 	 ***************************************/
 	@Init
 	public void init() {
-		if (!resolutionsList.isEmpty()) {
-			selected = resolutionsList.get(0);
+		if (!nursesList.isEmpty()) {
+			selected = nursesList.get(0);
 		}
 	}
 	
     @Command
-    @NotifyChange("resolutionsList")
-    public void addResolutionItem() {
+    @NotifyChange("nursesList")
+    public void addNurseItem() {
     	final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("resolutionItem", null);
+    	params.put("nurseItem", null);
     	params.put("actionType", "NEW");
-    	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/resolutionwindow.zul", null, params);
+    	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/nursewindow.zul", null, params);
         window.doModal();
     }
     
     @Command
-    @NotifyChange("resolutionsList")
-    public void editResolutionItem() {
-    	if(!resolutionsList.isEmpty()) {
+    @NotifyChange("nursesList")
+    public void editNurseItem() {
+    	if(!nursesList.isEmpty()) {
 	    	final HashMap<String, Object> params = new HashMap<String, Object>();
-	    	params.put("resolutionItem", selected);
+	    	params.put("nurseItem", selected);
 	    	params.put("actionType", "EDIT");
-	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/resolutionwindow.zul", null, params);
+	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/nursewindow.zul", null, params);
 	        window.doModal();
     	}
     }
     
     @Command
-    @NotifyChange("resolutionsList")
-    public void removeResolutionItem() {
-    	if(!resolutionsList.isEmpty()) {
+    @NotifyChange("nursesList")
+    public void removeNurseItem() {
+    	if(!nursesList.isEmpty()) {
 	    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
 				@Override
 				public void onEvent(Event event) throws Exception {
@@ -98,9 +99,9 @@ public class ResolutionViewModel {
     
     @GlobalCommand
     @Command
-    @NotifyChange("resolutionsList")
+    @NotifyChange("nursesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	resolutionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	nursesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Nurse", "e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
     }
 
 }

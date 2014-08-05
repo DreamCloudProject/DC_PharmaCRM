@@ -114,6 +114,7 @@ $(document).ready(function(){
 	Custom Scrollbar
     ----------------------------------------------------------*/    
     (function() {
+    	$('html').niceScroll();
     	$('.z-window-content').niceScroll();
 		if($('.overflow')[0]) {
 		    var overflowRegular, overflowInvisible = false;

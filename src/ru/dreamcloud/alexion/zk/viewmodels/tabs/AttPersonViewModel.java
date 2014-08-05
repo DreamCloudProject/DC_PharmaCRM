@@ -67,29 +67,33 @@ public class AttPersonViewModel {
     @Command
     @NotifyChange("attPersonsList")
     public void editAttPersonItem() {
-    	final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("attPersonItem", selected);
-    	params.put("actionType", "EDIT");
-        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/attpersonwindow.zul", null, params);
-        window.doModal();
+    	if(!attPersonsList.isEmpty()) {
+	    	final HashMap<String, Object> params = new HashMap<String, Object>();
+	    	params.put("attPersonItem", selected);
+	    	params.put("actionType", "EDIT");
+	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/attpersonwindow.zul", null, params);
+	        window.doModal();
+    	}
     }
     
     @Command
     @NotifyChange("attPersonsList")
     public void removeAttPersonItem() {
-    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-			@Override
-			public void onEvent(Event event) throws Exception {
-				if (Messagebox.ON_YES.equals(event.getName())){
-					final HashMap<String, Object> params = new HashMap<String, Object>();
-					params.put("searchTerm", new String());
-					DataSourceLoader.getInstance().removeRecord(selected, selected.getAttPersonId());
-					BindUtils.postGlobalCommand(null, null, "search", params);
-					Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	if(!attPersonsList.isEmpty()) {
+	    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (Messagebox.ON_YES.equals(event.getName())){
+						final HashMap<String, Object> params = new HashMap<String, Object>();
+						params.put("searchTerm", new String());
+						DataSourceLoader.getInstance().removeRecord(selected);
+						BindUtils.postGlobalCommand(null, null, "search", params);
+						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+					}
+					
 				}
-				
-			}
-		});
+			});
+    	}
     }
     
     @GlobalCommand
