@@ -167,7 +167,9 @@ public class AttPersonWindowViewModel {
 		if (this.actionType.equals("NEW")) {
 			currentAttPersonItem = new AttendantPerson();
 			contactInfoItem = new ContactInfo();
-			currentAttPersonItem.setContactInfo(contactInfoItem);			
+			currentAttPersonItem.setContactInfo(contactInfoItem);
+			addressList = new ArrayList<Address>();
+			phonesList = new ArrayList<PhoneNumber>();
 		}
 
 		if (this.actionType.equals("EDIT")) {

@@ -1,7 +1,7 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.AttPersonViewModel')">
-		<n:div class="col-md-12 clearfix">
+		<n:div class="listview list-container">
 
 			<n:header class="listview-header media">
 

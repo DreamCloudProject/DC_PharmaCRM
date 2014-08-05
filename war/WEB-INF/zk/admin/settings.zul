@@ -68,7 +68,7 @@
 							</n:li>
 						</n:ul>
 
-						<n:div class="tab-content">
+						<n:div class="tab-content" style="padding:0;">
 							<n:div class="tab-pane ${each.key == 'nurses' ? 'active' : ''}" id="${each.key}" forEach="${labels.pages.admin.settings.tabs}">
 								<include src="/WEB-INF/zk/admin/tabs/${each.key}.zul" />									
 							</n:div>
