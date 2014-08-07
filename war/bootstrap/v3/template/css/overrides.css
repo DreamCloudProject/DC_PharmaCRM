@@ -126,3 +126,35 @@
 .z-listbox-odd.z-listitem {
 	background: none;	
 }
+
+.z-combobox{
+	margin:7px; 
+	width: 100%;	
+}
+.z-combobox-popup{
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.z-combobox-popup,
+.z-combobox-content {	
+	background: rgba(0, 0, 0, 0.54);	
+}
+
+.z-comboitem {
+	color: #fff;	
+}
+
+.z-comboitem-selected {
+	background: rgba(100, 100, 100, 0.36);
+}
+
+.z-comboitem:hover {	
+	background: rgba(0, 0, 0, 0.64);
+}
+
+.z-combobox input{
+	color: #fff;
+	background: none;
+	width: 100%;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+}

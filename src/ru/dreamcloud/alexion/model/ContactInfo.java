@@ -24,16 +24,10 @@ CREATE TABLE `contact_info` (
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `region` int(11) DEFAULT NULL,
-  `phone` int(11) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
-  `address` int(11) DEFAULT NULL,
   PRIMARY KEY (`contact_id`),
   UNIQUE KEY `contact_id_UNIQUE` (`contact_id`),
   KEY `fk_region_idx` (`region`),
-  KEY `fk_phone_idx` (`phone`),
-  KEY `fk_address_idx` (`address`),
-  CONSTRAINT `fk_phone` FOREIGN KEY (`phone`) REFERENCES `phone_numbers` (`phone_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_address` FOREIGN KEY (`address`) REFERENCES `addresses` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_region` FOREIGN KEY (`region`) REFERENCES `regions` (`region_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */

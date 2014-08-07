@@ -27,13 +27,13 @@ CREATE TABLE `events` (
   `description` varchar(1024) DEFAULT NULL,
   `date_time_start` datetime NOT NULL,
   `date_time_end` datetime NOT NULL,
-  `patient` int(11) DEFAULT NULL,
   `notification_create_flag` varchar(5) DEFAULT NULL,
   `message_type` enum('READ','UNREAD') DEFAULT NULL,
+  `patient_history` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
-  KEY `fk_patient_id_idx` (`patient`),
-  CONSTRAINT `fk_patient_event` FOREIGN KEY (`patient`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ph_event_idx` (`patient_history`),
+  CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
@@ -56,8 +56,8 @@ public class Event implements Serializable{
 	private Date dateTimeEnd;
 
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "patient")
-	private Patient patient;
+    @JoinColumn(name = "patient_history")
+	private PatientHistory patientHistory;
 	
 	@Column(name="notification_create_flag")
 	private String notificationCreateFlag;
@@ -74,15 +74,6 @@ public class Event implements Serializable{
 	
 	public Event() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public Event(String title, String description, Date dateTimeStart, Date dateTimeEnd, Patient patient, String notificationCreateFlag) {
-		setTitle(title);
-		setDescription(description);
-		setDateTimeStart(dateTimeStart);
-		setDateTimeEnd(dateTimeEnd);
-		setNotificationCreateFlag(notificationCreateFlag);
-		setPatient(patient);
 	}
 
 	public Integer getEventId() {
@@ -123,14 +114,14 @@ public class Event implements Serializable{
 
 	public void setDateTimeEnd(Date dateTimeEnd) {
 		this.dateTimeEnd = dateTimeEnd;
+	}	
+
+	public PatientHistory getPatientHistory() {
+		return patientHistory;
 	}
 
-	public Patient getPatient() {
-		return patient;
-	}
-
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setPatientHistory(PatientHistory patientHistory) {
+		this.patientHistory = patientHistory;
 	}
 
 	public String getNotificationCreateFlag() {

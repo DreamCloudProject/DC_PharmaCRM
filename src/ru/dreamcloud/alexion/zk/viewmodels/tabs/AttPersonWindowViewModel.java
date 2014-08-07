@@ -174,10 +174,10 @@ public class AttPersonWindowViewModel {
 		itemsToRemove = new ArrayList<Object>();
 		addressItem = new Address();
 		phoneItem = new PhoneNumber();
+		contactInfoItem = new ContactInfo();
 		
 		if (this.actionType.equals("NEW")) {
 			currentAttPersonItem = new AttendantPerson();
-			contactInfoItem = new ContactInfo();
 			currentAttPersonItem.setContactInfo(contactInfoItem);
 			addressList = new ArrayList<Address>();
 			phonesList = new ArrayList<PhoneNumber>();
@@ -186,8 +186,8 @@ public class AttPersonWindowViewModel {
 		if (this.actionType.equals("EDIT")) {
 			currentAttPersonItem = currentItem;			
 			contactInfoItem = currentItem.getContactInfo();
-			addressList = contactInfoItem.getAddressList();
-			phonesList = contactInfoItem.getPhonesList();
+			addressList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Address", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
+			phonesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PhoneNumber", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
 		}
 	}
 	
@@ -218,8 +218,7 @@ public class AttPersonWindowViewModel {
     public void addNewAddress() {
     	addressItem.setContactInfo(contactInfoItem);
     	addressList.add(addressItem);
-    	addressItem = new Address();
-    	
+    	Clients.showNotification("Адрес добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
     @Command
@@ -227,6 +226,7 @@ public class AttPersonWindowViewModel {
     public void removeAddress(@BindingParam("addressItem") final Address adrItem) {
     	itemsToRemove.add(adrItem);
     	addressList.remove(adrItem);
+    	Clients.showNotification("Адрес удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
     }
     
     @Command
@@ -234,7 +234,7 @@ public class AttPersonWindowViewModel {
     public void addNewPhoneNumber() {
     	phoneItem.setContactInfo(contactInfoItem);
     	phonesList.add(phoneItem);
-    	phoneItem = new PhoneNumber();    	
+    	Clients.showNotification("Номер телефона добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
 
@@ -243,6 +243,7 @@ public class AttPersonWindowViewModel {
     public void removePhoneNumber(@BindingParam("phoneItem") final PhoneNumber phnItem) {
     	itemsToRemove.add(phnItem);
     	phonesList.remove(phnItem);
+    	Clients.showNotification("Номер телефона удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
     }
 	
 	@Command

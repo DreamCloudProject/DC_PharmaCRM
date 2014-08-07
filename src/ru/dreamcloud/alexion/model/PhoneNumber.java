@@ -14,7 +14,7 @@ CREATE TABLE `phone_numbers` (
   PRIMARY KEY (`phone_id`),
   KEY `fk_contact_info_phone_idx` (`contact_info`),
   CONSTRAINT `fk_contact_info_phone` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
 @Entity

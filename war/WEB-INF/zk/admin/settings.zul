@@ -62,13 +62,13 @@
 				<!-- Tab -->
 				<n:div class="tab-container">
 					<n:ul class="nav tab nav-tabs">
-						<n:li class="${each.key == 'nurses' ? 'active' : ''}" forEach="${labels.pages.admin.settings.tabs}">
+						<n:li class="${each.key == 'diagnoses' ? 'active' : ''}" forEach="${labels.pages.admin.settings.tabs}">
 							<n:a href="#${each.key}">${each.value.name}</n:a>
 						</n:li>
 					</n:ul>
 
 					<n:div class="tab-content" style="padding:0;">
-						<n:div class="tab-pane ${each.key == 'nurses' ? 'active' : ''}" id="${each.key}" forEach="${labels.pages.admin.settings.tabs}">
+						<n:div class="tab-pane ${each.key == 'diagnoses' ? 'active' : ''}" id="${each.key}" forEach="${labels.pages.admin.settings.tabs}">
 							<include src="/WEB-INF/zk/admin/tabs/${each.key}.zul" />									
 						</n:div>
 					</n:div>
@@ -100,7 +100,10 @@
 
 		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/feeds.min.js"></n:script>
 		<!-- News Feeds -->
-
+		
+		<!-- Yandex Maps API -->
+		<n:script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></n:script>
+		
 		<!-- All JS functions -->
 		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
 

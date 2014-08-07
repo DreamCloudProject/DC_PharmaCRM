@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    /* --------------------------------------------------------
+	Yandex Maps
+    -----------------------------------------------------------*/
+
     
     /* --------------------------------------------------------
 	Components
@@ -116,6 +120,8 @@ $(document).ready(function(){
     (function() {
     	$('html').niceScroll();
     	$('.z-window-content').niceScroll();
+    	$('.z-combobox-popup').niceScroll();
+    	
 		if($('.overflow')[0]) {
 		    var overflowRegular, overflowInvisible = false;
 		    overflowRegular = $('.overflow').niceScroll();

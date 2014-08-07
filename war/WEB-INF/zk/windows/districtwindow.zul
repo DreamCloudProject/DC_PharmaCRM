@@ -1,0 +1,109 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="DistrictWindow" title="${labels.pages.admin.settings.tabs.districtsAndRegions.messages.windowTitle}"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		maximizable="false"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DistrictWindowViewModel')"
+		width="100%" height="640px"
+		contentStyle="position:relative; overflow:auto">
+
+		<!-- Horizontal -->
+		<n:div class="block-area">			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Заголовок"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.currentDistrictItem.title)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Описание"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.currentDistrictItem.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Форма добавления нового региона</n:h3>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Регион"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="RegionsCombobox" placeholder="..." selectedItem="@bind(vm.regionItem)" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRegionsList)">
+						<template name="model">
+        					<comboitem label="${each.title}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Описание"></label>
+												
+				<n:div class="col-md-10">
+					<textbox value="@bind(vm.regionItem.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewRegion" zclass="btn btn-success" label="Прикрепить регион" onClick="@command('addNewRegion')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+				
+		<n:hr class=" whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Регионы федерального округа</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="RegionListbox" emptyMessage="Не добавлено ни одного региона" mold="paging" sclass="m-b-10" model="@load(vm.currentRegionsList)" zclass="listview">
+						<template name="model" var="region">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-puzzle-piece fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(region.title)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><label value="@load(region.description)"/></n:small>
+											</n:span>
+											<n:div class="list-options">
+												<button sclass="btn btn-success" label="Открепить" onClick="@command('unlinkRegion', regionItem=region)" />
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>	
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div zclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
+	</window>	
+	<!-- UX -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	<!-- Custom Scrollbar -->
+	<!-- All JS functions -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
+</zk>

@@ -16,7 +16,7 @@ CREATE TABLE `nurses` (
   PRIMARY KEY (`nurse_id`),
   KEY `fk_contact_info_nurse_idx` (`contact_info`),
   CONSTRAINT `fk_contact_info_nurse` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 @Entity
 @Table(name="nurses")

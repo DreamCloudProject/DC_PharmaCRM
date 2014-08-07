@@ -13,7 +13,7 @@ CREATE TABLE `projects` (
   PRIMARY KEY (`project_id`),
   UNIQUE KEY `project_id_UNIQUE` (`project_id`),
   UNIQUE KEY `title_UNIQUE` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity

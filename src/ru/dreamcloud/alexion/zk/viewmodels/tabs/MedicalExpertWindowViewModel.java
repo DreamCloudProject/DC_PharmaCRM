@@ -20,29 +20,29 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Address;
-import ru.dreamcloud.alexion.model.Nurse;
+import ru.dreamcloud.alexion.model.MedicalExpert;
 import ru.dreamcloud.alexion.model.ContactInfo;
 import ru.dreamcloud.alexion.model.PhoneNumber;
 import ru.dreamcloud.alexion.model.PhoneType;
 import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
-public class NurseWindowViewModel {
+public class MedicalExpertWindowViewModel {
 
-	@Wire("#NurseWindow")
+	@Wire("#MedicalExpertWindow")
 	private Window win;
 	
 	/**************************************
-	 * Property currentNurseItem
+	 * Property currentMedicalExpertItem
 	 ***************************************/
-	private Nurse currentNurseItem;
+	private MedicalExpert currentMedicalExpertItem;
 	
-	public Nurse getCurrentNurseItem() {
-		return currentNurseItem;
+	public MedicalExpert getCurrentMedicalExpertItem() {
+		return currentMedicalExpertItem;
 	}
 
-	public void setCurrentNurseItem(Nurse currentNurseItem) {
-		this.currentNurseItem = currentNurseItem;
+	public void setCurrentMedicalExpertItem(MedicalExpert currentMedicalExpertItem) {
+		this.currentMedicalExpertItem = currentMedicalExpertItem;
 	}
 	
 	/**************************************
@@ -167,7 +167,7 @@ public class NurseWindowViewModel {
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
-					 @ExecutionArgParam("nurseItem") Nurse currentItem,
+					 @ExecutionArgParam("medicalExpertItem") MedicalExpert currentItem,
 					 @ExecutionArgParam("actionType") String currentAction) {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
@@ -177,14 +177,14 @@ public class NurseWindowViewModel {
 		contactInfoItem = new ContactInfo();
 		
 		if (this.actionType.equals("NEW")) {
-			currentNurseItem = new Nurse();			
-			currentNurseItem.setContactInfo(contactInfoItem);
+			currentMedicalExpertItem = new MedicalExpert();
+			currentMedicalExpertItem.setContactInfo(contactInfoItem);
 			addressList = new ArrayList<Address>();
 			phonesList = new ArrayList<PhoneNumber>();
 		}
 
 		if (this.actionType.equals("EDIT")) {
-			currentNurseItem = currentItem;			
+			currentMedicalExpertItem = currentItem;			
 			contactInfoItem = currentItem.getContactInfo();
 			addressList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Address", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
 			phonesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PhoneNumber", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
@@ -200,12 +200,12 @@ public class NurseWindowViewModel {
 		contactInfoItem.setPhonesList(phonesList);
 		
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentNurseItem);
+			DataSourceLoader.getInstance().addRecord(currentMedicalExpertItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
 		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentNurseItem);
+			DataSourceLoader.getInstance().updateRecord(currentMedicalExpertItem);
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		
