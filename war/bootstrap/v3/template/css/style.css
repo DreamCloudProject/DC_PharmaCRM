@@ -486,14 +486,14 @@ ul.menu-item a.active {
 
 /* Shortcuts */
 .shortcut {
-    width: 73px;
-    height: 85px;
-    display: inline-block;
-    margin: 0 10px 0 0;
-    text-align: center;
-    padding: 11px 10px 0;
-    position: relative;
-    vertical-align: top;
+    width: 100px;
+	height: 100px;
+	display: inline-block;
+	margin: 0 10px 0 0;
+	text-align: center;
+	padding: 8px 22px;
+	position: relative;
+	vertical-align: top;
 }
 
 .shortcut > i {

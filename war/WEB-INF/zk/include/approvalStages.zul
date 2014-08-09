@@ -1,87 +1,43 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<zscript>
-		<![CDATA[			
-			void move(Component dragged) {		
-				self.appendChild(dragged);
-			}
-		]]>
-	</zscript>
-	<n:div class="row">
-		<div zclass="col-md-3 col-xs-6">
-			<div zclass="tile">
-				<n:h2 class="tile-title">Stage 1</n:h2>
-				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
-					droppable="true">
-					<div zclass="media" draggable="true">		                        
-	                       <div zclass="media-body">
-	                           Иванов Иван Петрович
-	                           <div zclass="list-options">
-	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
-	                           </div>
-	                       </div>
-	                   </div>							
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ApprovalStagesVM')">
+		<div sclass="row" children="@load(vm.approvalStages)">
+			<template name="children" var="resolutionItem">
+				<div zclass="col-lg-${vm.lgClassType} col-md-${vm.mdClassType} col-xs-${vm.xsClassType}">
+					<div zclass="tile">
+						<n:h2 class="tile-title">${resolutionItem.title}</n:h2>
+						<div zclass="listview" style="height: 410px">
+							<listbox model="@load(vm.retrievePatientHistories(resolutionItem))" emptyMessage="На данном этапе нет ни одной истории пациента" height="100%" onDrop="@command('changeResolution', currentResolutionItem=resolutionItem)" droppable="true">
+								<template name="model" var="patientHistory">
+									<listitem onMouseOver="@command('attachPatientHistory', phItem=patientHistory)" draggable="true">
+										<listcell>
+											<n:div class="media p-l-5">
+												<n:div class="pull-left">
+													<n:i class="fa fa-history fa-2x"></n:i>
+												</n:div>
+												<n:div class="media-body">
+													<n:span class="news-title">
+														<label value="${patientHistory.patient.lastname} ${patientHistory.patient.firstname} ${patientHistory.patient.middlename}" />
+													</n:span>
+													<n:div class="clearfix"></n:div>
+													<n:span>
+														<n:small class="text-muted">
+															<label value="@load(patientHistory.project.title)" />
+														</n:small>																												
+													</n:span>
+													<n:div class="list-options">
+														<button zclass="btn btn-success" label="Просмотреть" onClick="@command('viewPatientHistory', phItem=patientHistory)" />
+													</n:div>
+												</n:div>
+											</n:div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</div>
 				</div>
-			</div>
+			</template>
 		</div>
-	
-		<div zclass="col-md-3 col-xs-6">
-			<div zclass="tile">
-				<n:h2 class="tile-title">Stage 2</n:h2>
-				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
-					droppable="true">
-					<div zclass="media" draggable="true">		                        
-	                       <div zclass="media-body">
-	                           Кошкина Лидия Михайловна
-	                           <div zclass="list-options">
-	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
-	                           </div>
-	                       </div>
-	                   </div>
-	                  	<div zclass="media" draggable="true">		                        
-	                       <div zclass="media-body">
-	                           Барсук Николай Сидорович
-	                           <div zclass="list-options">
-	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
-	                           </div>
-	                       </div>
-	                   </div>							
-				</div>
-			</div>
-		</div>
-	
-		<div zclass="col-md-3 col-xs-6">
-			<div zclass="tile">
-				<n:h2 class="tile-title">Stage 3</n:h2>
-				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
-					droppable="true">
-					<div zclass="media" draggable="true">		                        
-	                       <div zclass="media-body">
-	                           Петрова Мария Анатольевна
-	                           <div zclass="list-options">
-	                               <n:button class="btn btn-sm">Открыть карточку</n:button>
-	                           </div>
-	                       </div>
-	                   </div>							
-				</div>
-			</div>
-		</div>
-	
-		<div zclass="col-md-3 col-xs-6">
-			<div zclass="tile">
-				<n:h2 class="tile-title">Stage 4</n:h2>
-				<div zclass="listview" style="height: 210px" onDrop="move(event.dragged)"
-					droppable="true">
-					<div zclass="media" draggable="true">		                        
-	                       <div zclass="media-body">
-	                           Кукушкин Василий Григорьевич 
-	                           <div zclass="list-options">
-	                               <n:button class="btn btn-sm">Открыть карточку</n:button>				                                
-	                           </div>
-	                       </div>
-	                   </div>							
-				</div>
-			</div>
-		</div>
-	</n:div>
+	</div>
 </zk>

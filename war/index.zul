@@ -48,19 +48,18 @@
 				<include src="/WEB-INF/zk/include/notifications.zul" />
 
 				<n:h4 class="page-title">${labels.panels.index.name}</n:h4>
+				
+				<include src="/WEB-INF/zk/include/shortcutMenu.zul"/>
+				
+				<n:hr class="whiter" />
 								
-				<div zclass="col-md-12 clearfix">
+				<div zclass="block-area">					
 
-					<include src="/WEB-INF/zk/include/approvalStages.zul" />
-					
-					<n:hr class="whiter" />
-	               
-	               	<n:div class="row">
-	               		<div zclass="col-md-12 clearfix">          		
-							<include src="/WEB-INF/zk/include/calendar.zul" />
-						</div>				
-					</n:div>
-				</div>		
+					<include src="/WEB-INF/zk/include/approvalStages.zul" />				               
+
+				</div>
+				
+				<n:hr class="whiter" />			
 
 			</n:section>
 			

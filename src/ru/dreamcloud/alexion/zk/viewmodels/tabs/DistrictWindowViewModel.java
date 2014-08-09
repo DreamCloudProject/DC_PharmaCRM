@@ -10,13 +10,19 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+
+import bsh.This;
 
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
@@ -72,6 +78,19 @@ public class DistrictWindowViewModel {
 		this.regionItem = regionItem;
 	}
 	
+	/**************************************
+	 * Property newRegionTitle
+	 ***************************************/
+	private String newRegionTitle;	
+	
+	public String getNewRegionTitle() {
+		return newRegionTitle;
+	}
+
+	public void setNewRegionTitle(String newRegionTitle) {
+		this.newRegionTitle = newRegionTitle;
+	}
+
 	/**************************************
 	 * Property currentRegionsList
 	 ***************************************/
@@ -146,15 +165,39 @@ public class DistrictWindowViewModel {
 	
     @Command
     @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
-    public void addNewRegion() {
-    	if(!currentRegionsList.contains(regionItem)){
-			regionItem.setDistrict(currentDistrictItem);
-			currentRegionsList.add(regionItem);
-			Clients.showNotification("Регион "+regionItem.getTitle()+" прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    public void addNewRegion() {    	
+    	if(allRegionsList.contains(regionItem)){
+	    	if(!currentRegionsList.contains(regionItem)){
+				regionItem.setDistrict(currentDistrictItem);
+				currentRegionsList.add(regionItem);
+				Clients.showNotification("Регион '"+regionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+	    	} else {
+	    		Clients.showNotification("Данный регион уже прикриплен!", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
+	    	}
     	} else {
-    		Clients.showNotification("Данный регион уже прикриплен!", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
+	    	Messagebox.show("Текущего региона нет в базе данных. Хотите ли вы его добавить?", "Новый регион", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+				@Override				
+				public void onEvent(Event event) throws Exception {
+					if (Messagebox.ON_YES.equals(event.getName())){
+						BindUtils.postGlobalCommand(null, null, "createNewRegion", null);											
+					}
+				}
+	    	});
+	    	
     	}
     }
+    
+    @GlobalCommand
+    @Command
+    @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
+    public void createNewRegion(){
+		regionItem = new Region();
+		regionItem.setTitle(newRegionTitle);
+		regionItem.setDescription(currentDistrictItem.getTitle());
+		regionItem.setDistrict(currentDistrictItem);
+		currentRegionsList.add(regionItem);
+		Clients.showNotification("Регион '"+regionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    }    
 	
 	@Command
 	@NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})

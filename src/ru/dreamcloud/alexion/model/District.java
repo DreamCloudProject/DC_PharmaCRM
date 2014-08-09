@@ -44,7 +44,7 @@ public class District implements Serializable{
 		setDescription(description);
 	}
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="district")
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="district")
     private List<Region> regions;
 	
 	public Integer getDistrictId() {

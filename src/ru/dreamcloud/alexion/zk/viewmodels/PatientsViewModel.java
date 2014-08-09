@@ -14,18 +14,6 @@ import ru.dreamcloud.alexion.model.Patient;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
 public class PatientsViewModel {
-	/**************************************
-	  Property selected	 
-	***************************************/
-	private String postMessage;
-	
-	public String getPostMessage() {
-		return postMessage;
-	}
-
-	public void setPostMessage(String postMessage) {
-		this.postMessage = postMessage;
-	}
 
 	/**************************************
 	  Property selected	 

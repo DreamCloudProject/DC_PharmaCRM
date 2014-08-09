@@ -16,6 +16,7 @@ CREATE TABLE `patient_histories` (
   `medical_expert` int(11) DEFAULT NULL,
   `nurse` int(11) DEFAULT NULL,
   `project` int(11) DEFAULT NULL,
+  `status` enum('OPEN','CLOSED') DEFAULT NULL,
   PRIMARY KEY (`patient_histories_id`),
   UNIQUE KEY `patient_hystories_id_UNIQUE` (`patient_histories_id`),
   KEY `fk_resolution_idx` (`resolution`),
@@ -42,29 +43,33 @@ public class PatientHistory implements Serializable {
 	@Column(name="patient_histories_id")
 	private int patientHistoriesId;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "attperson", referencedColumnName = "att_person_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@JoinColumn(name="attperson")
 	private AttendantPerson attperson;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "medical_expert", referencedColumnName = "medical_expert_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@JoinColumn(name="medical_expert")
 	private MedicalExpert medicalExpert;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "nurse", referencedColumnName = "nurse_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "nurse")
 	private Nurse nurse;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "patient", referencedColumnName = "patient_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "patient")
 	private Patient patient;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "project", referencedColumnName = "project_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "project")
 	private Project project;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
-    @JoinColumn(name = "resolution", referencedColumnName = "resolution_id")
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "resolution")
 	private Resolution resolution;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
+	private PatientHistoryStatus patientHistoryStatus;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patientHistory")
     private List<Event> events;
@@ -126,8 +131,16 @@ public class PatientHistory implements Serializable {
 
 	public void setResolution(Resolution resolution) {
 		this.resolution = resolution;
-	}
+	}	
 	
+	public PatientHistoryStatus getPatientHistoryStatus() {
+		return patientHistoryStatus;
+	}
+
+	public void setPatientHistoryStatus(PatientHistoryStatus patientHistoryStatus) {
+		this.patientHistoryStatus = patientHistoryStatus;
+	}
+
 	public List<Event> getEvents() {
 		return events;
 	}

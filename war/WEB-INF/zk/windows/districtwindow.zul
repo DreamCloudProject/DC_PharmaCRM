@@ -33,7 +33,7 @@
 				<label sclass="control-label col-md-2" value="Регион"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="RegionsCombobox" placeholder="..." selectedItem="@bind(vm.regionItem)" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRegionsList)">
+					<combobox id="RegionsCombobox" placeholder="..." selectedItem="@bind(vm.regionItem)" value="@bind(vm.newRegionTitle)" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRegionsList)">
 						<template name="model">
         					<comboitem label="${each.title}" value="${each}"/>
     					</template>

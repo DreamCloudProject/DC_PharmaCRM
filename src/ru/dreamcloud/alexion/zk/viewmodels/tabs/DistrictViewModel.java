@@ -111,6 +111,9 @@ public class DistrictViewModel {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
+						for (Region region : selected.getRegions()) {
+							region.setDistrict(null);
+						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);

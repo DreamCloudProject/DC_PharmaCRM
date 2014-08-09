@@ -11,6 +11,11 @@
 <urlrewrite>
 
 	<rule>
+        <from>^/profile/([^\.]+)$</from>
+        <to>/WEB-INF/zk/profile/$1.zul</to>
+    </rule>
+
+	<rule>
         <from>^/pages/([^\.]+)$</from>
         <to>/WEB-INF/zk/pages/$1.zul</to>
     </rule>
