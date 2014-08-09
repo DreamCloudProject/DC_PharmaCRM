@@ -184,8 +184,10 @@ public class NurseWindowViewModel {
 		}
 
 		if (this.actionType.equals("EDIT")) {
-			currentNurseItem = currentItem;			
-			contactInfoItem = currentItem.getContactInfo();
+			currentNurseItem = currentItem;
+			if(currentItem.getContactInfo() != null){
+				contactInfoItem = currentItem.getContactInfo();
+			}
 			addressList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Address", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
 			phonesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PhoneNumber", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
 		}

@@ -50,7 +50,8 @@
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="addNewRegion" zclass="btn btn-success" label="Прикрепить регион" onClick="@command('addNewRegion')" />					
+					<button id="addNewRegion" zclass="btn btn-success" label="Прикрепить регион" onClick="@command('addNewRegion')" />
+					<button id="removeRegion" zclass="btn btn-success" label="Удалить регион" onClick="@command('removeRegion')" />					
 				</n:div>
 			</n:div>
 		</n:div>

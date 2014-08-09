@@ -22,8 +22,6 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import bsh.This;
-
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
@@ -197,7 +195,31 @@ public class DistrictWindowViewModel {
 		regionItem.setDistrict(currentDistrictItem);
 		currentRegionsList.add(regionItem);
 		Clients.showNotification("Регион '"+regionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-    }    
+    }
+    
+
+    @Command
+    @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
+    public void removeRegion(){
+    	Messagebox.show("Вы хотите удалить '"+regionItem.getTitle()+"' из базы данных?", "Удалить регион", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+			@Override				
+			public void onEvent(Event event) throws Exception {
+				if (Messagebox.ON_YES.equals(event.getName())){
+					BindUtils.postGlobalCommand(null, null, "removeRegionFromDatabase", null);											
+				}
+			}
+    	});
+    }
+    
+    @GlobalCommand
+    @Command
+    @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
+    public void removeRegionFromDatabase(){
+    	unlinkRegion(regionItem);
+    	approveUnlinkRegions();
+    	DataSourceLoader.getInstance().removeRecord(regionItem);    	    	
+    	Clients.showNotification("Регион '"+regionItem.getTitle()+"' удален из базы данных! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    }
 	
 	@Command
 	@NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})

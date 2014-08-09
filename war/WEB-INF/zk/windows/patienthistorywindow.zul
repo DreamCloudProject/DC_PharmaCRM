@@ -2,10 +2,229 @@
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
 	<window id="PatientHistoryWindow" title="${labels.pages.detail.patienthistory.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
-		maximizable="false"
 		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientHistoryWindowViewModel')"
-		width="100%" height="640px"
+		width="100%" height="100%"
 		contentStyle="position:relative; overflow:auto">
+		
+		<n:div class="block-area">			
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Пациент"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="PatientsCombobox" placeholder="..." selectedItem="@bind(vm.patientItem)" value="@bind(vm.newPatientFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allPatientsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewPatient" zclass="btn btn-success" label="Добавить пациента" onClick="@command('addNewPatient')" />										
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Сопровождающий"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewAttPerson" zclass="btn btn-success" label="Добавить сопровождающего" onClick="@command('addNewAttPerson')" />										
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Мед. сестра"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewNurse" zclass="btn btn-success" label="Добавить мед. сестру" onClick="@command('addNewNurse')" />										
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Мед. эксперт"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="MedicalExpertCombobox" placeholder="..." selectedItem="@bind(vm.medicalExpertItem)" value="@bind(vm.newMedicalExpertItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allMedicalExpertsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewMedicalExpert" zclass="btn btn-success" label="Добавить мед. эксперта" onClick="@command('addNewMedicalExpert')" />										
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Этап"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.allResolutionsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allResolutionsList)" selectedItem="@bind(vm.currentPatientHistory.resolution)">
+						<template name="model" var="resolution">
+							<listitem label="${resolution.title}" selected="${resolution.resolutionId == vm.currentPatientHistory.resolution.resolutionId}" value="${resolution}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allResolutionsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного этапа"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Проект"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.allProjectsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allProjectsList)" selectedItem="@bind(vm.currentPatientHistory.project)">
+						<template name="model" var="project">
+							<listitem label="${project.title}" selected="${project.projectId == vm.currentPatientHistory.project.projectId}" value="${project}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allProjectsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного проекта"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>		
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран пациент</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="PatientListbox" emptyMessage="Пациент не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentPatientsList)" zclass="listview" >
+						<template name="model" var="patient">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${patient.lastname} ${patient.firstname} ${patient.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран сопровождающий</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="AttPersonListbox" emptyMessage="Сопровождающий не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentAttPersonsList)" zclass="listview" >
+						<template name="model" var="attPerson">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${attPerson.lastname} ${attPerson.firstname} ${attPerson.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбрана мед. сестра</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="NurseListbox" emptyMessage="Мед. сестра не добавлена" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >
+						<template name="model" var="nurse">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${nurse.lastname} ${nurse.firstname} ${nurse.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран мед. эксперт</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="MedicalExpertListbox" emptyMessage="Мед. эксперт не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentMedicalExpertsList)" zclass="listview" >
+						<template name="model" var="medicalExpert">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${medicalExpert.lastname} ${medicalExpert.firstname} ${medicalExpert.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div sclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="Сохранить" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
 
 	</window>	
 	<!-- UX -->
