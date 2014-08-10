@@ -121,6 +121,7 @@ $(document).ready(function(){
     	$('html').niceScroll();
     	$('.z-window-content').niceScroll();
     	$('.z-combobox-popup').niceScroll();
+    	$('.z-listbox').niceScroll();    	
     	
 		if($('.overflow')[0]) {
 		    var overflowRegular, overflowInvisible = false;

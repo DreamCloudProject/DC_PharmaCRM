@@ -8,6 +8,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 
@@ -18,6 +19,19 @@ import ru.dreamcloud.alexion.utils.DataSourceLoader;
 public class ApprovalStagesVM {
 	
 	private static int MAX_BOOTSTRAP_COLUMNS = 12;
+	
+	/**************************************
+	 * Property currentPatientHistory
+	 ***************************************/	
+	private PatientHistory currentPatientHistory;
+
+	public PatientHistory getCurrentPatientHistory() {
+		return currentPatientHistory;
+	}
+
+	public void setCurrentPatientHistory(PatientHistory currentPatientHistory) {
+		this.currentPatientHistory = currentPatientHistory;
+	}
 
 	/**************************************
 	 * Property approvalStages
@@ -30,20 +44,6 @@ public class ApprovalStagesVM {
 
 	public void setApprovalStages(List<Resolution> approvalStages) {
 		this.approvalStages = approvalStages;
-	}
-	
-	/**************************************
-	 * Property attachedPatientHistory
-	 ***************************************/
-	
-	private PatientHistory attachedPatientHistory;	
-	
-	public PatientHistory getAttachedPatientHistory() {
-		return attachedPatientHistory;
-	}
-
-	public void setAttachedPatientHistory(PatientHistory attachedPatientHistory) {
-		this.attachedPatientHistory = attachedPatientHistory;
 	}
 
 	/**************************************
@@ -105,15 +105,13 @@ public class ApprovalStagesVM {
     }
 	
 	@Command
-	public void attachPatientHistory(@BindingParam("phItem")PatientHistory phItem) {
-	    attachedPatientHistory = phItem;
-	}
-	
-	@Command
 	@NotifyChange("approvalStages")
-	public void changeResolution(@BindingParam("currentResolutionItem")Resolution resItem) {
-		attachedPatientHistory.setResolution(resItem);
-		DataSourceLoader.getInstance().updateRecord(attachedPatientHistory);
+	public void changeResolution(@BindingParam("currentResolutionItem")Resolution resItem,
+								 @BindingParam("targetComponent")Component phDragged) {
+		Object pk = Integer.valueOf(phDragged.getId());
+		currentPatientHistory = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, pk);
+		currentPatientHistory.setResolution(resItem);
+		DataSourceLoader.getInstance().updateRecord(currentPatientHistory);
 	}
 	
 	@Command
