@@ -1,8 +1,20 @@
 /* --------------------------------------------------------
     ZKOSS Overrides
 -----------------------------------------------------------*/
+.z-temp {
+	background: url(../img/body/cloth.png);
+}
+
 .z-temp * {
 	background: none;	
+}
+
+.z-temp .z-loading-indicator {
+	color: #fff;
+}
+
+.z-loading, .z-apply-loading {
+	border: none;
 }
 
 .z-loading-icon {
@@ -10,10 +22,16 @@
 	width: 48px;
 	height: 48px;
 	margin-left: -24px;
-	background: none;
-	background-image: url(/zkau/web/4fce9d5/atlantic/zul/img/misc/progress-large.gif);
+	border-radius: 48px;
+	background: transparent;
+	border: 5px solid rgba(214, 15, 15, 1);
+	border-top: 5px solid rgba(0, 0, 0, 0);
+	border-left: 5px solid rgba(0, 0, 0, 0);
+	background-image: none;
 	position: relative;
 	left: 50%;
+	-moz-animation: spin .5s infinite linear;
+	-webkit-animation: spin .5s infinite linear;
 }
 
 .z-temp, .z-modal-mask, .z-apply-mask {
@@ -21,7 +39,7 @@
 }
 
 .z-temp .z-loading {
-
+	background: none;
 }
 
 .z-loading {
