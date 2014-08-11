@@ -1,6 +1,41 @@
 /* --------------------------------------------------------
     ZKOSS Overrides
 -----------------------------------------------------------*/
+.z-temp * {
+	background: none;	
+}
+
+.z-loading-icon {
+	display: block;
+	width: 48px;
+	height: 48px;
+	margin-left: -24px;
+	background: none;
+	background-image: url(/zkau/web/4fce9d5/atlantic/zul/img/misc/progress-large.gif);
+	position: relative;
+	left: 50%;
+}
+
+.z-temp, .z-modal-mask, .z-apply-mask {
+	position: relative;
+}
+
+.z-temp .z-loading {
+
+}
+
+.z-loading {
+	
+}
+
+.z-loading, .z-apply-loading {
+	
+}
+
+.z-initing {
+	display: none;
+}
+
 .z-auxheader,
 .z-column {
 	background: rgba(0, 0, 0, 0.56);	

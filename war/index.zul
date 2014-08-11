@@ -28,7 +28,7 @@
 	<zscript>
 		<![CDATA[
 			org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
-			org.zkoss.util.resource.Labels.reset();
+			org.zkoss.util.resource.Labels.reset();			
 		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
@@ -65,7 +65,7 @@
 			
 			<include src="/WEB-INF/zk/include/oldVersionBrowser.zul" />
 
-		</n:section>
+		</n:section>		
 	
 		<!-- Javascript Libraries -->
 		<!-- jQuery -->
