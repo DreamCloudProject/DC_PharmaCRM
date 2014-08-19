@@ -30,9 +30,12 @@ CREATE TABLE `events` (
   `notification_create_flag` varchar(5) DEFAULT NULL,
   `message_type` enum('READ','UNREAD') DEFAULT NULL,
   `patient_history` int(11) DEFAULT NULL,
+  `event_reason` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
   KEY `fk_ph_event_idx` (`patient_history`),
+  KEY `fk_er_event_idx` (`event_reason`),
+  CONSTRAINT `fk_er_event` FOREIGN KEY (`event_reason`) REFERENCES `event_reasons` (`event_reason_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
@@ -71,6 +74,10 @@ public class Event implements Serializable{
 	@Enumerated(EnumType.STRING)
 	@Column(name="message_type")
 	private MessageType messageType;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "event_reason")
+	private EventReason eventReason;
 	
 	public Event() {
 		// TODO Auto-generated constructor stub
@@ -155,7 +162,14 @@ public class Event implements Serializable{
 	public void setMessageType(MessageType messageType) {
 		this.messageType = messageType;
 	}
-	
+
+	public EventReason getEventReason() {
+		return eventReason;
+	}
+
+	public void setEventReason(EventReason eventReason) {
+		this.eventReason = eventReason;
+	}
 	
 	
 }

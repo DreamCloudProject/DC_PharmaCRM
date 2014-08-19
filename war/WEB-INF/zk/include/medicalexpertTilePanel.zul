@@ -1,0 +1,118 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.MedicalExpertTilePanelVM')">
+		<n:article class="tile">
+			<n:h2 class="tile-title">Мед. эксперт</n:h2>
+			<n:div class="tile-config dropdown">
+				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
+				<n:ul
+					class="dropdown-menu animated pull-right text-right">
+					<n:li>
+						<n:a class="tile-info-toggle" href="">
+							Редактировать
+						</n:a>
+					</n:li>
+					<n:li>
+						<n:a href="">Открыть карточку</n:a>
+					</n:li>
+				</n:ul>
+			</n:div>
+
+			<div sclass="p-b-15 p-l-15 p-r-15">
+				<div sclass="row">
+					<n:div class="col-lg-6 col-md-12 col-xs-12">
+						<n:h3 class="block-title">Личные данные</n:h3>
+						<n:div class="form-group">
+							<n:strong class="col-md-4 col-xs-6">
+								Фамилия:
+							</n:strong>
+							<label
+								sclass="control-label col-md-8 col-xs-6"
+								value="${vm.currentMedicalExpert.lastname}">
+							</label>
+						</n:div>
+						<n:div class="form-group">
+							<n:strong class="col-md-4 col-xs-6">
+								Имя:
+							</n:strong>
+							<label
+								sclass="control-label col-md-8 col-xs-6"
+								value="${vm.currentMedicalExpert.firstname}">
+							</label>
+						</n:div>
+						<n:div class="form-group">
+							<n:strong class="col-md-4 col-xs-6">
+								Отчество:
+							</n:strong>
+							<label
+								sclass="control-label col-md-8 col-xs-6"
+								value="${vm.currentMedicalExpert.middlename}">
+							</label>
+						</n:div>
+						<n:div class="form-group"
+							if="${not empty vm.currentMedicalExpert.contactInfo.city}">
+							<n:strong class="col-md-4 col-xs-6">
+								Город:
+							</n:strong>
+							<label
+								sclass="control-label col-md-8 col-xs-6"
+								value="${vm.currentMedicalExpert.contactInfo.city}">
+							</label>
+						</n:div>
+						<n:div class="form-group"
+							if="${not empty vm.currentMedicalExpert.contactInfo.country}">
+							<n:strong class="col-md-4 col-xs-6">
+								Страна:
+							</n:strong>
+							<label
+								sclass="control-label col-md-8 col-xs-6"
+								value="${vm.currentMedicalExpert.contactInfo.country}">
+							</label>
+						</n:div>
+					</n:div>
+					<n:div class="col-lg-6 col-md-12 col-xs-12">
+						<n:h3 class="block-title" if="${not empty vm.currentMedicalExpert.contactInfo.addressList}">
+							Адреса
+						</n:h3>
+						<!-- Addresses -->
+						<n:address forEach="${vm.currentMedicalExpert.contactInfo.addressList}">
+							<n:strong>${each.title}</n:strong>
+							<n:br />
+							<n:span if="${not empty each.street}">
+								ул. ${each.street}
+							</n:span>
+							<n:span
+								if="${not empty each.corpsNumber}">
+								корп. ${each.corpsNumber}
+							</n:span>
+							<n:span if="${not empty each.homeNumber}">
+								д. ${each.homeNumber}
+							</n:span>
+							<n:span
+								if="${not empty each.apartmentNumber}">
+								кв. ${each.apartmentNumber}
+							</n:span>
+							<n:br />
+						</n:address>
+
+						<n:h3 class="block-title" if="${not empty vm.currentMedicalExpert.contactInfo.phonesList}">
+							Телефоны
+						</n:h3>
+						<n:address
+							forEach="${vm.currentMedicalExpert.contactInfo.phonesList}">
+							<n:abbr
+								if="${not empty each.phoneType.name}"
+								title="${each.phoneType.name}">
+								${each.phoneType.name}:
+							</n:abbr>
+							${each.phoneNumber}
+						</n:address>
+					</n:div>
+				</div>
+			</div>
+		</n:article>
+
+
+
+	</div>
+</zk>

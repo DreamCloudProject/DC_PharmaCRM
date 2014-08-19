@@ -79,7 +79,7 @@
 }
 
 .z-window {
-	background: rgba(0, 0, 0, 0.68);
+	background: rgba(0, 0, 0, 0.8);
 }
 
 .z-window-content {
@@ -261,18 +261,51 @@
 	line-height: 20px;
 	background: rgba(172, 52, 52, 0.69);
 }
+.z-datebox-input {
+	height: 28px;	
+}
 
+.z-paging-input {
+	height: 22px;
+	vertical-align: baseline;
+}
+
+.z-datebox-popup{
+	background: rgba(255,255,255,0.85);	
+}
+
+.z-calendar-title,
+.z-calendar-icon {
+	color: #000;
+}
+
+.z-calendar-header,
+.z-calendar-header:hover {
+	background: none;	
+}
+
+
+.z-datebox-button{
+	height: 28px;
+	border: 1px solid #5C5C5C;
+	background: none;
+}
+
+.z-datebox-icon{
+	color: #fff;
+	line-height: 24px;
+}
+
+.z-datebox-input,
 .z-paging-input {
 	font-size: 14px;
 	font-weight: 400;
 	font-style: normal;
-	color: #FFF;
-	height: 22px;
+	color: #FFF;	
 	border: 1px solid #5C5C5C;
 	padding: 3px;
 	line-height: 0px;
-	background: none;
-	vertical-align: baseline;
+	background: none;	
 }
 
 .z-paging .z-paging-icon {

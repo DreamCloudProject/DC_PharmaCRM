@@ -3,7 +3,7 @@
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ApprovalStagesVM')">
 		<div sclass="row" children="@load(vm.approvalStages)">
 			<template name="children" var="resolutionItem">
-				<div zclass="col-lg-${vm.lgClassType} col-md-${vm.mdClassType} col-xs-12">
+				<div zclass="col-lg-${vm.lgClassType} col-md-12 col-xs-12">
 					<div zclass="tile">
 						<n:h2 class="tile-title">${resolutionItem.title}</n:h2>
 						<div zclass="listview">

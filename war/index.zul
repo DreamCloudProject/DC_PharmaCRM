@@ -49,7 +49,7 @@
 
 				<n:h4 class="page-title">${labels.panels.index.name}</n:h4>
 				
-				<include src="/WEB-INF/zk/include/shortcutMenu.zul"/>
+				<include patientHistoryPage="false" src="/WEB-INF/zk/include/shortcutMenu.zul"/>
 				
 				<n:hr class="whiter" />
 								

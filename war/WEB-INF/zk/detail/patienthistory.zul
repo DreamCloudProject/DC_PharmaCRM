@@ -1,5 +1,5 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
-<?page id="patientDetailPage" complete="true"?>
+<?page id="patientHistoryDetailPage" complete="true"?>
 <!DOCTYPE html>
 <n:html xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
 	<!--[if IE 9 ]><html class="ie9"><![endif]-->
@@ -55,38 +55,22 @@
 					
 					<n:hr class="whiter" />
 					
-					<include src="/WEB-INF/zk/include/shortcutMenu.zul"/>
+					<include patientHistoryPage="true" src="/WEB-INF/zk/include/shortcutMenu.zul"/>
 					
 					<n:hr class="whiter" />
 					
-					<!-- Paragraph -->
-					
-					<div sclass="block-area">								
-		                <n:article class="tile">		                	
-		                	<n:h2 class="tile-title">Пациент</n:h2>       				
-							<n:div class="tile-config dropdown">
-	                            <n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-	                            <n:ul class="dropdown-menu animated pull-right text-right">
-	                                <n:li><n:a class="tile-info-toggle" href="">Редактировать</n:a></n:li>
-	                                <n:li><n:a href="">Открыть карточку</n:a></n:li>                                        
-	                            </n:ul>
-	                        </n:div>
-	                        
-	                        <div sclass="p-15">
-	                        	<n:h3 class="block-title">Фамилия</n:h3>
-	                        	<n:div class="p-5">									
-									${vm.patientHistory.patient.lastname}									
-								</n:div>
-	                        	<n:h3 class="block-title">Имя</n:h3>
-	                        	<n:div class="p-5">		
-									${vm.patientHistory.patient.firstname}		
-								</n:div>
-	                        	<n:h3 class="block-title">Отчество</n:h3>
-	                        	<n:div class="p-5">		
-									${vm.patientHistory.patient.middlename}			
-								</n:div>	                        	
-	                        </div>
-		                </n:article>
+					<div sclass="block-area">					
+						<div sclass="row">
+							<div sclass="col-lg-8 col-md-8 col-xs-12">									
+								<include currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
+								<include currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
+				                <include currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
+				                <include currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />				                
+			                </div>
+			                <div sclass="col-lg-4 col-md-4 col-xs-12">
+			                	<include src="/WEB-INF/zk/include/eventsTilePanel.zul" />
+			                </div>
+		                </div>
 	                </div>
 	                
 	                <n:hr class="whiter" />
@@ -94,87 +78,15 @@
 	                <div sclass="block-area">
 	                	<div sclass="row">
 	                		<div sclass="col-lg-4 col-md-4 col-xs-12">
-			                	<n:article class="tile">		                	
-				                	<n:h2 class="tile-title">Сопровождающий</n:h2>       				
-									<n:div class="tile-config dropdown">
-			                            <n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-			                            <n:ul class="dropdown-menu animated pull-right text-right">
-			                                <n:li><n:a class="tile-info-toggle" href="">Редактировать</n:a></n:li>
-			                                <n:li><n:a href="">Открыть карточку</n:a></n:li>                                        
-			                            </n:ul>
-			                        </n:div>
-			                        
-			                        <div sclass="p-15">
-			                        	<n:h3 class="block-title">Фамилия</n:h3>
-			                        	<n:div class="p-5">									
-											${vm.patientHistory.attperson.lastname}									
-										</n:div>
-			                        	<n:h3 class="block-title">Имя</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.attperson.firstname}		
-										</n:div>
-			                        	<n:h3 class="block-title">Отчество</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.attperson.middlename}			
-										</n:div>	                        	
-			                        </div>
-				                </n:article>
+
 	                		</div>
 	                		
 	                		<div sclass="col-lg-4 col-md-4 col-xs-12">
-			                	<n:article class="tile">		                	
-				                	<n:h2 class="tile-title">Мед. сестра</n:h2>       				
-									<n:div class="tile-config dropdown">
-			                            <n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-			                            <n:ul class="dropdown-menu animated pull-right text-right">
-			                                <n:li><n:a class="tile-info-toggle" href="">Редактировать</n:a></n:li>
-			                                <n:li><n:a href="">Открыть карточку</n:a></n:li>                                        
-			                            </n:ul>
-			                        </n:div>
-			                        
-			                        <div sclass="p-15">
-			                        	<n:h3 class="block-title">Фамилия</n:h3>
-			                        	<n:div class="p-5">									
-											${vm.patientHistory.nurse.lastname}									
-										</n:div>
-			                        	<n:h3 class="block-title">Имя</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.nurse.firstname}		
-										</n:div>
-			                        	<n:h3 class="block-title">Отчество</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.nurse.middlename}			
-										</n:div>	                        	
-			                        </div>
-				                </n:article>
+
 	                		</div>
 	                		
 	                		<div sclass="col-lg-4 col-md-4 col-xs-12">
-			                	<n:article class="tile">		                	
-				                	<n:h2 class="tile-title">Мед. эксперт</n:h2>       				
-									<n:div class="tile-config dropdown">
-			                            <n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-			                            <n:ul class="dropdown-menu animated pull-right text-right">
-			                                <n:li><n:a class="tile-info-toggle" href="">Редактировать</n:a></n:li>
-			                                <n:li><n:a href="">Открыть карточку</n:a></n:li>                                        
-			                            </n:ul>
-			                        </n:div>
-			                        
-			                        <div sclass="p-15">
-			                        	<n:h3 class="block-title">Фамилия</n:h3>
-			                        	<n:div class="p-5">									
-											${vm.patientHistory.medicalExpert.lastname}									
-										</n:div>
-			                        	<n:h3 class="block-title">Имя</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.medicalExpert.firstname}		
-										</n:div>
-			                        	<n:h3 class="block-title">Отчество</n:h3>
-			                        	<n:div class="p-5">		
-											${vm.patientHistory.medicalExpert.middlename}			
-										</n:div>	                        	
-			                        </div>
-				                </n:article>
+
 	                		</div>			                	
 	                	</div>								
 

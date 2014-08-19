@@ -3,9 +3,13 @@
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ShortcutMenuVM')">
 		<!-- Shortcuts -->
 		<n:div class="block-area shortcut-area">
-		    <a sclass="shortcut tile" href="" onClick="@command('createNewPatientHistory')">
+		    <a if="${!vm.phPage}" sclass="shortcut tile" href="" onClick="@command('createNewPatientHistory')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory.png" alt=""/>
 		        <n:small class="t-overflow">Новая история<n:br/>пациента</n:small>
+		    </a>
+		    <a if="${vm.phPage}" sclass="shortcut tile" href="" onClick="@command('createNewEvent')">
+		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_event.png" alt=""/>
+		        <n:small class="t-overflow">Добавить<n:br/>событие</n:small>
 		    </a>	    
 		</n:div>
 	</div>
