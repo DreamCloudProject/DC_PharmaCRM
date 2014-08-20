@@ -116,7 +116,6 @@
 							Телефоны
 						</n:h3>
 						<n:address forEach="${vm.currentPatient.contactInfo.phonesList}">
-							<n:i class="fa ${each.phoneType.icon}"></n:i>
 							<n:abbr if="${not empty each.phoneType.name}" title="${each.phoneType.name}">
 								${each.phoneType.name}: 
 							</n:abbr>

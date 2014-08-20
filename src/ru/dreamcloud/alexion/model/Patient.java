@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /*
 delimiter $$
@@ -57,7 +58,7 @@ public class Patient implements Serializable {
     @JoinColumn(name = "diagnosis", referencedColumnName = "diagnosis_id")
 	private Diagnosis diagnosis;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 	
@@ -119,6 +120,11 @@ public class Patient implements Serializable {
 
 	public void setContactInfo(ContactInfo contactInfo) {
 		this.contactInfo = contactInfo;
+	}
+	
+	@Transient
+	public String getFullname(){
+		return lastname + " " + firstname + " " + middlename;
 	}
 
 }

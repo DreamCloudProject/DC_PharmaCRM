@@ -4,7 +4,7 @@
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
 		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.EventWindowViewModel')"
-		width="100%" height="100%"
+		width="100%" height="480px"
 		contentStyle="position:relative; overflow:auto">
 
 		<!-- Horizontal -->
@@ -24,33 +24,48 @@
 				</n:div>
 			</n:div>			
 			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Причина события"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.allEventReasonsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allEventReasonsList)" selectedItem="@bind(vm.currentEvent.eventReason)">
+						<template name="model" var="eventReason">
+							<listitem label="${eventReason.title}" selected="${eventReason.eventReasonsId == vm.currentEvent.eventReason.eventReasonsId}" value="${eventReason}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allEventReasonsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одной причины"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>			
+			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Дата иниц. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" onCreate="self.value = new Date()" value="@bind(vm.currentEvent.dateTimeStart)" />
+					<datebox cols="12" format="short" value="@bind(vm.currentEvent.dateTimeStart)" />
 				</n:div>
 			</n:div> 
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Дата заверш. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" onCreate="self.value = new Date()" value="@bind(vm.currentEvent.dateTimeEnd)" />
+					<datebox cols="12" format="short" value="@bind(vm.currentEvent.dateTimeEnd)" />
 				</n:div>
 			</n:div>           
 		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
 		<n:div class="block-area">			
-			<n:h3 class="block-title">Форма добавления документов</n:h3>
+			<n:h3 class="block-title">Документы</n:h3>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Документ"></label>		
-	
-				<n:div class="col-md-10">
+				<n:div class="col-md-12">
 					<listbox id="DocumentsListbox" emptyMessage="Не добавлено ни одного документа" mold="paging" sclass="m-b-10" model="@load(vm.documentList)" zclass="listview">
 						<template name="model" var="document">
 							<listitem>
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">
-											<n:i class="fa fa-file fa-2x"></n:i>
+											<n:i class="fa ${(not empty document.extension.iconName) ? document.extension.iconName : 'fa-file'} fa-2x"></n:i>
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="@load(document.title)"/></n:span>
@@ -69,10 +84,9 @@
 					</listbox>	
 				</n:div>				
 			</n:div>
-			<n:div class="form-group">
-				<div sclass="col-md-2"></div>                    
-				<n:div class="col-md-10">
-					<fileupload label="Загрузить документ" zclass="btn btn-success" onUpload="@command('uploadDocument',file=event.media)"/>					
+			<n:div class="form-group">        
+				<n:div class="col-md-12">
+					<fileupload label="Загрузить документ" zclass="btn btn-success" onUpload="@command('addNewDocument',file=event.media)"/>					
 				</n:div>
 			</n:div>
 		</n:div>	

@@ -20,29 +20,30 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Address;
-import ru.dreamcloud.alexion.model.AttendantPerson;
+import ru.dreamcloud.alexion.model.Diagnosis;
+import ru.dreamcloud.alexion.model.Patient;
 import ru.dreamcloud.alexion.model.ContactInfo;
 import ru.dreamcloud.alexion.model.PhoneNumber;
 import ru.dreamcloud.alexion.model.PhoneType;
 import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
 
-public class AttPersonWindowViewModel {
+public class PatientWindowViewModel {
 
-	@Wire("#AttPersonWindow")
+	@Wire("#PatientWindow")
 	private Window win;
 	
 	/**************************************
-	 * Property currentAttPersonItem
+	 * Property currentPatientItem
 	 ***************************************/
-	private AttendantPerson currentAttPersonItem;
+	private Patient currentPatientItem;
 	
-	public AttendantPerson getCurrentAttPersonItem() {
-		return currentAttPersonItem;
+	public Patient getCurrentPatientItem() {
+		return currentPatientItem;
 	}
 
-	public void setCurrentAttPersonItem(AttendantPerson currentAttPersonItem) {
-		this.currentAttPersonItem = currentAttPersonItem;
+	public void setCurrentPatientItem(Patient currentPatientItem) {
+		this.currentPatientItem = currentPatientItem;
 	}
 	
 	/**************************************
@@ -135,6 +136,19 @@ public class AttPersonWindowViewModel {
 	public void setRegionsList(List<Region> regionsList) {
 		this.regionsList = regionsList;
 	}
+	
+	/**************************************
+	 * Property diagnosesList
+	 ***************************************/
+	private List<Diagnosis> diagnosesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", null));	
+
+	public List<Diagnosis> getDiagnosesList() {
+		return diagnosesList;
+	}
+
+	public void setDiagnosesList(List<Diagnosis> diagnosesList) {
+		this.diagnosesList = diagnosesList;
+	}
 
 	/**************************************
 	 * Property actionType
@@ -167,7 +181,7 @@ public class AttPersonWindowViewModel {
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
-					 @ExecutionArgParam("attPersonItem") AttendantPerson currentItem,
+					 @ExecutionArgParam("patientItem") Patient currentItem,
 					 @ExecutionArgParam("actionType") String currentAction) {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
@@ -177,14 +191,14 @@ public class AttPersonWindowViewModel {
 		contactInfoItem = new ContactInfo();
 		
 		if (this.actionType.equals("NEW")) {
-			currentAttPersonItem = new AttendantPerson();
-			currentAttPersonItem.setContactInfo(contactInfoItem);
+			currentPatientItem = new Patient();			
+			currentPatientItem.setContactInfo(contactInfoItem);
 			addressList = new ArrayList<Address>();
 			phonesList = new ArrayList<PhoneNumber>();
 		}
 
 		if (this.actionType.equals("EDIT")) {
-			currentAttPersonItem = currentItem;
+			currentPatientItem = currentItem;
 			if(currentItem.getContactInfo() != null){
 				contactInfoItem = currentItem.getContactInfo();
 			}
@@ -200,14 +214,14 @@ public class AttPersonWindowViewModel {
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
-		currentAttPersonItem.setContactInfo(contactInfoItem);
+		currentPatientItem.setContactInfo(contactInfoItem);
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentAttPersonItem);
+			DataSourceLoader.getInstance().addRecord(currentPatientItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
 		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentAttPersonItem);
+			DataSourceLoader.getInstance().updateRecord(currentPatientItem);
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

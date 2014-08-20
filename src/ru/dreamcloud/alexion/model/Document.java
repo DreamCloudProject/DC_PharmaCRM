@@ -19,18 +19,19 @@ import javax.persistence.Table;
 
 CREATE TABLE `documents` (
   `document_id` int(11) NOT NULL AUTO_INCREMENT,
-  `extension` varchar(5) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `file_url` varchar(1024) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   `date_modified` datetime DEFAULT NULL,
   `event` int(11) DEFAULT NULL,
+  `extension` int(11) DEFAULT NULL,
   PRIMARY KEY (`document_id`),
-  UNIQUE KEY `document_id_UNIQUE` (`document_id`),
-  KEY `fk_event_idx` (`event`),
+  KEY `fk_event_document_idx` (`event`),
+  KEY `fk_extension_document_idx` (`extension`),
+  CONSTRAINT `fk_extension_document` FOREIGN KEY (`extension`) REFERENCES `extensions` (`extension_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_event_document` FOREIGN KEY (`event`) REFERENCES `events` (`event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8$$
  */
 
 @Entity
@@ -41,7 +42,9 @@ public class Document implements Serializable{
 	@Column(name="document_id")
 	private Integer documentId;
 	
-	private String extension;
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "extension", referencedColumnName = "extension_id")
+	private Extension extension;
 	
 	private String title;
 	
@@ -64,28 +67,19 @@ public class Document implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Document(String extension, String title, String description, String fileURL, Date dateCreated, Date dateModified, Event event) {
-		setExtension(extension);
-		setDescription(description);
-		setFileURL(fileURL);
-		setDateCreated(dateCreated);
-		setDateModified(dateModified);
-		setEvent(event);
-	}
-
 	public Integer getDocumentId() {
 		return documentId;
 	}
 
 	public void setDocumentId(Integer documentId) {
 		this.documentId = documentId;
-	}
+	}	
 
-	public String getExtension() {
+	public Extension getExtension() {
 		return extension;
 	}
 
-	public void setExtension(String extension) {
+	public void setExtension(Extension extension) {
 		this.extension = extension;
 	}
 

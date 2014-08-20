@@ -3,7 +3,9 @@ package ru.dreamcloud.alexion.zk.viewmodels;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
@@ -31,6 +33,8 @@ public class DetailPatientViewModel {
 		Selectors.wireComponents(view, this, false);
 		if(Sessions.getCurrent().getAttribute("patient") != null){
 			setPatient((Patient)Sessions.getCurrent().getAttribute("patient"));
+		} else {
+			Executions.sendRedirect(Labels.getLabel("panels.index.URL"));
 		}
     }    
 

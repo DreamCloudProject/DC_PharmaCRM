@@ -80,5 +80,10 @@ public class Nurse implements Serializable {
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
+	
+	@Transient
+	public String getFullname(){
+		return lastname + " " + firstname + " " + middlename;
+	}
 
 }

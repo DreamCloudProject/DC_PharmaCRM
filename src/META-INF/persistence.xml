@@ -18,6 +18,7 @@
 		<class>ru.dreamcloud.alexion.model.Project</class>
 		<class>ru.dreamcloud.alexion.model.PatientHistory</class>
 		<class>ru.dreamcloud.alexion.model.EventReason</class>
+		<class>ru.dreamcloud.alexion.model.Extension</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>

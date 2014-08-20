@@ -8,6 +8,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
@@ -117,6 +118,6 @@ public class ApprovalStagesVM {
 	@Command
 	public void viewPatientHistory(@BindingParam("phItem")PatientHistory phItem) {
     	Sessions.getCurrent().setAttribute("currentPatientHistory", phItem);
-    	Executions.sendRedirect("/detail/patienthistory");
+    	Executions.sendRedirect(Labels.getLabel("pages.detail.patienthistory.URL"));
 	}
 }

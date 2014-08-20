@@ -103,7 +103,7 @@ public class DataSourceLoader {
 	
 	public void removeRecord(Object entity) {
 		Object pk = factory.getPersistenceUnitUtil().getIdentifier(entity);
-		//System.out.println(id.toString());
+		System.out.println(pk.toString());
 		Object entityObject = em.find(entity.getClass(), pk);
 		em.getTransaction().begin();
 		em.remove(entityObject);

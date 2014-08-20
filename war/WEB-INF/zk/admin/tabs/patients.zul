@@ -1,23 +1,23 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.EventTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.PatientViewModel')">
 		<n:div class="listview list-container">
 
 			<n:header class="listview-header media">
 
 				<n:ul class="list-inline list-mass-actions pull-left">
 					<n:li>
-						<a tooltiptext="${labels.pages.detail.patienthistory.messages.addEventButton}" zclass="tooltips" onClick="@command('addEventItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.patients.messages.addPatientButton}" zclass="tooltips" onClick="@command('addPatientItem')">
 							<n:i class="fa fa-plus-square fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.tabs.events.messages.editEventButton}" zclass="tooltips" onClick="@command('editEventItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.patients.messages.editPatientButton}" zclass="tooltips" onClick="@command('editPatientItem')">
 							<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
 						</a>
 					</n:li>
 					<n:li>
-						<a tooltiptext="${labels.pages.admin.settings.tabs.events.messages.removeEventButton}" zclass="tooltips" onClick="@command('removeEventItem')">
+						<a tooltiptext="${labels.pages.admin.settings.tabs.patients.messages.removePatientButton}" zclass="tooltips" onClick="@command('removePatientItem')">
 							<n:i class="fa fa-trash-o fa-2x"></n:i>
 						</a>
 					</n:li>							
@@ -30,20 +30,24 @@
 				<n:div class="clearfix"></n:div>
 			</n:header>
 			<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
-				mold="paging" pageSize="10" model="@load(vm.patientHistoryItem.events)"
+				mold="paging" pageSize="10" model="@load(vm.patientsList)"
 				selectedItem="@bind(vm.selected)" sclass="tile">
 				<template name="model" var="record">
 					<listitem>
 						<listcell>
 							<n:div class="media p-l-5">
 								<n:div class="pull-left">
-									<n:i class="fa fa-flag fa-2x"></n:i>
+									<n:i class="fa fa-wheelchair fa-2x"></n:i>
 								</n:div>
 								<n:div class="media-body">
-									<n:span class="news-title"><label value="@load(record.title)"/></n:span>
+									<n:span class="news-title"><label value="@load(record.lastname)"/> <label value="@load(record.firstname)"/> <label value="@load(record.middlename)"/></n:span>
 									<n:div class="clearfix"></n:div>
 									<n:span>
-										<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
+										<n:small class="text-muted"><label value="@load(record.contactInfo.city)"/></n:small>
+									</n:span>
+									<n:div class="clearfix"></n:div>
+									<n:span>
+										<n:small class="text-muted"><label value="@load(record.contactInfo.country)"/></n:small>
 									</n:span>
 								</n:div>
 							</n:div>						

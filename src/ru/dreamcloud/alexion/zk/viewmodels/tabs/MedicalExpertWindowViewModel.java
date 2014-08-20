@@ -200,7 +200,7 @@ public class MedicalExpertWindowViewModel {
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
-		
+		currentMedicalExpertItem.setContactInfo(contactInfoItem);
 		if (actionType.equals("NEW")) {
 			DataSourceLoader.getInstance().addRecord(currentMedicalExpertItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
@@ -216,15 +216,16 @@ public class MedicalExpertWindowViewModel {
 	}
 	
     @Command
-    @NotifyChange("addressList")
+    @NotifyChange({"addressList","addressItem"})
     public void addNewAddress() {
     	addressItem.setContactInfo(contactInfoItem);
     	addressList.add(addressItem);
+    	addressItem = new Address();
     	Clients.showNotification("Адрес добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
     @Command
-    @NotifyChange("addressList")
+    @NotifyChange({"addressList","addressItem"})
     public void removeAddress(@BindingParam("addressItem") final Address adrItem) {
     	itemsToRemove.add(adrItem);
     	addressList.remove(adrItem);
@@ -232,16 +233,17 @@ public class MedicalExpertWindowViewModel {
     }
     
     @Command
-    @NotifyChange("phonesList")
+    @NotifyChange({"phonesList","phoneItem"})
     public void addNewPhoneNumber() {
     	phoneItem.setContactInfo(contactInfoItem);
     	phonesList.add(phoneItem);
+    	phoneItem = new PhoneNumber();
     	Clients.showNotification("Номер телефона добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
 
     @Command
-    @NotifyChange("phonesList")
+    @NotifyChange({"phonesList","phoneItem"})
     public void removePhoneNumber(@BindingParam("phoneItem") final PhoneNumber phnItem) {
     	itemsToRemove.add(phnItem);
     	phonesList.remove(phnItem);

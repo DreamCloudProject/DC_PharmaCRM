@@ -49,6 +49,8 @@
 								value="${vm.currentMedicalExpert.middlename}">
 							</label>
 						</n:div>
+						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentMedicalExpert.contactInfo.city) 
+																|| (not empty vm.currentMedicalExpert.contactInfo.country)}"/>
 						<n:div class="form-group"
 							if="${not empty vm.currentMedicalExpert.contactInfo.city}">
 							<n:strong class="col-md-4 col-xs-6">
