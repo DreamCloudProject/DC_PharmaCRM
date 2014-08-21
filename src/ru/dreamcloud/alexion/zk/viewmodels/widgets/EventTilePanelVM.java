@@ -1,7 +1,9 @@
 package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -10,12 +12,14 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.io.Files;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.utils.DataSourceLoader;
@@ -52,10 +56,9 @@ public class EventTilePanelVM {
 	/**************************************
 	 * Property eventsList
 	 ***************************************/
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private ArrayList<Event> eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", null));
+	private List<Event> eventsList;
 
-	public ArrayList<Event> getEventsList() {
+	public List<Event> getEventsList() {
 		return eventsList;
 	}
 
@@ -64,28 +67,21 @@ public class EventTilePanelVM {
 	 ***************************************/
 	@Init
 	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory patientHistory) {
-		patientHistoryItem = patientHistory;
-		if (!eventsList.isEmpty()) {
-			selected = eventsList.get(0);
+		if(patientHistory != null){
+			patientHistoryItem = patientHistory;
+			eventsList = patientHistoryItem.getEvents();
+			if (!eventsList.isEmpty()) {
+				selected = eventsList.get(0);
+			}
 		}
 	}
 	
     @Command
-    @NotifyChange("eventsList")
-    public void addEventItem() {
-    	final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("eventItem", null);
-    	params.put("actionType", "NEW");
-    	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
-        window.doModal();
-    }
-    
-    @Command
-    @NotifyChange("eventsList")
-    public void editEventItem() {
-    	if(!eventsList.isEmpty()) {
+    @NotifyChange({"eventsList","patientHistoryItem"})
+    public void editEventItem(@BindingParam("eventItem") final Event eventItem) {
+    	if(!patientHistoryItem.getEvents().isEmpty()) {
 	    	final HashMap<String, Object> params = new HashMap<String, Object>();
-	    	params.put("eventItem", selected);
+	    	params.put("eventItem", eventItem);
 	    	params.put("actionType", "EDIT");
 	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
 	        window.doModal();
@@ -93,16 +89,20 @@ public class EventTilePanelVM {
     }
     
     @Command
-    @NotifyChange("eventsList")
-    public void removeEventItem() {
-    	if(!eventsList.isEmpty()) {
+    @NotifyChange({"eventsList","patientHistoryItem"})
+    public void removeEventItem(@BindingParam("eventItem") final Event eventItem) {
+    	if(!patientHistoryItem.getEvents().isEmpty()) {
 	    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<org.zkoss.zk.ui.event.Event>() {			
 				@Override
 				public void onEvent(org.zkoss.zk.ui.event.Event event) throws Exception {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
-						DataSourceLoader.getInstance().removeRecord(selected);
+						DataSourceLoader.getInstance().removeRecord(eventItem);
+						for (Document docToDelete : eventItem.getDocuments()) {
+							File fileToDelete = new File(docToDelete.getFileURL());
+							Files.deleteAll(fileToDelete);
+						}
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 					}
@@ -115,9 +115,9 @@ public class EventTilePanelVM {
     
     @GlobalCommand
     @Command
-    @NotifyChange("eventsList")
+    @NotifyChange({"eventsList","patientHistoryItem"})
     public void search(@BindingParam("searchTerm") String term) {
-    	eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and (e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%')"));
     }
 
 }

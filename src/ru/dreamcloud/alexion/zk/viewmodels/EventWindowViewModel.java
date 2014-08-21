@@ -1,6 +1,7 @@
 package ru.dreamcloud.alexion.zk.viewmodels;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -26,7 +27,10 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
@@ -171,7 +175,7 @@ public class EventWindowViewModel {
     }
 	
 	@Command
-	@NotifyChange("currentEvent")
+	@NotifyChange({"currentEvent","patientHistoryItem"})
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
@@ -196,7 +200,7 @@ public class EventWindowViewModel {
 	@Command
 	@NotifyChange({"documentItem","documentList"})
 	public void addNewDocument(@BindingParam("file")Media file) {		
-		String filePath = Labels.getLabel("uploadedContentDir")+"/"+patientHistoryItem.getPatient().getFullname()+"/"+file.getFormat()+"/"+file.getName();
+		String filePath = Labels.getLabel("uploadedContentDir")+patientHistoryItem.getPatient().getFullname()+"/"+file.getFormat()+"/"+file.getName();
 		File newFile = new File(filePath);
 		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
 		uploadFilesList.put(newFile, file.getStreamData());
@@ -217,6 +221,19 @@ public class EventWindowViewModel {
 	
     @Command
     @NotifyChange("documentList")
+    public void openDocument(@BindingParam("documentItem") final Document docItem) {
+    	try {
+    		File requestedFile = new File(docItem.getFileURL());
+			Filedownload.save(requestedFile, null);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
+	
+    @Command
+    @NotifyChange("documentList")
     public void removeDocument(@BindingParam("documentItem") final Document docItem) {
     	itemsToRemove.add(docItem);
     	documentList.remove(docItem);
@@ -230,6 +247,10 @@ public class EventWindowViewModel {
 	
 	private void clearAllRemovedItems(){		
 		for (Object entityObj : itemsToRemove) {
+			if(entityObj instanceof Document){
+				File fileToDelete = new File(((Document)entityObj).getFileURL());
+				Files.deleteAll(fileToDelete);
+			}
 			DataSourceLoader.getInstance().removeRecord(entityObj);
 		}		
 	}
