@@ -13,28 +13,28 @@
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentExtensionItem.title)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentExtensionItem.title) @save(vm.currentExtensionItem.title,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Описание"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentExtensionItem.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentExtensionItem.description) @save(vm.currentExtensionItem.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Имя расширения"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentExtensionItem.extensionName)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentExtensionItem.extensionName) @save(vm.currentExtensionItem.extensionName,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Иконка"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentExtensionItem.iconName)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentExtensionItem.iconName) @save(vm.currentExtensionItem.iconName,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 		</n:div>

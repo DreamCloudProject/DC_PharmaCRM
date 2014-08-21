@@ -200,7 +200,7 @@ public class EventWindowViewModel {
 	@Command
 	@NotifyChange({"documentItem","documentList"})
 	public void addNewDocument(@BindingParam("file")Media file) {		
-		String filePath = Labels.getLabel("uploadedContentDir")+patientHistoryItem.getPatient().getFullname()+"/"+file.getFormat()+"/"+file.getName();
+		String filePath = Labels.getLabel("uploadedContentDir")+patientHistoryItem.getPatient().getFullname()+"/ph"+patientHistoryItem.getPatientHistoriesId()+"/"+file.getName();
 		File newFile = new File(filePath);
 		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
 		uploadFilesList.put(newFile, file.getStreamData());
@@ -235,7 +235,9 @@ public class EventWindowViewModel {
     @Command
     @NotifyChange("documentList")
     public void removeDocument(@BindingParam("documentItem") final Document docItem) {
-    	itemsToRemove.add(docItem);
+    	if(docItem.getDocumentId() != null){
+    		itemsToRemove.add(docItem);
+    	}
     	documentList.remove(docItem);
     	Clients.showNotification("Документ удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);   	
     }

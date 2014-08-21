@@ -12,35 +12,35 @@
 				<label zclass="control-label col-md-2" value="Фамилия"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentMedicalExpertItem.lastname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentMedicalExpertItem.lastname) @save(vm.currentMedicalExpertItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Имя"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentMedicalExpertItem.firstname)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentMedicalExpertItem.firstname) @save(vm.currentMedicalExpertItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Отчество"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentMedicalExpertItem.middlename)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentMedicalExpertItem.middlename) @save(vm.currentMedicalExpertItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Город"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.contactInfoItem.city)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.contactInfoItem.city) @save(vm.contactInfoItem.city,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Регион"></label>
 		
 				<n:div class="col-md-10">
-					<listbox if="${not empty vm.regionsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.regionsList)" selectedItem="@bind(vm.contactInfoItem.region)">
+					<listbox if="${not empty vm.regionsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.regionsList)" selectedItem="@load(vm.contactInfoItem.region) @save(vm.contactInfoItem.region,before='save')">
 						<template name="model" var="region">
 							<listitem label="${region.title}" selected="${region.regionId == vm.contactInfoItem.region.regionId}" value="${region}"/>
 						</template>				
@@ -54,14 +54,14 @@
 				<label zclass="control-label col-md-2" value="Страна"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.contactInfoItem.country)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.contactInfoItem.country) @save(vm.contactInfoItem.country,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Почтовый индекс"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.contactInfoItem.postalCode)" placeholder="..." maxlength="20" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.contactInfoItem.postalCode) @save(vm.contactInfoItem.postalCode,before='save')" placeholder="..." maxlength="20" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 		</n:div>
@@ -74,26 +74,26 @@
 				<label zclass="control-label col-md-2" value="Адрес"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.addressItem.title)" placeholder="Название адреса" maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.addressItem.title) @save(vm.addressItem.title,before='save')" placeholder="Название адреса" maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>
 		
 				<n:div class="col-md-4">
-					<textbox value="@bind(vm.addressItem.street)" placeholder="Улица" maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.addressItem.street) @save(vm.addressItem.street,before='save')" placeholder="Улица" maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 				
 				<n:div class="col-md-2">					
-					<textbox value="@bind(vm.addressItem.homeNumber)" placeholder="Дом" maxlength="11" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.addressItem.homeNumber) @save(vm.addressItem.homeNumber,before='save')" placeholder="Дом" maxlength="11" sclass="form-control input-sm"/>
 				</n:div>
 				
 				<n:div class="col-md-2">					
-					<textbox value="@bind(vm.addressItem.corpsNumber)" placeholder="Корпус" maxlength="11" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.addressItem.corpsNumber) @save(vm.addressItem.corpsNumber,before='save')" placeholder="Корпус" maxlength="11" sclass="form-control input-sm"/>
 				</n:div>
 				
 				<n:div class="col-md-2">					
-					<textbox value="@bind(vm.addressItem.apartmentNumber)" placeholder="Квартира" maxlength="11" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.addressItem.apartmentNumber) @save(vm.addressItem.apartmentNumber,before='save')" placeholder="Квартира" maxlength="11" sclass="form-control input-sm"/>
 				</n:div>				
 			</n:div>			
 			<n:div class="form-group">
@@ -126,7 +126,11 @@
 											</n:span>
 											<n:div class="clearfix"></n:div>
 											<n:span>
-												<n:small class="text-muted"><n:span if="${not empty address.homeNumber}">д. <label value="@load(address.homeNumber)"/></n:span><n:span if="${not empty address.corpsNumber}">, корп. <label value="@load(address.corpsNumber)"/></n:span><n:span if="${not empty address.apartmentNumber}">, кв. <label value="@load(address.apartmentNumber)"/></n:span></n:small>
+												<n:small class="text-muted">
+													<n:span if="${not empty address.homeNumber}">д. <label value="@load(address.homeNumber)"/></n:span>
+													<n:span if="${not empty address.corpsNumber}">, корп. <label value="@load(address.corpsNumber)"/></n:span>
+													<n:span if="${not empty address.apartmentNumber}">, кв. <label value="@load(address.apartmentNumber)"/></n:span>
+												</n:small>
 											</n:span>
 											<n:div class="list-options">
 												<button zclass="btn btn-success" label="Удалить" onClick="@command('removeAddress', addressItem=address)" />
@@ -149,7 +153,7 @@
 				<label sclass="control-label col-md-2" value="Телефон"></label>		
 
 				<n:div class="col-md-2">
-					<listbox if="${not empty vm.phoneTypes}" mold="select" sclass="form-control input-sm" model="@load(vm.phoneTypes)" selectedItem="@bind(vm.phoneItem.phoneType)">
+					<listbox if="${not empty vm.phoneTypes}" mold="select" sclass="form-control input-sm" model="@load(vm.phoneTypes)" selectedItem="@load(vm.phoneItem.phoneType) @save(vm.phoneItem.phoneType,before='save')">
 						<template name="model" var="type">
 							<listitem label="${type.name}" value="${type}"/>
 						</template>				
@@ -157,7 +161,7 @@
 				</n:div>
 								
 				<n:div class="col-md-8">
-					<textbox value="@bind(vm.phoneItem.phoneNumber)" placeholder="Номер телефона в формате (9991235577)" maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.phoneItem.phoneNumber) @save(vm.phoneItem.phoneNumber,before='save')" placeholder="Номер телефона в формате (9991235577)" maxlength="255" sclass="form-control input-sm"/>
 				</n:div>				
 			</n:div>
 			<n:div class="form-group">

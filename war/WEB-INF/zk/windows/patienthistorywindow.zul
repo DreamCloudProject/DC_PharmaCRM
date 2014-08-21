@@ -144,7 +144,7 @@
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">
-											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+											<n:i class="fa fa-user fa-2x"></n:i>
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="${attPerson.lastname} ${attPerson.firstname} ${attPerson.middlename}"/></n:span>
@@ -171,7 +171,7 @@
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">
-											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+											<n:i class="fa fa-medkit fa-2x"></n:i>
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="${nurse.lastname} ${nurse.firstname} ${nurse.middlename}"/></n:span>
@@ -198,7 +198,7 @@
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">
-											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+											<n:i class="fa fa-user-md fa-2x"></n:i>
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="${medicalExpert.lastname} ${medicalExpert.firstname} ${medicalExpert.middlename}"/></n:span>

@@ -190,8 +190,8 @@ public class DistrictWindowViewModel {
     @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
     public void createNewRegion(){
 		regionItem = new Region();
-		regionItem.setTitle(newRegionTitle);
-		regionItem.setDescription(currentDistrictItem.getTitle());
+		regionItem.setTitle(newRegionTitle);		
+		regionItem.setDescription(currentDistrictItem.getTitle());		
 		regionItem.setDistrict(currentDistrictItem);
 		currentRegionsList.add(regionItem);
 		Clients.showNotification("Регион '"+regionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
@@ -225,7 +225,9 @@ public class DistrictWindowViewModel {
 	@NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
 	public void unlinkRegion(@BindingParam("regionItem") final Region regItem) {
 		regItem.setDistrict(null);
-		regionsToUnlink.add(regItem);		
+    	if(regItem.getRegionId() != null){
+    		regionsToUnlink.add(regItem);	
+    	}	
 		currentRegionsList.remove(regItem);
 		Clients.showNotification("Регион "+regItem.getTitle()+" откреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
 	}

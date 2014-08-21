@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.io.Files;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
@@ -69,7 +70,7 @@ public class EventTilePanelVM {
 	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory patientHistory) {
 		if(patientHistory != null){
 			patientHistoryItem = patientHistory;
-			eventsList = patientHistoryItem.getEvents();
+			eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
 			if (!eventsList.isEmpty()) {
 				selected = eventsList.get(0);
 			}
@@ -79,38 +80,37 @@ public class EventTilePanelVM {
     @Command
     @NotifyChange({"eventsList","patientHistoryItem"})
     public void editEventItem(@BindingParam("eventItem") final Event eventItem) {
-    	if(!patientHistoryItem.getEvents().isEmpty()) {
-	    	final HashMap<String, Object> params = new HashMap<String, Object>();
-	    	params.put("eventItem", eventItem);
-	    	params.put("actionType", "EDIT");
-	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
-	        window.doModal();
-    	}
+    	final HashMap<String, Object> params = new HashMap<String, Object>();
+    	params.put("eventItem", eventItem);
+    	params.put("actionType", "EDIT");
+        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
+        window.doModal();
+
     }
     
     @Command
     @NotifyChange({"eventsList","patientHistoryItem"})
     public void removeEventItem(@BindingParam("eventItem") final Event eventItem) {
-    	if(!patientHistoryItem.getEvents().isEmpty()) {
-	    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<org.zkoss.zk.ui.event.Event>() {			
-				@Override
-				public void onEvent(org.zkoss.zk.ui.event.Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						final HashMap<String, Object> params = new HashMap<String, Object>();
-						params.put("searchTerm", new String());
-						DataSourceLoader.getInstance().removeRecord(eventItem);
-						for (Document docToDelete : eventItem.getDocuments()) {
-							File fileToDelete = new File(docToDelete.getFileURL());
-							Files.deleteAll(fileToDelete);
-						}
-						BindUtils.postGlobalCommand(null, null, "search", params);
-						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<org.zkoss.zk.ui.event.Event>() {			
+			@Override
+			public void onEvent(org.zkoss.zk.ui.event.Event event) throws Exception {
+				if (Messagebox.ON_YES.equals(event.getName())){
+					final HashMap<String, Object> params = new HashMap<String, Object>();
+					params.put("searchTerm", new String());
+					DataSourceLoader.getInstance().removeRecord(eventItem);
+					for (Document docToDelete : eventItem.getDocuments()) {
+						File fileToDelete = new File(docToDelete.getFileURL());
+						Files.deleteAll(fileToDelete);
 					}
-					
+					eventsList.remove(eventItem);
+					patientHistoryItem.setEvents(eventsList);
+					BindUtils.postGlobalCommand(null, null, "search", params);
+					Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 				}
+				
+			}
 
-			});
-    	}
+		});
     }
     
     @GlobalCommand

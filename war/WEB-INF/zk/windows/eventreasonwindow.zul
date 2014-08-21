@@ -13,14 +13,14 @@
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentEventReasonItem.title)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentEventReasonItem.title) @save(vm.currentEventReasonItem.title,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Описание"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentEventReasonItem.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentEventReasonItem.description) @save(vm.currentEventReasonItem.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 		</n:div>

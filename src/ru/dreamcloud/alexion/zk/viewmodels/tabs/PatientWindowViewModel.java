@@ -241,7 +241,9 @@ public class PatientWindowViewModel {
     @Command
     @NotifyChange({"addressList","addressItem"})
     public void removeAddress(@BindingParam("addressItem") final Address adrItem) {
-    	itemsToRemove.add(adrItem);
+    	if(adrItem.getAddressId() != 0){
+    		itemsToRemove.add(adrItem);
+    	}
     	addressList.remove(adrItem);
     	Clients.showNotification("Адрес удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
     }
@@ -259,7 +261,9 @@ public class PatientWindowViewModel {
     @Command
     @NotifyChange({"phonesList","phoneItem"})
     public void removePhoneNumber(@BindingParam("phoneItem") final PhoneNumber phnItem) {
-    	itemsToRemove.add(phnItem);
+    	if(phnItem.getPhoneId() != 0){
+    		itemsToRemove.add(phnItem);
+    	}
     	phonesList.remove(phnItem);
     	Clients.showNotification("Номер телефона удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
     }

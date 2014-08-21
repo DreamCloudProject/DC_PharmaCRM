@@ -13,27 +13,27 @@
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentEvent.title)" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentEvent.title) @save(vm.currentEvent.title,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Описание"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@bind(vm.currentEvent.description)" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentEvent.description) @save(vm.currentEvent.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>			
 			<n:div class="form-group">
-				<label zclass="control-label col-md-2" value="Причина события"></label>
+				<label zclass="control-label col-md-2" value="Вид активности"></label>
 		
 				<n:div class="col-md-10">
-					<listbox if="${not empty vm.allEventReasonsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allEventReasonsList)" selectedItem="@bind(vm.currentEvent.eventReason)">
+					<listbox if="${not empty vm.allEventReasonsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allEventReasonsList)" selectedItem="@load(vm.currentEvent.eventReason) @save(vm.currentEvent.eventReason,before='save')">
 						<template name="model" var="eventReason">
 							<listitem label="${eventReason.title}" selected="${eventReason.eventReasonsId == vm.currentEvent.eventReason.eventReasonsId}" value="${eventReason}"/>
 						</template>				
 					</listbox>
 					<n:span if="${empty vm.allEventReasonsList}" class="form-control">
-						<n:small class="text-muted"><label value="Не добавлено ни одной причины"/></n:small>
+						<n:small class="text-muted"><label value="Не добавлено ни одного вида активности"/></n:small>
 					</n:span>								
 				</n:div>
 			</n:div>			
@@ -41,14 +41,14 @@
 				<label zclass="control-label col-md-2" value="Дата иниц. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" value="@bind(vm.currentEvent.dateTimeStart)" />
+					<datebox cols="12" format="short" value="@load(vm.currentEvent.dateTimeStart) @save(vm.currentEvent.dateTimeStart,before='save')" />
 				</n:div>
 			</n:div> 
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Дата заверш. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" value="@bind(vm.currentEvent.dateTimeEnd)" />
+					<datebox cols="12" format="short" value="@load(vm.currentEvent.dateTimeEnd) @save(vm.currentEvent.dateTimeEnd,before='save')" />
 				</n:div>
 			</n:div>           
 		</n:div>
