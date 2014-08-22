@@ -92,7 +92,7 @@ public class ApprovalStagesVM {
 	@Init
 	public void init() {
 		int res = ((Double)Math.ceil(approvalStages.size())).intValue();		
-		lgClassType = (MAX_BOOTSTRAP_COLUMNS/res) > 1 ? String.valueOf(MAX_BOOTSTRAP_COLUMNS/res) : "2";		
+		lgClassType = (MAX_BOOTSTRAP_COLUMNS/res) >= 2 ? String.valueOf(MAX_BOOTSTRAP_COLUMNS/res) : "12";		
 		mdClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/4);
 		xsClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/2);
 				

@@ -32,7 +32,7 @@
 		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
-		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.DetailPatientHistoryViewModel')" style="height:100%">
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientHistoryViewModel')" style="height:100%">
 			<include admin="false" src="/WEB-INF/zk/include/header.zul" />
 	
 			<n:div class="clearfix"></n:div>
@@ -59,16 +59,21 @@
 					
 					<n:hr class="whiter" />
 					
-					<div sclass="block-area">					
+					<div sclass="block-area">
 						<div sclass="row">
-							<div sclass="col-lg-8 col-md-8 col-xs-12">									
-								<include currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
+							<div sclass="col-lg-12 col-md-12 col-xs-12">
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/patienthistoryDetailTilePanel.zul" />
+							</div>
+						</div>					
+						<div sclass="row">
+							<div sclass="col-lg-9 col-md-8 col-xs-12">
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />		                
+			                </div>
+			                <div sclass="col-lg-3 col-md-4 col-xs-12">
+			                	<include currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
 								<include currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
 				                <include currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
-				                <include currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />				                
-			                </div>
-			                <div sclass="col-lg-4 col-md-4 col-xs-12">
-			                	<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />
+				                <include currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />			                	
 			                </div>
 		                </div>
 	                </div>

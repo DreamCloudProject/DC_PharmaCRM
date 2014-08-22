@@ -11,7 +11,7 @@ import org.zkoss.zk.ui.select.Selectors;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
 
-public class DetailPatientHistoryViewModel {
+public class PatientHistoryViewModel {
 	/**************************************
 	  Property patientHistory 
 	***************************************/

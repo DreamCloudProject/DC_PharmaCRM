@@ -1,0 +1,39 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.PatientHistoryDetailTilePanelVM')">
+		<n:article class="well tile">
+			<n:div class="media">
+				<n:div class="pull-left">
+					<n:i class="fa fa-history fa-2x"></n:i>
+				</n:div>
+				<n:div class="media-body">
+					<n:h4>Статус: <n:span class="label label-default">${vm.patientHistory.patientHistoryStatus.name}</n:span></n:h4>
+				</n:div>
+			</n:div>
+			<n:div class="media">
+				<n:div class="pull-left">
+					<n:i class="fa fa-chevron-circle-right fa-2x"></n:i>
+				</n:div>
+				<n:div class="media-body">
+					<n:h4>Этап: <n:span class="label label-primary">${vm.patientHistory.resolution.title}</n:span></n:h4>						
+					<n:div class="clearfix"></n:div>
+					<n:span>
+						<n:small class="text-muted"><label value="@load(vm.patientHistory.resolution.description)"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>
+			<n:div class="media">
+				<n:div class="pull-left">
+					<n:i class="fa fa-flag fa-2x"></n:i>
+				</n:div>
+				<n:div class="media-body">
+					<n:h4>Проект: <n:span class="label label-default">${vm.patientHistory.project.title}</n:span></n:h4>
+					<n:div class="clearfix"></n:div>
+					<n:span>
+						<n:small class="text-muted"><label value="@load(vm.patientHistory.project.description)"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>
+		</n:article>
+	</div>
+</zk>

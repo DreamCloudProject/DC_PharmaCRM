@@ -18,9 +18,9 @@
 					</n:li>
 				</n:ul>
 			</n:div>
-			<div sclass="p-b-15 p-l-15 p-r-15">
+			<div sclass="p-b-10 p-l-10 p-r-10">
 				<div sclass="row">
-					<n:div class="col-lg-6 col-md-12 col-xs-12">
+					<n:div class="col-lg-12 col-md-12 col-xs-12">
 						<n:h3 class="block-title">Личные данные</n:h3>
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
@@ -72,7 +72,10 @@
 							</label>
 						</n:div>
 					</n:div>
-					<n:div class="col-lg-6 col-md-12 col-xs-12">
+				</div>
+				<div sclass="row">
+					<n:div class="col-lg-12 col-md-12 col-xs-12">
+						<n:hr class="whiter m-t-10" if="${not empty vm.currentAttendantPerson.contactInfo.addressList}"/>
 						<n:h3 class="block-title"
 							if="${not empty vm.currentAttendantPerson.contactInfo.addressList}">
 							Адреса
@@ -98,7 +101,7 @@
 							</n:span>
 							<n:br />
 						</n:address>
-
+						<n:hr class="whiter m-t-10" if="${not empty vm.currentAttendantPerson.contactInfo.phonesList}"/>
 						<n:h3 class="block-title"
 							if="${not empty vm.currentAttendantPerson.contactInfo.phonesList}">
 							Телефоны
@@ -112,7 +115,7 @@
 							</n:abbr>
 							${each.phoneNumber}
 						</n:address>
-					</n:div>
+					</n:div>				
 				</div>
 			</div>
 		</n:article>
