@@ -77,16 +77,16 @@ public class DistrictWindowViewModel {
 	}
 	
 	/**************************************
-	 * Property newRegionTitle
+	 * Property regionItem
 	 ***************************************/
-	private String newRegionTitle;	
+	private Region newRegionItem;	
 	
-	public String getNewRegionTitle() {
-		return newRegionTitle;
+	public Region getNewRegionItem() {
+		return newRegionItem;
 	}
 
-	public void setNewRegionTitle(String newRegionTitle) {
-		this.newRegionTitle = newRegionTitle;
+	public void setNewRegionItem(Region newRegionItem) {
+		this.newRegionItem = newRegionItem;
 	}
 
 	/**************************************
@@ -125,6 +125,7 @@ public class DistrictWindowViewModel {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
 		regionItem = new Region();
+		newRegionItem  = new Region();
 		regionsToUnlink = new ArrayList<Object>();
 		
 		if (this.actionType.equals("NEW")) {
@@ -187,14 +188,15 @@ public class DistrictWindowViewModel {
     
     @GlobalCommand
     @Command
-    @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
+    @NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","newRegionItem"})
     public void createNewRegion(){
-		regionItem = new Region();
-		regionItem.setTitle(newRegionTitle);		
-		regionItem.setDescription(currentDistrictItem.getTitle());		
-		regionItem.setDistrict(currentDistrictItem);
-		currentRegionsList.add(regionItem);
-		Clients.showNotification("Регион '"+regionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		if(newRegionItem.getDescription().isEmpty()){
+			newRegionItem.setDescription(currentDistrictItem.getTitle());
+		}
+		newRegionItem.setDistrict(currentDistrictItem);
+		currentRegionsList.add(newRegionItem);
+		newRegionItem = new Region();
+		Clients.showNotification("Регион '"+newRegionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
 

@@ -33,7 +33,7 @@
 				<label sclass="control-label col-md-2" value="Регион"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="RegionsCombobox" placeholder="..." selectedItem="@bind(vm.regionItem)" value="@load(vm.newRegionTitle) @save(vm.newRegionTitle,before='save')" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRegionsList)">
+					<combobox id="RegionsCombobox" placeholder="..." selectedItem="@bind(vm.regionItem)" value="@load(vm.newRegionItem.title) @save(vm.newRegionItem.title,before='addNewRegion')" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRegionsList)">
 						<template name="model">
         					<comboitem label="${each.title}" value="${each}"/>
     					</template>
@@ -44,7 +44,7 @@
 				<label zclass="control-label col-md-2" value="Описание"></label>
 												
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.regionItem.description) @save(vm.regionItem.description,before={'addNewRegion','save'})" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.newRegionItem.description) @save(vm.newRegionItem.description,before='addNewRegion')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>				
 			</n:div>
 			<n:div class="form-group">
