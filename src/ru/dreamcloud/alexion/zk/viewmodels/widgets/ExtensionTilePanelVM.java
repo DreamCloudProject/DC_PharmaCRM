@@ -1,4 +1,4 @@
-package ru.dreamcloud.alexion.zk.viewmodels.tabs;
+package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
-public class ExtensionViewModel {
+public class ExtensionTilePanelVM {
 
 	/**************************************
 	 * Property selected

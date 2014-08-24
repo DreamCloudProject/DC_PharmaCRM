@@ -1,4 +1,4 @@
-package ru.dreamcloud.alexion.zk.viewmodels.tabs;
+package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import ru.dreamcloud.alexion.model.MedicalExpert;
 import ru.dreamcloud.alexion.model.Patient;
 import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
-public class ExtensionWindowViewModel {
+public class ExtensionWindowVM {
 
 	@Wire("#ExtensionWindow")
 	private Window win;

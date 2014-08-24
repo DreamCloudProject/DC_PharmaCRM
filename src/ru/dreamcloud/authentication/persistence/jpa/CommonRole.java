@@ -20,8 +20,8 @@ public class CommonRole implements Serializable {
 
 	private String allow;
 
-	@Column(name="component_id")
-	private String componentId;
+	@Column(name="component_name")
+	private String componentName;
 
 	private String description;
 
@@ -46,12 +46,12 @@ public class CommonRole implements Serializable {
 		this.allow = allow;
 	}
 
-	public String getComponentId() {
-		return this.componentId;
+	public String getComponentName() {
+		return this.componentName;
 	}
 
-	public void setComponentId(String componentId) {
-		this.componentId = componentId;
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
 	}
 
 	public String getDescription() {

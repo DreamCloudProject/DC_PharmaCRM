@@ -27,7 +27,9 @@ public class CommonUserInfo implements Serializable {
 	private String middlename;
 
 	private String password;
-
+	
+	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@JoinColumn(name="role")
 	private CommonRole role;
 
 	private String sessionid;

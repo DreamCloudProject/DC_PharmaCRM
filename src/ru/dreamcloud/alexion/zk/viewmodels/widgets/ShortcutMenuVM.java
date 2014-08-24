@@ -9,7 +9,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.authentication.UserInfo;
 
 public class ShortcutMenuVM {
 	/**************************************

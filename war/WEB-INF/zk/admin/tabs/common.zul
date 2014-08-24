@@ -1,0 +1,10 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div sclass="block-area">
+		<div sclass="row">
+			<div sclass="col-lg-12 col-md-12 col-xs-12">
+				<include src="/WEB-INF/zk/include/extensionTilePanel.zul"></include>
+			</div>
+		</div>
+	</div>
+</zk>

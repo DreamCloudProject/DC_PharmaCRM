@@ -1,9 +1,9 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
-	<window id="ExtensionWindow" title="${labels.pages.admin.settings.tabs.extensions.messages.windowTitle}"
+	<window id="ExtensionWindow" title="${labels.pages.admin.settings.tabs.common.messages.windowTitleExtension}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.ExtensionWindowViewModel')"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ExtensionWindowVM')"
 		width="100%" height="400px"
 		contentStyle="position:relative; overflow:auto">
 
