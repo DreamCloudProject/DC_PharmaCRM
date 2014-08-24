@@ -3,10 +3,16 @@ package ru.dreamcloud.alexion.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/*delimiter $$
 
-/**
- * The persistent class for the extensions database table.
- * 
+CREATE TABLE `extensions` (
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
+  `icon_name` varchar(255) DEFAULT NULL,
+  `extension_name` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`extension_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8$$ 
  */
 @Entity
 @Table(name="extensions")

@@ -4,9 +4,21 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-/**
- * The persistent class for the common_user_info database table.
- * 
+/*delimiter $$
+
+CREATE TABLE `common_user_info` (
+  `user_info_id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(45) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `middlename` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `sessionid` varchar(255) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_info_id`),
+  KEY `fk_role_user_info_idx` (`role`),
+  CONSTRAINT `fk_role_user_info` FOREIGN KEY (`role`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 @Entity
 @Table(name="common_user_info")

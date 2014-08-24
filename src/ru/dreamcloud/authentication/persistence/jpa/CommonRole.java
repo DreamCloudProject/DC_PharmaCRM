@@ -4,9 +4,16 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-/**
- * The persistent class for the common_roles database table.
- * 
+/*delimiter $$
+
+CREATE TABLE `common_roles` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  `component_name` varchar(255) DEFAULT NULL,
+  `allow` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$ 
  */
 @Entity
 @Table(name="common_roles")
