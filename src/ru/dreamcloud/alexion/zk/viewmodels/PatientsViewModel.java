@@ -11,7 +11,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Patient;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class PatientsViewModel {
 

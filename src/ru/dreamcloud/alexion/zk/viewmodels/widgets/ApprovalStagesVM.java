@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.Sessions;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.Resolution;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class ApprovalStagesVM {
 	

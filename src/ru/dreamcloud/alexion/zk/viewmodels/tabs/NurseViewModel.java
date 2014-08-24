@@ -18,7 +18,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.AttendantPerson;
 import ru.dreamcloud.alexion.model.Nurse;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class NurseViewModel {
 

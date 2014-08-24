@@ -19,6 +19,8 @@
 		<class>ru.dreamcloud.alexion.model.PatientHistory</class>
 		<class>ru.dreamcloud.alexion.model.EventReason</class>
 		<class>ru.dreamcloud.alexion.model.Extension</class>
+		<class>ru.dreamcloud.authentication.persistence.jpa.CommonRole</class>
+		<class>ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>

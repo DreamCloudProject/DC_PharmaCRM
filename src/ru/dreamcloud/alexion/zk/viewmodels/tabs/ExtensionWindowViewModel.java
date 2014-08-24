@@ -21,10 +21,10 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MedicalExpert;
 import ru.dreamcloud.alexion.model.Patient;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class ExtensionWindowViewModel {
 

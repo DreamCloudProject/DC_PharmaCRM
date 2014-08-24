@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Project;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class ProjectViewModel {
 

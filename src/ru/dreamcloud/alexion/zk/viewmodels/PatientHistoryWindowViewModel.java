@@ -29,7 +29,7 @@ import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.PatientHistoryStatus;
 import ru.dreamcloud.alexion.model.Project;
 import ru.dreamcloud.alexion.model.Resolution;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class PatientHistoryWindowViewModel {
 

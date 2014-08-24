@@ -25,7 +25,7 @@ import ru.dreamcloud.alexion.model.ContactInfo;
 import ru.dreamcloud.alexion.model.PhoneNumber;
 import ru.dreamcloud.alexion.model.PhoneType;
 import ru.dreamcloud.alexion.model.Region;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class AttPersonWindowViewModel {
 

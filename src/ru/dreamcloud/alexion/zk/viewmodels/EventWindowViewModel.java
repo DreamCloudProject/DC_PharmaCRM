@@ -38,7 +38,7 @@ import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class EventWindowViewModel {
 	

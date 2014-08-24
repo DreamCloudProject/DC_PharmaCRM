@@ -14,8 +14,8 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
 import ru.dreamcloud.alexion.model.Resolution;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class ResolutionWindowViewModel {
 

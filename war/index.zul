@@ -18,7 +18,6 @@
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/font-awesome.min.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/form.css" rel="stylesheet"?>
-		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/calendar.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/style.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/overrides.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/icons.css" rel="stylesheet"?>
@@ -49,7 +48,7 @@
 
 				<n:h4 class="page-title">${labels.panels.index.name}</n:h4>
 				
-				<include patientHistoryPage="false" src="/WEB-INF/zk/include/shortcutMenu.zul"/>
+				<include src="/WEB-INF/zk/include/shortcutMenu.zul"/>
 				
 				<n:hr class="whiter" />
 								

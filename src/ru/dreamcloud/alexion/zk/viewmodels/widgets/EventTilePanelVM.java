@@ -23,7 +23,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class EventTilePanelVM {
 

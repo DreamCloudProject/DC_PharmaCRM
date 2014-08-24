@@ -1,4 +1,4 @@
-package ru.dreamcloud.alexion.utils;
+package ru.dreamcloud.persistence.jpa;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

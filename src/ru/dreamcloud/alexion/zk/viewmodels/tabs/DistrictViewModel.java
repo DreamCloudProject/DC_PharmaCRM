@@ -21,8 +21,8 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Address;
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
-import ru.dreamcloud.alexion.utils.DataSourceLoader;
 import ru.dreamcloud.alexion.zk.integration.FiasBasicDataLoader;
+import ru.dreamcloud.persistence.jpa.DataSourceLoader;
 
 public class DistrictViewModel {
 	
