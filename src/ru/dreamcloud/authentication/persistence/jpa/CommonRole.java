@@ -1,7 +1,11 @@
 package ru.dreamcloud.authentication.persistence.jpa;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+
+import ru.dreamcloud.alexion.model.Region;
 
 
 /*delimiter $$
@@ -10,10 +14,8 @@ CREATE TABLE `common_roles` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
-  `component_name` varchar(255) DEFAULT NULL,
-  `allow` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$ 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 @Entity
 @Table(name="common_roles")
@@ -25,14 +27,12 @@ public class CommonRole implements Serializable {
 	@Column(name="role_id")
 	private int roleId;
 
-	private String allow;
-
-	@Column(name="component_name")
-	private String componentName;
-
 	private String description;
 
 	private String title;
+	
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="role")
+    private List<CommonRoleRule> rules;
 
 	public CommonRole() {
 	}
@@ -43,22 +43,6 @@ public class CommonRole implements Serializable {
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
-	}
-
-	public String getAllow() {
-		return this.allow;
-	}
-
-	public void setAllow(String allow) {
-		this.allow = allow;
-	}
-
-	public String getComponentName() {
-		return this.componentName;
-	}
-
-	public void setComponentName(String componentName) {
-		this.componentName = componentName;
 	}
 
 	public String getDescription() {
@@ -76,5 +60,13 @@ public class CommonRole implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public List<CommonRoleRule> getRules() {
+		return rules;
+	}
+
+	public void setRules(List<CommonRoleRule> rules) {
+		this.rules = rules;
+	}	
 
 }

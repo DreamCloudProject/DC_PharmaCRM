@@ -28,7 +28,7 @@ public class AuthenticationFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		if (active) {
 			String jsessionId = ((HttpServletRequest)request).getSession().getId();
-			System.out.println(jsessionId);
+			//System.out.println(jsessionId);
 		}
 		chain.doFilter(request, response);
 

@@ -194,9 +194,9 @@ public class DistrictWindowViewModel {
 			newRegionItem.setDescription(currentDistrictItem.getTitle());
 		}
 		newRegionItem.setDistrict(currentDistrictItem);
-		currentRegionsList.add(newRegionItem);
-		newRegionItem = new Region();
+		currentRegionsList.add(newRegionItem);		
 		Clients.showNotification("Регион '"+newRegionItem.getTitle()+"' прикреплен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		newRegionItem = new Region();
     }
     
 

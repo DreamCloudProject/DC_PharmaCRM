@@ -2,8 +2,11 @@
 <zk xmlns:w="client" xmlns:n="native">
 	<div sclass="block-area">
 		<div sclass="row">
-			<div sclass="col-lg-12 col-md-12 col-xs-12">
+			<div sclass="col-lg-6 col-md-12 col-xs-12">
 				<include src="/WEB-INF/zk/include/extensionTilePanel.zul"></include>
+			</div>
+			<div sclass="col-lg-6 col-md-12 col-xs-12">
+				<include src="/WEB-INF/zk/include/commonroleTilePanel.zul"></include>
 			</div>
 		</div>
 	</div>

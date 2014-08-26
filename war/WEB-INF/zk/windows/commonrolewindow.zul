@@ -1,0 +1,100 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="CommonRoleWindow" title="${labels.pages.admin.settings.tabs.common.messages.windowTitleCommonRole}"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		maximizable="false"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CommonRoleWindowVM')"
+		width="100%" height="640px"
+		contentStyle="position:relative; overflow:auto">
+
+		<!-- Horizontal -->
+		<n:div class="block-area">			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Заголовок"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentRoleItem.title) @save(vm.currentRoleItem.title,before={'addNewRule','save'})" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Описание"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentRoleItem.description) @save(vm.currentRoleItem.description,before={'addNewRule','save'})" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Форма добавления нового правила</n:h3>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Компонент"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="RulesCombobox" placeholder="..." selectedItem="@bind(vm.currentRuleItem)" value="@load(vm.newRuleItem.componentName) @save(vm.newRuleItem.componentName,before='addNewRule')" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRulesList)">
+						<template name="model">
+        					<comboitem label="${each.componentName}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewRule" zclass="btn btn-success" label="Прикрепить правило" onClick="@command('addNewRule')" />
+					<button id="removeRule" zclass="btn btn-success" label="Удалить правило" onClick="@command('removeRule')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+				
+		<n:hr class=" whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Правила</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="RuleListbox" emptyMessage="Не добавлено ни одного правила" mold="paging" sclass="m-b-10" model="@load(vm.currentRulesList)" zclass="listview">
+						<template name="model" var="rule">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">	
+											<toggler checked="${rule.allow}" onClick="@command('changeAllowProperty',ruleItem=rule)"/>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(rule.componentName)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:div class="list-options">
+												<button sclass="btn btn-success" label="Открепить" onClick="@command('unlinkRule', currentRuleItem=rule)" />																								
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>				
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>	
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div zclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
+	</window>	
+	<!-- UX -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	<!-- Custom Scrollbar -->
+	<!-- All JS functions -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
+</zk>

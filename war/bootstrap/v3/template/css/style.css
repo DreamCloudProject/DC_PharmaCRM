@@ -55,9 +55,9 @@
     touch-action: manipulation;    
 }
 
-*:focus, *:active {
+/**:focus, *:active {
     outline: none !important;
-}
+}*/
 
 html {
     overflow-x: hidden\0/;

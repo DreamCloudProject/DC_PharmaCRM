@@ -78,10 +78,6 @@
 		<!-- Bootstrap -->
 		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/bootstrap.min.js"></n:script>
 			
-		<!--  Form Related -->
-		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/icheck.js"></n:script>
-		<!-- Custom Checkbox + Radio -->
-	
 		<!-- UX -->
 		<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
 		<!-- Custom Scrollbar -->

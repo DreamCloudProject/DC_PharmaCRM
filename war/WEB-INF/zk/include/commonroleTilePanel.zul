@@ -1,25 +1,25 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ExtensionTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CommonRoleTilePanelVM')">
 		<div zclass="tile">
-			<n:h2 class="tile-title">Типы документов</n:h2>
+			<n:h2 class="tile-title">Пользовательские роли</n:h2>
 			<n:div class="listview list-container">
 	
 				<n:header class="listview-header media">
 	
 					<n:ul class="list-inline list-mass-actions pull-left">
 						<n:li>
-							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.addExtensionButton}" zclass="tooltips" onClick="@command('addExtensionItem')">
+							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.addCommonRoleButton}" zclass="tooltips" onClick="@command('addCommonRoleItem')">
 								<n:i class="fa fa-plus-square fa-2x"></n:i>
 							</a>
 						</n:li>
 						<n:li>
-							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.editExtensionButton}" zclass="tooltips" onClick="@command('editExtensionItem')">
+							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.editCommonRoleButton}" zclass="tooltips" onClick="@command('editCommonRoleItem')">
 								<n:i class="fa fa-pencil-square-o fa-2x"></n:i>
 							</a>
 						</n:li>
 						<n:li>
-							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.removeExtensionButton}" zclass="tooltips" onClick="@command('removeExtensionItem')">
+							<a tooltiptext="${labels.pages.admin.settings.tabs.common.messages.removeCommonRoleButton}" zclass="tooltips" onClick="@command('removeCommonRoleItem')">
 								<n:i class="fa fa-trash-o fa-2x"></n:i>
 							</a>
 						</n:li>							
@@ -32,14 +32,14 @@
 					<n:div class="clearfix"></n:div>
 				</n:header>
 				<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
-					mold="paging" pageSize="10" model="@load(vm.extensionsList)"
+					mold="paging" pageSize="10" model="@load(vm.commonRolesList)"
 					selectedItem="@bind(vm.selected)" sclass="tile">
 					<template name="model" var="record">
 						<listitem>
 							<listcell>
 								<n:div class="media p-l-5">
 									<n:div class="pull-left">
-										<n:i class="fa ${(not empty record.iconName) ? record.iconName : 'fa-file'} fa-2x"></n:i>
+										<n:i class="fa fa-users fa-2x"></n:i>
 									</n:div>
 									<n:div class="media-body">
 										<n:span class="news-title"><label value="@load(record.title)"/></n:span>
