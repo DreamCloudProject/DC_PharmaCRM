@@ -24,7 +24,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MedicalExpert;
 import ru.dreamcloud.alexion.model.Patient;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ExtensionWindowVM {
 

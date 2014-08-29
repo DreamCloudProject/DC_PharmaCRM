@@ -56,18 +56,18 @@
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
 					<listbox id="RuleListbox" emptyMessage="Не добавлено ни одного правила" mold="paging" sclass="m-b-10" model="@load(vm.currentRulesList)" zclass="listview">
-						<template name="model" var="rule">
+						<template name="model" var="ruleAssoc">
 							<listitem>
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">	
-											<toggler checked="${rule.allow}" onClick="@command('changeAllowProperty',ruleItem=rule)"/>
+											<toggler checked="${ruleAssoc.allow}" onClick="@command('changeAllowProperty',ruleItem=ruleAssoc)"/>
 										</n:div>
 										<n:div class="media-body">
-											<n:span class="news-title"><label value="@load(rule.componentName)"/></n:span>
+											<n:span class="news-title"><label value="@load(ruleAssoc.rule.componentName)"/></n:span>
 											<n:div class="clearfix"></n:div>
 											<n:div class="list-options">
-												<button sclass="btn btn-success" label="Открепить" onClick="@command('unlinkRule', currentRuleItem=rule)" />																								
+												<button sclass="btn btn-success" label="Открепить" onClick="@command('unlinkRuleFromCurrentRole', currentRuleItem=ruleAssoc)" />																								
 											</n:div>
 										</n:div>
 									</n:div>						

@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.AttendantPerson;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class AttPersonViewModel {
 
@@ -100,7 +100,7 @@ public class AttPersonViewModel {
     @Command
     @NotifyChange("attPersonsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	attPersonsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("AttendantPerson", "e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
+    	attPersonsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("AttendantPerson", "where e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
     }
 
 }

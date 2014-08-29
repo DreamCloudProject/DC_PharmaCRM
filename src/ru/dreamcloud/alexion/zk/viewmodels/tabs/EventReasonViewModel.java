@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.EventReason;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventReasonViewModel {
 
@@ -100,7 +100,7 @@ public class EventReasonViewModel {
     @Command
     @NotifyChange("eventReasonsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	eventReasonsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("EventReason", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	eventReasonsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("EventReason", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

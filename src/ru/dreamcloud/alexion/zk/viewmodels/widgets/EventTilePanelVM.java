@@ -23,7 +23,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventTilePanelVM {
 
@@ -70,7 +70,7 @@ public class EventTilePanelVM {
 	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory patientHistory) {
 		if(patientHistory != null){
 			patientHistoryItem = patientHistory;
-			eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
+			eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
 			if (!eventsList.isEmpty()) {
 				selected = eventsList.get(0);
 			}
@@ -117,7 +117,7 @@ public class EventTilePanelVM {
     @Command
     @NotifyChange({"eventsList","patientHistoryItem"})
     public void search(@BindingParam("searchTerm") String term) {
-    	eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and (e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%')"));
+    	eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and (e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%')"));
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.dreamcloud.persistence.jpa;
+package ru.dreamcloud.util.jpa;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -30,9 +30,9 @@ public class DataSourceLoader {
     
     private DataSourceLoader(){    	
     }
-
+    
 	public List<?> fetchRecords(String entity, String where) {
-		where = where != null ? " where " + where : "";
+		where = where != null ? where : "";
 		Query q = em.createQuery("select e from " + entity + " e " + where);
 		List<?> entityList = q.getResultList();
 		return entityList;

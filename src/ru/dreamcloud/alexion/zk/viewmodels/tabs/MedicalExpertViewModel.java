@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.MedicalExpert;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class MedicalExpertViewModel {
 
@@ -100,7 +100,7 @@ public class MedicalExpertViewModel {
     @Command
     @NotifyChange("medicalExpertsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	medicalExpertsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("MedicalExpert", "e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
+    	medicalExpertsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("MedicalExpert", "where e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
     }
 
 }

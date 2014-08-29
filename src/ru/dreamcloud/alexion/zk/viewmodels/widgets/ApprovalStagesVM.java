@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.Sessions;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.Resolution;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ApprovalStagesVM {
 	
@@ -102,7 +102,7 @@ public class ApprovalStagesVM {
 	@Command
 	@NotifyChange("approvalStages")
 	public List<PatientHistory> retrievePatientHistories(@BindingParam("resolutionItem")Resolution resolutionItem) {		
-        return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "e.resolution.resolutionId="+resolutionItem.getResolutionId()));   
+        return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionItem.getResolutionId()));   
     }
 	
 	@Command

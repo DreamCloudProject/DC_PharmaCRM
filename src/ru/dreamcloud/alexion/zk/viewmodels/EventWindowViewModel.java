@@ -38,7 +38,7 @@ import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventWindowViewModel {
 	
@@ -170,7 +170,7 @@ public class EventWindowViewModel {
 		}
 		if (this.actionType.equals("EDIT")) {
 			currentEvent = currentItem;
-			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "e.event.eventId="+currentEvent.getEventId()));
+			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
 		}
     }
 	
@@ -202,7 +202,7 @@ public class EventWindowViewModel {
 	public void addNewDocument(@BindingParam("file")Media file) {		
 		String filePath = Labels.getLabel("uploadedContentDir")+patientHistoryItem.getPatient().getFullname()+"/ph"+patientHistoryItem.getPatientHistoriesId()+"/"+file.getName();
 		File newFile = new File(filePath);
-		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
+		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
 		uploadFilesList.put(newFile, file.getStreamData());
 		documentItem.setDateCreated(currentDate);
 		documentItem.setDateModified(currentDate);
@@ -210,7 +210,7 @@ public class EventWindowViewModel {
 		documentItem.setTitle(file.getName());
 		documentItem.setDescription(file.getContentType());
 		if(extList.isEmpty()){
-			extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "e.extensionName = 'UNDEFINED'"));				
+			extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.extensionName = 'UNDEFINED'"));				
 		}
 		documentItem.setExtension(extList.get(0));
 		documentItem.setEvent(currentEvent);

@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.EventReason;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventReasonWindowViewModel {
 

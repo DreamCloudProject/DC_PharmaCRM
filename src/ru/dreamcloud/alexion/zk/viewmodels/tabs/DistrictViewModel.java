@@ -22,7 +22,7 @@ import ru.dreamcloud.alexion.model.Address;
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.zk.integration.FiasBasicDataLoader;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class DistrictViewModel {
 	
@@ -155,7 +155,7 @@ public class DistrictViewModel {
     @Command
     @NotifyChange("districtsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	districtsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("District", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	districtsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("District", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

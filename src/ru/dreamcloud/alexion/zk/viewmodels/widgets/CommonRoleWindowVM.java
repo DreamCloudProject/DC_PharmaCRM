@@ -23,8 +23,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRoleRule;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
+import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonRoleWindowVM {
 
@@ -80,39 +81,39 @@ public class CommonRoleWindowVM {
 	/**************************************
 	 * Property currentRuleItem
 	 ***************************************/
-	private CommonRoleRule currentRuleItem;
+	private CommonRule currentRuleItem;
 	
-	public CommonRoleRule getCurrentRuleItem() {
+	public CommonRule getCurrentRuleItem() {
 		return currentRuleItem;
 	}
 
-	public void setCurrentRuleItem(CommonRoleRule currentRuleItem) {
+	public void setCurrentRuleItem(CommonRule currentRuleItem) {
 		this.currentRuleItem = currentRuleItem;
 	}
 	
 	/**************************************
 	 * Property newRuleItem
 	 ***************************************/
-	private CommonRoleRule newRuleItem;	
+	private CommonRule newRuleItem;	
 	
-	public CommonRoleRule getNewRuleItem() {
+	public CommonRule getNewRuleItem() {
 		return newRuleItem;
 	}
 
-	public void setNewRuleItem(CommonRoleRule newRuleItem) {
+	public void setNewRuleItem(CommonRule newRuleItem) {
 		this.newRuleItem = newRuleItem;
 	}
 
 	/**************************************
 	 * Property currentRulesList
 	 ***************************************/
-	private List<CommonRoleRule> currentRulesList;
+	private List<RuleAssociation> currentRulesList;
 	
-	public List<CommonRoleRule> getCurrentRulesList() {
+	public List<RuleAssociation> getCurrentRulesList() {
 		return currentRulesList;
 	}
 
-	public void setCurrentRulesList(List<CommonRoleRule> currentRulesList) {
+	public void setCurrentRulesList(List<RuleAssociation> currentRulesList) {
 		this.currentRulesList = currentRulesList;
 	}
 	
@@ -120,17 +121,18 @@ public class CommonRoleWindowVM {
 	 * Property allRulesList
 	 ***************************************/
 	
-	private List<CommonRoleRule> allRulesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRoleRule", null));	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private List<CommonRule> allRulesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRule", null));	
 	
-	public List<CommonRoleRule> getAllRulesList() {
+	public List<CommonRule> getAllRulesList() {
 		return allRulesList;
 	}
 
 	/**************************************
-	 * Property currentRulesToUnlink
+	 * Property itemsToUnlink
 	 ***************************************/
 	
-	private List<Object> currentRulesToUnlink;
+	private List<Object> itemsToUnlink;
 
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
@@ -138,20 +140,20 @@ public class CommonRoleWindowVM {
 					 @ExecutionArgParam("actionType") String currentAction) {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
-		currentRuleItem = new CommonRoleRule();
-		newRuleItem  = new CommonRoleRule();
-		currentRulesToUnlink = new ArrayList<Object>();
+		currentRuleItem = new CommonRule();
+		newRuleItem  = new CommonRule();
+		itemsToUnlink = new ArrayList<Object>();
 		
 		if (this.actionType.equals("NEW")) {
 			currentRoleItem = new CommonRole();
-			currentRulesList = new ArrayList<CommonRoleRule>();
+			currentRulesList = new ArrayList<RuleAssociation>();			
 		}
 
 		if (this.actionType.equals("EDIT")) {
 			currentRoleItem = currentItem;
-			currentRulesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRoleRule", "e.role.roleId="+currentRoleItem.getRoleId()));
+			currentRulesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("RuleAssociation", "where e.roleId="+currentRoleItem.getRoleId()));			
 		}
-
+		currentRoleItem.setRules(currentRulesList);
 	}
 	
 	@Command
@@ -159,8 +161,7 @@ public class CommonRoleWindowVM {
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
-		approveUnlinkRules();
-		currentRoleItem.setRules(currentRulesList);
+		approveUnlinkRules(false);			
 		
 		if (actionType.equals("NEW")) {
 			DataSourceLoader.getInstance().addRecord(currentRoleItem);
@@ -180,9 +181,18 @@ public class CommonRoleWindowVM {
     @NotifyChange({"currentRulesList","currentRoleItem","allRulesList","currentRuleItem"})
     public void addNewRule() {    	
     	if(allRulesList.contains(currentRuleItem)){
-	    	if(!currentRulesList.contains(currentRuleItem)){
-				currentRuleItem.setRole(currentRoleItem);
-				currentRulesList.add(currentRuleItem);
+    		Boolean presence = false;    		
+    		for (RuleAssociation ruleAssoc : currentRulesList) {
+				if((ruleAssoc.getRuleId() == currentRuleItem.getRuleId()) 
+						&& (ruleAssoc.getRoleId() == currentRoleItem.getRoleId())){
+					presence = true;
+					break;
+				}
+			}
+    		
+	    	if(!presence){
+				currentRoleItem.addRule(currentRuleItem, "true");				
+				currentRulesList = currentRoleItem.getRules();
 				Clients.showNotification("Правило '"+currentRuleItem.getComponentName()+"' прикреплено! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 	    	} else {
 	    		Clients.showNotification("Данное правило уже прикреплено!", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
@@ -204,18 +214,19 @@ public class CommonRoleWindowVM {
     @Command
     @NotifyChange({"currentRulesList","currentRoleItem","allRulesList","newRuleItem"})
     public void createNewRule(){
-		newRuleItem.setRole(currentRoleItem);
-		newRuleItem.setAllow("true");
-		currentRulesList.add(newRuleItem);		
+    	List<RuleAssociation> roles = new ArrayList<RuleAssociation>();
+    	newRuleItem.setRoles(roles);
+    	currentRoleItem.addRule(newRuleItem, "true");
+    	currentRulesList = currentRoleItem.getRules();
 		Clients.showNotification("Правило '"+newRuleItem.getComponentName()+"' прикреплено! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		newRuleItem = new CommonRoleRule();
+		newRuleItem = new CommonRule();
     }
     
 
     @Command
     @NotifyChange({"currentRulesList","currentRoleItem","allRulesList","currentRuleItem"})
     public void removeRule(){
-    	Messagebox.show("Вы хотите удалить правило '"+currentRuleItem.getComponentName()+"' из базы данных?", "Удалить регион", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+    	Messagebox.show("Вы хотите удалить правило '"+currentRuleItem.getComponentName()+"' из базы данных?", "Удалить правило", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
 			@Override				
 			public void onEvent(Event event) throws Exception {
 				if (Messagebox.ON_YES.equals(event.getName())){
@@ -229,47 +240,63 @@ public class CommonRoleWindowVM {
     @Command
     @NotifyChange({"currentRulesList","currentRoleItem","allRulesList","currentRuleItem"})
     public void removeRuleFromDatabase(){
-    	unlinkRule(currentRuleItem);
-    	approveUnlinkRules();
-    	DataSourceLoader.getInstance().removeRecord(currentRuleItem);    	    	
+    	List<RuleAssociation> rolesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("RuleAssociation", "where e.ruleId="+currentRuleItem.getRuleId()));
+		for(RuleAssociation ruleAssoc : rolesList){
+			if(ruleAssoc.getRoleId() != currentRoleItem.getRoleId()){
+				Clients.showNotification("Правило '"+currentRuleItem.getComponentName()+"' используется еще для других ролей!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+				return;			
+			} else if (ruleAssoc.getRoleId() == currentRoleItem.getRoleId()){
+				Clients.showNotification("Правило '"+currentRuleItem.getComponentName()+"' прикреплено к текущей роли! Чтобы удалить, нужно сначала открепить правило, а затем сохранить роль...", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+				return;
+			}	
+		}
+		if(!itemsToUnlink.contains(currentRuleItem)){
+			itemsToUnlink.add(currentRuleItem);
+		}
+    	approveUnlinkRules(true);	    	
     	Clients.showNotification("Правило '"+currentRuleItem.getComponentName()+"' удален из базы данных! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-    }
-	
+    	
+    }	
+
 	@Command
 	@NotifyChange({"currentRulesList","currentRoleItem","allRulesList","currentRuleItem"})
-	public void unlinkRule(@BindingParam("currentRuleItem") final CommonRoleRule ruleItem) {
-		ruleItem.setRole(null);
-    	if(ruleItem.getRuleId() != 0){
-    		currentRulesToUnlink.add(ruleItem);	
-    	}	
-		currentRulesList.remove(ruleItem);
-		Clients.showNotification("Правило "+ruleItem.getComponentName()+" откреплено! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
+	public void unlinkRuleFromCurrentRole(@BindingParam("currentRuleItem") final RuleAssociation ruleAssoc) {		
+		if((ruleAssoc.getRuleId() != 0) || (ruleAssoc.getRoleId() != 0) ){
+			itemsToUnlink.add(ruleAssoc.getRule());
+		}
+		currentRulesList.remove(ruleAssoc);
+		Clients.showNotification("Правило "+ruleAssoc.getRule().getComponentName()+" откреплено! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
 	}
 	
 	@Command
-	public void changeAllowProperty(@BindingParam("ruleItem") final CommonRoleRule ruleItem){
-		
-		if(ruleItem.getAllow() != null){
-			allowProperty = Boolean.valueOf(ruleItem.getAllow());			
-		} else {
-			allowProperty = true;
-		}
-		
+	public void changeAllowProperty(@BindingParam("ruleItem") final RuleAssociation ruleAssoc){
+		allowProperty = (ruleAssoc.getAllow() != null) ? Boolean.valueOf(ruleAssoc.getAllow()) : true;				
 		if(allowProperty){
 			allowProperty = false;			
 		} else {
 			allowProperty = true;
-		}
-		
-		ruleItem.setAllow(allowProperty.toString());
-		DataSourceLoader.getInstance().updateRecord(ruleItem);
-		Clients.showNotification("Правило '"+ruleItem.getComponentName()+"' "+(allowProperty ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		}				
+		ruleAssoc.setAllow(allowProperty.toString());				
+		DataSourceLoader.getInstance().updateRecord(ruleAssoc);
+		Clients.showNotification("Правило '"+ruleAssoc.getRule().getComponentName()+"' "+(allowProperty ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 	}
 	
 	@NotifyChange({"currentRulesList","currentRoleItem","allRulesList","currentRuleItem"})
-	private void approveUnlinkRules(){		
-		for (Object entityObj : currentRulesToUnlink) {
-			DataSourceLoader.getInstance().updateRecord(entityObj);
+	private void approveUnlinkRules(Boolean entityDelete){		
+		for (Object entityObj : itemsToUnlink) {
+			if(entityObj instanceof CommonRule){
+				CommonRule rule = (CommonRule)entityObj;
+				for (RuleAssociation ra : rule.getRoles()) {
+					DataSourceLoader.getInstance().removeRecord(ra);																				
+				}
+				rule.setRoles(null);
+				entityObj = rule;			
+			}
+			if(entityDelete){
+				DataSourceLoader.getInstance().removeRecord(entityObj);
+			} else {
+				DataSourceLoader.getInstance().updateRecord(entityObj);
+			}
 		}		
 	}
 	

@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Resolution;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ResolutionViewModel {
 
@@ -100,7 +100,7 @@ public class ResolutionViewModel {
     @Command
     @NotifyChange("resolutionsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	resolutionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	resolutionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

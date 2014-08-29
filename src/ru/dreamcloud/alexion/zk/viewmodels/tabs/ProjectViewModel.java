@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Project;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ProjectViewModel {
 
@@ -100,7 +100,7 @@ public class ProjectViewModel {
     @Command
     @NotifyChange("projectsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	projectsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Project", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	projectsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Project", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonRoleTilePanelVM {
 
@@ -100,7 +100,7 @@ public class CommonRoleTilePanelVM {
     @Command
     @NotifyChange("commonRolesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	commonRolesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRole", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	commonRolesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRole", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

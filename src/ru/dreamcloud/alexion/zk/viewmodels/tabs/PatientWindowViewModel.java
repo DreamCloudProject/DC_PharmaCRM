@@ -26,7 +26,7 @@ import ru.dreamcloud.alexion.model.ContactInfo;
 import ru.dreamcloud.alexion.model.PhoneNumber;
 import ru.dreamcloud.alexion.model.PhoneType;
 import ru.dreamcloud.alexion.model.Region;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientWindowViewModel {
 
@@ -202,8 +202,8 @@ public class PatientWindowViewModel {
 			if(currentItem.getContactInfo() != null){
 				contactInfoItem = currentItem.getContactInfo();
 			}
-			addressList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Address", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
-			phonesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PhoneNumber", "e.contactInfo.contactId="+contactInfoItem.getContactId()));
+			addressList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Address", "where e.contactInfo.contactId="+contactInfoItem.getContactId()));
+			phonesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PhoneNumber", "where e.contactInfo.contactId="+contactInfoItem.getContactId()));
 		}
 	}
 	

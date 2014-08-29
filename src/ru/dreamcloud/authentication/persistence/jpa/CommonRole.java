@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import ru.dreamcloud.alexion.model.Region;
-
-
 /*delimiter $$
 
 CREATE TABLE `common_roles` (
@@ -15,6 +12,19 @@ CREATE TABLE `common_roles` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+
+delimiter $$
+
+CREATE TABLE `common_roles_rules_rel` (
+  `role_id` int(11) NOT NULL,
+  `rule_id` int(11) NOT NULL,
+  `allow` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`role_id`,`rule_id`),
+  KEY `fk_role_roles_rules_id_idx` (`role_id`),
+  KEY `fk_rule_roles_rules_rel_idx` (`rule_id`),
+  CONSTRAINT `fk_role_roles_rules_id` FOREIGN KEY (`role_id`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rule_roles_rules_rel` FOREIGN KEY (`rule_id`) REFERENCES `common_rules` (`rule_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 @Entity
@@ -31,8 +41,8 @@ public class CommonRole implements Serializable {
 
 	private String title;
 	
-	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="role")
-    private List<CommonRoleRule> rules;
+	@OneToMany(cascade={CascadeType.PERSIST},mappedBy="role")
+    private List<RuleAssociation> rules;
 
 	public CommonRole() {
 	}
@@ -61,12 +71,23 @@ public class CommonRole implements Serializable {
 		this.title = title;
 	}
 
-	public List<CommonRoleRule> getRules() {
+	public List<RuleAssociation> getRules() {
 		return rules;
 	}
 
-	public void setRules(List<CommonRoleRule> rules) {
+	public void setRules(List<RuleAssociation> rules) {
 		this.rules = rules;
-	}	
+	}
+	
+	public void addRule(CommonRule rule, String allow) {
+		RuleAssociation association = new RuleAssociation();		
+		association.setRole(this);
+		association.setRule(rule);
+		association.setRoleId(this.getRoleId());
+		association.setRuleId(rule.getRuleId());
+		association.setAllow(allow);
 
+		this.rules.add(association);
+		rule.getRoles().add(association);
+	}
 }

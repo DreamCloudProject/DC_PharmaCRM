@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Extension;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ExtensionTilePanelVM {
 
@@ -100,7 +100,7 @@ public class ExtensionTilePanelVM {
     @Command
     @NotifyChange("extensionsList")
     public void search(@BindingParam("searchTerm") String term) {
-    	extensionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	extensionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

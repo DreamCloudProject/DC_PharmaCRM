@@ -17,7 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Diagnosis;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class DiagnosisViewModel {
 
@@ -100,7 +100,7 @@ public class DiagnosisViewModel {
     @Command
     @NotifyChange("diagnosesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	diagnosesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", "e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
+    	diagnosesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Diagnosis", "where e.title LIKE '%"+term+"%' or e.description LIKE '%"+term+"%'"));
     }
 
 }

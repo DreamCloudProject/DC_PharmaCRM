@@ -18,7 +18,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.AttendantPerson;
 import ru.dreamcloud.alexion.model.Nurse;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class NurseViewModel {
 
@@ -101,7 +101,7 @@ public class NurseViewModel {
     @Command
     @NotifyChange("nursesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	nursesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Nurse", "e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
+    	nursesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Nurse", "where e.firstname LIKE '%"+term+"%' or e.middlename LIKE '%"+term+"%' or e.lastname LIKE '%"+term+"%'"));
     }
 
 }

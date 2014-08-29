@@ -24,7 +24,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.District;
 import ru.dreamcloud.alexion.model.Region;
-import ru.dreamcloud.persistence.jpa.DataSourceLoader;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class DistrictWindowViewModel {
 
@@ -135,7 +135,7 @@ public class DistrictWindowViewModel {
 
 		if (this.actionType.equals("EDIT")) {
 			currentDistrictItem = currentItem;
-			currentRegionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Region", "e.district.districtId="+currentDistrictItem.getDistrictId()));
+			currentRegionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Region", "where e.district.districtId="+currentDistrictItem.getDistrictId()));
 		}
 
 	}

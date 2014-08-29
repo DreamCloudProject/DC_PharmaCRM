@@ -21,7 +21,8 @@
 		<class>ru.dreamcloud.alexion.model.Extension</class>
 		<class>ru.dreamcloud.authentication.persistence.jpa.CommonRole</class>
 		<class>ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo</class>
-		<class>ru.dreamcloud.authentication.persistence.jpa.CommonRoleRule</class>
+		<class>ru.dreamcloud.authentication.persistence.jpa.CommonRule</class>
+		<class>ru.dreamcloud.authentication.persistence.jpa.RuleAssociation</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>
