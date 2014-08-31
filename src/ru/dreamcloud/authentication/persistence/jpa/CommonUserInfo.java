@@ -40,7 +40,7 @@ public class CommonUserInfo implements Serializable {
 
 	private String password;
 	
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
 	@JoinColumn(name="role")
 	private CommonRole role;
 

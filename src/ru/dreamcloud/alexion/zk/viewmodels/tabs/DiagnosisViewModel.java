@@ -17,6 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Diagnosis;
+import ru.dreamcloud.alexion.model.Patient;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class DiagnosisViewModel {
@@ -86,6 +87,9 @@ public class DiagnosisViewModel {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
+						for (Patient pat : selected.getPatients()) {
+							pat.setDiagnosis(null);							
+						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);

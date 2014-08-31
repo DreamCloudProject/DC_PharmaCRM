@@ -17,6 +17,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.MedicalExpert;
+import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class MedicalExpertViewModel {
@@ -86,6 +87,10 @@ public class MedicalExpertViewModel {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
+						for (PatientHistory ph : selected.getPatientHistories()) {
+							ph.setMedicalExpert(null);
+							DataSourceLoader.getInstance().updateRecord(ph);
+						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);

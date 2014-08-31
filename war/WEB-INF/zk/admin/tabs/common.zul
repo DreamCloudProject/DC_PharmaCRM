@@ -6,7 +6,10 @@
 				<include src="/WEB-INF/zk/include/extensionTilePanel.zul"></include>
 			</div>
 			<div sclass="col-lg-6 col-md-12 col-xs-12">
-				<include src="/WEB-INF/zk/include/commonroleTilePanel.zul"></include>
+				<div sclass="col-lg-12 col-md-12 col-xs-12">
+					<include src="/WEB-INF/zk/include/commonuserinfoTilePanel.zul"></include>
+					<include src="/WEB-INF/zk/include/commonroleTilePanel.zul"></include>
+				</div>
 			</div>
 		</div>
 	</div>

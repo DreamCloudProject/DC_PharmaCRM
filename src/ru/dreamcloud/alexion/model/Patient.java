@@ -62,6 +62,9 @@ public class Patient implements Serializable {
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
 	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="patient")
+	private List<PatientHistory> patientHistories;
+	
 	public Patient() {
 		// TODO Auto-generated constructor stub
 	}
@@ -120,8 +123,16 @@ public class Patient implements Serializable {
 
 	public void setContactInfo(ContactInfo contactInfo) {
 		this.contactInfo = contactInfo;
-	}
+	}	
 	
+	public List<PatientHistory> getPatientHistories() {
+		return patientHistories;
+	}
+
+	public void setPatientHistories(List<PatientHistory> patientHistories) {
+		this.patientHistories = patientHistories;
+	}
+
 	@Transient
 	public String getFullname(){
 		return lastname + " " + firstname + " " + middlename;

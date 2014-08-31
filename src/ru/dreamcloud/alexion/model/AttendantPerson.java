@@ -1,6 +1,8 @@
 package ru.dreamcloud.alexion.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 /*
@@ -37,6 +39,9 @@ public class AttendantPerson implements Serializable {
 	private String lastname;
 
 	private String middlename;
+	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="attperson")
+	private List<PatientHistory> patientHistories;
 	
 	public AttendantPerson() {
 		// TODO Auto-generated constructor stub
@@ -87,11 +92,19 @@ public class AttendantPerson implements Serializable {
 
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
-	}
+	}	
 	
+	public List<PatientHistory> getPatientHistories() {
+		return patientHistories;
+	}
+
+	public void setPatientHistories(List<PatientHistory> patientHistories) {
+		this.patientHistories = patientHistories;
+	}
+
 	@Transient
 	public String getFullname(){
 		return lastname + " " + firstname + " " + middlename;
-	}
+	}	
 
 }

@@ -46,6 +46,19 @@ public class ApprovalStagesVM {
 	public void setApprovalStages(List<Resolution> approvalStages) {
 		this.approvalStages = approvalStages;
 	}
+	
+	/**************************************
+	 * Property noStages
+	 ***************************************/
+	private List<PatientHistory> noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null"));	
+
+	public List<PatientHistory> getNoStages() {
+		return noStages;
+	}
+
+	public void setNoStages(List<PatientHistory> noStages) {
+		this.noStages = noStages;
+	}
 
 	/**************************************
 	 * Property xsClassType
@@ -101,16 +114,26 @@ public class ApprovalStagesVM {
 	@GlobalCommand
 	@Command
 	@NotifyChange("approvalStages")
-	public List<PatientHistory> retrievePatientHistories(@BindingParam("resolutionItem")Resolution resolutionItem) {		
-        return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionItem.getResolutionId()));   
+	public List<PatientHistory> retrievePatientHistories(@BindingParam("resolutionId")Integer resolutionId) {
+		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionId));
     }
 	
 	@Command
-	@NotifyChange("approvalStages")
+	@NotifyChange({"noStages","approvalStages"})
 	public void changeResolution(@BindingParam("currentResolutionItem")Resolution resItem,
-								 @BindingParam("targetComponent")Component phDragged) {
-		Object pk = Integer.valueOf(phDragged.getId());
+								 @BindingParam("targetComponent")Component phDragged) {		
+		String[] phId = phDragged.getId().split("_");
+		Object pk = Integer.valueOf(phId[1]);
 		currentPatientHistory = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, pk);
+		if(resItem == null){
+			if(!noStages.contains(currentPatientHistory)){
+				noStages.add(currentPatientHistory);
+			}
+		} else {
+			if(noStages.contains(currentPatientHistory)){
+				noStages.remove(currentPatientHistory);
+			}
+		}
 		currentPatientHistory.setResolution(resItem);
 		DataSourceLoader.getInstance().updateRecord(currentPatientHistory);
 	}

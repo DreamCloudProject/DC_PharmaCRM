@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -86,6 +87,9 @@ public class ExtensionTilePanelVM {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
+						for (Document doc : selected.getDocuments()) {
+							doc.setExtension(null);
+						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);

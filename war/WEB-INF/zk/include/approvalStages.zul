@@ -1,15 +1,48 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ApprovalStagesVM')">
+		<div sclass="row">
+			<div zclass="col-lg-12 col-md-12 col-xs-12">
+				<div zclass="tile">
+					<n:h2 class="tile-title">Истории вне этапов</n:h2>
+					<div zclass="listview">
+						<listbox model="@load(vm.noStages)" mold="paging" pagingPosition="top" pageSize="4" emptyMessage="На данном этапе нет ни одной истории пациента" onDrop="@command('changeResolution', currentResolutionItem=null, targetComponent=event.dragged)" droppable="true">
+							<template name="model" var="phItem">
+								<listitem id="noStages_${phItem.patientHistoriesId}" draggable="true">
+									<listcell>
+										<n:div class="media p-l-5">
+											<n:div class="pull-left">
+												<n:i class="fa fa-history fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:span class="news-title">
+													<label value="${phItem.patient.lastname} ${phItem.patient.firstname} ${phItem.patient.middlename}" />
+												</n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span>
+													<n:small class="text-muted">
+														<label value="@load(phItem.project.title)" />
+													</n:small>																												
+												</n:span>
+											</n:div>
+										</n:div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>			
+			</div>
+		</div>
 		<div sclass="row" children="@load(vm.approvalStages)">
 			<template name="children" var="resolutionItem">
 				<div zclass="col-lg-${vm.lgClassType} col-md-12 col-xs-12">
 					<div zclass="tile">
 						<n:h2 class="tile-title">${resolutionItem.title}</n:h2>
 						<div zclass="listview">
-							<listbox model="@load(vm.retrievePatientHistories(resolutionItem))" mold="paging" pagingPosition="top" pageSize="4" emptyMessage="На данном этапе нет ни одной истории пациента" onDrop="@command('changeResolution', currentResolutionItem=resolutionItem, targetComponent=event.dragged)" droppable="true">
+							<listbox model="@load(vm.retrievePatientHistories(resolutionItem.resolutionId))" mold="paging" pagingPosition="top" pageSize="4" emptyMessage="На данном этапе нет ни одной истории пациента" onDrop="@command('changeResolution', currentResolutionItem=resolutionItem, targetComponent=event.dragged)" droppable="true">
 								<template name="model" var="patientHistory">
-									<listitem id="${patientHistory.patientHistoriesId}" draggable="true">
+									<listitem id="stage_${patientHistory.patientHistoriesId}" draggable="true">
 										<listcell>
 											<n:div class="media p-l-5">
 												<n:div class="pull-left">

@@ -69,10 +69,10 @@
 								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />		                
 			                </div>
 			                <div sclass="col-lg-3 col-md-4 col-xs-12">
-			                	<include currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
-								<include currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
-				                <include currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
-				                <include currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />			                	
+			                	<include if="${not empty vm.patientHistory.patient}" currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
+								<include if="${not empty vm.patientHistory.attperson}" currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
+				                <include if="${not empty vm.patientHistory.nurse}" currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
+				                <include if="${not empty vm.patientHistory.medicalExpert}" currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />			                	
 			                </div>
 		                </div>
 	                </div>

@@ -43,6 +43,9 @@ public class CommonRole implements Serializable {
 	
 	@OneToMany(cascade={CascadeType.PERSIST},mappedBy="role")
     private List<RuleAssociation> rules;
+	
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="role")
+	private List<CommonUserInfo> users;
 
 	public CommonRole() {
 	}
@@ -77,8 +80,16 @@ public class CommonRole implements Serializable {
 
 	public void setRules(List<RuleAssociation> rules) {
 		this.rules = rules;
-	}
+	}	
 	
+	public List<CommonUserInfo> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<CommonUserInfo> users) {
+		this.users = users;
+	}
+
 	public void addRule(CommonRule rule, String allow) {
 		RuleAssociation association = new RuleAssociation();		
 		association.setRole(this);

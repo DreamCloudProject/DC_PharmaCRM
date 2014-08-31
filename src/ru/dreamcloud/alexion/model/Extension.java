@@ -1,6 +1,8 @@
 package ru.dreamcloud.alexion.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 /*delimiter $$
@@ -33,6 +35,9 @@ public class Extension implements Serializable {
 	private String iconName;
 
 	private String title;
+	
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="extension")
+    private List<Document> documents;
 
 	public Extension() {
 	}
@@ -76,5 +81,13 @@ public class Extension implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
+	}	
 
 }

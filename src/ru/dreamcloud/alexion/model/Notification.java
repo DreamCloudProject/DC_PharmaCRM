@@ -5,7 +5,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /*
@@ -53,7 +52,7 @@ public class Notification implements Serializable{
 	
 	private String description;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "event")
 	private Event event;
 	

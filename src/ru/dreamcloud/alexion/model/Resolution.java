@@ -3,6 +3,7 @@ package ru.dreamcloud.alexion.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,6 +37,9 @@ public class Resolution implements Serializable{
 	private String title;
 	private String description;
 	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="resolution")
+	private List<PatientHistory> patientHistories;
+	
 	public Resolution() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,6 +71,14 @@ public class Resolution implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<PatientHistory> getPatientHistories() {
+		return patientHistories;
+	}
+
+	public void setPatientHistories(List<PatientHistory> patientHistories) {
+		this.patientHistories = patientHistories;
 	}
 
 }

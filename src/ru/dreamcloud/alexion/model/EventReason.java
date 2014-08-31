@@ -1,6 +1,8 @@
 package ru.dreamcloud.alexion.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -28,6 +30,9 @@ public class EventReason implements Serializable {
 	private String description;
 
 	private String title;
+	
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="eventReason")
+	private List<Event> events;
 
 	public EventReason() {
 	}
@@ -55,5 +60,13 @@ public class EventReason implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}	
 
 }

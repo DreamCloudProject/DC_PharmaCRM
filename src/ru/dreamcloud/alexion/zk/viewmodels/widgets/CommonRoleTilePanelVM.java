@@ -3,6 +3,7 @@ package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.eclipse.persistence.exceptions.DatabaseException;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -18,6 +19,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
 import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
+import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
 import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -88,11 +90,16 @@ public class CommonRoleTilePanelVM {
 					if (Messagebox.ON_YES.equals(event.getName())){
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
-						for (RuleAssociation ra : selected.getRules()) {
+						
+						for (RuleAssociation ra : selected.getRules()) {								
 							DataSourceLoader.getInstance().removeRecord(ra);																				
-						}
-						selected.setRules(null);
+						}	
+						for (CommonUserInfo user : selected.getUsers()) {
+							user.setRole(null);
+							//DataSourceLoader.getInstance().updateRecord(user);																				
+						}						
 						DataSourceLoader.getInstance().removeRecord(selected);
+
 						BindUtils.postGlobalCommand(null, null, "search", params);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 					}

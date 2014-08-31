@@ -43,27 +43,27 @@ public class PatientHistory implements Serializable {
 	@Column(name="patient_histories_id")
 	private int patientHistoriesId;
 	
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
 	@JoinColumn(name="attperson")
 	private AttendantPerson attperson;
 
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
 	@JoinColumn(name="medical_expert")
 	private MedicalExpert medicalExpert;
 
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "nurse")
 	private Nurse nurse;
 
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "patient")
 	private Patient patient;
 
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "project")
 	private Project project;
 
-	@OneToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "resolution")
 	private Resolution resolution;
 	

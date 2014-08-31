@@ -1,6 +1,8 @@
 package ru.dreamcloud.alexion.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 /*
@@ -29,6 +31,9 @@ public class Project implements Serializable {
 	private String description;
 
 	private String title;
+	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="project")
+	private List<PatientHistory> patientHistories;
 
 	public Project() {
 	}
@@ -55,6 +60,14 @@ public class Project implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public List<PatientHistory> getPatientHistories() {
+		return patientHistories;
+	}
+
+	public void setPatientHistories(List<PatientHistory> patientHistories) {
+		this.patientHistories = patientHistories;
 	}
 
 }

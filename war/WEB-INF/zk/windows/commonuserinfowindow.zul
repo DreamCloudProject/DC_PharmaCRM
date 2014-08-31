@@ -1,0 +1,77 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="CommonUserInfoWindow" title="${labels.pages.admin.settings.tabs.common.messages.windowTitleCommonUserInfo}"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		maximizable="false"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CommonUserInfoWindowVM')"
+		width="100%" height="440px"
+		contentStyle="position:relative; overflow:auto">
+		
+		<!-- Horizontal -->
+		<n:div class="block-area">
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Логин"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentUserInfoItem.login) @save(vm.currentUserInfoItem.login,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Пароль"></label>
+		
+				<n:div class="col-md-10">
+					<textbox type="password" value="@load(vm.currentUserInfoItem.password) @save(vm.currentUserInfoItem.password,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Фамилия"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentUserInfoItem.lastname) @save(vm.currentUserInfoItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Имя"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentUserInfoItem.firstname) @save(vm.currentUserInfoItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Отчество"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentUserInfoItem.middlename) @save(vm.currentUserInfoItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Роль"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.allRolesList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allRolesList)" selectedItem="@bind(vm.currentUserInfoItem.role)">
+						<template name="model" var="role">
+							<listitem label="${role.title}" selected="${role.roleId == vm.currentUserInfoItem.role.roleId}" value="${role}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allRolesList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одной роли"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>	
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div sclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
+		
+	</window>
+</zk>

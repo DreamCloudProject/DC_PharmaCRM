@@ -26,7 +26,7 @@ public class CommonRule implements Serializable {
 	@Column(name = "component_name")
 	private String componentName;
 
-	@OneToMany(cascade={CascadeType.PERSIST},mappedBy = "rule")
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},mappedBy = "rule")
 	private List<RuleAssociation> roles;
 
 	public CommonRule() {
