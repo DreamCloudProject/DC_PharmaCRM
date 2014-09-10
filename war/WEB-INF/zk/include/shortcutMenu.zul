@@ -10,7 +10,11 @@
 		    <a if="${!vm.validateForShow}" sclass="shortcut tile" href="" onClick="@command('createNewEvent')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_event.png" alt=""/>
 		        <n:small class="t-overflow">Добавить<n:br/>событие</n:small>
-		    </a>	    
+		    </a>		    
+		    <a sclass="shortcut tile" href="" onClick="@command('logout')">
+		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_logout.png" alt=""/>
+		        <n:small class="t-overflow">Выйти</n:small>
+		    </a>		    	    
 		</n:div>
 	</div>
 </zk>

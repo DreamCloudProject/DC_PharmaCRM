@@ -45,7 +45,7 @@
 										<n:span class="news-title"><label value="@load(record.lastname)"/> <label value="@load(record.firstname)"/> <label value="@load(record.middlename)"/></n:span>
 										<n:div class="clearfix"></n:div>
 										<n:span>
-											<n:small class="text-muted"><label value="@load(record.login)"/></n:small>
+											<n:small class="text-muted"><label value="@load(record.role.title)"/></n:small>
 										</n:span>
 									</n:div>
 								</n:div>						

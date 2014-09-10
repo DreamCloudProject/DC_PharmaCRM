@@ -305,13 +305,20 @@ public class PatientHistoryWindowViewModel {
 	@Command
 	@NotifyChange("currentPatientHistory")
 	public void save() {
-		final HashMap<String, Object> params = new HashMap<String, Object>();				
-		currentPatientHistory.setPatientHistoryStatus(PatientHistoryStatus.OPEN);
-		params.put("resolutionItem", currentPatientHistory.getResolution());
-		DataSourceLoader.getInstance().addRecord(currentPatientHistory);
-		Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
-		BindUtils.postGlobalCommand(null, null, "retrievePatientHistories", params);
-		win.detach();
+		if((currentPatientHistory.getAttperson() != null)
+			||(currentPatientHistory.getMedicalExpert() != null)
+			||(currentPatientHistory.getNurse() != null)
+			||(currentPatientHistory.getPatient() != null)){
+			final HashMap<String, Object> params = new HashMap<String, Object>();				
+			currentPatientHistory.setPatientHistoryStatus(PatientHistoryStatus.OPEN);
+			params.put("resolutionItem", currentPatientHistory.getResolution());				
+			DataSourceLoader.getInstance().addRecord(currentPatientHistory);		
+			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
+			BindUtils.postGlobalCommand(null, null, "retrievePatientHistories", params);
+			win.detach();
+		} else {
+			Clients.showNotification("Необходимо заполнить все обызательные поля!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);			
+		}
 	}
 	
 	@Command

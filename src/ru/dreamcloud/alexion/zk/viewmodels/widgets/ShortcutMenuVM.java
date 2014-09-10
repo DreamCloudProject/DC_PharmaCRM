@@ -5,10 +5,12 @@ import java.util.HashMap;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
+import ru.dreamcloud.authentication.zk.AuthenticationService;
 
 public class ShortcutMenuVM {
 	/**************************************
@@ -50,6 +52,13 @@ public class ShortcutMenuVM {
     	params.put("actionType", "NEW");
     	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
         window.doModal();
+	}
+	
+	@Command
+	public void logout(){
+		AuthenticationService authService = new AuthenticationService();
+		authService.logout();
+		Executions.sendRedirect(Labels.getLabel("pages.login.URL"));
 	}
 	
 	private Boolean validateObjectForShow(Object visibleForObject){

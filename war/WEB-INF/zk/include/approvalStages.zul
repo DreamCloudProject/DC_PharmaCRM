@@ -16,7 +16,7 @@
 											</n:div>
 											<n:div class="media-body">
 												<n:span class="news-title">
-													<label value="${phItem.patient.lastname} ${phItem.patient.firstname} ${phItem.patient.middlename}" />
+													<label value="История пациента: ${phItem.patient.fullname}" />
 												</n:span>
 												<n:div class="clearfix"></n:div>
 												<n:span>
@@ -50,7 +50,7 @@
 												</n:div>
 												<n:div class="media-body">
 													<n:span class="news-title">
-														<label value="${patientHistory.patient.lastname} ${patientHistory.patient.firstname} ${patientHistory.patient.middlename}" />
+														<label value="История пациента: ${patientHistory.patient.fullname}" />
 													</n:span>
 													<n:div class="clearfix"></n:div>
 													<n:span>

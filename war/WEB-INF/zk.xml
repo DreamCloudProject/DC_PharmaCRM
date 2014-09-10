@@ -14,6 +14,10 @@
 		<device-type>ajax</device-type>
 		<timeout-uri>/timeout</timeout-uri><!-- An empty URL can cause the browser to reload the same URL -->
 	</device-config>
+	
+	<listener>
+	    <listener-class>ru.dreamcloud.authentication.zk.AuthenticationInit</listener-class>
+	</listener>
 
 	<library-property>
 		<name>org.zkoss.web.classWebResource.cache.CSS.hours</name>
