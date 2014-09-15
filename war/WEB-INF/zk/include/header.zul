@@ -7,15 +7,14 @@
 		</n:a>
 		<div sclass="media-body" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.HeaderVM')" style="height:0;">
 			<n:div class="media" id="top-menu">
-				<n:div class="pull-left tm-icon" if="${!vm.adminPage}" >
-					<n:a data-drawer="messages" class="drawer-toggle"
-						href="">
+				<n:div class="pull-left tm-icon">
+					<n:a data-drawer="messages" class="drawer-toggle" href="">
 						<n:i class="${labels.header.menu.events.menuIconClassFA} fa-2x"></n:i>
 						<n:i class="n-count animated">5</n:i>
 						<n:span>${labels.header.menu.events.name}</n:span>
 					</n:a>
 				</n:div>
-				<n:div class="pull-left tm-icon" if="${!vm.adminPage}">
+				<n:div class="pull-left tm-icon">
 					<n:a data-drawer="notifications"
 						class="drawer-toggle" href="">
 						<n:i class="${labels.header.menu.notifications.menuIconClassFA} fa-2x"></n:i>

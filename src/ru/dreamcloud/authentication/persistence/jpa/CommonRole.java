@@ -41,7 +41,7 @@ public class CommonRole implements Serializable {
 
 	private String title;
 	
-	@OneToMany(cascade={CascadeType.PERSIST},mappedBy="role")
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},mappedBy="role")
     private List<RuleAssociation> rules;
 	
 	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="role")

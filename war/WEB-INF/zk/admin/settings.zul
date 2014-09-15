@@ -26,14 +26,13 @@
 
 	<zscript>
 		<![CDATA[
-	org.zkoss.lang.Library.setProperty(
-			org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
-	org.zkoss.util.resource.Labels.reset();
-]]>
+			org.zkoss.lang.Library.setProperty(org.zkoss.web.Attributes.PREFERRED_LOCALE, "ru_RU");
+			org.zkoss.util.resource.Labels.reset();
+		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
 
-		<include admin="true" src="/WEB-INF/zk/include/header.zul" />
+		<include src="/WEB-INF/zk/include/header.zul" />
 
 		<n:div class="clearfix"></n:div>
 

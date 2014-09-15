@@ -38,6 +38,9 @@ import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
 import ru.dreamcloud.alexion.model.PatientHistory;
+import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
+import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
+import ru.dreamcloud.authentication.zk.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventWindowViewModel {
@@ -45,6 +48,24 @@ public class EventWindowViewModel {
 	@Wire("#EventWindow")
 	private Window win;
 	
+	/**************************************
+	 * Property authenticationService
+	 ***************************************/
+	private AuthenticationService authenticationService;
+	
+	/**************************************
+	  Property isVisibleFormDocuments	 
+	***************************************/
+	private Boolean isVisibleFormDocuments;	
+	
+	public Boolean getIsVisibleFormDocuments() {
+		return isVisibleFormDocuments;
+	}
+
+	public void setIsVisibleFormDocuments(Boolean isVisibleFormDocuments) {
+		this.isVisibleFormDocuments = isVisibleFormDocuments;
+	}
+
 	/**************************************
 	 * Property currentEvent
 	 ***************************************/
@@ -159,9 +180,13 @@ public class EventWindowViewModel {
 		itemsToRemove = new ArrayList<Object>();
 		uploadFilesList = new HashMap<File, InputStream>();
 		documentItem = new Document();
+		authenticationService = new AuthenticationService();
+		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
+		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"formDocuments");
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
 			setPatientHistoryItem((PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory"));
-		}		
+		}
+
 		if (this.actionType.equals("NEW")) {
 			currentEvent = new Event();
 			currentEvent.setDateTimeStart(currentDate);

@@ -54,7 +54,7 @@
 					
 					<n:hr class="whiter" />
 					
-					<include visibleForObject="${vm.patientHistory}" src="/WEB-INF/zk/include/shortcutMenu.zul"/>
+					<include src="/WEB-INF/zk/include/shortcutMenu.zul"/>
 					
 					<n:hr class="whiter" />
 					

@@ -115,23 +115,23 @@ public class CommonUserInfoWindowVM {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
 		
-		List<CommonUserInfo> matchUsers = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.login='"+currentUserInfoItem.getLogin()+"'"));
-		
-		if(matchUsers.isEmpty()){		
-			if (actionType.equals("NEW")) {
+		List<CommonUserInfo> matchUsers = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.login='"+currentUserInfoItem.getLogin()+"'"));	
+				
+		if (actionType.equals("NEW")) {
+			if(matchUsers.isEmpty()){
 				DataSourceLoader.getInstance().addRecord(currentUserInfoItem);
-				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-			}
-	
-			if (actionType.equals("EDIT")) {
-				DataSourceLoader.getInstance().updateRecord(currentUserInfoItem);
-				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-			}
-			BindUtils.postGlobalCommand(null, null, "search", params);
-			win.detach();	
-		} else {
-			Clients.showNotification("Пользователь с таким логином уже существует! Смените логин и попробуйте снова...", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
-		}	
+				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);				
+			} else {
+				Clients.showNotification("Пользователь с таким логином уже существует! Смените логин и попробуйте снова...", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+			}			
+		}
+
+		if (actionType.equals("EDIT")) {
+			DataSourceLoader.getInstance().updateRecord(currentUserInfoItem);
+			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		}
+		BindUtils.postGlobalCommand(null, null, "search", params);
+		win.detach();			
 	}
 	
 	@Command

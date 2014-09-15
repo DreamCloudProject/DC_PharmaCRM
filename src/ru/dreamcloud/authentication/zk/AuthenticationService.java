@@ -11,7 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
+
+import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
+import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
 import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
+import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class AuthenticationService implements Serializable {
@@ -19,12 +24,10 @@ public class AuthenticationService implements Serializable {
 	private CommonUserInfo currentProfile;	
 	
 	public CommonUserInfo getCurrentProfile() {
+		Session session = Sessions.getCurrent();
+		currentProfile = (CommonUserInfo)session.getAttribute("userInfo");
 		return currentProfile;
-	}
-
-	public void setCurrentProfile(CommonUserInfo currentProfile) {
-		this.currentProfile = currentProfile;
-	}
+	}	
 
 	public AuthenticationService() {		
 	}
@@ -79,9 +82,22 @@ public class AuthenticationService implements Serializable {
 					DataSourceLoader.getInstance().updateRecord(currentUserInfo);								
 				}					
 			}
-			result = true;
+			result = true;			
 			session.setAttribute("userInfo", currentUserInfo);
 		}		
+		return result;
+	}
+	
+	public Boolean checkAccessRights(CommonRole role, String componentName){
+		Boolean result = true;
+		if(role != null){
+			List<RuleAssociation> globalRules = role.getRules();
+			for (RuleAssociation ruleAssociation : globalRules) {
+				if(ruleAssociation.getRule().getComponentName().equals(componentName)){
+					result = Boolean.valueOf(ruleAssociation.getAllow());
+				}
+			}
+		}
 		return result;
 	}
 	

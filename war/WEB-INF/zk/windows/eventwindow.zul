@@ -53,9 +53,9 @@
 			</n:div>           
 		</n:div>
 		
-		<n:hr class="whiter m-t-20" />
+		<n:hr if="${vm.isVisibleFormDocuments}" class="whiter m-t-20" />
 		
-		<n:div class="block-area">			
+		<n:div if="${vm.isVisibleFormDocuments}" class="block-area">			
 			<n:h3 class="block-title">Документы</n:h3>
 			<n:div class="form-group">
 				<n:div class="col-md-12">

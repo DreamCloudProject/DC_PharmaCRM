@@ -45,8 +45,8 @@
 			<!-- Login -->
 			<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.LoginViewModel')" sclass="box tile animated active" >
 				<n:h2 class="m-t-0 m-b-15">Вход</n:h2>
-				<textbox value="@save(vm.currentUserInfo.login,before='login')" placeholder="Логин" maxlength="255" sclass="login-control m-b-10"/>
-				<textbox type="password" value="@save(vm.currentUserInfo.password,before='login')" placeholder="Пароль" maxlength="255" sclass="login-control m-b-10"/>
+				<textbox value="@save(vm.currentUserInfo.login,before='login')" onOK="@command('login')" placeholder="Логин" maxlength="255" sclass="login-control m-b-10"/>
+				<textbox type="password" onOK="@command('login')" value="@save(vm.currentUserInfo.password,before='login')" placeholder="Пароль" maxlength="255" sclass="login-control m-b-10"/>
 				<button id="submit" zclass="btn btn-sm m-r-5" label="Войти" onClick="@command('login')" />
 			</div>			
 		</n:section>
