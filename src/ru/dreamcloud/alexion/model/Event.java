@@ -3,7 +3,7 @@ package ru.dreamcloud.alexion.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +28,7 @@ CREATE TABLE `events` (
   `date_time_start` datetime NOT NULL,
   `date_time_end` datetime NOT NULL,
   `notification_create_flag` varchar(5) DEFAULT NULL,
-  `message_type` enum('READ','UNREAD') DEFAULT NULL,
+  `message_type` enum('TODO','IN_PROGRESS','DONE') DEFAULT NULL,
   `patient_history` int(11) DEFAULT NULL,
   `event_reason` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
@@ -37,7 +37,7 @@ CREATE TABLE `events` (
   KEY `fk_er_event_idx` (`event_reason`),
   CONSTRAINT `fk_er_event` FOREIGN KEY (`event_reason`) REFERENCES `event_reasons` (`event_reason_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -53,10 +53,10 @@ public class Event implements Serializable{
 	private String description;
 	
 	@Column(name="date_time_start")
-	private Date dateTimeStart;
+	private Timestamp dateTimeStart;
 	
 	@Column(name="date_time_end")
-	private Date dateTimeEnd;
+	private Timestamp dateTimeEnd;
 
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "patient_history")
@@ -107,19 +107,19 @@ public class Event implements Serializable{
 		this.description = description;
 	}
 
-	public Date getDateTimeStart() {
+	public Timestamp getDateTimeStart() {
 		return dateTimeStart;
 	}
 
-	public void setDateTimeStart(Date dateTimeStart) {
+	public void setDateTimeStart(Timestamp dateTimeStart) {
 		this.dateTimeStart = dateTimeStart;
 	}
 
-	public Date getDateTimeEnd() {
+	public Timestamp getDateTimeEnd() {
 		return dateTimeEnd;
 	}
 
-	public void setDateTimeEnd(Date dateTimeEnd) {
+	public void setDateTimeEnd(Timestamp dateTimeEnd) {
 		this.dateTimeEnd = dateTimeEnd;
 	}	
 

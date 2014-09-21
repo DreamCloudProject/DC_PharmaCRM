@@ -1,4 +1,20 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<calendars id="calendars" firstDayOfWeek="Monday" height="600px" timeZone="Main=GMT+0" mold="month"/>
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CalendarVM')">
+		<div sclass="row">
+			<div sclass="col-lg-12 text-center">
+				<a onClick="EventCalendar.previousPage()"><n:i class="fa fa-angle-left fa-2x"></n:i></a>
+				<a onClick="EventCalendar.nextPage()"><n:i class="fa fa-angle-right fa-2x"></n:i></a>
+			</div>
+		</div>
+		<div sclass="row">
+			<div sclass="col-lg-12">
+				<calendars id="EventCalendar" firstDayOfWeek="Monday" height="600px" timeZone="Main=GMT+0" mold="month"
+				 onEventCreate="@command('createEvent',calendarEvent=event)" 
+				 onEventEdit="@command('editEvent',calendarEvent=event)"
+				 onEventUpdate="@command('updateEvent',calendarEvent=event)"
+				 model="@load(vm.calendarModel)"/>
+			</div>
+		</div>		
+	</div>
 </zk>

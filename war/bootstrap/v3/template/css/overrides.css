@@ -149,8 +149,9 @@
 	background: rgba(0,0,0,0.3);
 }
 
+.z-calevent-inner,
 .z-calendars-month-date{
-	border: none;
+	border: none !important;
 }
 
 .z-calendars-month-header .z-calendars-day-of-week,
@@ -183,10 +184,12 @@
 .z-listitem .z-listcell,
 .z-row .z-row-inner, 
 .z-row .z-cell,
+.z-calevent-cnt,
+.z-calevent-b3,
+.z-calevent-t3,
 .z-listbox-odd.z-listitem {
-	background: none;	
+	background: none !important;	
 }
-
 .z-combobox{
 	margin:7px; 
 	width: 100%;	

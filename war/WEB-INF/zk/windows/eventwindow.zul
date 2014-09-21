@@ -41,14 +41,14 @@
 				<label zclass="control-label col-md-2" value="Дата иниц. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" value="@load(vm.currentEvent.dateTimeStart) @save(vm.currentEvent.dateTimeStart,before='save')" />
+					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeStart) @save(vm.currentEvent.dateTimeStart,before='save')" />
 				</n:div>
 			</n:div> 
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Дата заверш. события"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
-					<datebox cols="12" format="short" value="@load(vm.currentEvent.dateTimeEnd) @save(vm.currentEvent.dateTimeEnd,before='save')" />
+					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeEnd) @save(vm.currentEvent.dateTimeEnd,before='save')" />
 				</n:div>
 			</n:div>           
 		</n:div>

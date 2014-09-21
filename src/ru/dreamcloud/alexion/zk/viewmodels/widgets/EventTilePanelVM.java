@@ -85,7 +85,6 @@ public class EventTilePanelVM {
     	params.put("actionType", "EDIT");
         Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
         window.doModal();
-
     }
     
     @Command
@@ -105,6 +104,7 @@ public class EventTilePanelVM {
 					eventsList.remove(eventItem);
 					patientHistoryItem.setEvents(eventsList);
 					BindUtils.postGlobalCommand(null, null, "search", params);
+					BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
 					Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 				}
 				

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ CREATE TABLE `notifications` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `event` int(11) DEFAULT NULL,
-  `message_type` enum('READ','UNREAD') DEFAULT NULL,
+  `notification_type` enum('READ','UNREAD') DEFAULT NULL,
   PRIMARY KEY (`notification_id`),
   UNIQUE KEY `notification_id_UNIQUE` (`notification_id`),
   KEY `fk_event_id_idx` (`event`),
@@ -43,10 +44,10 @@ public class Notification implements Serializable{
 	private Integer notificationId;
 	
 	@Column(name="date_time_start")
-	private Date dateTimeStart;
+	private Timestamp dateTimeStart;
 	
 	@Column(name="date_time_end")
-	private Date dateTimeEnd;
+	private Timestamp dateTimeEnd;
 	
 	private String title;
 	
@@ -57,14 +58,14 @@ public class Notification implements Serializable{
 	private Event event;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="message_type")
-	private MessageType messageType;
+	@Column(name="notification_type")
+	private NotificationType notificationType;
 	
 	public Notification() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Notification(Date dateTimeStart, Date dateTimeEnd, String title, String description, Event event) {
+	public Notification(Timestamp dateTimeStart, Timestamp dateTimeEnd, String title, String description, Event event) {
 		setDateTimeStart(dateTimeStart);
 		setDateTimeEnd(dateTimeEnd);
 		setTitle(title);
@@ -80,19 +81,19 @@ public class Notification implements Serializable{
 		this.notificationId = notificationId;
 	}
 
-	public Date getDateTimeStart() {
+	public Timestamp getDateTimeStart() {
 		return dateTimeStart;
 	}
 
-	public void setDateTimeStart(Date dateTimeStart) {
+	public void setDateTimeStart(Timestamp dateTimeStart) {
 		this.dateTimeStart = dateTimeStart;
 	}
 
-	public Date getDateTimeEnd() {
+	public Timestamp getDateTimeEnd() {
 		return dateTimeEnd;
 	}
 
-	public void setDateTimeEnd(Date dateTimeEnd) {
+	public void setDateTimeEnd(Timestamp dateTimeEnd) {
 		this.dateTimeEnd = dateTimeEnd;
 	}
 
@@ -120,12 +121,12 @@ public class Notification implements Serializable{
 		this.event = event;
 	}
 
-	public MessageType getMessageType() {
-		return messageType;
+	public NotificationType getNotificationType() {
+		return notificationType;
 	}
 
-	public void setMessageType(MessageType messageType) {
-		this.messageType = messageType;
+	public void setNotificationType(NotificationType notificationType) {
+		this.notificationType = notificationType;
 	}
 
 }

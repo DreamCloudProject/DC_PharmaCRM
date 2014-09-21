@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -30,8 +30,6 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.EventReason;
@@ -39,7 +37,6 @@ import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
 import ru.dreamcloud.authentication.zk.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -136,7 +133,7 @@ public class EventWindowViewModel {
 	 * Property currentDate
 	 ***************************************/
 	
-	private Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+	private Timestamp currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
 
 	/**************************************
 	 * Property actionType
@@ -188,11 +185,22 @@ public class EventWindowViewModel {
 		}
 
 		if (this.actionType.equals("NEW")) {
-			currentEvent = new Event();
-			currentEvent.setDateTimeStart(currentDate);
-			currentEvent.setDateTimeEnd(currentDate);
+			if(currentItem == null){
+				currentEvent = new Event();
+				currentEvent.setDateTimeStart(currentDate);			
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(currentDate);
+				cal.add(Calendar.DAY_OF_WEEK, 1);
+				Timestamp nextDay = new Timestamp(cal.getTime().getTime());
+			
+				currentEvent.setDateTimeEnd(nextDay);
+			} else {
+				currentEvent = currentItem;
+			}
 			documentList = new ArrayList<Document>();
 		}
+		
 		if (this.actionType.equals("EDIT")) {
 			currentEvent = currentItem;
 			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
@@ -206,20 +214,25 @@ public class EventWindowViewModel {
 		params.put("searchTerm", new String());
 		clearAllRemovedItems();		
 		currentEvent.setDocuments(documentList);
-		currentEvent.setMessageType(MessageType.UNREAD);
+		currentEvent.setMessageType(MessageType.TODO);
 		currentEvent.setPatientHistory(patientHistoryItem);
-		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentEvent);
-			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		if(currentEvent.getDateTimeStart() != currentEvent.getDateTimeEnd()){
+			if (actionType.equals("NEW")) {
+				DataSourceLoader.getInstance().addRecord(currentEvent);
+				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}
+	
+			if (actionType.equals("EDIT")) {
+				DataSourceLoader.getInstance().updateRecord(currentEvent);
+				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}
+			copyAllUploadedFiles();
+			BindUtils.postGlobalCommand(null, null, "search", params);
+			BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
+			win.detach();
+		} else {
+			Clients.showNotification("Дата начала события совпадает с датой окончания события. Измените дату или время начала/окончания события.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
 		}
-
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentEvent);
-			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		}
-		copyAllUploadedFiles();
-		BindUtils.postGlobalCommand(null, null, "search", params);
-		win.detach();
 	}
 	
 	@Command

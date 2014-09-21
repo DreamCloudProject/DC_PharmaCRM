@@ -54,7 +54,7 @@
 				
 				<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.EventsViewModel')">				
 					<div zclass="col-md-12 clearfix">
-						<include src="/WEB-INF/zk/include/calendar.zul" />
+						
 					</div>
 				</div>		
 

@@ -4,6 +4,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,10 +55,10 @@ public class Document implements Serializable{
 	private String fileURL;
 	
 	@Column(name="date_created")
-	private Date dateCreated;
+	private Timestamp dateCreated;
 	
 	@Column(name="date_modified")
-	private Date dateModified;
+	private Timestamp dateModified;
 	
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "event", referencedColumnName = "event_id")
@@ -107,19 +108,19 @@ public class Document implements Serializable{
 		this.fileURL = fileURL;
 	}
 
-	public Date getDateCreated() {
+	public Timestamp getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(Timestamp dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
-	public Date getDateModified() {
+	public Timestamp getDateModified() {
 		return dateModified;
 	}
 
-	public void setDateModified(Date dateModified) {
+	public void setDateModified(Timestamp dateModified) {
 		this.dateModified = dateModified;
 	}
 

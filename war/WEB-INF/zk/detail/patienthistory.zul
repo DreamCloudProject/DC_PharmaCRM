@@ -50,7 +50,7 @@
 							 currentPageName="${vm.patientHistory.patient.lastname} ${vm.patientHistory.patient.firstname} ${vm.patientHistory.patient.middlename}"
 							 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 	
-					<n:h4 class="page-title b-0">История пациента: ${vm.patientHistory.patient.lastname} ${vm.patientHistory.patient.firstname} ${vm.patientHistory.patient.middlename}</n:h4>
+					<n:h4 class="page-title b-0">История пациента: ${vm.patientHistory.patient.fullname}</n:h4>
 					
 					<n:hr class="whiter" />
 					
@@ -65,8 +65,11 @@
 							</div>
 						</div>					
 						<div sclass="row">
-							<div sclass="col-lg-9 col-md-8 col-xs-12">
-								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />		                
+							<div sclass="col-lg-5 col-md-4 col-xs-12">
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />
+							</div>
+							<div sclass="col-lg-4 col-md-4 col-xs-12">
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/calendar.zul" />		                
 			                </div>
 			                <div sclass="col-lg-3 col-md-4 col-xs-12">
 			                	<include if="${not empty vm.patientHistory.patient}" currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
