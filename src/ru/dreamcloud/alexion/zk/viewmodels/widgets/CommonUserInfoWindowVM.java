@@ -18,8 +18,8 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Project;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
+import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonUserInfoWindowVM {

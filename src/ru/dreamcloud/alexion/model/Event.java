@@ -66,9 +66,6 @@ public class Event implements Serializable{
 	private String notificationCreateFlag;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
-    private List<Notification> notifications;
-	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
     private List<Document> documents;
 	
 	@Enumerated(EnumType.STRING)
@@ -137,14 +134,6 @@ public class Event implements Serializable{
 
 	public void setNotificationCreateFlag(String notificationCreateFlag) {
 		this.notificationCreateFlag = notificationCreateFlag;
-	}
-
-	public List<Notification> getNotifications() {
-		return notifications;
-	}
-
-	public void setNotifications(List<Notification> notifications) {
-		this.notifications = notifications;
 	}
 
 	public List<Document> getDocuments() {

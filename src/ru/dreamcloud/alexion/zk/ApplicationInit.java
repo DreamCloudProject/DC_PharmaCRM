@@ -1,4 +1,4 @@
-package ru.dreamcloud.authentication.zk;
+package ru.dreamcloud.alexion.zk;
 
 import java.util.Map;
 
@@ -12,13 +12,21 @@ import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericInitiator;
 
-public class AuthenticationInit extends GenericInitiator {
+import ru.dreamcloud.alexion.zk.services.AuthenticationService;
+import ru.dreamcloud.alexion.zk.services.SchedulerService;
+
+public class ApplicationInit extends GenericInitiator {
 	
-	public AuthenticationInit() {	
+	public ApplicationInit() {	
 	}
 	
 	@Override
 	public void doInit(Page page, Map<String, Object> args) throws Exception {
+		initAuthenticationService();
+		initSchedulerService();
+	}
+	
+	private void initAuthenticationService() throws Exception {
 		Session session = Sessions.getCurrent();
 		String requestPath = Executions.getCurrent().getDesktop().getRequestPath();
 		String loginPage = Labels.getLabel("pages.login.URL");
@@ -30,6 +38,16 @@ public class AuthenticationInit extends GenericInitiator {
 			    response.sendRedirect(loginPage);
 			    exec.setVoided(true); //no need to create UI since redirect will take place			    
 			}		
+		}
+	}
+	
+	private void initSchedulerService() {
+		Session session = Sessions.getCurrent();
+		String requestPath = Executions.getCurrent().getDesktop().getRequestPath();
+		String loginPage = Labels.getLabel("pages.login.URL");
+		if(requestPath.indexOf(loginPage) == -1){
+			SchedulerService scheduler = new SchedulerService();
+			scheduler.initSchedulerJobs();
 		}
 	}
 

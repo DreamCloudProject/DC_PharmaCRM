@@ -3,9 +3,9 @@ package ru.dreamcloud.alexion.model.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
-import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
+import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.CommonRule;
+import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 

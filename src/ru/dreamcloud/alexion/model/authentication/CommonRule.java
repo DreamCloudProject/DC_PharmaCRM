@@ -1,4 +1,4 @@
-package ru.dreamcloud.authentication.persistence.jpa;
+package ru.dreamcloud.alexion.model.authentication;
 
 import java.io.Serializable;
 import java.util.List;

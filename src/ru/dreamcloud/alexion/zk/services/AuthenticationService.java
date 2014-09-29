@@ -1,4 +1,4 @@
-package ru.dreamcloud.authentication.zk;
+package ru.dreamcloud.alexion.zk.services;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -13,10 +13,10 @@ import org.zkoss.zk.ui.Sessions;
 
 import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
-import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
-import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
-import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
+import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.CommonRule;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
+import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class AuthenticationService implements Serializable {

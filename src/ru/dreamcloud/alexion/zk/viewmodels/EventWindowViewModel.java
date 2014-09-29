@@ -35,9 +35,12 @@ import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
+import ru.dreamcloud.alexion.model.Notification;
 import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.zk.AuthenticationService;
+import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
+import ru.dreamcloud.alexion.zk.services.AuthenticationService;
+import ru.dreamcloud.alexion.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventWindowViewModel {
@@ -49,6 +52,11 @@ public class EventWindowViewModel {
 	 * Property authenticationService
 	 ***************************************/
 	private AuthenticationService authenticationService;
+	
+	/**************************************
+	 * Property schedulerService
+	 ***************************************/
+	private SchedulerService schedulerService;
 	
 	/**************************************
 	  Property isVisibleFormDocuments	 
@@ -130,6 +138,25 @@ public class EventWindowViewModel {
 	}
 	
 	/**************************************
+	 * Property notificationCreateFlag
+	 ***************************************/
+	
+	private Boolean notificationCreateFlag;	
+	
+	public Boolean getNotificationCreateFlag() {
+		return notificationCreateFlag;
+	}
+
+	public void setNotificationCreateFlag(Boolean notificationCreateFlag) {
+		this.notificationCreateFlag = notificationCreateFlag;
+	}
+	
+	/**************************************
+	 * Property userNotifications
+	 ***************************************/
+	private List<Notification> userNotifications;	
+
+	/**************************************
 	 * Property currentDate
 	 ***************************************/
 	
@@ -178,6 +205,7 @@ public class EventWindowViewModel {
 		uploadFilesList = new HashMap<File, InputStream>();
 		documentItem = new Document();
 		authenticationService = new AuthenticationService();
+		schedulerService = new SchedulerService();		
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
 		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"formDocuments");
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
@@ -205,6 +233,7 @@ public class EventWindowViewModel {
 			currentEvent = currentItem;
 			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
 		}
+		notificationCreateFlag = schedulerService.isContainsNotification(currentEvent);
     }
 	
 	@Command
@@ -218,7 +247,7 @@ public class EventWindowViewModel {
 		currentEvent.setPatientHistory(patientHistoryItem);
 		if(currentEvent.getDateTimeStart() != currentEvent.getDateTimeEnd()){
 			if (actionType.equals("NEW")) {
-				DataSourceLoader.getInstance().addRecord(currentEvent);
+				DataSourceLoader.getInstance().addRecord(currentEvent);				
 				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 			}
 	
@@ -226,6 +255,13 @@ public class EventWindowViewModel {
 				DataSourceLoader.getInstance().updateRecord(currentEvent);
 				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 			}
+			
+			if(notificationCreateFlag){				
+				schedulerService.addSchedulerJob(currentEvent);
+			} else {
+				schedulerService.removeSchedulerJob(currentEvent);							
+			}
+			
 			copyAllUploadedFiles();
 			BindUtils.postGlobalCommand(null, null, "search", params);
 			BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
@@ -305,8 +341,20 @@ public class EventWindowViewModel {
 				Clients.showNotification("Ошибка при загрузке документа!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
 				e.printStackTrace();
 			}
+		}		
+	}
+	
+	@Command
+	public void changeNotificationCreateFlag(){
+		notificationCreateFlag = schedulerService.isContainsNotification(currentEvent);
+		//TODO: Алгоритм добавления нового задания для расписания в календаре
+		if(notificationCreateFlag){
+			notificationCreateFlag = false;
+			//currentEvent.setNotificationCreateFlag(notificationCreateFlag.toString());
+		} else {
+			notificationCreateFlag = true;
+			//currentEvent.setNotificationCreateFlag(notificationCreateFlag.toString());	
 		}
-		
-		
+		Clients.showNotification("Напоминание для события '"+currentEvent.getTitle()+"' "+(notificationCreateFlag ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 	}
 }

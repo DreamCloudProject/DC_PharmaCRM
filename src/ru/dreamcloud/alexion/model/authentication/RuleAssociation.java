@@ -1,4 +1,4 @@
-package ru.dreamcloud.authentication.persistence.jpa;
+package ru.dreamcloud.alexion.model.authentication;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

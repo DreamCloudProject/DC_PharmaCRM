@@ -16,7 +16,7 @@
 	</device-config>
 	
 	<listener>
-	    <listener-class>ru.dreamcloud.authentication.zk.AuthenticationInit</listener-class>
+	    <listener-class>ru.dreamcloud.alexion.zk.ApplicationInit</listener-class>
 	</listener>
 
 	<library-property>

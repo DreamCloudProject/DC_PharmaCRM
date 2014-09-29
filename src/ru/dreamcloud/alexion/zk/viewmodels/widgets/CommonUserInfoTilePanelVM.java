@@ -16,7 +16,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonUserInfoTilePanelVM {

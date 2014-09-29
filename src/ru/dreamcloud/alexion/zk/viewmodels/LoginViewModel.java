@@ -20,8 +20,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Clients;
 
 import ru.dreamcloud.alexion.model.PhoneNumber;
-import ru.dreamcloud.authentication.persistence.jpa.CommonUserInfo;
-import ru.dreamcloud.authentication.zk.AuthenticationService;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
+import ru.dreamcloud.alexion.zk.services.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class LoginViewModel {

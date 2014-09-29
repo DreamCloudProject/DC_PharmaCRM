@@ -22,7 +22,7 @@
 				<n:div class="col-md-10">
 					<textbox value="@load(vm.currentEvent.description) @save(vm.currentEvent.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>
-			</n:div>			
+			</n:div>					
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Вид активности"></label>
 		
@@ -50,7 +50,14 @@
 				<n:div class="col-md-10 p-l-15 p-b-5">
 					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeEnd) @save(vm.currentEvent.dateTimeEnd,before='save')" />
 				</n:div>
-			</n:div>           
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Напоминание"></label>
+		
+				<n:div class="col-md-10">
+					<toggler checked="${vm.notificationCreateFlag}" onClick="@command('changeNotificationCreateFlag')"/>
+				</n:div>
+			</n:div>	           
 		</n:div>
 		
 		<n:hr if="${vm.isVisibleFormDocuments}" class="whiter m-t-20" />

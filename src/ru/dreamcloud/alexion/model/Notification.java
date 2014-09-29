@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,8 +15,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 
 /*
 delimiter $$
@@ -27,12 +31,16 @@ CREATE TABLE `notifications` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `event` int(11) DEFAULT NULL,
-  `notification_type` enum('READ','UNREAD') DEFAULT NULL,
+  `user_info` int(11) DEFAULT NULL,
+  `notification_type` enum('ACTIVE','NOT_ACTIVE') DEFAULT NULL,
+  `notification_state` enum('READ','NOT_READ') DEFAULT NULL,
   PRIMARY KEY (`notification_id`),
   UNIQUE KEY `notification_id_UNIQUE` (`notification_id`),
   KEY `fk_event_id_idx` (`event`),
-  CONSTRAINT `fk_event_notification` FOREIGN KEY (`event`) REFERENCES `events` (`event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+  KEY `fk_userinfo_notification_idx` (`user_info`),
+  CONSTRAINT `fk_event_notification` FOREIGN KEY (`event`) REFERENCES `events` (`event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userinfo_notification` FOREIGN KEY (`user_info`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -57,9 +65,17 @@ public class Notification implements Serializable{
     @JoinColumn(name = "event")
 	private Event event;
 	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "user_info")
+	private CommonUserInfo userInfo;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name="notification_type")
 	private NotificationType notificationType;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="notification_state")
+	private NotificationState notificationState;
 	
 	public Notification() {
 		// TODO Auto-generated constructor stub
@@ -119,6 +135,14 @@ public class Notification implements Serializable{
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}	
+
+	public CommonUserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(CommonUserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public NotificationType getNotificationType() {
@@ -128,5 +152,13 @@ public class Notification implements Serializable{
 	public void setNotificationType(NotificationType notificationType) {
 		this.notificationType = notificationType;
 	}
+
+	public NotificationState getNotificationState() {
+		return notificationState;
+	}
+
+	public void setNotificationState(NotificationState notificationState) {
+		this.notificationState = notificationState;
+	}	
 
 }

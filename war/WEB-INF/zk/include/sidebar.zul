@@ -2,13 +2,45 @@
 <zk xmlns:w="client" xmlns:n="native">
 	<!-- Sidebar -->
 	<n:aside id="sidebar">
-		
 		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.SidebarVM')">
+			<!-- Sidebar Widgets -->
+			<n:div class="side-widgets overflow">
+				<!-- Profile Menu -->
+				<n:div class="text-center s-widget m-b-25 dropdown">
+					<n:a href="" data-toggle="dropdown">
+						<n:img class="profile-pic animated" src="${pageContext.request.contextPath}/bootstrap/v3/template/img/profile-pic.jpg" alt=""/>
+					</n:a>
+					<n:ul class="dropdown-menu profile-menu animated">
+						<n:li>
+							<n:a href="">Мой профиль</n:a>
+						</n:li>
+						<n:li>
+							<n:a href="">События</n:a>
+						</n:li>
+						<n:li>
+							<n:a href="">Настройки</n:a>
+						</n:li>
+						<n:li>
+							<n:a href="">Выйти</n:a>
+						</n:li>
+					</n:ul>
+					<n:h4 class="m-0">${vm.currentProfile.lastname} ${vm.currentProfile.firstname}</n:h4>
+					${vm.currentProfile.login}					
+				</n:div>				
+			</n:div>
+	
+			
 			<!-- Side Menu -->
-			<n:ul class="list-unstyled side-menu">			
-				<n:li forEach="${labels.panels}" class="${each.key == vm.currentPage ? 'active' : ''}">
+			<n:ul class="list-unstyled side-menu">
+				<n:li forEach="${labels.panels}"
+					class="${each.key == vm.currentPage ? 'active' : ''}">
 					<n:a href="${each.value.URL}">
-						<n:i class="${each.value.menuIconClassFA} fa-2x"></n:i><n:span class="menu-item">${each.value.name}</n:span>
+						<n:i
+							class="${each.value.menuIconClassFA} fa-2x">
+						</n:i>
+						<n:span class="menu-item">
+							${each.value.name}
+						</n:span>
 					</n:a>
 				</n:li>
 			</n:ul>

@@ -22,9 +22,9 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.authentication.persistence.jpa.CommonRole;
-import ru.dreamcloud.authentication.persistence.jpa.CommonRule;
-import ru.dreamcloud.authentication.persistence.jpa.RuleAssociation;
+import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.CommonRule;
+import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonRoleWindowVM {

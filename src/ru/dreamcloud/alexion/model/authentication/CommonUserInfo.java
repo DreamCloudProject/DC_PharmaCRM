@@ -1,7 +1,11 @@
-package ru.dreamcloud.authentication.persistence.jpa;
+package ru.dreamcloud.alexion.model.authentication;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+
+import ru.dreamcloud.alexion.model.Notification;
 
 
 /*delimiter $$
@@ -43,6 +47,9 @@ public class CommonUserInfo implements Serializable {
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
 	@JoinColumn(name="role")
 	private CommonRole role;
+	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="userInfo")
+    private List<Notification> notifications;
 
 	private String sessionid;
 
@@ -111,6 +118,19 @@ public class CommonUserInfo implements Serializable {
 
 	public void setSessionid(String sessionid) {
 		this.sessionid = sessionid;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+	
+	@Transient
+	public String getFullname(){
+		return this.lastname + " " + this.firstname + " " + this.middlename;
 	}
 
 }
