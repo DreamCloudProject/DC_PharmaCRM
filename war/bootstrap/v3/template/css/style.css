@@ -305,7 +305,7 @@ blockquote small {
     float: left;
 }
 
-#top-menu .tm-icon span {
+#top-menu .tm-icon span.title {
     width: 0px;
     float: left;
     overflow: hidden;

@@ -60,11 +60,17 @@ public class HeaderVM {
 					" and e.notificationType="+NotificationType.class.getName()+".OVERDUE" + 
 					" and e.notificationState="+NotificationState.class.getName()+".NOT_READ"));
 			notificationsCount = notificationsList.size();
+			if(notificationsCount > 0){
+				visibleCount = true;
+			} else {
+				visibleCount = false;
+			}
 			Executions.schedule(desktop, new EventListener<Event>() {
 				public void onEvent(Event event) {
 					String result = String.valueOf(event.getData());
 					BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsCount");
 					BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsList");
+					BindUtils.postNotifyChange(null, null, HeaderVM.this, "visibleCount");
 					BindUtils.postGlobalCommand(null, null, "refreshNotificationsList", null);
 					playSound();
 		        }
@@ -124,6 +130,19 @@ public class HeaderVM {
 	}
 	
 	/**************************************
+	 * Property visibleCount
+	 ***************************************/
+	private Boolean visibleCount;	
+	
+	public Boolean getVisibleCount() {
+		return visibleCount;
+	}
+
+	public void setVisibleCount(Boolean visibleCount) {
+		this.visibleCount = visibleCount;
+	}
+
+	/**************************************
 	 * Property currentDesktop
 	 ***************************************/
 	
@@ -178,13 +197,18 @@ public class HeaderVM {
 	
 	@GlobalCommand
 	@Command
-    @NotifyChange({"notificationsCount","notificationsList"})
+    @NotifyChange({"notificationsCount","notificationsList","visibleCount"})
     public void refreshNotificationsCount() {
 		notificationsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Notification", 
 				"where e.userInfo.userInfoId=" + authenticationService.getCurrentProfile().getUserInfoId() +
 				" and e.notificationType="+NotificationType.class.getName()+".OVERDUE" + 
 				" and e.notificationState="+NotificationState.class.getName()+".NOT_READ"));
 		notificationsCount = notificationsList.size();
+		if(notificationsCount > 0){
+			visibleCount = true;
+		} else {
+			visibleCount = false;
+		}
 		scheduleJobs();
     }
     
