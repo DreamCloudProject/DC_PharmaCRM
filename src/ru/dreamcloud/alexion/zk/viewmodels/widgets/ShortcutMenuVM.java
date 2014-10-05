@@ -80,7 +80,6 @@ public class ShortcutMenuVM {
 	public void logout(){
 		authService.logout();
 		schedulerService.cancelAllSchedulerJobs();
-		schedulerService.setTimer(null);
 		Executions.sendRedirect(Labels.getLabel("pages.login.URL"));
 	}
 	

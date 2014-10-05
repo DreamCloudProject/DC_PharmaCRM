@@ -16,6 +16,8 @@ import ru.dreamcloud.alexion.zk.services.AuthenticationService;
 import ru.dreamcloud.alexion.zk.services.SchedulerService;
 
 public class ApplicationInit extends GenericInitiator {
+	private AuthenticationService authenticationService;
+	private SchedulerService scheduler;
 	
 	public ApplicationInit() {	
 	}
@@ -31,7 +33,7 @@ public class ApplicationInit extends GenericInitiator {
 		String requestPath = Executions.getCurrent().getDesktop().getRequestPath();
 		String loginPage = Labels.getLabel("pages.login.URL");
 		if(requestPath.indexOf(loginPage) == -1){
-	        AuthenticationService authenticationService = new AuthenticationService();
+	        authenticationService = new AuthenticationService();
 			if(!authenticationService.initAccess()){
 				Execution exec = Executions.getCurrent();
 			    HttpServletResponse response = (HttpServletResponse)exec.getNativeResponse();
@@ -46,8 +48,11 @@ public class ApplicationInit extends GenericInitiator {
 		String requestPath = Executions.getCurrent().getDesktop().getRequestPath();
 		String loginPage = Labels.getLabel("pages.login.URL");
 		if(requestPath.indexOf(loginPage) == -1){
-			SchedulerService scheduler = new SchedulerService();
-			scheduler.initSchedulerJobs();
+			if(authenticationService.initAccess()){
+				scheduler = (((SchedulerService)session.getAttribute("schedulerService")) != null) ? ((SchedulerService)session.getAttribute("schedulerService")) : new SchedulerService();
+				scheduler.initSchedulerJobs();
+				session.setAttribute("schedulerService", scheduler);
+			}
 		}
 	}
 

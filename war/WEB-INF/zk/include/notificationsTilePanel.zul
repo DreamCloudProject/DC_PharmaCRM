@@ -1,0 +1,43 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.NotificationTilePanelVM')">
+		<!-- Notification Drawer -->
+		<n:div id="notifications" class="tile drawer animated">
+			<n:div class="listview narrow">
+				<n:div class="media">
+					<a href="">Настройки уведомлений</a>
+					<n:span class="drawer-close">&#10005;</n:span>
+				</n:div>
+				<n:div class="overflow" style="height: 254px">
+					<listbox emptyMessage="${labels.messages.tableEmptyMessage}" mold="paging" pageSize="10" model="@load(vm.notificationsList)" selectedItem="@bind(vm.selected)">
+						<template name="model" var="record">
+							<listitem>
+								<listcell>
+									<n:div class="media">
+										<n:div class="pull-left">
+											<n:i class="fa fa-bell-o fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:small class="text-muted">
+												Напоминание на событие: ${record.title} - <label value="@load(record.dateTimeStart) @converter('formatedDate', format='dd.MM.yyyy')"/>
+											</n:small>
+											<n:br />
+											<a class="t-overflow" href="" onClick="@command('readNotification', notificationItem=record)">
+												${record.description}
+											</a>
+										</n:div>
+									</n:div>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</n:div>
+				<n:div class="media text-center whiter l-100">
+					<a href="">
+						<n:small>ПОКАЗАТЬ ВСЕ</n:small>
+					</a>
+				</n:div>
+			</n:div>
+		</n:div>
+	</div>
+</zk>

@@ -18,7 +18,7 @@
 					<n:a data-drawer="notifications"
 						class="drawer-toggle" href="">
 						<n:i class="${labels.header.menu.notifications.menuIconClassFA} fa-2x"></n:i>
-						<n:i class="n-count animated">9</n:i>
+						<n:i class="n-count animated"><label zclass="counter" value="@bind(vm.notificationsCount)"/></n:i>
 						<n:span>${labels.header.menu.notifications.name}</n:span>
 					</n:a>
 				</n:div>

@@ -8,37 +8,37 @@ $(document).ready(function(){
     -----------------------------------------------------------*/
     (function(){
         /* Textarea */
-	if($('.auto-size')[0]) {
-	    $('.auto-size').autosize();
-	}
+		if($('.auto-size')[0]) {
+		    $('.auto-size').autosize();
+		}
 
         //Select
-	if($('.select')[0]) {
-	    $('.select').selectpicker();
-	}
+		if($('.select')[0]) {
+		    $('.select').selectpicker();
+		}
         
         //Sortable
-        if($('.sortable')[0]) {
-	    $('.sortable').sortable();
-	}
+	    if($('.sortable')[0]) {
+		    $('.sortable').sortable();
+		}
 	
         //Tag Select
-	if($('.tag-select')[0]) {
-	    $('.tag-select').chosen();
-	}
+		if($('.tag-select')[0]) {
+		    $('.tag-select').chosen();
+		}
         
         /* Tab */
-	if($('.tab')[0]) {
-	    $('.tab a').click(function(e) {
-		e.preventDefault();
-		$(this).tab('show');
-	    });
-	}
+		if($('.tab')[0]) {
+		    $('.tab a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		    });
+		}
         
         /* Collapse */
-	if($('.collapse')[0]) {
-	    $('.collapse').collapse();
-	}
+		if($('.collapse')[0]) {
+		    $('.collapse').collapse();
+		}
         
         /* Accordion */
         $('.panel-collapse').on('shown.bs.collapse', function () {

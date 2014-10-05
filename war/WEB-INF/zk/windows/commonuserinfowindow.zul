@@ -74,4 +74,21 @@
 		</n:div>
 		
 	</window>
+	<!-- Custom Scrollbar -->
+	<n:script type="text/javascript">
+		/* --------------------------------------------------------
+		Custom Scrollbar
+	    ----------------------------------------------------------*/    
+	    (function() {
+	    	$('html').niceScroll();
+	    	$('.z-window-content').niceScroll();
+	    	$('.z-combobox-popup').niceScroll();
+	    	$('.z-listbox').niceScroll();    	
+	    	
+			if($('.overflow')[0]) {
+			    var overflowRegular, overflowInvisible = false;
+			    overflowRegular = $('.overflow').niceScroll();
+			}
+	    })();
+	</n:script>
 </zk>

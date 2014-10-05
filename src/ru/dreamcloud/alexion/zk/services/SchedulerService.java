@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
@@ -18,22 +16,6 @@ import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class SchedulerService {
 	
-	class SchedulerTask extends TimerTask {
-
-		@Override
-		public void run() {
-			System.out.println("Time's up!");
-			this.cancel();			
-		}
-		
-	}
-	
-	/**************************************
-	 * Property currentDate
-	 ***************************************/
-	
-	private Timestamp currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
-	
 	/**************************************
 	 * Property authenticationService
 	 ***************************************/
@@ -45,49 +27,35 @@ public class SchedulerService {
 	private List<Notification> currentNotifications;
 	
 	/**************************************
-	 * Property timer
+	 * Property currentDate
 	 ***************************************/
-	private Timer timer;	
 	
-	public Timer getTimer() {
-		return timer;
-	}	
+	private Timestamp currentDate;
 
-	public void setTimer(Timer timer) {
-		this.timer = timer;
-	}
-	
 	public SchedulerService() {
 		authenticationService = new AuthenticationService();
-	}
+	}	
 	
-	public void initSchedulerJobs() {		
-		if(authenticationService.getCurrentProfile() != null){
-			Session session = Sessions.getCurrent();
-			
-			if(((SchedulerService)session.getAttribute("schedulerService")) != null){
-				timer = ((SchedulerService)session.getAttribute("schedulerService")).getTimer() != null ? ((SchedulerService)session.getAttribute("schedulerService")).getTimer() : new Timer();
+	public void initSchedulerJobs() {
+		Session session = Sessions.getCurrent();
+		currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
+		for (Notification notification : getUserNotifications()) {
+			if(notification.getDateTimeEnd().after(currentDate)){
+				if(notification.getNotificationType() == NotificationType.NOT_ACTIVE){					
+					notification.setNotificationType(NotificationType.ACTIVE);
+					DataSourceLoader.getInstance().updateRecord(notification);
+				}
 			} else {
-				timer = new Timer();
-			}
-			
-			currentNotifications = getUserNotifications();
-			for (Notification notification : currentNotifications) {
-				if(notification.getDateTimeEnd().after(currentDate)){
-					if(notification.getNotificationType() == NotificationType.NOT_ACTIVE){
-						timer.schedule(new SchedulerTask(), notification.getDateTimeEnd());
-						notification.setNotificationType(NotificationType.ACTIVE);
-						DataSourceLoader.getInstance().updateRecord(notification);
-					}
-				} else {
-					if(notification.getNotificationState() == NotificationState.READ){
-						DataSourceLoader.getInstance().removeRecord(notification);
-					}
+				if(notification.getNotificationType() == NotificationType.ACTIVE){
+					notification.setNotificationType(NotificationType.OVERDUE);
+					DataSourceLoader.getInstance().updateRecord(notification);
+				}
+				
+				if(notification.getNotificationState() == NotificationState.READ){
+					DataSourceLoader.getInstance().removeRecord(notification);
 				}
 			}
-			session.setAttribute("schedulerService", this);
-			
-		}
+		}		
 	}
 	
 	public void addSchedulerJob(Event event) {
@@ -119,19 +87,17 @@ public class SchedulerService {
 	
 	public void removeSchedulerJob(Event event) {
 		Notification notification = getNotificationByEvent(event);
-		if(notification != null){
-			DataSourceLoader.getInstance().removeRecord(notification);
-		}
+		DataSourceLoader.getInstance().removeRecord(notification);
 		initSchedulerJobs();
 	}
 	
 	public void cancelAllSchedulerJobs(){
-		timer.cancel();
+        Session session = Sessions.getCurrent();
+        session.removeAttribute("schedulerService");
 	}
 	
-	public Boolean isContainsNotification(Event event) {		
-		currentNotifications = getUserNotifications();		
-		for (Notification notification : currentNotifications) {
+	public Boolean isContainsNotification(Event event) {
+		for (Notification notification : getUserNotifications()) {
 			if(notification.getEvent().getEventId() == event.getEventId()){
 				return true;				
 			}
@@ -139,19 +105,17 @@ public class SchedulerService {
 		return false;
 	}
 	
-	private Notification getNotificationByEvent(Event event) {
-		currentNotifications = getUserNotifications();		
-		for (Notification notification : currentNotifications) {
+	public List<Notification> getUserNotifications() {
+		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("Notification", "where e.userInfo.userInfoId="+authenticationService.getCurrentProfile().getUserInfoId()));		
+	}
+	
+	private Notification getNotificationByEvent(Event event) {	
+		for (Notification notification : getUserNotifications()) {
 			if(notification.getEvent().getEventId() == event.getEventId()){
 				return notification;				
 			}
 		}
 		return null;
-	}
-	
-	private List<Notification> getUserNotifications() {
-		currentNotifications = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Notification", "where e.userInfo.userInfoId="+authenticationService.getCurrentProfile().getUserInfoId()));
-		return currentNotifications;
 	}
 
 }

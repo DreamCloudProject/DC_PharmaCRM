@@ -32,7 +32,7 @@ CREATE TABLE `notifications` (
   `description` varchar(1024) DEFAULT NULL,
   `event` int(11) DEFAULT NULL,
   `user_info` int(11) DEFAULT NULL,
-  `notification_type` enum('ACTIVE','NOT_ACTIVE') DEFAULT NULL,
+  `notification_type` enum('ACTIVE','NOT_ACTIVE','OVERDUE') DEFAULT NULL,
   `notification_state` enum('READ','NOT_READ') DEFAULT NULL,
   PRIMARY KEY (`notification_id`),
   UNIQUE KEY `notification_id_UNIQUE` (`notification_id`),

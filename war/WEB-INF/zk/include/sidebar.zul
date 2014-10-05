@@ -12,16 +12,16 @@
 					</n:a>
 					<n:ul class="dropdown-menu profile-menu animated">
 						<n:li>
-							<n:a href="">Мой профиль</n:a>
+							<n:a href="">Мой профиль</n:a><n:i class="icon left">&#61903;</n:i><n:i class="icon right">&#61815;</n:i>
 						</n:li>
 						<n:li>
-							<n:a href="">События</n:a>
+							<n:a href="">События</n:a><n:i class="icon left">&#61903;</n:i><n:i class="icon right">&#61815;</n:i>
 						</n:li>
 						<n:li>
-							<n:a href="">Настройки</n:a>
+							<n:a href="">Настройки</n:a><n:i class="icon left">&#61903;</n:i><n:i class="icon right">&#61815;</n:i>
 						</n:li>
 						<n:li>
-							<n:a href="">Выйти</n:a>
+							<n:a href="">Выйти</n:a><n:i class="icon left">&#61903;</n:i><n:i class="icon right">&#61815;</n:i>
 						</n:li>
 					</n:ul>
 					<n:h4 class="m-0">${vm.currentProfile.lastname} ${vm.currentProfile.firstname}</n:h4>

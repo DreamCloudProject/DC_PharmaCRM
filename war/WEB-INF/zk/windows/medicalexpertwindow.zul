@@ -222,6 +222,20 @@
 	<!-- UX -->
 	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
 	<!-- Custom Scrollbar -->
-	<!-- All JS functions -->
-	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/functions.js"></n:script>
+	<n:script type="text/javascript">
+		/* --------------------------------------------------------
+		Custom Scrollbar
+	    ----------------------------------------------------------*/    
+	    (function() {
+	    	$('html').niceScroll();
+	    	$('.z-window-content').niceScroll();
+	    	$('.z-combobox-popup').niceScroll();
+	    	$('.z-listbox').niceScroll();    	
+	    	
+			if($('.overflow')[0]) {
+			    var overflowRegular, overflowInvisible = false;
+			    overflowRegular = $('.overflow').niceScroll();
+			}
+	    })();
+	</n:script>
 </zk>

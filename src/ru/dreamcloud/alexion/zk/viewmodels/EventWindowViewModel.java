@@ -17,12 +17,14 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -200,12 +202,13 @@ public class EventWindowViewModel {
     				 @ExecutionArgParam("eventItem") Event currentItem,
     				 @ExecutionArgParam("actionType") String currentAction) {
 		Selectors.wireComponents(view, this, false);
+		Session session = Sessions.getCurrent();
 		setActionType(currentAction);
 		itemsToRemove = new ArrayList<Object>();
 		uploadFilesList = new HashMap<File, InputStream>();
 		documentItem = new Document();
-		authenticationService = new AuthenticationService();
-		schedulerService = new SchedulerService();		
+		authenticationService = new AuthenticationService();		
+		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
 		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"formDocuments");
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
@@ -233,7 +236,7 @@ public class EventWindowViewModel {
 			currentEvent = currentItem;
 			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
 		}
-		notificationCreateFlag = schedulerService.isContainsNotification(currentEvent);
+		refreshNotificationCreateFlag();
     }
 	
 	@Command
@@ -245,7 +248,7 @@ public class EventWindowViewModel {
 		currentEvent.setDocuments(documentList);
 		currentEvent.setMessageType(MessageType.TODO);
 		currentEvent.setPatientHistory(patientHistoryItem);
-		if(currentEvent.getDateTimeStart() != currentEvent.getDateTimeEnd()){
+		if((currentEvent.getDateTimeStart().before(currentEvent.getDateTimeEnd()))){
 			if (actionType.equals("NEW")) {
 				DataSourceLoader.getInstance().addRecord(currentEvent);				
 				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
@@ -265,9 +268,10 @@ public class EventWindowViewModel {
 			copyAllUploadedFiles();
 			BindUtils.postGlobalCommand(null, null, "search", params);
 			BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
+			BindUtils.postGlobalCommand(null, null, "refreshNotificationsCount", null);
 			win.detach();
 		} else {
-			Clients.showNotification("Дата начала события совпадает с датой окончания события. Измените дату или время начала/окончания события.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+			Clients.showNotification("Некорректный период события. Измените дату или время начала/окончания события.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
 		}
 	}
 	
@@ -356,5 +360,12 @@ public class EventWindowViewModel {
 			//currentEvent.setNotificationCreateFlag(notificationCreateFlag.toString());	
 		}
 		Clients.showNotification("Напоминание для события '"+currentEvent.getTitle()+"' "+(notificationCreateFlag ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+	}
+	
+	@GlobalCommand
+	@Command
+    @NotifyChange("notificationCreateFlag")
+    public void refreshNotificationCreateFlag() {
+		notificationCreateFlag = schedulerService.isContainsNotification(currentEvent);
 	}
 }

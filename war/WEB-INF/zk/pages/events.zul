@@ -44,7 +44,7 @@
 			<n:section id="content" class="container">
 
 				<include src="/WEB-INF/zk/include/messages.zul" />
-				<include src="/WEB-INF/zk/include/notifications.zul" />
+				<include src="/WEB-INF/zk/include/notificationsTilePanel.zul" />
 
 				<include breadcrumbs="${labels.panels.events.breadcrumbs}"
 						 currentPageName="${labels.panels.events.name}"
