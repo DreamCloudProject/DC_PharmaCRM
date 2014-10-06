@@ -1,5 +1,7 @@
 package ru.dreamcloud.alexion.model.authentication;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "common_roles_rules_rel")
 @IdClass(RuleAssociationId.class)
-public class RuleAssociation {
+public class RuleAssociation implements Serializable {
 	@Id
 	@Column(name = "role", insertable=false, updatable=false)
 	private int roleId;

@@ -87,7 +87,9 @@ public class SchedulerService {
 	
 	public void removeSchedulerJob(Event event) {
 		Notification notification = getNotificationByEvent(event);
-		DataSourceLoader.getInstance().removeRecord(notification);
+		if(notification != null){
+			DataSourceLoader.getInstance().removeRecord(notification);
+		}
 		initSchedulerJobs();
 	}
 	

@@ -22,6 +22,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.DesktopUnavailableException;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
@@ -67,12 +68,17 @@ public class HeaderVM {
 			}
 			Executions.schedule(desktop, new EventListener<Event>() {
 				public void onEvent(Event event) {
-					String result = String.valueOf(event.getData());
-					BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsCount");
-					BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsList");
-					BindUtils.postNotifyChange(null, null, HeaderVM.this, "visibleCount");
-					BindUtils.postGlobalCommand(null, null, "refreshNotificationsList", null);
-					playSound();
+					try {
+						String result = String.valueOf(event.getData());
+						BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsCount");
+						BindUtils.postNotifyChange(null, null, HeaderVM.this, "notificationsList");
+						BindUtils.postNotifyChange(null, null, HeaderVM.this, "visibleCount");
+						BindUtils.postGlobalCommand(null, null, "refreshNotificationsList", null);
+						playSound();
+					} catch (DesktopUnavailableException ex){
+						System.out.println("Desktop is not available!");
+					}
+
 		        }
 			}, new Event("onEvent", null, notificationsCount));			
 		}
