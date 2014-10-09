@@ -201,13 +201,12 @@ public class AttPersonWindowViewModel {
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
 		currentAttPersonItem.setContactInfo(contactInfoItem);
+		DataSourceLoader.getInstance().mergeRecord(currentAttPersonItem);
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentAttPersonItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentAttPersonItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

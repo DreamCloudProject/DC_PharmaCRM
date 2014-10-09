@@ -135,7 +135,7 @@ public class ApprovalStagesVM {
 			}
 		}
 		currentPatientHistory.setResolution(resItem);
-		DataSourceLoader.getInstance().updateRecord(currentPatientHistory);
+		DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);
 	}
 	
 	@Command

@@ -38,6 +38,8 @@ import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.Extension;
 import ru.dreamcloud.alexion.model.MessageType;
 import ru.dreamcloud.alexion.model.Notification;
+import ru.dreamcloud.alexion.model.NotificationState;
+import ru.dreamcloud.alexion.model.NotificationType;
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
 import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
@@ -249,20 +251,20 @@ public class EventWindowViewModel {
 		currentEvent.setMessageType(MessageType.TODO);
 		currentEvent.setPatientHistory(patientHistoryItem);
 		if((currentEvent.getDateTimeStart().before(currentEvent.getDateTimeEnd()))){
-			if (actionType.equals("NEW")) {
-				DataSourceLoader.getInstance().addRecord(currentEvent);				
-				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-			}
-	
-			if (actionType.equals("EDIT")) {
-				DataSourceLoader.getInstance().updateRecord(currentEvent);
-				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-			}
 			
 			if(notificationCreateFlag){				
-				schedulerService.addSchedulerJob(currentEvent);
+				addSchedulerJob(currentEvent);
 			} else {
-				schedulerService.removeSchedulerJob(currentEvent);							
+				DataSourceLoader.getInstance().mergeRecord(currentEvent);
+				
+				if (actionType.equals("NEW")) {									
+					Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+				}
+		
+				if (actionType.equals("EDIT")) {
+					Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+				}
+				removeSchedulerJob(currentEvent);							
 			}
 			
 			copyAllUploadedFiles();
@@ -346,6 +348,40 @@ public class EventWindowViewModel {
 				e.printStackTrace();
 			}
 		}		
+	}
+	
+	private void addSchedulerJob(Event event) {
+		Notification notification = schedulerService.getNotificationByEvent(event);
+		if(notification == null){
+			notification = new Notification();
+			notification.setTitle(event.getTitle());
+			notification.setDescription(event.getDescription());
+			notification.setDateTimeStart(event.getDateTimeStart());
+			notification.setDateTimeEnd(event.getDateTimeEnd());
+			notification.setNotificationType(NotificationType.NOT_ACTIVE);
+			notification.setNotificationState(NotificationState.NOT_READ);
+			notification.setEvent(event);
+			notification.setUserInfo(authenticationService.getCurrentProfile());			
+		} else {
+			notification.setTitle(event.getTitle());
+			notification.setDescription(event.getDescription());
+			notification.setDateTimeStart(event.getDateTimeStart());
+			notification.setDateTimeEnd(event.getDateTimeEnd());
+			notification.setNotificationType(NotificationType.NOT_ACTIVE);
+			notification.setNotificationState(NotificationState.NOT_READ);
+			notification.setEvent(event);
+			notification.setUserInfo(authenticationService.getCurrentProfile());			
+		}
+		DataSourceLoader.getInstance().mergeRecord(notification);
+		schedulerService.initSchedulerJobs();
+	}
+	
+	private void removeSchedulerJob(Event event) {
+		Notification notification = schedulerService.getNotificationByEvent(event);
+		if(notification != null){
+			DataSourceLoader.getInstance().removeRecord(notification);
+		}
+		schedulerService.initSchedulerJobs();
 	}
 	
 	@Command

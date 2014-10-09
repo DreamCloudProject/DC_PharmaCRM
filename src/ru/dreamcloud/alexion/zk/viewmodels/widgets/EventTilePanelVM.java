@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.io.Files;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
@@ -22,10 +23,17 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Event;
+import ru.dreamcloud.alexion.model.Notification;
 import ru.dreamcloud.alexion.model.PatientHistory;
+import ru.dreamcloud.alexion.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventTilePanelVM {
+	
+	/**************************************
+	 * Property schedulerService
+	 ***************************************/
+	private SchedulerService schedulerService;
 
 	/**************************************
 	 * Property selected
@@ -69,6 +77,8 @@ public class EventTilePanelVM {
 	@Init
 	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory patientHistory) {
 		if(patientHistory != null){
+			Session session = Sessions.getCurrent();
+			schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 			patientHistoryItem = patientHistory;
 			eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
 			if (!eventsList.isEmpty()) {
@@ -96,6 +106,7 @@ public class EventTilePanelVM {
 				if (Messagebox.ON_YES.equals(event.getName())){
 					final HashMap<String, Object> params = new HashMap<String, Object>();
 					params.put("searchTerm", new String());
+					//TODO: Удаление уведомлений
 					DataSourceLoader.getInstance().removeRecord(eventItem);
 					for (Document docToDelete : eventItem.getDocuments()) {
 						File fileToDelete = new File(docToDelete.getFileURL());

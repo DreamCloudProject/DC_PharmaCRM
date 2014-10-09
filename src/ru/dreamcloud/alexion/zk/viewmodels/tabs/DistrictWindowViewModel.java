@@ -148,13 +148,13 @@ public class DistrictWindowViewModel {
 		approveUnlinkRegions();
 		currentDistrictItem.setRegions(currentRegionsList);
 		
+		DataSourceLoader.getInstance().mergeRecord(currentDistrictItem);
+		
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentDistrictItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentDistrictItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		
@@ -237,7 +237,7 @@ public class DistrictWindowViewModel {
 	@NotifyChange({"currentRegionsList","currentDistrictItem","allRegionsList","regionItem"})
 	private void approveUnlinkRegions(){		
 		for (Object entityObj : regionsToUnlink) {
-			DataSourceLoader.getInstance().updateRecord(entityObj);
+			DataSourceLoader.getInstance().mergeRecord(entityObj);
 		}		
 	}
 	

@@ -201,13 +201,12 @@ public class NurseWindowViewModel {
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
 		currentNurseItem.setContactInfo(contactInfoItem);
-		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentNurseItem);
+		DataSourceLoader.getInstance().mergeRecord(currentNurseItem);
+		if (actionType.equals("NEW")) {			
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentNurseItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

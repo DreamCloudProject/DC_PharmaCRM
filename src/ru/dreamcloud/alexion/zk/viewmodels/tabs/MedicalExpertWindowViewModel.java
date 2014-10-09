@@ -201,13 +201,12 @@ public class MedicalExpertWindowViewModel {
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
 		currentMedicalExpertItem.setContactInfo(contactInfoItem);
+		DataSourceLoader.getInstance().mergeRecord(currentMedicalExpertItem);
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentMedicalExpertItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentMedicalExpertItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

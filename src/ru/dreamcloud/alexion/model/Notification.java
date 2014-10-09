@@ -61,7 +61,7 @@ public class Notification implements Serializable{
 	
 	private String description;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "event")
 	private Event event;
 	

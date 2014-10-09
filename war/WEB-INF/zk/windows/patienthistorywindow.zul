@@ -25,7 +25,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Сопровождающий"></label>
+				<label sclass="control-label col-md-2" value="Родственник"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)">
@@ -38,11 +38,11 @@
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="addNewAttPerson" zclass="btn btn-success" label="Добавить сопровождающего" onClick="@command('addNewAttPerson')" />										
+					<button id="addNewAttPerson" zclass="btn btn-success" label="Добавить родственника" onClick="@command('addNewAttPerson')" />										
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Мед. сестра"></label>
+				<label sclass="control-label col-md-2" value="Менеджер"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)">
@@ -55,7 +55,7 @@
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="addNewNurse" zclass="btn btn-success" label="Добавить мед. сестру" onClick="@command('addNewNurse')" />										
+					<button id="addNewNurse" zclass="btn btn-success" label="Добавить менеджера" onClick="@command('addNewNurse')" />										
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
@@ -135,10 +135,10 @@
 		<n:hr class="whiter m-t-20" />
 		
 		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран сопровождающий</n:h3>
+			<n:h3 class="block-title">Выбран родственник</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
-					<listbox id="AttPersonListbox" emptyMessage="Сопровождающий не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentAttPersonsList)" zclass="listview" >
+					<listbox id="AttPersonListbox" emptyMessage="Родственник не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentAttPersonsList)" zclass="listview" >
 						<template name="model" var="attPerson">
 							<listitem>
 								<listcell>
@@ -162,7 +162,7 @@
 		<n:hr class="whiter m-t-20" />
 		
 		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбрана мед. сестра</n:h3>
+			<n:h3 class="block-title">Выбран менеджер</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
 					<listbox id="NurseListbox" emptyMessage="Мед. сестра не добавлена" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >

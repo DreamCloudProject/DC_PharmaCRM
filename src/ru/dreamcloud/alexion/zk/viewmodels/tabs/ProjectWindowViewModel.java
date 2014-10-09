@@ -75,14 +75,12 @@ public class ProjectWindowViewModel {
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
-		
+		DataSourceLoader.getInstance().mergeRecord(currentProjectItem);
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentProjectItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentProjectItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

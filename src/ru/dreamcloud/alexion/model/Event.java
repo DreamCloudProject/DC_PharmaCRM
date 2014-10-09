@@ -76,6 +76,9 @@ public class Event implements Serializable{
     @JoinColumn(name = "event_reason")
 	private EventReason eventReason;
 	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
+    private List<Notification> notifications;
+	
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
@@ -158,6 +161,14 @@ public class Event implements Serializable{
 
 	public void setEventReason(EventReason eventReason) {
 		this.eventReason = eventReason;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 	
 	

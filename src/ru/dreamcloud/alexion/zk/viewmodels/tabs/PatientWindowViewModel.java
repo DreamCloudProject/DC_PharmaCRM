@@ -215,13 +215,12 @@ public class PatientWindowViewModel {
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
 		currentPatientItem.setContactInfo(contactInfoItem);
+		DataSourceLoader.getInstance().mergeRecord(currentPatientItem);
 		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentPatientItem);
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentPatientItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		

@@ -135,7 +135,7 @@ public class DistrictViewModel {
 				newRegion.setTitle(regTitle);
 				newRegion.setDescription(regTitle);
 				//System.out.println(region.getTitle() + ": " + regTitle);
-				DataSourceLoader.getInstance().addRecord(newRegion);
+				DataSourceLoader.getInstance().mergeRecord(newRegion);
 			}
 		}
 		regionsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Region", null));

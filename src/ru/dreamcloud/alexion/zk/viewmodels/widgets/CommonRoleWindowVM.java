@@ -161,14 +161,14 @@ public class CommonRoleWindowVM {
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
-
-		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentRoleItem);
+		
+		DataSourceLoader.getInstance().mergeRecord(currentRoleItem);
+		
+		if (actionType.equals("NEW")) {			
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
-		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentRoleItem);
+		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		removeUnlinkItems();
@@ -279,7 +279,7 @@ public class CommonRoleWindowVM {
 			allowProperty = true;
 		}				
 		ruleAssoc.setAllow(allowProperty.toString());				
-		DataSourceLoader.getInstance().updateRecord(ruleAssoc);
+		DataSourceLoader.getInstance().mergeRecord(ruleAssoc);
 		Clients.showNotification("Правило '"+ruleAssoc.getRule().getComponentName()+"' "+(allowProperty ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 	}
 	

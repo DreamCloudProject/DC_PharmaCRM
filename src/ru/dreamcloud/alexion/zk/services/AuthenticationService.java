@@ -75,11 +75,11 @@ public class AuthenticationService implements Serializable {
 			currentUserInfo = matchUsers.get(0);
 			if(currentUserInfo.getSessionid() == null){
 				currentUserInfo.setSessionid(jsessionid);
-				DataSourceLoader.getInstance().updateRecord(currentUserInfo);
+				DataSourceLoader.getInstance().mergeRecord(currentUserInfo);
 			} else {
 				if(!currentUserInfo.getSessionid().equalsIgnoreCase(jsessionid)){
 					currentUserInfo.setSessionid(jsessionid);
-					DataSourceLoader.getInstance().updateRecord(currentUserInfo);								
+					DataSourceLoader.getInstance().mergeRecord(currentUserInfo);								
 				}					
 			}
 			result = true;			

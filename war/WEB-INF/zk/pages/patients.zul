@@ -12,7 +12,9 @@
 		<?meta name="keywords" content=""?>
 
 		<n:title>${labels.sitename}</n:title>
-
+		
+		<?link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/bootstrap/v3/template/img/al.ico"?>
+		
 		<!-- CSS -->
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/bootstrap.min.css" rel="stylesheet"?>
 		<?link href="${pageContext.request.contextPath}/bootstrap/v3/template/css/animate.min.css" rel="stylesheet"?>

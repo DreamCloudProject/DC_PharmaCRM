@@ -90,7 +90,7 @@ public class NurseViewModel {
 						params.put("searchTerm", new String());
 						for (PatientHistory ph : selected.getPatientHistories()) {
 							ph.setNurse(null);
-							DataSourceLoader.getInstance().updateRecord(ph);
+							DataSourceLoader.getInstance().mergeRecord(ph);
 						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);

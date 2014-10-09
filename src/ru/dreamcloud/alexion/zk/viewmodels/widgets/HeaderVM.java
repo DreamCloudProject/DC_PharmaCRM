@@ -55,7 +55,7 @@ public class HeaderVM {
 		@Override
 		public void run() {
 			notification.setNotificationType(NotificationType.OVERDUE);
-			DataSourceLoader.getInstance().updateRecord(notification);
+			DataSourceLoader.getInstance().mergeRecord(notification);
 			notificationsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Notification", 
 					"where e.userInfo.userInfoId=" + userInfo.getUserInfoId() +
 					" and e.notificationType="+NotificationType.class.getName()+".OVERDUE" + 

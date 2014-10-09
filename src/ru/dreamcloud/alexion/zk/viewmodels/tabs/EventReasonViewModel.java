@@ -88,7 +88,7 @@ public class EventReasonViewModel {
 						params.put("searchTerm", new String());
 						for (Event ev : selected.getEvents()) {
 							ev.setEventReason(null);
-							DataSourceLoader.getInstance().updateRecord(ev);
+							DataSourceLoader.getInstance().mergeRecord(ev);
 						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);

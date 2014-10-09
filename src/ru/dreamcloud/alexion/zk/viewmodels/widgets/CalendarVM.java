@@ -117,7 +117,7 @@ public class CalendarVM {
 		Event entityEvent = (Event)DataSourceLoader.getInstance().getRecord(Event.class, Integer.valueOf(advEvent.getEventId()));
 		entityEvent.setDateTimeStart(new Timestamp(event.getBeginDate().getTime()));
 		entityEvent.setDateTimeEnd(new Timestamp(event.getEndDate().getTime()));
-		DataSourceLoader.getInstance().updateRecord(entityEvent);
+		DataSourceLoader.getInstance().mergeRecord(entityEvent);
 		refreshCalendar();		
 	}
 	

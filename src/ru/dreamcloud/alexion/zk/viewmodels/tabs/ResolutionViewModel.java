@@ -89,7 +89,7 @@ public class ResolutionViewModel {
 						params.put("searchTerm", new String());						
 						for (PatientHistory ph : selected.getPatientHistories()) {
 							ph.setResolution(null);
-							DataSourceLoader.getInstance().updateRecord(ph);
+							DataSourceLoader.getInstance().mergeRecord(ph);
 						}
 						DataSourceLoader.getInstance().removeRecord(selected);
 						BindUtils.postGlobalCommand(null, null, "search", params);

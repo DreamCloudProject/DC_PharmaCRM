@@ -74,7 +74,7 @@ public class NotificationTilePanelVM {
     public void readNotification(@BindingParam("notificationItem") final Notification notificationItem) {
     	final HashMap<String, Object> params = new HashMap<String, Object>();
     	notificationItem.setNotificationState(NotificationState.READ);
-    	DataSourceLoader.getInstance().updateRecord(notificationItem);
+    	DataSourceLoader.getInstance().mergeRecord(notificationItem);
     	refreshNotificationsList();
     	schedulerService.initSchedulerJobs();
 		BindUtils.postGlobalCommand(null, null, "refreshNotificationsCount", null);

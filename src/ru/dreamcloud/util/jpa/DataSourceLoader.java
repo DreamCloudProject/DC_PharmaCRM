@@ -1,7 +1,5 @@
 package ru.dreamcloud.util.jpa;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
 public class DataSourceLoader {
 	private static final String PERSISTENCE_UNIT_NAME = "DCPharmaCRMPU";
 	private static EntityManagerFactoryImpl factory = (EntityManagerFactoryImpl)Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	// private static EntityManagerImpl em = (EntityManagerImpl)factory.createEntityManager();
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +55,7 @@ public class DataSourceLoader {
 		return entityObject;
 	}
 
-	public void addRecord(Object entity) {
+	public void mergeRecord(Object entity) {
 		EntityManagerFactoryImpl emf = factory;
 		EntityManagerImpl em = (EntityManagerImpl)emf.createEntityManager();
 		try {
@@ -66,40 +63,8 @@ public class DataSourceLoader {
 			try {
 				t.begin();
 				em.merge(entity);
-				t.commit();				
-			} finally {
-				if (t.isActive())
-					t.rollback();
-			}
-		} finally {
-			em.close();
-		}
-	}
-
-	public void updateRecord(Object entity, Object pk) {
-		Class<?> entityClass = entity.getClass();
-		EntityManagerFactoryImpl emf = factory;
-		EntityManagerImpl em = (EntityManagerImpl)emf.createEntityManager();
-		Object entityObject = em.find(entityClass, pk);
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				for (Field f : entityClass.getDeclaredFields()) {
-					if (!Modifier.isStatic(f.getModifiers())) {
-						f.setAccessible(true);
-						// System.out.println(f.getName() + ": " + f.get(entityObject) + " = " + f.get(entity));
-						if (f.get(entity) != null) {
-							f.set(entityObject, f.get(entity));
-						}
-					}
-				}
-				t.begin();
-				em.merge(entityObject);
 				t.commit();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
@@ -111,41 +76,6 @@ public class DataSourceLoader {
 		}
 	}
 
-	public void updateRecord(Object entity) {
-		Class<?> entityClass = entity.getClass();
-		EntityManagerFactoryImpl emf = factory;
-		EntityManagerImpl em = (EntityManagerImpl)emf.createEntityManager();
-		Object pk = emf.getPersistenceUnitUtil().getIdentifier(entity);
-		Object entityObject = em.find(entityClass, pk);
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				for (Field f : entityClass.getDeclaredFields()) {
-					if (!Modifier.isStatic(f.getModifiers())) {
-						f.setAccessible(true);
-						// System.out.println(f.getName() + ": " + f.get(entityObject) + " = " + f.get(entity));
-						if (f.get(entity) != null) {
-							f.set(entityObject, f.get(entity));
-						}
-					}
-				}
-				t.begin();
-				em.merge(entityObject);
-				t.commit();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (t.isActive())
-					t.rollback();
-			}
-		} finally {
-			em.close();
-		}
-	}
 
 	public void removeRecord(Object entity, Object pk) {
 		EntityManagerFactoryImpl emf = factory;

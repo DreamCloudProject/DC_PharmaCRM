@@ -312,7 +312,7 @@ public class PatientHistoryWindowViewModel {
 			final HashMap<String, Object> params = new HashMap<String, Object>();				
 			currentPatientHistory.setPatientHistoryStatus(PatientHistoryStatus.OPEN);
 			params.put("resolutionItem", currentPatientHistory.getResolution());				
-			DataSourceLoader.getInstance().addRecord(currentPatientHistory);		
+			DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);		
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
 			BindUtils.postGlobalCommand(null, null, "retrievePatientHistories", params);
 			win.detach();

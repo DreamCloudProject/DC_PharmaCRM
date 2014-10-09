@@ -112,13 +112,13 @@ public class ExtensionWindowVM {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("searchTerm", new String());
 	
-		if (actionType.equals("NEW")) {
-			DataSourceLoader.getInstance().addRecord(currentExtensionItem);
+		DataSourceLoader.getInstance().mergeRecord(currentExtensionItem);
+		
+		if (actionType.equals("NEW")) {			
 			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}
 
 		if (actionType.equals("EDIT")) {
-			DataSourceLoader.getInstance().updateRecord(currentExtensionItem);
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		
