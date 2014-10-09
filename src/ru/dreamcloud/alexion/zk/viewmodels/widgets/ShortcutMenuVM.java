@@ -57,7 +57,7 @@ public class ShortcutMenuVM {
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		List<CommonRole> matchRoles = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRole", "where e.title='"+view.getPage().getId()+"'"));
 		CommonRole pageRole = matchRoles.isEmpty() ? null : matchRoles.get(0);		
-		isVisibleCreateNewEvent = authService.checkAccessRights(pageRole,"createNewEvent");
+		isVisibleCreateNewEvent = authService.checkAccessRights(pageRole,"Добавить событие");
 	}
 	
 	@Command

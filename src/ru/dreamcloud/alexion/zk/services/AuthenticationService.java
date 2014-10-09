@@ -11,10 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 
-import com.sun.org.apache.bcel.internal.generic.ALOAD;
-
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
-import ru.dreamcloud.alexion.model.authentication.CommonRule;
 import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
@@ -91,7 +88,7 @@ public class AuthenticationService implements Serializable {
 	public Boolean checkAccessRights(CommonRole role, String componentName){
 		Boolean result = true;
 		if(role != null){
-			List<RuleAssociation> globalRules = role.getRules();
+			List<RuleAssociation> globalRules = new ArrayList(DataSourceLoader.getInstance().fetchRecords("RuleAssociation", "where e.roleId="+role.getRoleId()));;
 			for (RuleAssociation ruleAssociation : globalRules) {
 				if(ruleAssociation.getRule().getComponentName().equals(componentName)){
 					result = Boolean.valueOf(ruleAssociation.getAllow());

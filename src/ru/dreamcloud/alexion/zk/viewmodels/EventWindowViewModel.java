@@ -212,7 +212,7 @@ public class EventWindowViewModel {
 		authenticationService = new AuthenticationService();		
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
-		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"formDocuments");
+		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"Документы");
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
 			setPatientHistoryItem((PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory"));
 		}

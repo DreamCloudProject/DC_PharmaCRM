@@ -37,7 +37,7 @@
 						<listcell>
 							<n:div class="media p-l-5">
 								<n:div class="pull-left">
-									<n:i class="fa fa-wheelchair fa-2x"></n:i>
+									<n:i class="fa fa-smile-o fa-2x"></n:i>
 								</n:div>
 								<n:div class="media-body">
 									<n:span class="news-title"><label value="@load(record.lastname)"/> <label value="@load(record.firstname)"/> <label value="@load(record.middlename)"/></n:span>

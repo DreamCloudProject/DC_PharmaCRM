@@ -1,5 +1,5 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
-<?page id="mainPage" complete="true"?>
+<?page id="MainPage" complete="true"?>
 <!DOCTYPE html>
 <n:html xmlns:w="client" xmlns:n="native">
 	<!--[if IE 9 ]><html class="ie9"><![endif]-->
