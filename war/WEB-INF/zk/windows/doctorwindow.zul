@@ -1,0 +1,241 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="DoctorWindow" title="${labels.pages.admin.settings.tabs.doctors.messages.windowTitle}"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DoctorWindowViewModel')"
+		width="100%" height="100%"				
+		contentStyle="position:relative; overflow:auto">
+
+		<!-- Horizontal -->
+		<n:div class="block-area">			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Фамилия"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentDoctorItem.lastname) @save(vm.currentDoctorItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Имя"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentDoctorItem.firstname) @save(vm.currentDoctorItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Отчество"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentDoctorItem.middlename) @save(vm.currentDoctorItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Город"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.contactInfoItem.city) @save(vm.contactInfoItem.city,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Регион"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.regionsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.regionsList)" selectedItem="@load(vm.contactInfoItem.region) @save(vm.contactInfoItem.region,before='save')">
+						<template name="model" var="region">
+							<listitem label="${region.title}" selected="${region.regionId == vm.contactInfoItem.region.regionId}" value="${region}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.regionsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного региона"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>			
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Страна"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.contactInfoItem.country) @save(vm.contactInfoItem.country,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Почтовый индекс"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.contactInfoItem.postalCode) @save(vm.contactInfoItem.postalCode,before='save')" placeholder="..." maxlength="20" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+		</n:div>
+					
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Форма добавления нового адреса</n:h3>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Адрес"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.addressItem.title) @save(vm.addressItem.title,before='addNewAddress')" placeholder="Название адреса" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>
+		
+				<n:div class="col-md-4">
+					<textbox value="@load(vm.addressItem.street) @save(vm.addressItem.street,before='addNewAddress')" placeholder="Улица" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@load(vm.addressItem.homeNumber) @save(vm.addressItem.homeNumber,before='addNewAddress')" placeholder="Дом" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@load(vm.addressItem.corpsNumber) @save(vm.addressItem.corpsNumber,before='addNewAddress')" placeholder="Корпус" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>
+				
+				<n:div class="col-md-2">					
+					<textbox value="@load(vm.addressItem.apartmentNumber) @save(vm.addressItem.apartmentNumber,before='addNewAddress')" placeholder="Квартира" maxlength="11" sclass="form-control input-sm"/>
+				</n:div>				
+			</n:div>			
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewAddress" zclass="btn btn-success" label="Добавить новый адрес" onClick="@command('addNewAddress')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Список адресов</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="AddressesListbox" emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.addressList)" zclass="listview" >
+						<template name="model" var="address">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-map-marker fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(address.title)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><label value="@load(address.street)"/></n:small>
+											</n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted">
+													<n:span if="${not empty address.homeNumber}">д. <label value="@load(address.homeNumber)"/></n:span>
+													<n:span if="${not empty address.corpsNumber}">, корп. <label value="@load(address.corpsNumber)"/></n:span>
+													<n:span if="${not empty address.apartmentNumber}">, кв. <label value="@load(address.apartmentNumber)"/></n:span>
+												</n:small>
+											</n:span>
+											<n:div class="list-options">
+												<button zclass="btn btn-success" label="Удалить" onClick="@command('removeAddress', addressItem=address)" />
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Форма добавления нового номера телефона</n:h3>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Телефон"></label>		
+
+				<n:div class="col-md-2">
+					<listbox if="${not empty vm.phoneTypes}" mold="select" sclass="form-control input-sm" model="@load(vm.phoneTypes)" selectedItem="@load(vm.phoneItem.phoneType) @save(vm.phoneItem.phoneType,before='addNewPhoneNumber')">
+						<template name="model" var="type">
+							<listitem label="${type.name}" value="${type}"/>
+						</template>				
+					</listbox>
+				</n:div>
+								
+				<n:div class="col-md-8">
+					<textbox value="@load(vm.phoneItem.phoneNumber) @save(vm.phoneItem.phoneNumber,before='addNewPhoneNumber')" placeholder="Номер телефона в формате (9991235577)" maxlength="255" sclass="form-control input-sm"/>
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewPhoneNumber" zclass="btn btn-success" label="Добавить номер телефона" onClick="@command('addNewPhoneNumber')" />					
+				</n:div>
+			</n:div>
+		</n:div>
+				
+		<n:hr class=" whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<n:h3 class="block-title">Список телефонов</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="PhonesListbox" emptyMessage="Не добавлено ни одного номера телефона" mold="paging" sclass="m-b-10" model="@load(vm.phonesList)" zclass="listview">
+						<template name="model" var="phone">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa ${phone.phoneType.icon} fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="@load(phone.phoneNumber)"/></n:span>
+											<n:div class="clearfix"></n:div>
+											<n:span>
+												<n:small class="text-muted"><label value="@load(phone.phoneType.name)"/></n:small>
+											</n:span>
+											<n:div class="list-options">
+												<button sclass="btn btn-success" label="Удалить" onClick="@command('removePhoneNumber', phoneItem=phone)" />
+											</n:div>
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>									
+				</n:div>
+			</n:div>
+		</n:div>		
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div sclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="${vm.actionType == 'NEW' ? 'Добавить' : 'Сохранить' }" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>
+
+	</window>
+	<!-- UX -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	<!-- Custom Scrollbar -->
+	<n:script type="text/javascript">
+		/* --------------------------------------------------------
+		Custom Scrollbar
+	    ----------------------------------------------------------*/    
+	    (function() {
+	    	$('html').niceScroll();
+	    	$('.z-window-content').niceScroll();
+	    	$('.z-combobox-popup').niceScroll();
+	    	$('.z-listbox').niceScroll();    	
+	    	
+			if($('.overflow')[0]) {
+			    var overflowRegular, overflowInvisible = false;
+			    overflowRegular = $('.overflow').niceScroll();
+			}
+	    })();
+	</n:script>
+</zk>

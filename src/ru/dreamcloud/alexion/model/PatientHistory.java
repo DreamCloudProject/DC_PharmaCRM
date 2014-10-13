@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
+
 /*
 delimiter $$
 
@@ -16,6 +18,9 @@ CREATE TABLE `patient_histories` (
   `medical_expert` int(11) DEFAULT NULL,
   `nurse` int(11) DEFAULT NULL,
   `project` int(11) DEFAULT NULL,
+  `curator` int(11) DEFAULT NULL,
+  `lawyer` int(11) DEFAULT NULL,
+  `doctor` int(11) DEFAULT NULL,
   `status` enum('OPEN','CLOSED') DEFAULT NULL,
   PRIMARY KEY (`patient_histories_id`),
   UNIQUE KEY `patient_hystories_id_UNIQUE` (`patient_histories_id`),
@@ -25,7 +30,13 @@ CREATE TABLE `patient_histories` (
   KEY `fk_project_idx` (`project`),
   KEY `fk_attperson_ph_idx` (`attperson`),
   KEY `fk_patient_ph_idx` (`patient`),
+  KEY `fk_curator_ph_idx` (`curator`),
+  KEY `fk_lawyer_ph_idx` (`lawyer`),
+  KEY `fk_doctor_ph_idx` (`doctor`),
+  CONSTRAINT `fk_doctor_ph` FOREIGN KEY (`doctor`) REFERENCES `doctors` (`doctor_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_attperson_ph` FOREIGN KEY (`attperson`) REFERENCES `attendant_persons` (`att_person_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_curator_ph` FOREIGN KEY (`curator`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lawyer_ph` FOREIGN KEY (`lawyer`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_medexpert_ph` FOREIGN KEY (`medical_expert`) REFERENCES `medical_experts` (`medical_expert_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_nurse_ph` FOREIGN KEY (`nurse`) REFERENCES `nurses` (`nurse_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_patient_ph` FOREIGN KEY (`patient`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -62,6 +73,18 @@ public class PatientHistory implements Serializable {
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "project")
 	private Project project;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "curator")
+	private CommonUserInfo curator;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "lawyer")
+	private CommonUserInfo lawyer;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "doctor")
+	private Doctor doctor;
 
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "resolution")
@@ -131,8 +154,32 @@ public class PatientHistory implements Serializable {
 
 	public void setResolution(Resolution resolution) {
 		this.resolution = resolution;
-	}	
+	}
 	
+	public CommonUserInfo getCurator() {
+		return curator;
+	}
+
+	public void setCurator(CommonUserInfo curator) {
+		this.curator = curator;
+	}
+
+	public CommonUserInfo getLawyer() {
+		return lawyer;
+	}
+
+	public void setLawyer(CommonUserInfo lawyer) {
+		this.lawyer = lawyer;
+	}	
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
 	public PatientHistoryStatus getPatientHistoryStatus() {
 		return patientHistoryStatus;
 	}

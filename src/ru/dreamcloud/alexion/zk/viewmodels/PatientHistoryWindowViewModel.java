@@ -22,6 +22,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.alexion.model.AttendantPerson;
 import ru.dreamcloud.alexion.model.Diagnosis;
+import ru.dreamcloud.alexion.model.Doctor;
 import ru.dreamcloud.alexion.model.MedicalExpert;
 import ru.dreamcloud.alexion.model.Nurse;
 import ru.dreamcloud.alexion.model.Patient;
@@ -29,6 +30,7 @@ import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.PatientHistoryStatus;
 import ru.dreamcloud.alexion.model.Project;
 import ru.dreamcloud.alexion.model.Resolution;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientHistoryWindowViewModel {
@@ -199,6 +201,101 @@ public class PatientHistoryWindowViewModel {
 	
 	public List<MedicalExpert> getAllMedicalExpertsList() {
 		return allMedicalExpertsList;
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------------------------*/
+	
+	/**************************************
+	 * Property doctorItem
+	 ***************************************/
+	private Doctor doctorItem;	
+	
+	public Doctor getDoctorItem() {
+		return doctorItem;
+	}
+
+	public void setDoctorItem(Doctor doctorItem) {
+		this.doctorItem = doctorItem;
+	}
+
+	/**************************************
+	 * Property newDoctorItemFullname
+	 ***************************************/
+	private String newDoctorItemFullname;	
+	
+	public String getNewDoctorItemFullname() {
+		return newDoctorItemFullname;
+	}
+
+	public void setNewDoctorItemFullname(String newDoctorItemFullname) {
+		this.newDoctorItemFullname = newDoctorItemFullname;
+	}
+
+	/**************************************
+	 * Property currentDoctorsList
+	 ***************************************/
+	
+	private List<Doctor> currentDoctorsList;	
+
+	public List<Doctor> getCurrentDoctorsList() {
+		return currentDoctorsList;
+	}
+
+	/**************************************
+	 * Property allMedicalExpertsList
+	 ***************************************/
+	
+	private List<MedicalExpert> allDoctorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Doctor", null));
+	
+	public List<MedicalExpert> getAllDoctorsList() {
+		return allDoctorsList;
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------------------------*/
+	/**************************************
+	 * Property curatorItem
+	 ***************************************/
+	private CommonUserInfo curatorItem;
+
+	public CommonUserInfo getCuratorItem() {
+		return curatorItem;
+	}
+
+	public void setCuratorItem(CommonUserInfo curatorItem) {
+		this.curatorItem = curatorItem;
+	}
+
+	/**************************************
+	 * Property newCuratorItemFullname
+	 ***************************************/
+	private String newCuratorItemFullname;	
+	
+	public String getNewCuratorItemFullname() {
+		return newCuratorItemFullname;
+	}
+
+	public void setNewCuratorItemFullname(String newCuratorItemFullname) {
+		this.newCuratorItemFullname = newCuratorItemFullname;
+	}
+	
+	/**************************************
+	 * Property currentCuratorsList
+	 ***************************************/
+	
+	private List<CommonUserInfo> currentCuratorsList;		
+
+	public List<CommonUserInfo> getCurrentCuratorsList() {
+		return currentCuratorsList;
+	}
+
+	/**************************************
+	 * Property allCuratorsList
+	 ***************************************/
+	
+	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Куратор'"));
+	
+	public List<CommonUserInfo> getAllCuratorsList() {
+		return allCuratorsList;
 	}
 	
 	/*-------------------------------------------------------------------------------------------------------------------------*/
@@ -474,8 +571,60 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setMedicalExpert(medicalExpertItem);
     	currentMedicalExpertsList = new ArrayList<MedicalExpert>();
     	currentMedicalExpertsList.add(medicalExpertItem);
-    	Clients.showNotification("Мед. эксперта с именем "+medicalExpertItem.getLastname()+" "+medicalExpertItem.getFirstname()+" "+medicalExpertItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    	Clients.showNotification("Мед. эксперт с именем "+medicalExpertItem.getLastname()+" "+medicalExpertItem.getFirstname()+" "+medicalExpertItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
     }
+    
+    @Command
+	@NotifyChange({"currentPatientHistory","currentDoctorsList","allDoctorsList","doctorItem"})
+	public void addNewDoctor(){
+    	if(allDoctorsList.contains(doctorItem)){
+    		currentPatientHistory.setDoctor(doctorItem);
+    		currentDoctorsList = new ArrayList<Doctor>();
+    		currentDoctorsList.add(doctorItem);
+			Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	} else {
+	    	Messagebox.show("Врача с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый врач", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+				@Override				
+				public void onEvent(Event event) throws Exception {
+					if (Messagebox.ON_YES.equals(event.getName())){
+						BindUtils.postGlobalCommand(null, null, "createNewDoctor", null);											
+					}
+				}
+	    	});	    	
+    	}		
+	}
+	
+    @GlobalCommand
+    @Command
+	@NotifyChange({"currentPatientHistory","currentDoctorsList","allDoctorsList","doctorItem"})
+    public void createNewDoctor(){
+    	String[] fullname = newDoctorItemFullname.split(" ");   	
+    	doctorItem = new Doctor(); 	
+    	doctorItem.setLastname(fullname[0]);
+    	if(fullname.length > 1){
+    		doctorItem.setFirstname(fullname[1]);
+    	}
+    	if(fullname.length > 2){
+    		doctorItem.setMiddlename(fullname[2]);
+    	}
+    	currentPatientHistory.setDoctor(doctorItem);
+    	currentDoctorsList = new ArrayList<Doctor>();
+    	currentDoctorsList.add(doctorItem);
+    	Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    }
+    
+	@Command
+	@NotifyChange({"currentPatientHistory","currentCuratorsList","allCuratorsList","curatorItem"})
+	public void addNewCurator(){
+    	if(allCuratorsList.contains(curatorItem)){
+    		currentPatientHistory.setCurator(curatorItem);
+    		currentCuratorsList = new ArrayList<CommonUserInfo>();
+    		currentCuratorsList.add(curatorItem);
+			Clients.showNotification("Куратор с именем "+curatorItem.getLastname()+" "+curatorItem.getFirstname()+" "+curatorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	} else {
+    		Clients.showNotification("Куратора с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Куратор'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
+    	}		
+	}
     
 	@Command
 	public void closeThis() {

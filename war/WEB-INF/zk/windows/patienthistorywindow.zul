@@ -76,6 +76,37 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Врач"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="DoctorCombobox" placeholder="..." selectedItem="@bind(vm.doctorItem)" value="@bind(vm.newDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="addNewDoctor" zclass="btn btn-success" label="Добавить врача" onClick="@command('addNewDoctor')" />										
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label sclass="control-label col-md-2" value="Куратор"></label>
+												
+				<n:div class="col-md-10">								
+					<listbox if="${not empty vm.allCuratorsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allCuratorsList)" selectedItem="@bind(vm.currentPatientHistory.curator)">
+						<template name="model" var="curator">
+							<listitem label="${curator.lastname} ${curator.firstname} ${curator.middlename}" selected="${curator.userInfoId == vm.currentPatientHistory.curator.userInfoId}" value="${curator}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allCuratorsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни пользователя с ролью куратор"/></n:small>
+					</n:span>					
+				</n:div>				
+			</n:div>			
+			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Этап"></label>
 		
 				<n:div class="col-md-10">
@@ -117,7 +148,7 @@
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">
-											<n:i class="fa fa-wheelchair fa-2x"></n:i>
+											<n:i class="fa fa-smile-o fa-2x"></n:i>
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="${patient.lastname} ${patient.firstname} ${patient.middlename}"/></n:span>
@@ -202,6 +233,33 @@
 										</n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="${medicalExpert.lastname} ${medicalExpert.firstname} ${medicalExpert.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран врач</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="DoctorListbox" emptyMessage="Врач не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctorsList)" zclass="listview" >
+						<template name="model" var="doctor">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-user-md fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${doctor.lastname} ${doctor.firstname} ${doctor.middlename}"/></n:span>
 											<n:div class="clearfix"></n:div>		
 										</n:div>
 									</n:div>						

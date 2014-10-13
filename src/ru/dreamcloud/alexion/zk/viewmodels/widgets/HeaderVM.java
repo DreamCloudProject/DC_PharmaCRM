@@ -223,7 +223,9 @@ public class HeaderVM {
 		currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
 		for (Notification notification : schedulerService.getUserNotifications()) {
 			if(notification.getNotificationType() == NotificationType.ACTIVE){
-				timer.schedule(new SchedulerTask(notification, currentDesktop, authenticationService.getCurrentProfile()), notification.getDateTimeEnd());				
+				SchedulerTask schdTask = new SchedulerTask(notification, currentDesktop, authenticationService.getCurrentProfile());
+				timer.schedule(schdTask, notification.getDateTimeEnd());
+				schedulerService.addScheduledTask("Task_"+notification.getNotificationId(), schdTask);
 			}
 		}
 	}

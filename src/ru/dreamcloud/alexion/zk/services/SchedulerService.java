@@ -3,7 +3,10 @@ package ru.dreamcloud.alexion.zk.services;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TimerTask;
 
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
@@ -22,10 +25,15 @@ public class SchedulerService {
 	private AuthenticationService authenticationService;	
 	
 	/**************************************
-	 * Property currentNotifications
+	 * Property scheduledTasks
 	 ***************************************/
-	private List<Notification> currentNotifications;
 	
+	Map<String,TimerTask> scheduledTasks;	
+	
+	public Map<String, TimerTask> getScheduledTasks() {
+		return scheduledTasks;
+	}
+
 	/**************************************
 	 * Property currentDate
 	 ***************************************/
@@ -34,6 +42,7 @@ public class SchedulerService {
 
 	public SchedulerService() {
 		authenticationService = new AuthenticationService();
+		scheduledTasks = new HashMap<String, TimerTask>();
 	}	
 	
 	public void initSchedulerJobs() {
@@ -85,6 +94,13 @@ public class SchedulerService {
 		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("Notification", "where e.userInfo.userInfoId="+authenticationService.getCurrentProfile().getUserInfoId()));		
 	}
 	
-
-
+	
+	public void addScheduledTask(String taskId, TimerTask scheduledTask) {
+		scheduledTasks.put(taskId, scheduledTask);
+	}
+	
+	public void removeScheduledTask(String taskId) {
+		scheduledTasks.get(taskId).cancel();
+		scheduledTasks.remove(taskId);
+	}
 }

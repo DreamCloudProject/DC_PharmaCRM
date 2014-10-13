@@ -380,6 +380,9 @@ public class EventWindowViewModel {
 		Notification notification = schedulerService.getNotificationByEvent(event);
 		if(notification != null){
 			DataSourceLoader.getInstance().removeRecord(notification);
+			if(notification.getNotificationType() == NotificationType.ACTIVE){
+				schedulerService.removeScheduledTask("Task_"+notification.getNotificationId());
+			}
 		}
 		schedulerService.initSchedulerJobs();
 	}

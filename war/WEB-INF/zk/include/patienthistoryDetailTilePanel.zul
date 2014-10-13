@@ -34,6 +34,18 @@
 					</n:span>								
 				</n:div>
 			</n:div>
+			<n:div class="media">
+				<n:div class="pull-left">
+					<n:i class="fa fa-user fa-2x"></n:i>
+				</n:div>
+				<n:div class="media-body">
+					<n:h4>Куратор: <n:span class="label label-default">${vm.patientHistory.curator.lastname} ${vm.patientHistory.curator.firstname} ${vm.patientHistory.curator.middlename}</n:span></n:h4>
+					<n:div class="clearfix"></n:div>
+					<n:span>
+						<n:small class="text-muted"><label value="@load(vm.patientHistory.curator.login)"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>
 		</n:article>
 	</div>
 </zk>
