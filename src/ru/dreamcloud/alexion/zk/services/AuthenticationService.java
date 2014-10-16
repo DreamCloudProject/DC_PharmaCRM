@@ -62,26 +62,31 @@ public class AuthenticationService implements Serializable {
 	
 	public Boolean authenticate(CommonUserInfo currentUserInfo) {
 		Boolean result = false;
-
-		List<CommonUserInfo> matchUsers = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.login='"+currentUserInfo.getLogin()+"' and e.password='"+currentUserInfo.getPassword()+"'"));
-		Session session = Sessions.getCurrent();
-		HttpSession httpSession = (HttpSession)session.getNativeSession();
-		String jsessionid = httpSession.getId();
-			
-		if(!matchUsers.isEmpty()){
-			currentUserInfo = matchUsers.get(0);
-			if(currentUserInfo.getSessionid() == null){
-				currentUserInfo.setSessionid(jsessionid);
-				DataSourceLoader.getInstance().mergeRecord(currentUserInfo);
-			} else {
-				if(!currentUserInfo.getSessionid().equalsIgnoreCase(jsessionid)){
+		try {
+			String md5Pass = hashToMd5(currentUserInfo.getPassword());	
+			List<CommonUserInfo> matchUsers = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.login='"+currentUserInfo.getLogin()+"' and e.password='"+md5Pass+"'"));
+			Session session = Sessions.getCurrent();
+			HttpSession httpSession = (HttpSession)session.getNativeSession();
+			String jsessionid = httpSession.getId();
+				
+			if(!matchUsers.isEmpty()){
+				currentUserInfo = matchUsers.get(0);
+				if(currentUserInfo.getSessionid() == null){
 					currentUserInfo.setSessionid(jsessionid);
-					DataSourceLoader.getInstance().mergeRecord(currentUserInfo);								
-				}					
+					DataSourceLoader.getInstance().mergeRecord(currentUserInfo);
+				} else {
+					if(!currentUserInfo.getSessionid().equalsIgnoreCase(jsessionid)){
+						currentUserInfo.setSessionid(jsessionid);
+						DataSourceLoader.getInstance().mergeRecord(currentUserInfo);								
+					}					
+				}
+				result = true;			
+				session.setAttribute("userInfo", currentUserInfo);
 			}
-			result = true;			
-			session.setAttribute("userInfo", currentUserInfo);
-		}		
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

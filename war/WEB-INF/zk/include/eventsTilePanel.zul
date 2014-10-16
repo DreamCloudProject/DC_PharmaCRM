@@ -1,44 +1,130 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.EventTilePanelVM')">
-		<div zclass="tile">
-			<n:h2 class="tile-title">События</n:h2>
-			<n:div class="listview list-container">
-	
-				<n:header class="listview-header media">	
-					<textbox id="searchBox" sclass="input-sm col-md-4 pull-right message-search"
-						placeholder="${labels.messages.searchInputPlaceholder}"
-						onOK="@command('search', searchTerm=self.value)" />
-	
-					<n:div class="clearfix"></n:div>
-				</n:header>
-				<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
-					mold="paging" pageSize="10" model="@load(vm.eventsList)"
-					selectedItem="@bind(vm.selected)" sclass="tile">
-					<template name="model" var="record">
-						<listitem>
-							<listcell>
-								<n:div class="media p-l-5">
-									<n:div class="pull-left">
-										<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
-									</n:div>
-									<n:div class="media-body">
-										<n:span class="news-title"><label value="@load(record.title)"/></n:span>
-										<n:div class="clearfix"></n:div>
-										<n:span>
-											<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
-										</n:span>
-										<n:div class="list-options">
-											<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
-											<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
-										</n:div>
-									</n:div>
-								</n:div>						
-							</listcell>						
-						</listitem>
-					</template>
-				</listbox>
-			</n:div>
+		<div sclass="row">
+			<div zclass="col-lg-4 col-md-4 col-xs-12">
+				<div zclass="tile">
+					<n:h2 class="tile-title">События на исполнение</n:h2>
+					<n:div class="listview list-container">
+			
+						<n:header class="listview-header media">	
+							<textbox id="searchBoxTODO" sclass="input-sm col-md-4 pull-right message-search"
+								placeholder="${labels.messages.searchInputPlaceholder}"
+								onOK="@command('searchEventsTODO', searchTerm=self.value)" />
+			
+							<n:div class="clearfix"></n:div>
+						</n:header>
+						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
+							mold="paging" pageSize="10" model="@load(vm.eventsListTODO)"
+							onDrop="@command('changeMessageType', messageType='TODO', target=event.dragged)" droppable="true">
+							<template name="model" var="record">
+								<listitem id="event_${record.eventId}" draggable="true">
+									<listcell>
+										<n:div class="media p-l-5">
+											<n:div class="pull-left">
+												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:span class="news-title"><label value="@load(record.title)"/></n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span>
+													<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
+												</n:span>
+												<n:div class="list-options">
+													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+												</n:div>
+											</n:div>
+										</n:div>						
+									</listcell>						
+								</listitem>
+							</template>
+						</listbox>
+					</n:div>
+				</div>
+			</div>
+			<div zclass="col-lg-4 col-md-4 col-xs-12">
+				<div zclass="tile">
+					<n:h2 class="tile-title">События в работе</n:h2>
+					<n:div class="listview list-container">
+			
+						<n:header class="listview-header media">	
+							<textbox id="searchBoxPROGRESS" sclass="input-sm col-md-4 pull-right message-search"
+								placeholder="${labels.messages.searchInputPlaceholder}"
+								onOK="@command('searchEventsPROGRESS', searchTerm=self.value)" />
+			
+							<n:div class="clearfix"></n:div>
+						</n:header>
+						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
+							mold="paging" pageSize="10" model="@load(vm.eventsListPROGRESS)"
+							onDrop="@command('changeMessageType', messageType='PROGRESS', target=event.dragged)" droppable="true">
+							<template name="model" var="record">
+								<listitem id="event_${record.eventId}" draggable="true">
+									<listcell>
+										<n:div class="media p-l-5">
+											<n:div class="pull-left">
+												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:span class="news-title"><label value="@load(record.title)"/></n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span>
+													<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
+												</n:span>
+												<n:div class="list-options">
+													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+												</n:div>
+											</n:div>
+										</n:div>						
+									</listcell>						
+								</listitem>
+							</template>
+						</listbox>
+					</n:div>
+				</div>
+			</div>
+			<div zclass="col-lg-4 col-md-4 col-xs-12">
+				<div zclass="tile">
+					<n:h2 class="tile-title">События выполненные</n:h2>
+					<n:div class="listview list-container">
+			
+						<n:header class="listview-header media">	
+							<textbox id="searchBoxDONE" sclass="input-sm col-md-4 pull-right message-search"
+								placeholder="${labels.messages.searchInputPlaceholder}"
+								onOK="@command('searchEventsDONE', searchTerm=self.value)" />
+			
+							<n:div class="clearfix"></n:div>
+						</n:header>
+						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
+							mold="paging" pageSize="10" model="@load(vm.eventsListDONE)"
+							onDrop="@command('changeMessageType', messageType='DONE', target=event.dragged)" droppable="true">
+							<template name="model" var="record">
+								<listitem id="event_${record.eventId}" draggable="true">
+									<listcell>
+										<n:div class="media p-l-5">
+											<n:div class="pull-left">
+												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:span class="news-title"><label value="@load(record.title)"/></n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span>
+													<n:small class="text-muted"><label value="@load(record.description)"/></n:small>
+												</n:span>
+												<n:div class="list-options">
+													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+												</n:div>
+											</n:div>
+										</n:div>						
+									</listcell>						
+								</listitem>
+							</template>
+						</listbox>
+					</n:div>
+				</div>
+			</div>
 		</div>
 	</div>
 </zk>

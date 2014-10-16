@@ -8,7 +8,7 @@
 		
 		<n:div class="block-area">			
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Пациент"></label>
+				<label zclass="control-label col-md-2" value="Пациент"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="PatientsCombobox" placeholder="..." selectedItem="@bind(vm.patientItem)" value="@bind(vm.newPatientFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allPatientsList)">
@@ -25,7 +25,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Родственник"></label>
+				<label zclass="control-label col-md-2" value="Родственник"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)">
@@ -42,7 +42,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Менеджер"></label>
+				<label zclass="control-label col-md-2" value="Менеджер"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)">
@@ -59,7 +59,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Мед. эксперт"></label>
+				<label zclass="control-label col-md-2" value="Мед. эксперт"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="MedicalExpertCombobox" placeholder="..." selectedItem="@bind(vm.medicalExpertItem)" value="@bind(vm.newMedicalExpertItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allMedicalExpertsList)">
@@ -76,7 +76,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Врач"></label>
+				<label zclass="control-label col-md-2" value="Врач"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="DoctorCombobox" placeholder="..." selectedItem="@bind(vm.doctorItem)" value="@bind(vm.newDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
@@ -93,7 +93,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Куратор"></label>
+				<label zclass="control-label col-md-2" value="Куратор"></label>
 												
 				<n:div class="col-md-10">								
 					<listbox if="${not empty vm.allCuratorsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allCuratorsList)" selectedItem="@bind(vm.currentPatientHistory.curator)">
@@ -102,10 +102,24 @@
 						</template>				
 					</listbox>
 					<n:span if="${empty vm.allCuratorsList}" class="form-control">
-						<n:small class="text-muted"><label value="Не добавлено ни пользователя с ролью куратор"/></n:small>
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью куратор"/></n:small>
 					</n:span>					
 				</n:div>				
-			</n:div>			
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Юрист"></label>
+												
+				<n:div class="col-md-10">								
+					<listbox if="${not empty vm.allLawyersList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allLawyersList)" selectedItem="@bind(vm.currentPatientHistory.lawyer)">
+						<template name="model" var="lawyer">
+							<listitem label="${lawyer.lastname} ${lawyer.firstname} ${lawyer.middlename}" selected="${lawyer.userInfoId == vm.currentPatientHistory.lawyer.userInfoId}" value="${lawyer}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allLawyersList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью юрист"/></n:small>
+					</n:span>					
+				</n:div>				
+			</n:div>						
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Этап"></label>
 		

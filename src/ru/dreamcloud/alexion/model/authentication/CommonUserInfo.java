@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import ru.dreamcloud.alexion.model.ContactInfo;
 import ru.dreamcloud.alexion.model.Notification;
 
 
@@ -19,8 +20,11 @@ CREATE TABLE `common_user_info` (
   `lastname` varchar(255) DEFAULT NULL,
   `sessionid` varchar(255) DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
+  `contact_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_info_id`),
   KEY `fk_role_user_info_idx` (`role`),
+  KEY `fk_contact_info_user_info_idx` (`contact_info`),
+  CONSTRAINT `fk_contact_info_user_info` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_role_user_info` FOREIGN KEY (`role`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
@@ -52,6 +56,10 @@ public class CommonUserInfo implements Serializable {
     private List<Notification> notifications;
 
 	private String sessionid;
+	
+	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+	@JoinColumn(name="contact_info")
+	private ContactInfo contactInfo;
 
 	public CommonUserInfo() {
 	}
@@ -118,6 +126,14 @@ public class CommonUserInfo implements Serializable {
 
 	public void setSessionid(String sessionid) {
 		this.sessionid = sessionid;
+	}	
+
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
 	}
 
 	public List<Notification> getNotifications() {

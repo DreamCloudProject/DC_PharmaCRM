@@ -300,6 +300,54 @@ public class PatientHistoryWindowViewModel {
 	
 	/*-------------------------------------------------------------------------------------------------------------------------*/
 	/**************************************
+	 * Property lawyerItem
+	 ***************************************/
+	private CommonUserInfo lawyerItem;
+
+	public CommonUserInfo getLawyerItem() {
+		return lawyerItem;
+	}
+
+	public void setLawyerItem(CommonUserInfo lawyerItem) {
+		this.lawyerItem = lawyerItem;
+	}
+
+	/**************************************
+	 * Property newLawyerItemFullname
+	 ***************************************/
+	private String newLawyerItemFullname;	
+	
+	public String getNewLawyerItemFullname() {
+		return newLawyerItemFullname;
+	}
+
+	public void setNewLawyerItemFullname(String newLawyerItemFullname) {
+		this.newLawyerItemFullname = newLawyerItemFullname;
+	}
+	
+	/**************************************
+	 * Property currentLawyersList
+	 ***************************************/
+	
+	private List<CommonUserInfo> currentLawyersList;		
+
+	public List<CommonUserInfo> getCurrentLawyersList() {
+		return currentLawyersList;
+	}
+
+	/**************************************
+	 * Property allLawyersList
+	 ***************************************/
+	
+	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Юрист'"));
+	
+	public List<CommonUserInfo> getAllLawyersList() {
+		return allLawyersList;
+	}
+	
+	/*-------------------------------------------------------------------------------------------------------------------------*/
+	
+	/**************************************
 	 * Property nurseItem
 	 ***************************************/
 	private Nurse nurseItem;	
@@ -623,6 +671,19 @@ public class PatientHistoryWindowViewModel {
 			Clients.showNotification("Куратор с именем "+curatorItem.getLastname()+" "+curatorItem.getFirstname()+" "+curatorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
     		Clients.showNotification("Куратора с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Куратор'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
+    	}		
+	}
+	
+	@Command
+	@NotifyChange({"currentPatientHistory","currentLawyersList","allLawyersList","lawyerItem"})
+	public void addNewLawyer(){
+    	if(allLawyersList.contains(lawyerItem)){
+    		currentPatientHistory.setLawyer(lawyerItem);
+    		currentLawyersList = new ArrayList<CommonUserInfo>();
+    		currentLawyersList.add(lawyerItem);
+			Clients.showNotification("Юрист с именем "+lawyerItem.getLastname()+" "+lawyerItem.getFirstname()+" "+lawyerItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	} else {
+    		Clients.showNotification("Юриста с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Юрист'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
     	}		
 	}
     
