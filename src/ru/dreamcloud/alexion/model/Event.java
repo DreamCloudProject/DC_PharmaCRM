@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
+
 /*delimiter $$
 
 CREATE TABLE `events` (
@@ -31,13 +33,16 @@ CREATE TABLE `events` (
   `message_type` enum('TODO','IN_PROGRESS','DONE') DEFAULT NULL,
   `patient_history` int(11) DEFAULT NULL,
   `event_reason` int(11) DEFAULT NULL,
+  `user_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
   KEY `fk_ph_event_idx` (`patient_history`),
   KEY `fk_er_event_idx` (`event_reason`),
+  KEY `fk_user_event_idx` (`user_info`),
   CONSTRAINT `fk_er_event` FOREIGN KEY (`event_reason`) REFERENCES `event_reasons` (`event_reason_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8$$
+  CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_event` FOREIGN KEY (`user_info`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -75,6 +80,10 @@ public class Event implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "event_reason")
 	private EventReason eventReason;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "user_info")
+	private CommonUserInfo userInfo;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
     private List<Notification> notifications;
@@ -161,6 +170,14 @@ public class Event implements Serializable{
 
 	public void setEventReason(EventReason eventReason) {
 		this.eventReason = eventReason;
+	}	
+
+	public CommonUserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(CommonUserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public List<Notification> getNotifications() {

@@ -30,7 +30,7 @@
 		<n:div class="block-area">			
 			<n:h3 class="block-title">Форма добавления нового правила</n:h3>
 			<n:div class="form-group">
-				<label sclass="control-label col-md-2" value="Компонент"></label>
+				<label zclass="control-label col-md-2" value="Компонент"></label>
 												
 				<n:div class="col-md-10">
 					<combobox id="RulesCombobox" placeholder="..." selectedItem="@bind(vm.currentRuleItem)" value="@load(vm.newRuleItem.componentName) @save(vm.newRuleItem.componentName,before='addNewRule')" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRulesList)">

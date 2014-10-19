@@ -7,6 +7,14 @@
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory.png" alt=""/>
 		        <n:small class="t-overflow">Новая история<n:br/>пациента</n:small>
 		    </a>
+		    <a if="${vm.isVisibleEditPatientHistory}" sclass="shortcut tile" href="" onClick="@command('editPatientHistory')">
+		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory_edit.png" alt=""/>
+		        <n:small class="t-overflow">Редактировать<n:br/> историю пациента</n:small>
+		    </a>
+		    <a if="${vm.isVisibleClosePatientHistory}" sclass="shortcut tile" href="" onClick="@command('closePatientHistory')">
+		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory_close.png" alt=""/>
+		        <n:small class="t-overflow">Закрыть<n:br/> историю пациента</n:small>
+		    </a>		    		    
 		    <a if="${vm.isVisibleCreateNewEvent}" sclass="shortcut tile" href="" onClick="@command('createNewEvent')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_event.png" alt=""/>
 		        <n:small class="t-overflow">Добавить<n:br/>событие</n:small>

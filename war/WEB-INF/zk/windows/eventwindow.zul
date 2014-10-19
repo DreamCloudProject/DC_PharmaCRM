@@ -36,7 +36,24 @@
 						<n:small class="text-muted"><label value="Не добавлено ни одного вида активности"/></n:small>
 					</n:span>								
 				</n:div>
-			</n:div>			
+			</n:div>						
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Ответственный"></label>
+		
+				<n:div class="col-md-10">
+					<combobox id="UsersCombobox" placeholder="..." selectedItem="@bind(vm.currentUserInfo)" value="@load(vm.currentUserInfo.fullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allUsersList)">
+						<template name="model">
+        					<comboitem label="${each.fullname}" value="${each}"/>
+    					</template>
+					</combobox>							
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="assignToMe" zclass="btn btn-success" label="Назначить меня" onClick="@command('assignToMe')" />										
+				</n:div>
+			</n:div>					
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Дата иниц. события"></label>
 		

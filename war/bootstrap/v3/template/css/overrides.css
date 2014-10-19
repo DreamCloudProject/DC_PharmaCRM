@@ -291,6 +291,10 @@
 	background: none;	
 }
 
+.z-calevent-month {
+	background: #fff !important;
+}
+
 .z-textbox {
 	color: #fff;
 }
@@ -345,6 +349,7 @@ color: #ffffff;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+
 .n-count span.counter {
 	width: auto !important;
 	line-height: inherit !important;

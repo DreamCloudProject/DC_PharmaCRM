@@ -278,8 +278,7 @@ public class CommonRoleWindowVM {
 		} else {
 			allowProperty = true;
 		}				
-		ruleAssoc.setAllow(allowProperty.toString());				
-		DataSourceLoader.getInstance().mergeRecord(ruleAssoc);
+		ruleAssoc.setAllow(allowProperty.toString());
 		Clients.showNotification("Правило '"+ruleAssoc.getRule().getComponentName()+"' "+(allowProperty ? "активно" : "неактивно")+"! ", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 	}
 	

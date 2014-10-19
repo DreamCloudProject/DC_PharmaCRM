@@ -210,7 +210,7 @@
 			<n:h3 class="block-title">Выбран менеджер</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
-					<listbox id="NurseListbox" emptyMessage="Мед. сестра не добавлена" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >
+					<listbox id="NurseListbox" emptyMessage="Менеджер не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >
 						<template name="model" var="nurse">
 							<listitem>
 								<listcell>

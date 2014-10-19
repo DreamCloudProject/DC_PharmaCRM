@@ -101,9 +101,7 @@ public class EventTilePanelVM {
 			Session session = Sessions.getCurrent();
 			schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 			patientHistoryItem = patientHistory;
-			eventsListTODO = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".TODO"));
-			eventsListPROGRESS = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".IN_PROGRESS"));
-			eventsListDONE = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".DONE"));
+			refreshPatientHistoryEvents();
 		}
 	}
 	
@@ -111,7 +109,8 @@ public class EventTilePanelVM {
     @NotifyChange({"eventsList","patientHistoryItem"})
     public void editEventItem(@BindingParam("eventItem") final Event eventItem) {
     	final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("eventItem", eventItem);
+    	Event ev = (Event)DataSourceLoader.getInstance().getRecord(Event.class, eventItem.getEventId());
+    	params.put("eventItem", ev);
     	params.put("actionType", "EDIT");
         Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
         window.doModal();
@@ -182,21 +181,39 @@ public class EventTilePanelVM {
 		String[] evId = evDragged.getId().split("_");
 		Object pk = Integer.valueOf(evId[1]);
 		selected = (Event)DataSourceLoader.getInstance().getRecord(Event.class, pk);
-		Clients.showNotification("EventId:"+selected.getEventId()+", MessageType: "+messageType, Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+		
 		if(messageType.equals("TODO")){
-			selected.setMessageType(MessageType.TODO);		}
+			selected.setMessageType(MessageType.TODO);		
+			messageType = MessageType.TODO.getName();
+		}
+		
 		if(messageType.equals("PROGRESS")){
 			selected.setMessageType(MessageType.IN_PROGRESS);
+			messageType = MessageType.IN_PROGRESS.getName();
 		}
+		
 		if(messageType.equals("DONE")){
 			selected.setMessageType(MessageType.DONE);
+			messageType = MessageType.DONE.getName();
 		}
+		
+		Clients.showNotification("Событие №"+selected.getEventId()+" переведено в статус '"+messageType+"'", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+
 		DataSourceLoader.getInstance().mergeRecord(selected);
 		eventsListTODO = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".TODO"));
 		eventsListPROGRESS = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".IN_PROGRESS"));
 		eventsListDONE = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".DONE"));
 		List<Event> eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
 		patientHistoryItem.setEvents(eventsList);
+	}
+	
+    @GlobalCommand
+    @Command
+    @NotifyChange({"eventsListTODO","eventsListPROGRESS","eventsListDONE","patientHistoryItem"})
+	public void refreshPatientHistoryEvents(){
+		eventsListTODO = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".TODO"));
+		eventsListPROGRESS = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".IN_PROGRESS"));
+		eventsListDONE = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()+" and e.messageType="+MessageType.class.getName()+".DONE"));
 	}
 
 }

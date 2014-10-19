@@ -29,6 +29,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 
@@ -42,6 +43,7 @@ import ru.dreamcloud.alexion.model.NotificationState;
 import ru.dreamcloud.alexion.model.NotificationType;
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
+import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
 import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.alexion.zk.services.AuthenticationService;
 import ru.dreamcloud.alexion.zk.services.SchedulerService;
@@ -89,6 +91,20 @@ public class EventWindowViewModel {
 		this.currentEvent = currentEvent;
 	}
 	
+	/**************************************
+	 * Property currentUserInfo
+	 ***************************************/
+	
+	private CommonUserInfo currentUserInfo;
+	
+	public CommonUserInfo getCurrentUserInfo() {
+		return currentUserInfo;
+	}
+
+	public void setCurrentUserInfo(CommonUserInfo currentUserInfo) {
+		this.currentUserInfo = currentUserInfo;
+	}
+
 	/**************************************
 	 * Property patientHistoryItem
 	 ***************************************/
@@ -195,6 +211,16 @@ public class EventWindowViewModel {
 	 ***************************************/
 	
 	private HashMap<File,InputStream> uploadFilesList;
+	
+	/**************************************
+	 * Property allUsersList
+	 ***************************************/
+	
+	private List<CommonUserInfo> allUsersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", null));
+	
+	public List<CommonUserInfo> getAllUsersList() {
+		return allUsersList;
+	}
 
 	/**************************************
 	  Methods	 
@@ -208,7 +234,7 @@ public class EventWindowViewModel {
 		setActionType(currentAction);
 		itemsToRemove = new ArrayList<Object>();
 		uploadFilesList = new HashMap<File, InputStream>();
-		documentItem = new Document();
+		documentItem = new Document();		
 		authenticationService = new AuthenticationService();		
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
@@ -236,6 +262,7 @@ public class EventWindowViewModel {
 		
 		if (this.actionType.equals("EDIT")) {
 			currentEvent = currentItem;
+			currentUserInfo = currentItem.getUserInfo();
 			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
 		}
 		refreshNotificationCreateFlag();
@@ -248,29 +275,30 @@ public class EventWindowViewModel {
 		params.put("searchTerm", new String());
 		clearAllRemovedItems();		
 		currentEvent.setDocuments(documentList);
-		currentEvent.setMessageType(MessageType.TODO);
 		currentEvent.setPatientHistory(patientHistoryItem);
+		currentEvent.setUserInfo(currentUserInfo);
 		if((currentEvent.getDateTimeStart().before(currentEvent.getDateTimeEnd()))){
 			
 			if(notificationCreateFlag){				
 				addSchedulerJob(currentEvent);
-			} else {
-				DataSourceLoader.getInstance().mergeRecord(currentEvent);
-				
-				if (actionType.equals("NEW")) {									
+			} else {			
+				if (actionType.equals("NEW")) {	
+					currentEvent.setMessageType(MessageType.TODO);
 					Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 				}
 		
 				if (actionType.equals("EDIT")) {
 					Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-				}
-				removeSchedulerJob(currentEvent);							
+				}				
+				removeSchedulerJob(currentEvent);
+				DataSourceLoader.getInstance().mergeRecord(currentEvent);
 			}
 			
 			copyAllUploadedFiles();
 			BindUtils.postGlobalCommand(null, null, "search", params);
 			BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
 			BindUtils.postGlobalCommand(null, null, "refreshNotificationsCount", null);
+			BindUtils.postGlobalCommand(null, null, "refreshPatientHistoryEvents", null);
 			win.detach();
 		} else {
 			Clients.showNotification("Некорректный период события. Измените дату или время начала/окончания события.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
@@ -378,14 +406,22 @@ public class EventWindowViewModel {
 	
 	private void removeSchedulerJob(Event event) {
 		Notification notification = schedulerService.getNotificationByEvent(event);
-		if(notification != null){
-			DataSourceLoader.getInstance().removeRecord(notification);
+		if(notification != null){			
 			if(notification.getNotificationType() == NotificationType.ACTIVE){
 				schedulerService.removeScheduledTask("Task_"+notification.getNotificationId());
 			}
+			DataSourceLoader.getInstance().removeRecord(notification);
 		}
 		schedulerService.initSchedulerJobs();
 	}
+	
+	@Command
+	@NotifyChange({"patientHistoryItem","currentUserInfo"})
+	public void assignToMe(){
+		//currentUserInfo = new CommonUserInfo();
+		currentUserInfo = authenticationService.getCurrentProfile();		
+	}
+	
 	
 	@Command
 	public void changeNotificationCreateFlag(){

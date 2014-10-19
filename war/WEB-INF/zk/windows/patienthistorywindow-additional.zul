@@ -1,0 +1,72 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
+	<window id="PatientHistoryWindowAdditional" title="${labels.pages.detail.patienthistory.messages.windowTitleEdit}"
+		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
+		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientHistoryWindowAdditionalVM')"
+		width="100%" height="260px"
+		contentStyle="position:relative; overflow:auto">
+		<n:div class="block-area">
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Куратор"></label>
+												
+				<n:div class="col-md-10">								
+					<listbox if="${not empty vm.allCuratorsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allCuratorsList)" selectedItem="@bind(vm.patientHistory.curator)">
+						<template name="model" var="curator">
+							<listitem label="${curator.fullname}" selected="${curator.userInfoId == vm.patientHistory.curator.userInfoId}" value="${curator}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allCuratorsList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью куратор"/></n:small>
+					</n:span>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Юрист"></label>
+												
+				<n:div class="col-md-10">								
+					<listbox if="${not empty vm.allLawyersList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allLawyersList)" selectedItem="@bind(vm.patientHistory.lawyer)">
+						<template name="model" var="lawyer">
+							<listitem label="${lawyer.fullname}" selected="${lawyer.userInfoId == vm.patientHistory.lawyer.userInfoId}" value="${lawyer}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.allLawyersList}" class="form-control">
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью юрист"/></n:small>
+					</n:span>					
+				</n:div>				
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
+			<div sclass="col-lg-12">
+				<div zclass="form-group">
+					<div align="center">
+						<button id="submit" zclass="btn btn-success" label="Сохранить" onClick="@command('save')" />
+						<button id="cancel"	zclass="btn btn-warning" label="Отменить" onClick="@command('closeThis')" />
+					</div>			
+				</div>
+			</div>
+		</n:div>		
+		
+	</window>	
+	<!-- UX -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	<!-- Custom Scrollbar -->
+	<n:script type="text/javascript">
+		/* --------------------------------------------------------
+		Custom Scrollbar
+	    ----------------------------------------------------------*/    
+	    (function() {
+	    	$('html').niceScroll();
+	    	$('.z-window-content').niceScroll();
+	    	$('.z-combobox-popup').niceScroll();
+	    	$('.z-listbox').niceScroll();    	
+	    	
+			if($('.overflow')[0]) {
+			    var overflowRegular, overflowInvisible = false;
+			    overflowRegular = $('.overflow').niceScroll();
+			}
+	    })();
+	</n:script>
+</zk>

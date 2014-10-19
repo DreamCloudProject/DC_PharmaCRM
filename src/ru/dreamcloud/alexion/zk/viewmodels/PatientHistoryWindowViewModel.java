@@ -551,9 +551,9 @@ public class PatientHistoryWindowViewModel {
     		currentPatientHistory.setNurse(nurseItem);	
     		currentNursesList = new ArrayList<Nurse>();
     		currentNursesList.add(nurseItem);
-			Clients.showNotification("Мед. сестры с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			Clients.showNotification("Менеджер с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Мед. сестры с таким именем нет в базе данных. Хотите ли вы добавить?", "Новая мед. сестра", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+	    	Messagebox.show("Менеджера с таким именем нет в базе данных. Хотите ли вы добавить?", "Новая мед. сестра", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
 				@Override				
 				public void onEvent(Event event) throws Exception {
 					if (Messagebox.ON_YES.equals(event.getName())){
@@ -580,7 +580,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setNurse(nurseItem);
 		currentNursesList = new ArrayList<Nurse>();
 		currentNursesList.add(nurseItem);
-		Clients.showNotification("Мед. сестра с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+		Clients.showNotification("Менеджер с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
     }
     
 	@Command

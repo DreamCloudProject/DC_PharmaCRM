@@ -1,7 +1,12 @@
 package ru.dreamcloud.alexion.zk.viewmodels.widgets;
 
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Sessions;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
 
@@ -21,7 +26,15 @@ public class PatientHistoryDetailTilePanelVM {
 	  Methods	 
 	***************************************/
 	@Init
-	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory phItem) {
+	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory phItem) {		
+		refreshPatientHistory(phItem);
+	}
+	
+	@GlobalCommand
+	@Command
+	@NotifyChange("patientHistory")
+	public void refreshPatientHistory(@BindingParam("patientHistory") PatientHistory phItem){
 		this.patientHistory = phItem;
+		Sessions.getCurrent().setAttribute("currentPatientHistory", this.patientHistory);
 	}
 }

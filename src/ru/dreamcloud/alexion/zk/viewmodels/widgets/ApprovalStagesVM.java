@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
+import ru.dreamcloud.alexion.model.PatientHistoryStatus;
 import ru.dreamcloud.alexion.model.Resolution;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -50,7 +51,7 @@ public class ApprovalStagesVM {
 	/**************************************
 	 * Property noStages
 	 ***************************************/
-	private List<PatientHistory> noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null"));	
+	private List<PatientHistory> noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));	
 
 	public List<PatientHistory> getNoStages() {
 		return noStages;
@@ -115,7 +116,7 @@ public class ApprovalStagesVM {
 	@Command
 	@NotifyChange("approvalStages")
 	public List<PatientHistory> retrievePatientHistories(@BindingParam("resolutionId")Integer resolutionId) {
-		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionId));
+		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionId+" and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
     }
 	
 	@Command
@@ -125,7 +126,7 @@ public class ApprovalStagesVM {
 		String[] phId = phDragged.getId().split("_");
 		Object pk = Integer.valueOf(phId[1]);
 		currentPatientHistory = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, pk);
-		if(resItem == null){
+		/*if(resItem == null){
 			if(!noStages.contains(currentPatientHistory)){
 				noStages.add(currentPatientHistory);
 			}
@@ -133,9 +134,10 @@ public class ApprovalStagesVM {
 			if(noStages.contains(currentPatientHistory)){
 				noStages.remove(currentPatientHistory);
 			}
-		}
+		}*/
 		currentPatientHistory.setResolution(resItem);
 		DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);
+		noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
 	}
 	
 	@Command
