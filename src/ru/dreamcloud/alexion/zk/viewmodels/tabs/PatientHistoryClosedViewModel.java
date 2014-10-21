@@ -99,7 +99,7 @@ public class PatientHistoryClosedViewModel {
     @Command
     @NotifyChange("patientHistoriesList")
     public void search(@BindingParam("searchTerm") String term) {
-    	patientHistoriesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where (e.patient.lastname LIKE '%"+term+"%' and e.patient.firstname LIKE '%"+term+"%' and e.patient.middlename LIKE '%"+term+"%') and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".CLOSED"));
+    	patientHistoriesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where (e.patient.lastname LIKE '%"+term+"%' or e.patient.firstname LIKE '%"+term+"%' or e.patient.middlename LIKE '%"+term+"%') and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".CLOSED"));
     }
 
 }

@@ -33,7 +33,7 @@
 		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
-		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientViewModel')" style="height:100%">
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.SearchResultsViewModel')" style="height:100%">
 			<include admin="false" src="/WEB-INF/zk/include/header.zul" />
 	
 			<n:div class="clearfix"></n:div>
@@ -48,12 +48,52 @@
 					<include src="/WEB-INF/zk/include/messages.zul" />
 					<include src="/WEB-INF/zk/include/notificationsTilePanel.zul" />
 					
-					<include breadcrumbs="${labels.pages.detail.patient.breadcrumbs}"
-							 currentPageName="${vm.patient.lastname} ${vm.patient.firstname} ${vm.patient.middlename}"
+					<include breadcrumbs="${labels.pages.detail.searchresults.breadcrumbs}"
+							 currentPageName="${labels.pages.detail.searchresults.name}"
 							 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 	
-					<n:h4 class="page-title b-0">${vm.patient.lastname} ${vm.patient.firstname} ${vm.patient.middlename}</n:h4>
+					<n:h4 class="page-title b-0">Результаты</n:h4>
 					
+					<n:hr class="whiter" />				
+
+					<n:div class="pull-left listview list-container">	
+						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
+							mold="paging" pageSize="10" model="@load(vm.patientHistoriesList)"
+							selectedItem="@bind(vm.selected)" sclass="tile">
+							<template name="model" var="record">
+								<listitem>
+									<listcell>
+										<n:div class="media p-l-5">
+											<n:div class="pull-left">
+												<n:i class="fa fa-history fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:span class="news-title"><n:span class="f-bold">История пациента № ${record.patientHistoriesId}: </n:span><label value="@load(record.patient.lastname)"/> <label value="@load(record.patient.firstname)"/> <label value="@load(record.patient.middlename)"/></n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span if="${not empty record.attperson}">
+													<n:span class="f-bold">Родственник: </n:span><label value="@load(record.attperson.lastname)"/> <label value="@load(record.attperson.firstname)"/> <label value="@load(record.attperson.middlename)"/><n:br/>
+												</n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span if="${not empty record.project}">																										
+													<n:span class="f-bold">Проект: </n:span><label value="@load(record.project.title)"/><n:br/>
+													<n:small class="text-muted"><label value="@load(record.project.description)"/></n:small>
+												</n:span>
+												<n:div class="clearfix"></n:div>
+												<n:span if="${not empty record.resolution}">
+													<n:span class="f-bold">Этап: </n:span><label value="@load(record.resolution.title)"/><n:br/>
+													<n:small class="text-muted"><label value="@load(record.resolution.description)"/></n:small>
+												</n:span>
+												<n:div class="list-options">
+													<button zclass="btn btn-success" label="Просмотреть" onClick="@command('showPatientHistoryItem', phItem=record)" />
+												</n:div>
+											</n:div>
+										</n:div>						
+									</listcell>						
+								</listitem>
+							</template>
+						</listbox>
+					</n:div>
+
 									                
 				</n:section>
 				

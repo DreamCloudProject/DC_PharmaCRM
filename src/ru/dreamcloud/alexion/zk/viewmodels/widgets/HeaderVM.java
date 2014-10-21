@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,12 +15,14 @@ import javax.sound.sampled.Clip;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.DesktopUnavailableException;
@@ -30,6 +33,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 
+import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Notification;
 import ru.dreamcloud.alexion.model.NotificationState;
 import ru.dreamcloud.alexion.model.NotificationType;
@@ -217,6 +221,12 @@ public class HeaderVM {
 		}
 		scheduleJobs();
     }
+	
+	@Command
+	public void searchAllResults(@BindingParam("searchTerm")String searchTerm) {
+		Sessions.getCurrent().setAttribute("resultListSearchTerm", searchTerm);
+		Executions.sendRedirect(Labels.getLabel("pages.detail.searchresults.URL"));		
+	}
     
 	private void scheduleJobs() {
 		Session session = Sessions.getCurrent();

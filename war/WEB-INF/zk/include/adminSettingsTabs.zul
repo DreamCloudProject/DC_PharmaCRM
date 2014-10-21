@@ -2,9 +2,9 @@
 <zk xmlns:w="client" xmlns:n="native">	
 	<!-- Tab -->
 	<n:div class="tab-container">
-		<n:ul class="nav tab nav-tabs">
+		<n:ul class="nav tab nav-tabs" data-tabs="tabs">
 			<n:li class="${each.key == 'diagnoses' ? 'active' : ''}" forEach="${labels.pages.admin.settings.tabs}">
-				<n:a href="#${each.key}">${each.value.name}</n:a>
+				<n:a href="#${each.key}" data-toggle="tab">${each.value.name}</n:a>
 			</n:li>
 		</n:ul>
 
@@ -13,5 +13,5 @@
 				<include src="/WEB-INF/zk/admin/tabs/${each.key}.zul" />									
 			</n:div>
 		</n:div>
-	</n:div>	
+	</n:div>		
 </zk>

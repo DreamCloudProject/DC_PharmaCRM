@@ -37,8 +37,12 @@
 					<n:span id="sec"></n:span>
 				</n:div>
 
-				<n:div class="media-body">
-					<n:input type="text" class="main-search" />
+				<n:div class="media-body">			
+					<textbox id="searchResults" sclass="main-search"
+							placeholder="${labels.messages.searchInputPlaceholder}"
+							onOK="@command('searchAllResults', searchTerm=self.value)" />
+			
+					<n:div class="clearfix"></n:div>					
 				</n:div>
 			</n:div>			
 		</div>
