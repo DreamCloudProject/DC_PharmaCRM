@@ -35,7 +35,7 @@ public class RuleAssociation implements Serializable {
 	@JoinColumn(name = "rule", referencedColumnName = "rule_id")
 	private CommonRule rule;
 
-	public long getRoleId() {
+	public int getRoleId() {
 		return roleId;
 	}
 
@@ -43,7 +43,7 @@ public class RuleAssociation implements Serializable {
 		this.roleId = roleId;
 	}
 
-	public long getRuleId() {
+	public int getRuleId() {
 		return ruleId;
 	}
 
