@@ -12,7 +12,7 @@ CREATE TABLE `common_roles` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 
 delimiter $$
 
@@ -21,10 +21,10 @@ CREATE TABLE `common_roles_rules_rel` (
   `rule_id` int(11) NOT NULL,
   `allow` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`role_id`,`rule_id`),
-  KEY `fk_role_roles_rules_id_idx` (`role_id`),
-  KEY `fk_rule_roles_rules_rel_idx` (`rule_id`),
-  CONSTRAINT `fk_role_roles_rules_id` FOREIGN KEY (`role_id`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rule_roles_rules_rel` FOREIGN KEY (`rule_id`) REFERENCES `common_rules` (`rule_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_role_rr_rel_idx` (`role_id`),
+  KEY `fk_rule_rr_rel_idx` (`rule_id`),
+  CONSTRAINT `fk_role_rr_rel` FOREIGN KEY (`role_id`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rule_rr_rel` FOREIGN KEY (`rule_id`) REFERENCES `common_rules` (`rule_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 @Entity
@@ -41,8 +41,8 @@ public class CommonRole implements Serializable {
 
 	private String title;
 	
-	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},mappedBy="role")
-    private List<RuleAssociation> rules;
+	@ManyToMany(mappedBy = "roles")
+    private List<CommonRule> rules;
 	
 	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH}, mappedBy="role")
 	private List<CommonUserInfo> users;
@@ -74,11 +74,11 @@ public class CommonRole implements Serializable {
 		this.title = title;
 	}
 
-	public List<RuleAssociation> getRules() {
+	public List<CommonRule> getRules() {
 		return rules;
 	}
 
-	public void setRules(List<RuleAssociation> rules) {
+	public void setRules(List<CommonRule> rules) {
 		this.rules = rules;
 	}	
 	
@@ -90,15 +90,4 @@ public class CommonRole implements Serializable {
 		this.users = users;
 	}
 
-	public void addRule(CommonRule rule, String allow) {
-		RuleAssociation association = new RuleAssociation();		
-		association.setRole(this);
-		association.setRule(rule);
-		association.setRoleId(this.getRoleId());
-		association.setRuleId(rule.getRuleId());
-		association.setAllow(allow);
-
-		this.rules.add(association);
-		rule.getRoles().add(association);
-	}
 }

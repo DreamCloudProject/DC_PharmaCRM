@@ -44,7 +44,6 @@ import ru.dreamcloud.alexion.model.NotificationType;
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
 import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
-import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.alexion.zk.services.AuthenticationService;
 import ru.dreamcloud.alexion.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;

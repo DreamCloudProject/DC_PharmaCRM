@@ -11,7 +11,7 @@ CREATE TABLE `common_rules` (
   `rule_id` int(11) NOT NULL AUTO_INCREMENT,
   `component_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`rule_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 @Entity
 @Table(name = "common_rules")
@@ -21,22 +21,25 @@ public class CommonRule implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rule_id")
-	private int ruleId;
+	private Integer ruleId;
 
 	@Column(name = "component_name")
 	private String componentName;
 
-	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},mappedBy = "rule")
-	private List<RuleAssociation> roles;
+	@ManyToMany
+    @JoinTable(name = "common_roles_rules_rel",
+            joinColumns = @JoinColumn(name = "rule"),
+            inverseJoinColumns = @JoinColumn(name = "role"))
+	private List<CommonRole> roles;
 
 	public CommonRule() {
 	}
 
-	public int getRuleId() {
+	public Integer getRuleId() {
 		return this.ruleId;
 	}
 
-	public void setRuleId(int ruleId) {
+	public void setRuleId(Integer ruleId) {
 		this.ruleId = ruleId;
 	}
 
@@ -48,11 +51,11 @@ public class CommonRule implements Serializable {
 		this.componentName = componentName;
 	}
 
-	public List<RuleAssociation> getRoles() {
+	public List<CommonRole> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RuleAssociation> roles) {
+	public void setRoles(List<CommonRole> roles) {
 		this.roles = roles;
 	}
 }

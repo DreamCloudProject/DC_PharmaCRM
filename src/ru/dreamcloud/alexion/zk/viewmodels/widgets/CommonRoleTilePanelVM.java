@@ -20,7 +20,6 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
 import ru.dreamcloud.alexion.model.authentication.CommonRule;
 import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
-import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonRoleTilePanelVM {
@@ -91,13 +90,13 @@ public class CommonRoleTilePanelVM {
 						final HashMap<String, Object> params = new HashMap<String, Object>();
 						params.put("searchTerm", new String());
 						
-						for (RuleAssociation ra : selected.getRules()) {								
-							DataSourceLoader.getInstance().removeRecord(ra);																				
+						/*for (CommonRule rule : selected.getRules()) {								
+							DataSourceLoader.getInstance().removeRecord(rule);																				
 						}	
 						for (CommonUserInfo user : selected.getUsers()) {
-							user.setRole(null);
-							//DataSourceLoader.getInstance().updateRecord(user);																				
-						}						
+							user.setRole(null);																			
+						}*/
+						
 						DataSourceLoader.getInstance().removeRecord(selected);
 
 						BindUtils.postGlobalCommand(null, null, "search", params);

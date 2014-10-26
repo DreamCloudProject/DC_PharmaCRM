@@ -7,7 +7,6 @@ import ru.dreamcloud.alexion.model.Event;
 import ru.dreamcloud.alexion.model.EventReason;
 import ru.dreamcloud.alexion.model.authentication.CommonRole;
 import ru.dreamcloud.alexion.model.authentication.CommonRule;
-import ru.dreamcloud.alexion.model.authentication.RuleAssociation;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 

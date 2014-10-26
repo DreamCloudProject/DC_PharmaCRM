@@ -33,18 +33,13 @@
 				<label zclass="control-label col-md-2" value="Компонент"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="RulesCombobox" placeholder="..." selectedItem="@bind(vm.currentRuleItem)" value="@load(vm.newRuleItem.componentName) @save(vm.newRuleItem.componentName,before='addNewRule')" maxlength="255" autodrop="true" buttonVisible="false" model="@load(vm.allRulesList)">
-						<template name="model">
-        					<comboitem label="${each.componentName}" value="${each}"/>
-    					</template>
-					</combobox>					
+					<textbox value="@load(vm.newRuleTitle) @save(vm.newRuleTitle,before={'addNewRule'})" placeholder="..." maxlength="255" sclass="form-control input-sm"/>						
 				</n:div>				
 			</n:div>
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="addNewRule" zclass="btn btn-success" label="Прикрепить правило" onClick="@command('addNewRule')" />
-					<button id="removeRule" zclass="btn btn-success" label="Удалить правило" onClick="@command('removeRule')" />					
+					<button id="addNewRule" zclass="btn btn-success" label="Добавить правило" onClick="@command('addNewRule')" />										
 				</n:div>
 			</n:div>
 		</n:div>
@@ -55,20 +50,20 @@
 			<n:h3 class="block-title">Правила</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
-					<listbox id="RuleListbox" emptyMessage="Не добавлено ни одного правила" mold="paging" sclass="m-b-10" model="@load(vm.currentRulesList)" zclass="listview">
+					<listbox id="RuleListbox" emptyMessage="Не добавлено ни одного правила" mold="paging" sclass="m-b-10" model="@bind(vm.allRulesList)" zclass="listview">
 						<template name="model" var="ruleAssoc">
 							<listitem>
 								<listcell>
 									<n:div class="media p-l-5">
 										<n:div class="pull-left">	
-											<toggler checked="${ruleAssoc.allow}" onClick="@command('changeAllowProperty',ruleItem=ruleAssoc)"/>
+											<toggler checked="@load(vm.isContainsRuleAssociation(ruleAssoc))" onClick="@command('changeAllowProperty',ruleItem=ruleAssoc)"/>
 										</n:div>
 										<n:div class="media-body">
-											<n:span class="news-title"><label value="@load(ruleAssoc.rule.componentName)"/></n:span>
+											<n:span class="news-title"><label value="@load(ruleAssoc.componentName)"/></n:span>
 											<n:div class="clearfix"></n:div>
-											<n:div class="list-options">
-												<button sclass="btn btn-success" label="Открепить" onClick="@command('unlinkRuleFromCurrentRole', currentRuleItem=ruleAssoc)" />																								
-											</n:div>
+												<n:div class="list-options">
+													<button zclass="btn btn-success" label="Удалить правило" onClick="@command('removeRule',currentRuleItem=ruleAssoc)" />																																				
+												</n:div>
 										</n:div>
 									</n:div>						
 								</listcell>				

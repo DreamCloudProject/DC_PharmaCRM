@@ -42,6 +42,23 @@ public class DataSourceLoader {
 		}
 		return entityList;
 	}
+	
+	public List<?> fetchRecordsWithArrays(String entity, String where, List<?> args) {
+		where = where != null ? where : "";
+		EntityManagerFactoryImpl emf = factory;
+		EntityManagerImpl em = (EntityManagerImpl)emf.createEntityManager();
+		List<?> entityList = null;
+		try {
+			if(!args.isEmpty()){
+				Query q = em.createQuery("select e from " + entity + " e " + where);			
+				q.setParameter("args", args);			
+				entityList = q.getResultList();
+			}
+		} finally {
+			em.close();
+		}
+		return entityList;
+	}
 
 	public Object getRecord(Class<?> entityClass, Object pk) {
 		EntityManagerFactoryImpl emf = factory;
