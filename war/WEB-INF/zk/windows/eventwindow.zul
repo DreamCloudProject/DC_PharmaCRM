@@ -27,7 +27,7 @@
 				<label zclass="control-label col-md-2" value="Вид активности"></label>
 		
 				<n:div class="col-md-10">
-					<listbox if="${not empty vm.allEventReasonsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allEventReasonsList)" selectedItem="@load(vm.currentEvent.eventReason) @save(vm.currentEvent.eventReason,before='save')">
+					<listbox if="${not empty vm.allEventReasonsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.allEventReasonsList)" selectedItem="@bind(vm.currentEvent.eventReason)">
 						<template name="model" var="eventReason">
 							<listitem label="${eventReason.title}" selected="${eventReason.eventReasonsId == vm.currentEvent.eventReason.eventReasonsId}" value="${eventReason}"/>
 						</template>				
