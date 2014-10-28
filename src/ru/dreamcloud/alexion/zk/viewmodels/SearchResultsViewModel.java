@@ -7,23 +7,19 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
-import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
-
-import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+import org.zkoss.zul.Listbox;
 
 import ru.dreamcloud.alexion.model.PatientHistory;
 import ru.dreamcloud.alexion.model.PatientHistoryStatus;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class SearchResultsViewModel {
-
+	
 	/**************************************
 	 * Property selected
 	 ***************************************/
@@ -53,11 +49,17 @@ public class SearchResultsViewModel {
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
 		if(Sessions.getCurrent().getAttribute("resultListSearchTerm") != null){			
-			patientHistoriesList = retrieveResultsList(Sessions.getCurrent().getAttribute("resultListSearchTerm").toString().toLowerCase());
+			patientHistoriesList = retrieveResultsList(Sessions.getCurrent().getAttribute("resultListSearchTerm").toString().toLowerCase());			
 		} else {
 			Executions.sendRedirect(Labels.getLabel("panels.index.URL"));
 		}		
 	}
+	
+    @Command    
+    public void printResults(@BindingParam("ref") Listbox listbox) {
+    	Sessions.getCurrent().setAttribute("listToPrint", patientHistoriesList);
+    	Executions.sendRedirect(Labels.getLabel("services.print.URL"));
+    }
 	
     @Command    
     public void showPatientHistoryItem(@BindingParam("phItem")PatientHistory phItem) {

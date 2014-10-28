@@ -56,7 +56,19 @@
 					
 					<n:hr class="whiter" />				
 
-					<n:div class="pull-left listview list-container">	
+					<n:div class="pull-left listview list-container">
+						<n:header class="listview-header media">
+
+							<n:ul class="list-inline list-mass-actions pull-left">
+								<n:li>
+									<a tooltiptext="${labels.pages.detail.searchresults.messages.printButton}" zclass="tooltips" onClick="@command('printResults')">
+										<n:i class="fa fa-print fa-2x"></n:i>
+									</a>
+								</n:li>
+							</n:ul>
+									
+							<n:div class="clearfix"></n:div>
+						</n:header>
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
 							mold="paging" pageSize="10" model="@load(vm.patientHistoriesList)"
 							selectedItem="@bind(vm.selected)" sclass="tile">

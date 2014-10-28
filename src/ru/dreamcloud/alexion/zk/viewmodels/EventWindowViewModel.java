@@ -307,7 +307,7 @@ public class EventWindowViewModel {
 	@Command
 	@NotifyChange({"documentItem","documentList"})
 	public void addNewDocument(@BindingParam("file")Media file) {		
-		String filePath = Labels.getLabel("uploadedContentDir")+patientHistoryItem.getPatient().getFullname()+"/ph"+patientHistoryItem.getPatientHistoriesId()+"/"+file.getName();
+		String filePath = Labels.getLabel("uploadedContentDir")+"PatientHistories/"+patientHistoryItem.getPatient().getFullname()+"/ph"+patientHistoryItem.getPatientHistoriesId()+"/"+file.getName();
 		File newFile = new File(filePath);
 		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
 		uploadFilesList.put(newFile, file.getStreamData());
