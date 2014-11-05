@@ -278,20 +278,21 @@ public class EventWindowViewModel {
 		currentEvent.setUserInfo(currentUserInfo);
 		if((currentEvent.getDateTimeStart().before(currentEvent.getDateTimeEnd()))){
 			
+			if (actionType.equals("NEW")) {	
+				currentEvent.setMessageType(MessageType.TODO);
+				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}
+	
+			if (actionType.equals("EDIT")) {
+				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}
+			
 			if(notificationCreateFlag){				
 				addSchedulerJob(currentEvent);
 			} else {			
-				if (actionType.equals("NEW")) {	
-					currentEvent.setMessageType(MessageType.TODO);
-					Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-				}
-		
-				if (actionType.equals("EDIT")) {
-					Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-				}				
 				removeSchedulerJob(currentEvent);
 				DataSourceLoader.getInstance().mergeRecord(currentEvent);
-			}
+			}	
 			
 			copyAllUploadedFiles();
 			BindUtils.postGlobalCommand(null, null, "search", params);
