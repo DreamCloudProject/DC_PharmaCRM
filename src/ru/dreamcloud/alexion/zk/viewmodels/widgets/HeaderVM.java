@@ -32,6 +32,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.util.Clients;
 
 import ru.dreamcloud.alexion.model.Document;
 import ru.dreamcloud.alexion.model.Notification;
@@ -225,6 +226,7 @@ public class HeaderVM {
 	@Command
 	public void searchAllResults(@BindingParam("searchTerm")String searchTerm) {
 		Sessions.getCurrent().setAttribute("resultListSearchTerm", searchTerm);
+		Clients.showBusy("Идет поиск...");
 		Executions.sendRedirect(Labels.getLabel("pages.detail.searchresults.URL"));		
 	}
     

@@ -3,7 +3,7 @@
 	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.NurseTilePanelVM')">
 		<n:article class="tile">
-			<n:h2 class="tile-title">Мед. сестра</n:h2>
+			<n:h2 class="tile-title">Менеджер</n:h2>
 			<n:div class="tile-config dropdown">
 				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
 				<n:ul
