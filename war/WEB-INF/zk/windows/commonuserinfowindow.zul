@@ -59,7 +59,7 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
-				<label zclass="control-label col-md-2" value="Город"></label>
+				<label zclass="control-label col-md-2" value="Населенный пункт"></label>
 		
 				<n:div class="col-md-10">
 					<textbox value="@load(vm.contactInfoItem.city) @save(vm.contactInfoItem.city,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>

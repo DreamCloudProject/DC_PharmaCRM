@@ -3,6 +3,7 @@ package ru.dreamcloud.alexion.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,7 +27,7 @@ CREATE TABLE `patients` (
   `firstname` varchar(255) DEFAULT NULL,
   `middlename` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
-  `age` int(3) DEFAULT NULL,
+  `birthdate` datetime DEFAULT NULL,
   `diagnosis` int(11) DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`patient_id`),
@@ -35,7 +36,7 @@ CREATE TABLE `patients` (
   KEY `fk_diagnosis_idx` (`diagnosis`),
   CONSTRAINT `fk_contact_info_patient` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_diagnosis` FOREIGN KEY (`diagnosis`) REFERENCES `diagnosis` (`diagnosis_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -52,7 +53,7 @@ public class Patient implements Serializable {
 	
 	private String middlename;
 	
-	private Integer age;
+	private Timestamp birthdate;
 	
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "diagnosis", referencedColumnName = "diagnosis_id")
@@ -99,14 +100,14 @@ public class Patient implements Serializable {
 
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
+	}	
+
+	public Timestamp getBirthdate() {
+		return birthdate;
 	}
 
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setBirthdate(Timestamp birthdate) {
+		this.birthdate = birthdate;
 	}
 
 	public Diagnosis getDiagnosis() {

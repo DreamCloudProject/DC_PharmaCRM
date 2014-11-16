@@ -242,15 +242,52 @@ public class PatientHistoryWindowViewModel {
 	}
 
 	/**************************************
-	 * Property allMedicalExpertsList
+	 * Property allDoctorsList
 	 ***************************************/
 	
-	private List<MedicalExpert> allDoctorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Doctor", null));
+	private List<Doctor> allDoctorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Doctor", null));
 	
-	public List<MedicalExpert> getAllDoctorsList() {
+	public List<Doctor> getAllDoctorsList() {
 		return allDoctorsList;
 	}
+	/*-------------------------------------------------------------------------------------------------------------------------*/
 	
+	/**************************************
+	 * Property masterDoctorItem
+	 ***************************************/
+	private Doctor masterDoctorItem;	
+	
+	public Doctor getMasterDoctorItem() {
+		return masterDoctorItem;
+	}
+
+	public void setMasterDoctorItem(Doctor masterDoctorItem) {
+		this.masterDoctorItem = masterDoctorItem;
+	}
+	
+	/**************************************
+	 * Property currentMasterDoctorsList
+	 ***************************************/
+	
+	private List<Doctor> currentMasterDoctorsList;	
+
+	public List<Doctor> getCurrentMasterDoctorsList() {
+		return currentMasterDoctorsList;
+	}
+
+	/**************************************
+	 * Property newMasterDoctorItemFullname
+	 ***************************************/
+	private String newMasterDoctorItemFullname;	
+	
+	public String getNewMasterDoctorItemFullname() {
+		return newMasterDoctorItemFullname;
+	}
+
+	public void setNewMasterDoctorItemFullname(String newMasterDoctorItemFullname) {
+		this.newMasterDoctorItemFullname = newMasterDoctorItemFullname;
+	}
+
 	/*-------------------------------------------------------------------------------------------------------------------------*/
 	/**************************************
 	 * Property curatorItem
@@ -641,7 +678,27 @@ public class PatientHistoryWindowViewModel {
 	    	});	    	
     	}		
 	}
-	
+    
+    @Command
+	@NotifyChange({"currentPatientHistory","currentMasterDoctorsList","allDoctorsList","masterDoctorItem"})
+	public void addNewMasterDoctor(){
+    	if(allDoctorsList.contains(masterDoctorItem)){
+    		currentPatientHistory.setMasterDoctor(masterDoctorItem);
+    		currentMasterDoctorsList = new ArrayList<Doctor>();
+    		currentMasterDoctorsList.add(masterDoctorItem);
+			Clients.showNotification("Глав. специалист с именем "+masterDoctorItem.getLastname()+" "+masterDoctorItem.getFirstname()+" "+masterDoctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+    	} else {
+	    	Messagebox.show("Глав. специалиста с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый глав. специалист", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+				@Override				
+				public void onEvent(Event event) throws Exception {
+					if (Messagebox.ON_YES.equals(event.getName())){
+						BindUtils.postGlobalCommand(null, null, "createNewMasterDoctor", null);											
+					}
+				}
+	    	});	    	
+    	}		
+	}
+    
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentDoctorsList","allDoctorsList","doctorItem"})
@@ -659,6 +716,25 @@ public class PatientHistoryWindowViewModel {
     	currentDoctorsList = new ArrayList<Doctor>();
     	currentDoctorsList.add(doctorItem);
     	Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    }
+	
+    @GlobalCommand
+    @Command
+	@NotifyChange({"currentPatientHistory","currentMasterDoctorsList","allDoctorsList","masterDoctorItem"})
+    public void createNewMasterDoctor(){
+    	String[] fullname = newMasterDoctorItemFullname.split(" ");   	
+    	masterDoctorItem = new Doctor(); 	
+    	masterDoctorItem.setLastname(fullname[0]);
+    	if(fullname.length > 1){
+    		masterDoctorItem.setFirstname(fullname[1]);
+    	}
+    	if(fullname.length > 2){
+    		masterDoctorItem.setMiddlename(fullname[2]);
+    	}
+    	currentPatientHistory.setMasterDoctor(masterDoctorItem);
+    	currentMasterDoctorsList = new ArrayList<Doctor>();
+    	currentMasterDoctorsList.add(masterDoctorItem);
+    	Clients.showNotification("Глав. специалист с именем "+masterDoctorItem.getLastname()+" "+masterDoctorItem.getFirstname()+" "+masterDoctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
     }
     
 	@Command

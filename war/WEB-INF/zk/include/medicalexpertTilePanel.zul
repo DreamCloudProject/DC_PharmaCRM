@@ -54,7 +54,7 @@
 						<n:div class="form-group"
 							if="${not empty vm.currentMedicalExpert.contactInfo.city}">
 							<n:strong class="col-md-4 col-xs-6">
-								Город:
+								Населенный пункт:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"

@@ -42,6 +42,9 @@ public class Doctor implements Serializable {
 	
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="doctor")    
 	private List<PatientHistory> patientHistories;
+	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="masterDoctor")    
+	private List<PatientHistory> patientHistoriesByMD;
 
 	public Doctor() {
 	}
@@ -92,6 +95,14 @@ public class Doctor implements Serializable {
 
 	public void setPatientHistories(List<PatientHistory> patientHistories) {
 		this.patientHistories = patientHistories;
+	}	
+
+	public List<PatientHistory> getPatientHistoriesByMD() {
+		return patientHistoriesByMD;
+	}
+
+	public void setPatientHistoriesByMD(List<PatientHistory> patientHistoriesByMD) {
+		this.patientHistoriesByMD = patientHistoriesByMD;
 	}
 
 	@Transient

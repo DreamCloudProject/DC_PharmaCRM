@@ -85,6 +85,10 @@ public class PatientHistory implements Serializable {
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "doctor")
 	private Doctor doctor;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "master_doctor")
+	private Doctor masterDoctor;
 
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "resolution")
@@ -178,6 +182,14 @@ public class PatientHistory implements Serializable {
 
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
+	}	
+
+	public Doctor getMasterDoctor() {
+		return masterDoctor;
+	}
+
+	public void setMasterDoctor(Doctor masterDoctor) {
+		this.masterDoctor = masterDoctor;
 	}
 
 	public PatientHistoryStatus getPatientHistoryStatus() {

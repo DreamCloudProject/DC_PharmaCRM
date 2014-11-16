@@ -55,7 +55,7 @@
 						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentAttendantPerson.contactInfo.city) || (not empty vm.currentAttendantPerson.contactInfo.country)}"/>
 						<n:div class="form-group" if="${not empty vm.currentAttendantPerson.contactInfo.city}">
 							<n:strong class="col-md-4 col-xs-6">
-								Город:
+								Населенный пункт:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"

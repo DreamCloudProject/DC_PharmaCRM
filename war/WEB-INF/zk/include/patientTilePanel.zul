@@ -50,11 +50,10 @@
 						<n:br />
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
-								Возраст:
+								Дата рождения:
 							</n:strong>
-							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.age}">
-							</label>
+							<label sclass="control-label col-md-8 col-xs-6" value="@load(vm.currentPatient.birthdate) @converter('formatedDate', format='dd.MM.yyyy')"/>
+
 						</n:div>
 						<n:br />
 						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentPatient.diagnosis) 
@@ -70,7 +69,7 @@
 						</n:div>
 						<n:div class="form-group" if="${not empty vm.currentPatient.contactInfo.city}">
 							<n:strong class="col-md-4 col-xs-6">
-								Город:
+								Населенный пункт:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
 								value="${vm.currentPatient.contactInfo.city}">
