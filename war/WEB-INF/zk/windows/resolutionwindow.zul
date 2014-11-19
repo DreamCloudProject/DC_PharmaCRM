@@ -23,6 +23,20 @@
 					<textbox value="@load(vm.currentResolutionItem.description) @save(vm.currentResolutionItem.description, before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
 				</n:div>
 			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Проект"></label>
+		
+				<n:div class="col-md-10">
+					<listbox if="${not empty vm.projectsList}" mold="select" sclass="form-control m-b-10" model="@load(vm.projectsList)" selectedItem="@load(vm.currentResolutionItem.project) @save(vm.currentResolutionItem.project,before='save')">
+						<template name="model" var="project">
+							<listitem label="${project.title}" selected="${project.projectId == vm.currentResolutionItem.project.projectId}" value="${project}"/>
+						</template>				
+					</listbox>
+					<n:span if="${empty vm.projectsList}" class="form-control">
+						<n:small class="text-muted"><label value="В базе данных нет ни одного проект"/></n:small>
+					</n:span>								
+				</n:div>
+			</n:div>	
 		</n:div>
 		
 		<n:hr class="whiter m-t-20" />

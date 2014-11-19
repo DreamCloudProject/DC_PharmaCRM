@@ -1,6 +1,8 @@
 package ru.dreamcloud.alexion.zk.viewmodels.tabs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -14,6 +16,8 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
+import ru.dreamcloud.alexion.model.Project;
+import ru.dreamcloud.alexion.model.Region;
 import ru.dreamcloud.alexion.model.Resolution;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -52,6 +56,19 @@ public class ResolutionWindowViewModel {
 	 */
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
+	}
+	
+	/**************************************
+	 * Property projectsList
+	 ***************************************/
+	private List<Project> projectsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Project", null));
+	
+	public List<Project> getProjectsList() {
+		return projectsList;
+	}
+
+	public void setProjectsList(List<Project> projectsList) {
+		this.projectsList = projectsList;
 	}
 
 	@Init

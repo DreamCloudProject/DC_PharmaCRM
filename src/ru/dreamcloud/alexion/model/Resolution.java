@@ -8,8 +8,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,10 +23,13 @@ CREATE TABLE `resolutions` (
   `resolution_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
+  `project` int(11) DEFAULT NULL,
   PRIMARY KEY (`resolution_id`),
   UNIQUE KEY `resolution_id_UNIQUE` (`resolution_id`),
-  UNIQUE KEY `title_UNIQUE` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+  UNIQUE KEY `title_UNIQUE` (`title`),
+  KEY `fk_project_resolution_idx` (`project`),
+  CONSTRAINT `fk_project_resolution` FOREIGN KEY (`project`) REFERENCES `projects` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -36,6 +41,10 @@ public class Resolution implements Serializable{
 	private Integer resolutionId;	
 	private String title;
 	private String description;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "project")
+	private Project project;
 	
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="resolution")
 	private List<PatientHistory> patientHistories;
@@ -80,5 +89,13 @@ public class Resolution implements Serializable{
 	public void setPatientHistories(List<PatientHistory> patientHistories) {
 		this.patientHistories = patientHistories;
 	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}	
 
 }

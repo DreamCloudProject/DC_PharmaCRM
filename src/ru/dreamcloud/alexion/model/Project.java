@@ -34,6 +34,9 @@ public class Project implements Serializable {
 	
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="project")
 	private List<PatientHistory> patientHistories;
+	
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="project")
+	private List<Resolution> resolutionsList;
 
 	public Project() {
 	}
@@ -69,5 +72,15 @@ public class Project implements Serializable {
 	public void setPatientHistories(List<PatientHistory> patientHistories) {
 		this.patientHistories = patientHistories;
 	}
+
+	public List<Resolution> getResolutionsList() {
+		return resolutionsList;
+	}
+
+	public void setResolutionsList(List<Resolution> resolutionsList) {
+		this.resolutionsList = resolutionsList;
+	}
+	
+	
 
 }

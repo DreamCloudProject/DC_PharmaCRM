@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -23,6 +24,19 @@ public class ApprovalStagesVM {
 	private static int MAX_BOOTSTRAP_COLUMNS = 12;
 	
 	/**************************************
+	  Property stageType	 
+	***************************************/
+	private String stageType;	
+	
+	public String getStageType() {
+		return stageType;
+	}
+
+	public void setStageType(String stageType) {
+		this.stageType = stageType;
+	}
+
+	/**************************************
 	 * Property currentPatientHistory
 	 ***************************************/	
 	private PatientHistory currentPatientHistory;
@@ -38,7 +52,7 @@ public class ApprovalStagesVM {
 	/**************************************
 	 * Property approvalStages
 	 ***************************************/
-	private List<Resolution> approvalStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", null));
+	private List<Resolution> approvalStages;
 
 	public List<Resolution> getApprovalStages() {
 		return approvalStages;
@@ -51,7 +65,7 @@ public class ApprovalStagesVM {
 	/**************************************
 	 * Property noStages
 	 ***************************************/
-	private List<PatientHistory> noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));	
+	private List<PatientHistory> noStages;	
 
 	public List<PatientHistory> getNoStages() {
 		return noStages;
@@ -99,13 +113,30 @@ public class ApprovalStagesVM {
 	public void setLgClassType(String lgClassType) {
 		this.lgClassType = lgClassType;
 	}
+	
+	/**************************************
+	 * Property rows
+	 ***************************************/
+	private Integer rows;	
+
+	public Integer getRows() {
+		return rows;
+	}
+
+	public void setRows(Integer rows) {
+		this.rows = rows;
+	}
 
 	/**************************************
 	 * Methods
 	 ***************************************/
 	@Init
-	public void init() {
-		int res = ((Double)Math.ceil(approvalStages.size())).intValue();		
+	public void init(@ExecutionArgParam("type") String type) {
+		stageType = type;
+		approvalStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "where e.project.title LIKE '"+stageType+"'"));
+		noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.project.title LIKE '"+stageType+"' and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
+		int res = (((Double)Math.ceil(approvalStages.size())).intValue() != 0) ? ((Double)Math.ceil(approvalStages.size())).intValue() : 1;
+		rows = approvalStages.size()%2;
 		lgClassType = (MAX_BOOTSTRAP_COLUMNS/res) >= 2 ? String.valueOf(MAX_BOOTSTRAP_COLUMNS/res) : "12";		
 		mdClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/4);
 		xsClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/2);
@@ -116,7 +147,7 @@ public class ApprovalStagesVM {
 	@Command
 	@NotifyChange("approvalStages")
 	public List<PatientHistory> retrievePatientHistories(@BindingParam("resolutionId")Integer resolutionId) {
-		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionId+" and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
+		return new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution.resolutionId="+resolutionId+" and e.project.title LIKE '"+stageType+"' and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
     }
 	
 	@Command
@@ -137,7 +168,7 @@ public class ApprovalStagesVM {
 		}*/
 		currentPatientHistory.setResolution(resItem);
 		DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);
-		noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
+		noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.project.title LIKE '"+stageType+"' and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
 	}
 	
 	@Command
