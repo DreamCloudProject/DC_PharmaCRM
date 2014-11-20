@@ -136,7 +136,6 @@ public class ApprovalStagesVM {
 		approvalStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "where e.project.title LIKE '"+stageType+"'"));
 		noStages = new ArrayList(DataSourceLoader.getInstance().fetchRecords("PatientHistory", "where e.resolution is null and e.project.title LIKE '"+stageType+"' and e.patientHistoryStatus="+PatientHistoryStatus.class.getName()+".OPEN"));
 		int res = (((Double)Math.ceil(approvalStages.size())).intValue() != 0) ? ((Double)Math.ceil(approvalStages.size())).intValue() : 1;
-		rows = approvalStages.size()%2;
 		lgClassType = (MAX_BOOTSTRAP_COLUMNS/res) >= 2 ? String.valueOf(MAX_BOOTSTRAP_COLUMNS/res) : "12";		
 		mdClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/4);
 		xsClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/2);

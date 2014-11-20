@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div sclass="row" children="@load(vm.approvalStages)">
-			<template name="children" var="resolutionItem">
+			<template name="children" var="resolutionItem" status="stat">
 				<div zclass="col-lg-${vm.lgClassType} col-md-12 col-xs-12">
 					<div zclass="tile">
 						<n:h2 class="tile-title">${resolutionItem.title}</n:h2>
