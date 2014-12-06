@@ -12,21 +12,21 @@
 				<label zclass="control-label col-md-2" value="Фамилия"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentAttPersonItem.lastname) @save(vm.currentAttPersonItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentAttPersonItem.lastname) @save(vm.currentAttPersonItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Имя"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentAttPersonItem.firstname) @save(vm.currentAttPersonItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentAttPersonItem.firstname) @save(vm.currentAttPersonItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Отчество"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentAttPersonItem.middlename) @save(vm.currentAttPersonItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentAttPersonItem.middlename) @save(vm.currentAttPersonItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">

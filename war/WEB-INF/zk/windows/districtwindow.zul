@@ -13,14 +13,14 @@
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentDistrictItem.title) @save(vm.currentDistrictItem.title,before={'addNewRegion','save'})" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentDistrictItem.title) @save(vm.currentDistrictItem.title,before={'addNewRegion','save'})" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Описание"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentDistrictItem.description) @save(vm.currentDistrictItem.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentDistrictItem.description) @save(vm.currentDistrictItem.description,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 		</n:div>

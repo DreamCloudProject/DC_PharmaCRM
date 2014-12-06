@@ -84,6 +84,18 @@ public class PatientHistoryWindowAdditionalVM {
 	}
 	
 	@Command
+	@NotifyChange("patientHistory")
+	public void removeCurator() {
+		patientHistory.setCurator(null);
+	}
+	
+	@Command
+	@NotifyChange("patientHistory")
+	public void removeLawyer() {
+		patientHistory.setLawyer(null);
+	}
+	
+	@Command
 	public void closeThis() {
 		win.detach();
 	}

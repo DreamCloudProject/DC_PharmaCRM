@@ -13,35 +13,35 @@
 				<label zclass="control-label col-md-2" value="Логин"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentUserInfoItem.login) @save(vm.currentUserInfoItem.login,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentUserInfoItem.login) @save(vm.currentUserInfoItem.login,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Пароль"></label>
 		
 				<n:div class="col-md-10">
-					<textbox type="password" value="@load(vm.password) @save(vm.password,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox type="password" value="@load(vm.password) @save(vm.password,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>			
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Фамилия"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentUserInfoItem.lastname) @save(vm.currentUserInfoItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentUserInfoItem.lastname) @save(vm.currentUserInfoItem.lastname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Имя"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentUserInfoItem.firstname) @save(vm.currentUserInfoItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentUserInfoItem.firstname) @save(vm.currentUserInfoItem.firstname,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Отчество"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentUserInfoItem.middlename) @save(vm.currentUserInfoItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentUserInfoItem.middlename) @save(vm.currentUserInfoItem.middlename,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">

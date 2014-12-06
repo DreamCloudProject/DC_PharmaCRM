@@ -13,7 +13,7 @@
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
 				<n:div class="col-md-10">
-					<textbox value="@load(vm.currentDiagnosisItem.title) @save(vm.currentDiagnosisItem.title,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.currentDiagnosisItem.title) @save(vm.currentDiagnosisItem.title,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm" constraint="no empty"/>
 				</n:div>
 			</n:div>
 			<n:div class="form-group">

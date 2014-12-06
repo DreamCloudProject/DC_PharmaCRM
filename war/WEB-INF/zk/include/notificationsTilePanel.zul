@@ -5,7 +5,7 @@
 		<n:div id="notifications" class="tile drawer animated">
 			<n:div class="listview narrow">
 				<n:div class="media">
-					<a href="">Настройки уведомлений</a>
+					<a href="">Список уведомлений</a>
 					<n:span class="drawer-close">&#10005;</n:span>
 				</n:div>
 				<n:div class="overflow" style="height: 254px">
