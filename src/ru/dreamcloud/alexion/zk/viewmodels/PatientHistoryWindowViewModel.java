@@ -487,20 +487,30 @@ public class PatientHistoryWindowViewModel {
 	@Command
 	@NotifyChange("currentPatientHistory")
 	public void save() {
-		if((currentPatientHistory.getAttperson() != null)
-			||(currentPatientHistory.getMedicalExpert() != null)
-			||(currentPatientHistory.getNurse() != null)
-			||(currentPatientHistory.getPatient() != null)){
-			final HashMap<String, Object> params = new HashMap<String, Object>();				
-			currentPatientHistory.setPatientHistoryStatus(PatientHistoryStatus.OPEN);
-			params.put("resolutionItem", currentPatientHistory.getResolution());				
-			DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);		
-			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
-			BindUtils.postGlobalCommand(null, null, "retrievePatientHistories", params);
-			win.detach();
+		List<Resolution> resolutionList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "where e.project.projectId="+currentPatientHistory.getProject().getProjectId()));
+		Resolution selectedResolution = currentPatientHistory.getResolution();
+		
+		if(containsResolution(resolutionList, selectedResolution)){		
+			if((currentPatientHistory.getAttperson() != null)
+					||(currentPatientHistory.getMedicalExpert() != null)
+					||(currentPatientHistory.getNurse() != null)
+					||(currentPatientHistory.getPatient() != null)
+					||(currentPatientHistory.getDoctor() != null)
+					||(currentPatientHistory.getMasterDoctor() != null)){
+					final HashMap<String, Object> params = new HashMap<String, Object>();				
+					currentPatientHistory.setPatientHistoryStatus(PatientHistoryStatus.OPEN);
+					params.put("resolutionItem", currentPatientHistory.getResolution());				
+					DataSourceLoader.getInstance().mergeRecord(currentPatientHistory);		
+					Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
+					BindUtils.postGlobalCommand(null, null, "retrievePatientHistories", params);
+					win.detach();
+				} else {
+					Clients.showNotification("Необходимо заполнить все обязательные поля!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);			
+				}
 		} else {
-			Clients.showNotification("Необходимо заполнить все обызательные поля!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);			
+			Clients.showNotification("Неверное соответствие этапа и проекта!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
 		}
+		
 	}
 	
 	@Command
@@ -512,21 +522,26 @@ public class PatientHistoryWindowViewModel {
     		currentPatientsList.add(patientItem);
 			Clients.showNotification("Пациент с именем "+patientItem.getLastname()+" "+patientItem.getFirstname()+" "+patientItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Пациента с таким именем нет в базе данных. Хотите ли вы его добавить?", "Новый пациент", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewPatient", null);											
+			if(newPatientFullname != null) {
+		    	Messagebox.show("Пациента с таким именем нет в базе данных. Хотите ли вы его добавить?", "Новый пациент", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+					@Override				
+					public void onEvent(Event event) throws Exception {
+						if (Messagebox.ON_YES.equals(event.getName())){
+							BindUtils.postGlobalCommand(null, null, "createNewPatient", null);											
+						}
 					}
-				}
-	    	});	    	
+		    	});	    	
+
+	    	} else {
+	    		Clients.showNotification("Введите ФИО пациента!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+	    	}
     	}		
 	}
 	
     @GlobalCommand
     @Command
     @NotifyChange({"currentPatientHistory","currentPatientsList","allPatientsList","patientItem"})
-    public void createNewPatient(){
+    public void createNewPatient(){    	
     	String[] fullname = newPatientFullname.split(" ");   	
     	patientItem = new Patient();    	
     	patientItem.setLastname(fullname[0]);
@@ -539,7 +554,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setPatient(patientItem);
     	currentPatientsList = new ArrayList<Patient>();
 		currentPatientsList.add(patientItem);		
-		Clients.showNotification("Пациент с именем "+patientItem.getLastname()+" "+patientItem.getFirstname()+" "+patientItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+		Clients.showNotification("Пациент с именем "+patientItem.getLastname()+" "+patientItem.getFirstname()+" "+patientItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
 	@Command
@@ -551,21 +566,25 @@ public class PatientHistoryWindowViewModel {
     		currentAttPersonsList.add(attPersonItem);
 			Clients.showNotification("Сопровождающий с именем "+attPersonItem.getLastname()+" "+attPersonItem.getFirstname()+" "+attPersonItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Сопровождающего с таким именем нет в базе данных. Хотите ли вы его добавить?", "Новый сопровождающий", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewAttPerson", null);											
-					}
-				}
-	    	});	    	
+    		if(newAttPersonItemFullname != null){
+    			Messagebox.show("Сопровождающего с таким именем нет в базе данных. Хотите ли вы его добавить?", "Новый сопровождающий", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+    				@Override				
+    				public void onEvent(Event event) throws Exception {
+    					if (Messagebox.ON_YES.equals(event.getName())){
+    						BindUtils.postGlobalCommand(null, null, "createNewAttPerson", null);											
+    					}
+    				}
+    	    	});
+        	} else {
+        		Clients.showNotification("Введите ФИО родственника!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+        	}	    		    	
     	}		
 	}
 	
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentAttPersonsList","allAttPersonsList","attPersonItem"})
-    public void createNewAttPerson(){
+    public void createNewAttPerson(){    	
     	String[] fullname = newAttPersonItemFullname.split(" ");   	
     	attPersonItem = new AttendantPerson();    	
     	attPersonItem.setLastname(fullname[0]);
@@ -578,7 +597,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setAttperson(attPersonItem);
 		currentAttPersonsList = new ArrayList<AttendantPerson>();
 		currentAttPersonsList.add(attPersonItem);
-		Clients.showNotification("Сопровождающий с именем "+attPersonItem.getLastname()+" "+attPersonItem.getFirstname()+" "+attPersonItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+		Clients.showNotification("Сопровождающий с именем "+attPersonItem.getLastname()+" "+attPersonItem.getFirstname()+" "+attPersonItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
     }
     
 	@Command
@@ -590,21 +609,25 @@ public class PatientHistoryWindowViewModel {
     		currentNursesList.add(nurseItem);
 			Clients.showNotification("Менеджер с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Менеджера с таким именем нет в базе данных. Хотите ли вы добавить?", "Новая мед. сестра", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewNurse", null);											
-					}
-				}
-	    	});	    	
+    		if(newNurseItemFullname != null) {
+    	    	Messagebox.show("Менеджера с таким именем нет в базе данных. Хотите ли вы добавить?", "Новая мед. сестра", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+    				@Override				
+    				public void onEvent(Event event) throws Exception {
+    					if (Messagebox.ON_YES.equals(event.getName())){
+    						BindUtils.postGlobalCommand(null, null, "createNewNurse", null);											
+    					}
+    				}
+    	    	});
+        	} else {
+        		Clients.showNotification("Введите ФИО менеджера!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+        	}
     	}		
 	}
 	
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentNursesList","allNursesList","nurseItem"})
-    public void createNewNurse(){
+    public void createNewNurse(){    	
     	String[] fullname = newNurseItemFullname.split(" ");   	
     	nurseItem = new Nurse(); 	
     	nurseItem.setLastname(fullname[0]);
@@ -617,7 +640,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setNurse(nurseItem);
 		currentNursesList = new ArrayList<Nurse>();
 		currentNursesList.add(nurseItem);
-		Clients.showNotification("Менеджер с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+		Clients.showNotification("Менеджер с именем "+nurseItem.getLastname()+" "+nurseItem.getFirstname()+" "+nurseItem.getMiddlename()+" добавлена! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);		
     }
     
 	@Command
@@ -629,21 +652,26 @@ public class PatientHistoryWindowViewModel {
     		currentMedicalExpertsList.add(medicalExpertItem);
 			Clients.showNotification("Мед. эксперта с именем "+medicalExpertItem.getLastname()+" "+medicalExpertItem.getFirstname()+" "+medicalExpertItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Мед. эксперта с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый мед. эксперт", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewMedicalExpert", null);											
+	    	if(newMedicalExpertItemFullname != null) {
+		    	Messagebox.show("Мед. эксперта с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый мед. эксперт", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+					@Override				
+					public void onEvent(Event event) throws Exception {
+						if (Messagebox.ON_YES.equals(event.getName())){
+							BindUtils.postGlobalCommand(null, null, "createNewMedicalExpert", null);											
+						}
 					}
-				}
-	    	});	    	
+		    	});	    	
+
+	    	} else {
+	    		Clients.showNotification("Введите ФИО мед. эксперта!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+	    	}
     	}		
 	}
 	
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentMedicalExpertsList","allMedicalExpertsList","medicalExpertItem"})
-    public void createNewMedicalExpert(){
+    public void createNewMedicalExpert(){    	
     	String[] fullname = newMedicalExpertItemFullname.split(" ");   	
     	medicalExpertItem = new MedicalExpert(); 	
     	medicalExpertItem.setLastname(fullname[0]);
@@ -656,7 +684,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setMedicalExpert(medicalExpertItem);
     	currentMedicalExpertsList = new ArrayList<MedicalExpert>();
     	currentMedicalExpertsList.add(medicalExpertItem);
-    	Clients.showNotification("Мед. эксперт с именем "+medicalExpertItem.getLastname()+" "+medicalExpertItem.getFirstname()+" "+medicalExpertItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    	Clients.showNotification("Мед. эксперт с именем "+medicalExpertItem.getLastname()+" "+medicalExpertItem.getFirstname()+" "+medicalExpertItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     }
     
     @Command
@@ -668,14 +696,19 @@ public class PatientHistoryWindowViewModel {
     		currentDoctorsList.add(doctorItem);
 			Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Врача с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый врач", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewDoctor", null);											
-					}
-				}
-	    	});	    	
+    		if(newDoctorItemFullname != null){
+    	    	Messagebox.show("Врача с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый врач", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+    				@Override				
+    				public void onEvent(Event event) throws Exception {
+    					if (Messagebox.ON_YES.equals(event.getName())){
+    						BindUtils.postGlobalCommand(null, null, "createNewDoctor", null);											
+    					}
+    				}
+    	    	});	    	
+
+        	} else {
+        		Clients.showNotification("Введите ФИО врача!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+        	}
     	}		
 	}
     
@@ -688,21 +721,25 @@ public class PatientHistoryWindowViewModel {
     		currentMasterDoctorsList.add(masterDoctorItem);
 			Clients.showNotification("Глав. специалист с именем "+masterDoctorItem.getLastname()+" "+masterDoctorItem.getFirstname()+" "+masterDoctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-	    	Messagebox.show("Глав. специалиста с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый глав. специалист", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
-				@Override				
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_YES.equals(event.getName())){
-						BindUtils.postGlobalCommand(null, null, "createNewMasterDoctor", null);											
-					}
-				}
-	    	});	    	
+    		if(newMasterDoctorItemFullname != null){
+    	    	Messagebox.show("Глав. специалиста с таким именем нет в базе данных. Хотите ли вы добавить?", "Новый глав. специалист", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {			
+    				@Override				
+    				public void onEvent(Event event) throws Exception {
+    					if (Messagebox.ON_YES.equals(event.getName())){
+    						BindUtils.postGlobalCommand(null, null, "createNewMasterDoctor", null);											
+    					}
+    				}
+    	    	});
+        	} else {
+        		Clients.showNotification("Введите ФИО глав. специалиста!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+        	}
     	}		
 	}
     
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentDoctorsList","allDoctorsList","doctorItem"})
-    public void createNewDoctor(){
+    public void createNewDoctor(){    	
     	String[] fullname = newDoctorItemFullname.split(" ");   	
     	doctorItem = new Doctor(); 	
     	doctorItem.setLastname(fullname[0]);
@@ -715,13 +752,14 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setDoctor(doctorItem);
     	currentDoctorsList = new ArrayList<Doctor>();
     	currentDoctorsList.add(doctorItem);
-    	Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    	Clients.showNotification("Врач с именем "+doctorItem.getLastname()+" "+doctorItem.getFirstname()+" "+doctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+	    
     }
 	
     @GlobalCommand
     @Command
 	@NotifyChange({"currentPatientHistory","currentMasterDoctorsList","allDoctorsList","masterDoctorItem"})
-    public void createNewMasterDoctor(){
+    public void createNewMasterDoctor(){    	
     	String[] fullname = newMasterDoctorItemFullname.split(" ");   	
     	masterDoctorItem = new Doctor(); 	
     	masterDoctorItem.setLastname(fullname[0]);
@@ -734,7 +772,7 @@ public class PatientHistoryWindowViewModel {
     	currentPatientHistory.setMasterDoctor(masterDoctorItem);
     	currentMasterDoctorsList = new ArrayList<Doctor>();
     	currentMasterDoctorsList.add(masterDoctorItem);
-    	Clients.showNotification("Глав. специалист с именем "+masterDoctorItem.getLastname()+" "+masterDoctorItem.getFirstname()+" "+masterDoctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);    	
+    	Clients.showNotification("Глав. специалист с именем "+masterDoctorItem.getLastname()+" "+masterDoctorItem.getFirstname()+" "+masterDoctorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);	    
     }
     
 	@Command
@@ -761,6 +799,15 @@ public class PatientHistoryWindowViewModel {
     	} else {
     		Clients.showNotification("Юриста с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Юрист'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
     	}		
+	}
+	
+	private boolean containsResolution(List<Resolution> list, Resolution selected) {
+	    for (Resolution r : list) {
+	        if(r.getResolutionId() == selected.getResolutionId()){
+	        	return true;
+	        }	        
+	    }
+	    return false;
 	}
     
 	@Command
