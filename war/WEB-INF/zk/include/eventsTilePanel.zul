@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.EventTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.EventTilePanelVM')">
 		<div sclass="row">
 			<div zclass="col-lg-4 col-md-4 col-xs-12">
 				<div zclass="tile">

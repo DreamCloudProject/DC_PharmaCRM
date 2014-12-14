@@ -3,7 +3,7 @@
 	<window id="EventWindow" title="${labels.pages.detail.patienthistory.messages.eventWindowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.EventWindowViewModel')"
+		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.EventWindowViewModel')"
 		width="100%" height="480px"
 		contentStyle="position:relative; overflow:auto">
 
@@ -55,14 +55,28 @@
 				</n:div>
 			</n:div>					
 			<n:div class="form-group">
-				<label zclass="control-label col-md-2" value="Дата иниц. события"></label>
+				<label zclass="control-label col-md-2" value="Подготовлен"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
 					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeStart) @save(vm.currentEvent.dateTimeStart,before='save')" />
 				</n:div>
 			</n:div> 
 			<n:div class="form-group">
-				<label zclass="control-label col-md-2" value="Дата заверш. события"></label>
+				<label zclass="control-label col-md-2" value="Зарегистрирован"></label>
+		
+				<n:div class="col-md-10 p-l-15 p-b-5">
+					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeReg) @save(vm.currentEvent.dateTimeReg,before='save')" />
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Предполагаемая дата"></label>
+		
+				<n:div class="col-md-10 p-l-15 p-b-5">
+					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimePlan) @save(vm.currentEvent.dateTimePlan,before='save')" />
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Фактическая дата"></label>
 		
 				<n:div class="col-md-10 p-l-15 p-b-5">
 					<datebox cols="12" locale="ru" format="dd.MM.yyyy HH:mm" value="@load(vm.currentEvent.dateTimeEnd) @save(vm.currentEvent.dateTimeEnd,before='save')" />

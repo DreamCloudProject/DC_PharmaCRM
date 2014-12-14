@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ru.dreamcloud.alexion.model.PatientHistory;
-import ru.dreamcloud.alexion.model.authentication.CommonUserInfo;
+import ru.dreamcloud.pharmatracker.model.PatientHistory;
+import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

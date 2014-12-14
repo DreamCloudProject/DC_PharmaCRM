@@ -5,7 +5,7 @@
 		<n:a class="logo pull-left"	href="${pageContext.request.contextPath}">
 			${labels.sitename}
 		</n:a>
-		<div sclass="media-body" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.HeaderVM')" style="height:0;">
+		<div sclass="media-body" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.HeaderVM')" style="height:0;">
 			<n:div class="media" id="top-menu">
 				<!-- <n:div class="pull-left tm-icon">
 					<n:a data-drawer="messages" class="drawer-toggle" href="">

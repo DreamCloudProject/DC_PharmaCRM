@@ -1,7 +1,7 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.NurseTilePanelVM')">
+		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.NurseTilePanelVM')">
 		<n:article class="tile">
 			<n:h2 class="tile-title">Менеджер</n:h2>
 			<n:div class="tile-config dropdown">

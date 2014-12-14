@@ -3,7 +3,7 @@
 	<window id="CommonRoleWindow" title="${labels.pages.admin.settings.tabs.common.messages.windowTitleCommonRole}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CommonRoleWindowVM')"
+		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.CommonRoleWindowVM')"
 		width="100%" height="640px"
 		contentStyle="position:relative; overflow:auto">
 

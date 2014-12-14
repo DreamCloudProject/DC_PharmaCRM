@@ -33,7 +33,7 @@
 		]]>
 	</zscript>
 	<n:body id="${labels.currentTheme}">
-		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.PatientHistoryViewModel')" style="height:100%">
+		<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.PatientHistoryViewModel')" style="height:100%">
 			<include admin="false" src="/WEB-INF/zk/include/header.zul" />
 	
 			<n:div class="clearfix"></n:div>

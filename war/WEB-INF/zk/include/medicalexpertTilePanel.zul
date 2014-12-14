@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.MedicalExpertTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.MedicalExpertTilePanelVM')">
 		<n:article class="tile">
 			<n:h2 class="tile-title">Мед. эксперт</n:h2>
 			<n:div class="tile-config dropdown">

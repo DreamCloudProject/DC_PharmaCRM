@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.ShortcutMenuVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.ShortcutMenuVM')">
 		<!-- Shortcuts -->
 		<n:div class="block-area shortcut-area">
 		    <a sclass="shortcut tile" href="" onClick="@command('createNewPatientHistory')">

@@ -3,7 +3,7 @@
 	<window id="ResolutionWindow" title="${labels.pages.admin.settings.tabs.resolutions.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.ResolutionWindowViewModel')"
+		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.tabs.ResolutionWindowViewModel')"
 		width="100%" height="320px"
 		contentStyle="position:relative; overflow:auto">
 

@@ -1,6 +1,6 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.widgets.CalendarVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.CalendarVM')">
 		<div sclass="row">
 			<div sclass="col-lg-12 text-center">
 				<a onClick="EventCalendar.previousPage()"><n:i class="fa fa-angle-left fa-2x"></n:i></a>

@@ -3,7 +3,7 @@
 	<window id="DistrictWindow" title="${labels.pages.admin.settings.tabs.districtsAndRegions.messages.windowTitle}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		maximizable="false"
-		viewModel="@id('vm') @init('ru.dreamcloud.alexion.zk.viewmodels.tabs.DistrictWindowViewModel')"
+		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.tabs.DistrictWindowViewModel')"
 		width="100%" height="640px"
 		contentStyle="position:relative; overflow:auto">
 
