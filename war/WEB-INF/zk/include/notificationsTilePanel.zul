@@ -13,20 +13,20 @@
 						<template name="model" var="record">
 							<listitem>
 								<listcell>
-									<n:div class="media">
-										<n:div class="pull-left">
-											<n:i class="fa fa-bell-o fa-2x"></n:i>
+									<a class="t-overflow" href="" onClick="@command('readNotification', notificationItem=record)">
+										<n:div class="media">
+											<n:div class="pull-left">
+												<n:i class="fa fa-bell-o fa-2x"></n:i>
+											</n:div>
+											<n:div class="media-body">
+												<n:small class="text-muted">
+													Напоминание на событие: ${record.title} - <label value="@load(record.dateTimeStart) @converter('formatedDate', format='dd.MM.yyyy')"/>
+												</n:small>
+												<n:br />											
+												${record.description}											
+											</n:div>									
 										</n:div>
-										<n:div class="media-body">
-											<n:small class="text-muted">
-												Напоминание на событие: ${record.title} - <label value="@load(record.dateTimeStart) @converter('formatedDate', format='dd.MM.yyyy')"/>
-											</n:small>
-											<n:br />
-											<a class="t-overflow" href="" onClick="@command('readNotification', notificationItem=record)">
-												${record.description}
-											</a>
-										</n:div>
-									</n:div>
+									</a>
 								</listcell>
 							</listitem>
 						</template>

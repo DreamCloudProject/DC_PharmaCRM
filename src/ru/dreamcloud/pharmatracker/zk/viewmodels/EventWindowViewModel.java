@@ -251,8 +251,9 @@ public class EventWindowViewModel  {
 				cal.setTime(currentDate);
 				cal.add(Calendar.MONTH, 1);
 				Timestamp nextMonth = new Timestamp(cal.getTime().getTime());
-			
+				currentEvent.setDateTimeReg(nextMonth);			
 				currentEvent.setDateTimePlan(nextMonth);
+				currentEvent.setDateTimeEnd(nextMonth);
 			} else {
 				currentEvent = currentItem;
 			}
