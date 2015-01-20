@@ -105,21 +105,6 @@ public class AuthenticationService implements Serializable {
 		return result;
 	}
 	
-	public Boolean checkAdminRights(CommonRole role){
-		Boolean result = true;
-		if(role != null){
-			List<Integer> args = new ArrayList<Integer>();
-			args.add(role.getRoleId());
-			List<CommonRule> globalRules = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonRule", "where e.roles IN :args", args));
-			for (CommonRule rule : globalRules) {
-				if(rule.getComponentName().equals("AdminDisabled")){
-					result = false;
-				}
-			}
-		}
-		return result;
-	}
-	
     public void logout() {
         Session session = Sessions.getCurrent();
         session.removeAttribute("userInfo");

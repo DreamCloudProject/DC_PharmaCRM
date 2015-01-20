@@ -47,7 +47,7 @@ public class ApplicationInit extends GenericInitiator {
 				if(requestPath.indexOf(adminPage) > 0){
 			        authenticationService = new AuthenticationService();
 			        CommonUserInfo userProfile = authenticationService.getCurrentProfile();
-					if(!authenticationService.checkAdminRights(userProfile.getRole())){
+					if(!authenticationService.checkAccessRights(userProfile.getRole(),"AdminDisabled")){
 						Execution exec = Executions.getCurrent();
 					    HttpServletResponse response = (HttpServletResponse)exec.getNativeResponse();
 					    response.sendRedirect(indexPage);

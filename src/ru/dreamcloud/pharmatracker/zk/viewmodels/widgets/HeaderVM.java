@@ -208,7 +208,7 @@ public class HeaderVM {
 		Session session = Sessions.getCurrent();
 		authenticationService = new AuthenticationService();
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
-		isAdminDisabled = authenticationService.checkAdminRights(currentUserRole);		
+		isAdminDisabled = authenticationService.checkAccessRights(currentUserRole,"AdminDisabled");		
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
 		currentDesktop = desktop;
