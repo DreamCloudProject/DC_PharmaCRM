@@ -23,7 +23,7 @@
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="removeCurator" zclass="btn btn-success" label="Убрать куратора" onClick="@command('removeCurator')" />										
+					<button id="removeCurator" zclass="btn btn-success" label="Снять куратора" onClick="@command('removeCurator')" />										
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
@@ -43,7 +43,7 @@
 			<n:div class="form-group">
 				<div sclass="col-md-2"></div>                    
 				<n:div class="col-md-10">
-					<button id="removeLawyer" zclass="btn btn-success" label="Убрать юриста" onClick="@command('removeLawyer')" />										
+					<button id="removeLawyer" zclass="btn btn-success" label="Снять юриста" onClick="@command('removeLawyer')" />										
 				</n:div>
 			</n:div>
 		</n:div>

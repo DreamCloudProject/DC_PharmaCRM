@@ -38,6 +38,7 @@ import ru.dreamcloud.pharmatracker.model.Document;
 import ru.dreamcloud.pharmatracker.model.Notification;
 import ru.dreamcloud.pharmatracker.model.NotificationState;
 import ru.dreamcloud.pharmatracker.model.NotificationType;
+import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
 import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.services.SchedulerService;
@@ -104,6 +105,19 @@ public class HeaderVM {
 		
 	}
 	
+	/**************************************
+	  Property isAdminDisabled	 
+	***************************************/
+	private Boolean isAdminDisabled;	
+	
+	public Boolean getIsAdminDisabled() {
+		return isAdminDisabled;
+	}
+
+	public void setIsAdminDisabled(Boolean isAdminDisabled) {
+		this.isAdminDisabled = isAdminDisabled;
+	}
+
 	/**************************************
 	 * Property authenticationService
 	 ***************************************/
@@ -193,6 +207,8 @@ public class HeaderVM {
 	public void init(@ContextParam(ContextType.DESKTOP) Desktop desktop) {
 		Session session = Sessions.getCurrent();
 		authenticationService = new AuthenticationService();
+		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
+		isAdminDisabled = authenticationService.checkAdminRights(currentUserRole);		
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		currentDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
 		currentDesktop = desktop;

@@ -12,6 +12,7 @@ import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericInitiator;
 
+import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
 import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.services.SchedulerService;
 
@@ -32,6 +33,8 @@ public class ApplicationInit extends GenericInitiator {
 		Session session = Sessions.getCurrent();
 		String requestPath = Executions.getCurrent().getDesktop().getRequestPath();
 		String loginPage = Labels.getLabel("pages.login.URL");
+		String adminPage = Labels.getLabel("pages.admin.settings.URL");
+		String indexPage = Labels.getLabel("panels.index.URL");
 		if(requestPath.indexOf(loginPage) == -1){
 	        authenticationService = new AuthenticationService();
 			if(!authenticationService.initAccess()){
@@ -39,8 +42,22 @@ public class ApplicationInit extends GenericInitiator {
 			    HttpServletResponse response = (HttpServletResponse)exec.getNativeResponse();
 			    response.sendRedirect(loginPage);
 			    exec.setVoided(true); //no need to create UI since redirect will take place			    
-			}		
+			} else {
+				//Check User Rigths to disable URLs
+				if(requestPath.indexOf(adminPage) > 0){
+			        authenticationService = new AuthenticationService();
+			        CommonUserInfo userProfile = authenticationService.getCurrentProfile();
+					if(!authenticationService.checkAdminRights(userProfile.getRole())){
+						Execution exec = Executions.getCurrent();
+					    HttpServletResponse response = (HttpServletResponse)exec.getNativeResponse();
+					    response.sendRedirect(indexPage);
+					    exec.setVoided(true); //no need to create UI since redirect will take place			    
+					}		
+				}
+			}
 		}
+		
+
 	}
 	
 	private void initSchedulerService() {

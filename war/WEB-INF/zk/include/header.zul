@@ -22,7 +22,7 @@
 						<n:span class="title">${labels.header.menu.notifications.name}</n:span>
 					</n:a>
 				</n:div>
-				<n:div class="pull-left tm-icon">
+				<n:div class="pull-left tm-icon" if="${vm.isAdminDisabled}">
 					<n:a href="/admin/settings">
 						<n:i class="${labels.header.menu.settings.menuIconClassFA} fa-2x"></n:i>						
 						<n:span class="title">${labels.header.menu.settings.name}</n:span>
