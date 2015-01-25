@@ -75,6 +75,45 @@ public class EventWindowViewModel  {
 	public void setIsVisibleFormDocuments(Boolean isVisibleFormDocuments) {
 		this.isVisibleFormDocuments = isVisibleFormDocuments;
 	}
+	
+	/**************************************
+	  Property createPermission	 
+	***************************************/
+	private Boolean createPermission;	
+
+	public Boolean getCreatePermission() {
+		return createPermission;
+	}
+
+	public void setCreatePermission(Boolean createPermission) {
+		this.createPermission = createPermission;
+	}
+
+	/**************************************
+	  Property editPermission	 
+	***************************************/
+	private Boolean editPermission;	
+	
+	public Boolean getEditPermission() {
+		return editPermission;
+	}
+
+	public void setEditPermission(Boolean editPermission) {
+		this.editPermission = editPermission;
+	}
+
+	/**************************************
+	  Property deletePermission	 
+	***************************************/
+	private Boolean deletePermission;	
+
+	public Boolean getDeletePermission() {
+		return deletePermission;
+	}
+
+	public void setDeletePermission(Boolean deletePermission) {
+		this.deletePermission = deletePermission;
+	}
 
 	/**************************************
 	 * Property currentEvent
@@ -238,6 +277,10 @@ public class EventWindowViewModel  {
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
 		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole, "Документы");
+		createPermission = authenticationService.checkAccessRights(currentUserRole,"CreateDisabled");
+		editPermission = authenticationService.checkAccessRights(currentUserRole,"EditDisabled");
+		deletePermission = authenticationService.checkAccessRights(currentUserRole,"DeleteDisabled");
+		
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
 			setPatientHistoryItem((PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory"));
 		}
@@ -254,6 +297,7 @@ public class EventWindowViewModel  {
 				currentEvent.setDateTimeReg(nextMonth);			
 				currentEvent.setDateTimePlan(nextMonth);
 				currentEvent.setDateTimeEnd(nextMonth);
+				currentEvent.setPostedByUser(authenticationService.getCurrentProfile());
 			} else {
 				currentEvent = currentItem;
 			}
@@ -322,6 +366,7 @@ public class EventWindowViewModel  {
 			extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.extensionName = 'UNDEFINED'"));				
 		}
 		documentItem.setExtension(extList.get(0));
+		documentItem.setPostedByUser(authenticationService.getCurrentProfile());
 		documentItem.setEvent(currentEvent);
 		documentList.add(documentItem);
 		documentItem = new Document();
@@ -344,11 +389,16 @@ public class EventWindowViewModel  {
     @Command
     @NotifyChange("documentList")
     public void removeDocument(@BindingParam("documentItem") final Document docItem) {
-    	if(docItem.getDocumentId() != null){
-    		itemsToRemove.add(docItem);
-    	}
-    	documentList.remove(docItem);
-    	Clients.showNotification("Документ удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);   	
+    	if((docItem.getPostedByUser().getUserInfoId() == authenticationService.getCurrentProfile().getUserInfoId())
+    			|| (authenticationService.checkAccessRights(authenticationService.getCurrentProfile().getRole(), "AdminDisabled"))){
+	    	if(docItem.getDocumentId() != null){
+	    		itemsToRemove.add(docItem);
+	    	}
+	    	documentList.remove(docItem);
+	    	Clients.showNotification("Документ удален! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_WARNING, null, "top_center" ,4100);
+    	} else {
+    		Clients.showNotification("У Вас недостаточно прав для совершения текущей операции!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+    	}    	
     }
 	
 	@Command

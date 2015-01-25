@@ -36,14 +36,17 @@ CREATE TABLE `events` (
   `patient_history` int(11) DEFAULT NULL,
   `event_reason` int(11) DEFAULT NULL,
   `user_info` int(11) DEFAULT NULL,
+  `posted_by_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
   KEY `fk_ph_event_idx` (`patient_history`),
   KEY `fk_er_event_idx` (`event_reason`),
   KEY `fk_user_event_idx` (`user_info`),
-  CONSTRAINT `fk_user_event` FOREIGN KEY (`user_info`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_postedbyuser_event_idx` (`posted_by_user`),
+  CONSTRAINT `fk_postedbyuser_event` FOREIGN KEY (`posted_by_user`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_er_event` FOREIGN KEY (`event_reason`) REFERENCES `event_reasons` (`event_reason_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_event` FOREIGN KEY (`user_info`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
 */
 
@@ -92,6 +95,10 @@ public class Event implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "user_info")
 	private CommonUserInfo userInfo;
+	
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @JoinColumn(name = "posted_by_user")
+	private CommonUserInfo postedByUser;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="event")
     private List<Notification> notifications;
@@ -202,6 +209,14 @@ public class Event implements Serializable{
 
 	public void setUserInfo(CommonUserInfo userInfo) {
 		this.userInfo = userInfo;
+	}	
+
+	public CommonUserInfo getPostedByUser() {
+		return postedByUser;
+	}
+
+	public void setPostedByUser(CommonUserInfo postedByUser) {
+		this.postedByUser = postedByUser;
 	}
 
 	public List<Notification> getNotifications() {

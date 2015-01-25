@@ -44,7 +44,7 @@ public class PatientHistoryWindowAdditionalVM {
 	 * Property allLawyersList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Юрист'"));
+	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", null));
 	
 	public List<CommonUserInfo> getAllLawyersList() {
 		return allLawyersList;
@@ -54,7 +54,7 @@ public class PatientHistoryWindowAdditionalVM {
 	 * Property allCuratorsList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Куратор'"));
+	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", null));
 	
 	public List<CommonUserInfo> getAllCuratorsList() {
 		return allCuratorsList;

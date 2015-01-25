@@ -16,9 +16,9 @@
 						</n:header>
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
 							mold="paging" pageSize="10" model="@load(vm.eventsListTODO)"
-							onDrop="@command('changeMessageType', messageType='TODO', target=event.dragged)" droppable="true">
+							onDrop="@command('changeMessageType', messageType='TODO', target=event.dragged)" droppable="${vm.editPermission}">
 							<template name="model" var="record">
-								<listitem id="event_${record.eventId}" draggable="true">
+								<listitem id="event_${record.eventId}" draggable="${vm.editPermission}">
 									<listcell>
 										<n:div class="media p-l-5">
 											<n:div class="pull-left">
@@ -30,9 +30,12 @@
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
 												</n:span>
+												<n:br/>
+												<n:div class="attrs" if="${record.postedByUser != null}">Создано пользователем: ${record.postedByUser.login}</n:div>                            					
 												<n:div class="list-options">
-													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
-													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+													<button if="${(!vm.editPermission) and (vm.viewDocuments)}" sclass="btn btn-success" label="Документы" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.editPermission}" sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.deletePermission}" sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
 												</n:div>
 											</n:div>
 										</n:div>						
@@ -57,9 +60,9 @@
 						</n:header>
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
 							mold="paging" pageSize="10" model="@load(vm.eventsListPROGRESS)"
-							onDrop="@command('changeMessageType', messageType='PROGRESS', target=event.dragged)" droppable="true">
+							onDrop="@command('changeMessageType', messageType='PROGRESS', target=event.dragged)" droppable="${vm.editPermission}">
 							<template name="model" var="record">
-								<listitem id="event_${record.eventId}" draggable="true">
+								<listitem id="event_${record.eventId}" draggable="${vm.editPermission}">
 									<listcell>
 										<n:div class="media p-l-5">
 											<n:div class="pull-left">
@@ -71,9 +74,12 @@
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
 												</n:span>
+												<n:br/>
+												<n:div class="attrs" if="${record.postedByUser != null}">Создано пользователем: ${record.postedByUser.login}</n:div>
 												<n:div class="list-options">
-													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
-													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+													<button if="${(!vm.editPermission) and (vm.viewDocuments)}" sclass="btn btn-success" label="Документы" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.editPermission}" sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.deletePermission}" sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
 												</n:div>
 											</n:div>
 										</n:div>						
@@ -98,9 +104,9 @@
 						</n:header>
 						<listbox emptyMessage="${labels.messages.tableEmptyMessage}"
 							mold="paging" pageSize="10" model="@load(vm.eventsListDONE)"
-							onDrop="@command('changeMessageType', messageType='DONE', target=event.dragged)" droppable="true">
+							onDrop="@command('changeMessageType', messageType='DONE', target=event.dragged)" droppable="${vm.editPermission}">
 							<template name="model" var="record">
-								<listitem id="event_${record.eventId}" draggable="true">
+								<listitem id="event_${record.eventId}" draggable="${vm.editPermission}">
 									<listcell>
 										<n:div class="media p-l-5">
 											<n:div class="pull-left">
@@ -112,9 +118,12 @@
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
 												</n:span>
+												<n:br/>
+												<n:div class="attrs" if="${record.postedByUser != null}">Создано пользователем: ${record.postedByUser.login}</n:div>
 												<n:div class="list-options">
-													<button sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
-													<button sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
+													<button if="${(!vm.editPermission) and (vm.viewDocuments)}" sclass="btn btn-success" label="Документы" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.editPermission}" sclass="btn btn-success" label="Изменить" onClick="@command('editEventItem', eventItem=record)" />
+													<button if="${vm.deletePermission}" sclass="btn btn-warning" label="Удалить" onClick="@command('removeEventItem', eventItem=record)" />
 												</n:div>
 											</n:div>
 										</n:div>						

@@ -3,19 +3,19 @@
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.ShortcutMenuVM')">
 		<!-- Shortcuts -->
 		<n:div class="block-area shortcut-area">
-		    <a sclass="shortcut tile" href="" onClick="@command('createNewPatientHistory')">
+		    <a if="${vm.createPermission}" sclass="shortcut tile" href="" onClick="@command('createNewPatientHistory')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory.png" alt=""/>
 		        <n:small class="t-overflow">Новая история<n:br/>пациента</n:small>
 		    </a>
-		    <a if="${vm.isVisibleEditPatientHistory}" sclass="shortcut tile" href="" onClick="@command('editPatientHistory')">
+		    <a if="${vm.isVisibleEditPatientHistory and vm.editPermission}" sclass="shortcut tile" href="" onClick="@command('editPatientHistory')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory_edit.png" alt=""/>
 		        <n:small class="t-overflow">Редактировать<n:br/> историю пациента</n:small>
 		    </a>
-		    <a if="${vm.isVisibleClosePatientHistory}" sclass="shortcut tile" href="" onClick="@command('closePatientHistory')">
+		    <a if="${vm.isVisibleClosePatientHistory and vm.editPermission}" sclass="shortcut tile" href="" onClick="@command('closePatientHistory')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_patienthistory_close.png" alt=""/>
 		        <n:small class="t-overflow">Закрыть<n:br/> историю пациента</n:small>
 		    </a>		    		    
-		    <a if="${vm.isVisibleCreateNewEvent}" sclass="shortcut tile" href="" onClick="@command('createNewEvent')">
+		    <a if="${vm.isVisibleCreateNewEvent and vm.createPermission}" sclass="shortcut tile" href="" onClick="@command('createNewEvent')">
 		        <n:img src="${pageContext.request.contextPath}/bootstrap/v3/template/img/shortcuts/icon_event.png" alt=""/>
 		        <n:small class="t-overflow">Добавить<n:br/>событие</n:small>
 		    </a>		    

@@ -17,11 +17,17 @@ import org.zkoss.zk.ui.Sessions;
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.PatientHistoryStatus;
 import ru.dreamcloud.pharmatracker.model.Resolution;
+import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class ApprovalStagesVM {
 	
 	private static int MAX_BOOTSTRAP_COLUMNS = 12;
+	
+	/**************************************
+	 * Property authenticationService
+	 ***************************************/
+	private AuthenticationService authenticationService;
 	
 	/**************************************
 	  Property stageType	 
@@ -126,6 +132,45 @@ public class ApprovalStagesVM {
 	public void setRows(Integer rows) {
 		this.rows = rows;
 	}
+	
+	/**************************************
+	  Property createPermission	 
+	***************************************/
+	private Boolean createPermission;	
+
+	public Boolean getCreatePermission() {
+		return createPermission;
+	}
+
+	public void setCreatePermission(Boolean createPermission) {
+		this.createPermission = createPermission;
+	}
+
+	/**************************************
+	  Property editPermission	 
+	***************************************/
+	private Boolean editPermission;	
+	
+	public Boolean getEditPermission() {
+		return editPermission;
+	}
+
+	public void setEditPermission(Boolean editPermission) {
+		this.editPermission = editPermission;
+	}
+
+	/**************************************
+	  Property deletePermission	 
+	***************************************/
+	private Boolean deletePermission;	
+
+	public Boolean getDeletePermission() {
+		return deletePermission;
+	}
+
+	public void setDeletePermission(Boolean deletePermission) {
+		this.deletePermission = deletePermission;
+	}
 
 	/**************************************
 	 * Methods
@@ -139,6 +184,11 @@ public class ApprovalStagesVM {
 		lgClassType = (MAX_BOOTSTRAP_COLUMNS/res) >= 2 ? String.valueOf(MAX_BOOTSTRAP_COLUMNS/res) : "12";		
 		mdClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/4);
 		xsClassType = String.valueOf(MAX_BOOTSTRAP_COLUMNS/2);
+		authenticationService = new AuthenticationService();
+		
+		createPermission = authenticationService.checkAccessRights(authenticationService.getCurrentProfile().getRole(),"CreateDisabled");
+		editPermission = authenticationService.checkAccessRights(authenticationService.getCurrentProfile().getRole(),"EditDisabled");
+		deletePermission = authenticationService.checkAccessRights(authenticationService.getCurrentProfile().getRole(),"DeleteDisabled");
 				
 	}
 	

@@ -27,13 +27,19 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.pharmatracker.model.Event;
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
+import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.calendar.AdvancedCalendarEvent;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CalendarVM {
 	
 	@Wire("#EventCalendar")
-	private Calendars eventCalendar; 
+	private Calendars eventCalendar;
+	
+	/**************************************
+	  Property authService	 
+	***************************************/
+	private AuthenticationService authService;
 	
 	/**************************************
 	 * Property calendarModel
@@ -79,6 +85,7 @@ public class CalendarVM {
 					 @ExecutionArgParam("currentPatientHistory")  PatientHistory phItem) {
 		Selectors.wireComponents(view, this, false);
 		patientHistoryItem = phItem;
+		authService = new AuthenticationService();
 		eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
 		calendarModel = new SimpleCalendarModel(getCalendarEvents(eventsList));		
 	}
@@ -99,15 +106,21 @@ public class CalendarVM {
 	}
 	
 	@Command
-	public void createEvent(@BindingParam("calendarEvent")CalendarsEvent event){		
-		Event entityEvent = new Event();
-		entityEvent.setDateTimeStart(new Timestamp(event.getBeginDate().getTime()));
-		entityEvent.setDateTimePlan(new Timestamp(event.getEndDate().getTime()));
-    	final HashMap<String, Object> params = new HashMap<String, Object>();    	
-    	params.put("eventItem", entityEvent);
-    	params.put("actionType", "NEW");
-    	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
-        window.doModal();
+	public void createEvent(@BindingParam("calendarEvent")CalendarsEvent event){
+		if(authService.checkAccessRights(authService.getCurrentProfile().getRole(),"Create")){
+			Event entityEvent = new Event();
+			entityEvent.setDateTimeStart(new Timestamp(event.getBeginDate().getTime()));
+			entityEvent.setDateTimeReg(new Timestamp(event.getEndDate().getTime()));
+			entityEvent.setDateTimePlan(new Timestamp(event.getEndDate().getTime()));
+			entityEvent.setDateTimeEnd(new Timestamp(event.getEndDate().getTime()));
+	    	final HashMap<String, Object> params = new HashMap<String, Object>();    	
+	    	params.put("eventItem", entityEvent);
+	    	params.put("actionType", "NEW");
+	    	Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
+	        window.doModal();
+		} else {
+			Clients.showNotification("У Вас нет прав на создание!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+		}
 	}
 	
 	@Command
@@ -116,7 +129,9 @@ public class CalendarVM {
 		AdvancedCalendarEvent advEvent =(AdvancedCalendarEvent)event.getCalendarEvent();
 		Event entityEvent = (Event)DataSourceLoader.getInstance().getRecord(Event.class, Integer.valueOf(advEvent.getEventId()));
 		entityEvent.setDateTimeStart(new Timestamp(event.getBeginDate().getTime()));
+		entityEvent.setDateTimeReg(new Timestamp(event.getEndDate().getTime()));
 		entityEvent.setDateTimePlan(new Timestamp(event.getEndDate().getTime()));
+		entityEvent.setDateTimeEnd(new Timestamp(event.getEndDate().getTime()));
 		DataSourceLoader.getInstance().mergeRecord(entityEvent);
 		refreshCalendar();		
 	}
@@ -125,13 +140,17 @@ public class CalendarVM {
 	@Command
 	@NotifyChange({"calendarModel","patientHistoryItem","eventsList"})
 	public void editEvent(@BindingParam("calendarEvent")CalendarsEvent event){
-		AdvancedCalendarEvent advEvent =(AdvancedCalendarEvent)event.getCalendarEvent();
-		Event entityEvent = (Event)DataSourceLoader.getInstance().getRecord(Event.class, Integer.valueOf(advEvent.getEventId()));
-		final HashMap<String, Object> params = new HashMap<String, Object>();
-    	params.put("eventItem", entityEvent);
-    	params.put("actionType", "EDIT");
-        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
-        window.doModal();		
+		if(authService.checkAccessRights(authService.getCurrentProfile().getRole(),"Edit")){
+			AdvancedCalendarEvent advEvent =(AdvancedCalendarEvent)event.getCalendarEvent();
+			Event entityEvent = (Event)DataSourceLoader.getInstance().getRecord(Event.class, Integer.valueOf(advEvent.getEventId()));
+			final HashMap<String, Object> params = new HashMap<String, Object>();
+	    	params.put("eventItem", entityEvent);
+	    	params.put("actionType", "EDIT");
+	        Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/eventwindow.zul", null, params);
+	        window.doModal();
+		} else {
+			Clients.showNotification("У Вас нет прав на редактирование!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+		}
 	}
 	
     @GlobalCommand

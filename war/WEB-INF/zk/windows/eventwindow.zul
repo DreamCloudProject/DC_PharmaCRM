@@ -8,7 +8,7 @@
 		contentStyle="position:relative; overflow:auto">
 
 		<!-- Horizontal -->
-		<n:div class="block-area">			
+		<n:div class="block-area" if="${vm.createPermission and vm.editPermission}">			
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Заголовок"></label>
 		
@@ -111,9 +111,11 @@
 											<n:span>
 												<n:small class="text-muted"><label value="@load(document.description)"/></n:small>
 											</n:span>
+											<n:br/>
+											<n:div class="attrs" if="${document.postedByUser != null}">Создано пользователем: ${document.postedByUser.login}</n:div>
 											<n:div class="list-options">
 												<button if="${vm.actionType == 'EDIT'}" sclass="btn btn-success" label="Открыть" onClick="@command('openDocument', documentItem=document)" />
-												<button sclass="btn btn-success" label="Удалить" onClick="@command('removeDocument', documentItem=document)" />
+												<button if="${vm.createPermission and vm.editPermission}" sclass="btn btn-success" label="Удалить" onClick="@command('removeDocument', documentItem=document)" />
 											</n:div>
 										</n:div>
 									</n:div>						
@@ -125,7 +127,7 @@
 			</n:div>
 			<n:div class="form-group">        
 				<n:div class="col-md-12">
-					<button label="Загрузить документ" zclass="btn btn-success" upload="true,maxsize=50000" onUpload="@command('addNewDocument',file=event.media)"/>										
+					<button if="${vm.createPermission and vm.editPermission}" label="Загрузить документ" zclass="btn btn-success" upload="true,maxsize=50000" onUpload="@command('addNewDocument',file=event.media)"/>										
 				</n:div>
 			</n:div>
 		</n:div>	

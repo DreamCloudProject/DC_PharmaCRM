@@ -25,13 +25,18 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.pharmatracker.model.Document;
 import ru.dreamcloud.pharmatracker.model.Event;
 import ru.dreamcloud.pharmatracker.model.MessageType;
-import ru.dreamcloud.pharmatracker.model.Notification;
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
-import ru.dreamcloud.pharmatracker.model.Resolution;
+import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
+import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class EventTilePanelVM {
+	
+	/**************************************
+	  Property authService	 
+	***************************************/
+	private AuthenticationService authService;
 	
 	/**************************************
 	 * Property schedulerService
@@ -91,6 +96,58 @@ public class EventTilePanelVM {
 	public List<Event> getEventsListDONE() {
 		return eventsListDONE;
 	}
+	
+	/**************************************
+	  Property viewDocuments	 
+	***************************************/
+	private Boolean viewDocuments;
+	
+	public Boolean getViewDocuments() {
+		return viewDocuments;
+	}
+
+	public void setViewDocuments(Boolean viewDocuments) {
+		this.viewDocuments = viewDocuments;
+	}
+
+	/**************************************
+	  Property createPermission	 
+	***************************************/
+	private Boolean createPermission;	
+
+	public Boolean getCreatePermission() {
+		return createPermission;
+	}
+
+	public void setCreatePermission(Boolean createPermission) {
+		this.createPermission = createPermission;
+	}
+
+	/**************************************
+	  Property editPermission	 
+	***************************************/
+	private Boolean editPermission;	
+	
+	public Boolean getEditPermission() {
+		return editPermission;
+	}
+
+	public void setEditPermission(Boolean editPermission) {
+		this.editPermission = editPermission;
+	}
+
+	/**************************************
+	  Property deletePermission	 
+	***************************************/
+	private Boolean deletePermission;	
+
+	public Boolean getDeletePermission() {
+		return deletePermission;
+	}
+
+	public void setDeletePermission(Boolean deletePermission) {
+		this.deletePermission = deletePermission;
+	}
 
 	/**************************************
 	 * Methods
@@ -100,7 +157,14 @@ public class EventTilePanelVM {
 		if(patientHistory != null){
 			Session session = Sessions.getCurrent();
 			schedulerService = (SchedulerService)session.getAttribute("schedulerService");
+			authService = new AuthenticationService();
 			patientHistoryItem = patientHistory;
+			
+			createPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"CreateDisabled");
+			editPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"EditDisabled");
+			deletePermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"DeleteDisabled");			
+			viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "Документы");
+			
 			refreshPatientHistoryEvents();
 		}
 	}
@@ -122,32 +186,36 @@ public class EventTilePanelVM {
     	Messagebox.show("Вы уверены что хотите удалить эту запись?", "Удаление записи", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener<org.zkoss.zk.ui.event.Event>() {			
 			@Override
 			public void onEvent(org.zkoss.zk.ui.event.Event event) throws Exception {
-				if (Messagebox.ON_YES.equals(event.getName())){
-					final HashMap<String, Object> params = new HashMap<String, Object>();
-					params.put("searchTerm", new String());
-					DataSourceLoader.getInstance().removeRecord(eventItem);
-					for (Document docToDelete : eventItem.getDocuments()) {
-						File fileToDelete = new File(docToDelete.getFileURL());
-						Files.deleteAll(fileToDelete);
+				if((eventItem.getPostedByUser().getUserInfoId() == authService.getCurrentProfile().getUserInfoId()) 
+						|| (authService.checkAccessRights(authService.getCurrentProfile().getRole(), "AdminDisabled"))){
+					if (Messagebox.ON_YES.equals(event.getName())){
+						final HashMap<String, Object> params = new HashMap<String, Object>();
+						params.put("searchTerm", new String());
+						DataSourceLoader.getInstance().removeRecord(eventItem);
+						for (Document docToDelete : eventItem.getDocuments()) {
+							File fileToDelete = new File(docToDelete.getFileURL());
+							Files.deleteAll(fileToDelete);
+						}
+						List<Event> eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
+						if(eventItem.getMessageType() == MessageType.TODO){
+							eventsListTODO.remove(eventItem);
+							BindUtils.postGlobalCommand(null, null, "searchEventsTODO", params);						
+						}
+						if(eventItem.getMessageType() == MessageType.IN_PROGRESS){
+							eventsListPROGRESS.remove(eventItem);						
+							BindUtils.postGlobalCommand(null, null, "searchEventsPROGRESS", params);						
+						}
+						if(eventItem.getMessageType() == MessageType.DONE){
+							eventsListDONE.remove(eventItem);
+							BindUtils.postGlobalCommand(null, null, "searchEventsDONE", params);
+						}
+						patientHistoryItem.setEvents(eventsList);
+						BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
+						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 					}
-					List<Event> eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+patientHistoryItem.getPatientHistoriesId()));
-					if(eventItem.getMessageType() == MessageType.TODO){
-						eventsListTODO.remove(eventItem);
-						BindUtils.postGlobalCommand(null, null, "searchEventsTODO", params);						
-					}
-					if(eventItem.getMessageType() == MessageType.IN_PROGRESS){
-						eventsListPROGRESS.remove(eventItem);						
-						BindUtils.postGlobalCommand(null, null, "searchEventsPROGRESS", params);						
-					}
-					if(eventItem.getMessageType() == MessageType.DONE){
-						eventsListDONE.remove(eventItem);
-						BindUtils.postGlobalCommand(null, null, "searchEventsDONE", params);
-					}
-					patientHistoryItem.setEvents(eventsList);
-					BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
-					Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-				}
-				
+				} else {
+					Clients.showNotification("У Вас недостаточно прав для совершения текущей операции!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
+				}				
 			}
 
 		});

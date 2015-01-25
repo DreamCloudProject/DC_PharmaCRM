@@ -1,16 +1,12 @@
 package ru.dreamcloud.pharmatracker.zk.viewmodels.widgets;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.io.Files;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -22,14 +18,11 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import ru.dreamcloud.pharmatracker.model.Document;
 import ru.dreamcloud.pharmatracker.model.Event;
-import ru.dreamcloud.pharmatracker.model.MessageType;
 import ru.dreamcloud.pharmatracker.model.Notification;
 import ru.dreamcloud.pharmatracker.model.NotificationType;
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.PatientHistoryStatus;
-import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
 import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
@@ -84,6 +77,45 @@ public class ShortcutMenuVM {
 	public void setIsVisibleClosePatientHistory(Boolean isVisibleClosePatientHistory) {
 		this.isVisibleClosePatientHistory = isVisibleClosePatientHistory;
 	}
+	
+	/**************************************
+	  Property createPermission	 
+	***************************************/
+	private Boolean createPermission;	
+
+	public Boolean getCreatePermission() {
+		return createPermission;
+	}
+
+	public void setCreatePermission(Boolean createPermission) {
+		this.createPermission = createPermission;
+	}
+
+	/**************************************
+	  Property editPermission	 
+	***************************************/
+	private Boolean editPermission;	
+	
+	public Boolean getEditPermission() {
+		return editPermission;
+	}
+
+	public void setEditPermission(Boolean editPermission) {
+		this.editPermission = editPermission;
+	}
+
+	/**************************************
+	  Property deletePermission	 
+	***************************************/
+	private Boolean deletePermission;	
+
+	public Boolean getDeletePermission() {
+		return deletePermission;
+	}
+
+	public void setDeletePermission(Boolean deletePermission) {
+		this.deletePermission = deletePermission;
+	}
 
 	/**************************************
 	  Methods	 
@@ -94,11 +126,18 @@ public class ShortcutMenuVM {
 		Session session = Sessions.getCurrent();
 		authService = new AuthenticationService();
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
-		List<CommonRole> matchRoles = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRole", "where e.title='"+view.getPage().getId()+"'"));
-		CommonRole pageRole = matchRoles.isEmpty() ? null : matchRoles.get(0);		
-		isVisibleCreateNewEvent = authService.checkAccessRights(pageRole,"Добавить событие");
-		isVisibleEditPatientHistory = authService.checkAccessRights(pageRole,"Редактировать историю пациента");
-		isVisibleClosePatientHistory = authService.checkAccessRights(pageRole,"Закрыть историю пациента");
+		if(view.getPage().getId().equals("MainPage")){
+			isVisibleCreateNewEvent = false;
+			isVisibleEditPatientHistory = false;
+			isVisibleClosePatientHistory = false;
+		} else {
+			isVisibleCreateNewEvent = true;
+			isVisibleEditPatientHistory = true;
+			isVisibleClosePatientHistory = true;
+		}
+		createPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"CreateDisabled");
+		editPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"EditDisabled");
+		deletePermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"DeleteDisabled");
 	}
 	
 	@Command
