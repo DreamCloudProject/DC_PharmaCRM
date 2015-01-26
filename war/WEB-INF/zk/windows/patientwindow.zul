@@ -178,7 +178,7 @@
 				</n:div>
 								
 				<n:div class="col-md-8">
-					<textbox value="@load(vm.phoneItem.phoneNumber) @save(vm.phoneItem.phoneNumber,before='addNewPhoneNumber')" placeholder="Номер телефона в формате (9991235577)" maxlength="255" sclass="form-control input-sm"/>
+					<textbox value="@load(vm.phoneItem.phoneNumber) @save(vm.phoneItem.phoneNumber,before='addNewPhoneNumber')" placeholder="Номер телефона в формате +0(000)-000-0000" maxlength="255" sclass="form-control input-sm mask-phone"/>
 				</n:div>				
 			</n:div>
 			<n:div class="form-group">
@@ -238,6 +238,10 @@
 	</window>
 	<!-- UX -->
 	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/scroll.min.js"></n:script>
+	
+	<!-- Input Mask -->
+	<n:script src="${pageContext.request.contextPath}/bootstrap/v3/template/js/input-mask.min.js"></n:script>
+	
 	<!-- Custom Scrollbar -->
 	<n:script type="text/javascript">
 		/* --------------------------------------------------------
@@ -254,5 +258,12 @@
 			    overflowRegular = $('.overflow').niceScroll();
 			}
 	    })();
+	    	    
+	    /* --------------------------------------------------------
+		Input Masking - you can include your own way 
+		-----------------------------------------------------------*/
+		(function(){
+		    $('.mask-phone').mask('+0(000)-000-0000');
+		})();	 
 	</n:script>
 </zk>

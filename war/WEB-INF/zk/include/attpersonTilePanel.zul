@@ -9,12 +9,9 @@
 				<n:ul
 					class="dropdown-menu animated pull-right text-right">
 					<n:li>
-						<n:a class="tile-info-toggle" href="">
+						<a class="tile-info-toggle" href="" onClick="@command('editAttPersonItem')">
 							Редактировать
-						</n:a>
-					</n:li>
-					<n:li>
-						<n:a href="">Открыть карточку</n:a>
+						</a>
 					</n:li>
 				</n:ul>
 			</n:div>

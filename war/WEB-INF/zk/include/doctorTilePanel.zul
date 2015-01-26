@@ -1,14 +1,13 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.MedicalExpertTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.DoctorTilePanelVM')">
 		<n:article class="tile">
-			<n:h2 class="tile-title">Мед. эксперт</n:h2>
+			<n:h2 class="tile-title">${vm.rankName}</n:h2>
 			<n:div class="tile-config dropdown">
 				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-				<n:ul
-					class="dropdown-menu animated pull-right text-right">
+				<n:ul class="dropdown-menu animated pull-right text-right">
 					<n:li>
-						<a class="tile-info-toggle" href="" onClick="@command('editMedicalExpertItem')">
+						<a class="tile-info-toggle" href="" onClick="@command('editDoctorItem')">
 							Редактировать
 						</a>
 					</n:li>
@@ -25,7 +24,7 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentMedicalExpert.lastname}">
+								value="${vm.currentDoctor.lastname}">
 							</label>
 						</n:div>
 						<n:div class="form-group">
@@ -34,7 +33,7 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentMedicalExpert.firstname}">
+								value="${vm.currentDoctor.firstname}">
 							</label>
 						</n:div>
 						<n:div class="form-group">
@@ -43,29 +42,29 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentMedicalExpert.middlename}">
+								value="${vm.currentDoctor.middlename}">
 							</label>
 						</n:div>
-						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentMedicalExpert.contactInfo.city) 
-																|| (not empty vm.currentMedicalExpert.contactInfo.country)}"/>
+						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentDoctor.contactInfo.city) 
+																|| (not empty vm.currentDoctor.contactInfo.country)}"/>
 						<n:div class="form-group"
-							if="${not empty vm.currentMedicalExpert.contactInfo.city}">
+							if="${not empty vm.currentDoctor.contactInfo.city}">
 							<n:strong class="col-md-4 col-xs-6">
 								Населенный пункт:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentMedicalExpert.contactInfo.city}">
+								value="${vm.currentDoctor.contactInfo.city}">
 							</label>
 						</n:div>
 						<n:div class="form-group"
-							if="${not empty vm.currentMedicalExpert.contactInfo.country}">
+							if="${not empty vm.currentDoctor.contactInfo.country}">
 							<n:strong class="col-md-4 col-xs-6">
 								Страна:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentMedicalExpert.contactInfo.country}">
+								value="${vm.currentDoctor.contactInfo.country}">
 							</label>
 						</n:div>
 					</n:div>
@@ -73,12 +72,12 @@
 				
 				<div sclass="row">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentMedicalExpert.contactInfo.addressList}"/>
-						<n:h3 class="block-title" if="${not empty vm.currentMedicalExpert.contactInfo.addressList}">
+						<n:hr class="whiter m-t-10" if="${not empty vm.currentDoctor.contactInfo.addressList}"/>
+						<n:h3 class="block-title" if="${not empty vm.currentDoctor.contactInfo.addressList}">
 							Адреса
 						</n:h3>
 						<!-- Addresses -->
-						<n:address forEach="${vm.currentMedicalExpert.contactInfo.addressList}">
+						<n:address forEach="${vm.currentDoctor.contactInfo.addressList}">
 							<n:strong>${each.title}</n:strong>
 							<n:br />
 							<n:span if="${not empty each.street}">
@@ -97,12 +96,12 @@
 							</n:span>
 							<n:br />
 						</n:address>
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentMedicalExpert.contactInfo.phonesList}"/>
-						<n:h3 class="block-title" if="${not empty vm.currentMedicalExpert.contactInfo.phonesList}">
+						<n:hr class="whiter m-t-10" if="${not empty vm.currentDoctor.contactInfo.phonesList}"/>
+						<n:h3 class="block-title" if="${not empty vm.currentDoctor.contactInfo.phonesList}">
 							Телефоны
 						</n:h3>
 						<n:address
-							forEach="${vm.currentMedicalExpert.contactInfo.phonesList}">
+							forEach="${vm.currentDoctor.contactInfo.phonesList}">
 							<n:abbr
 								if="${not empty each.phoneType.name}"
 								title="${each.phoneType.name}">
@@ -114,8 +113,5 @@
 				</div>
 			</div>
 		</n:article>
-
-
-
 	</div>
 </zk>

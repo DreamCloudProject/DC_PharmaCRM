@@ -49,10 +49,10 @@
 					<include src="/WEB-INF/zk/include/notificationsTilePanel.zul" />
 					
 					<include breadcrumbs="${labels.pages.detail.patienthistory.breadcrumbs}"
-							 currentPageName="${vm.patientHistory.patient.lastname} ${vm.patientHistory.patient.firstname} ${vm.patientHistory.patient.middlename}"
+							 currentPageName="${vm.patientHistory.patient.lastname} ${vm.patientHistory.patient.firstname} ${vm.patientHistory.patient.middlename} № ${vm.patientHistory.patientHistoriesId}"
 							 src="/WEB-INF/zk/include/breadcrumbs.zul" />
 	
-					<n:h4 class="page-title b-0">История пациента: ${vm.patientHistory.patient.fullname}</n:h4>
+					<n:h4 class="page-title b-0">История пациента: ${vm.patientHistory.patient.fullname} № ${vm.patientHistory.patientHistoriesId}</n:h4>
 					
 					<n:hr class="whiter" />
 					
@@ -62,22 +62,20 @@
 					
 					<div sclass="block-area">
 						<div sclass="row">
-							<div sclass="col-lg-12 col-md-12 col-xs-12">
-								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/patienthistoryDetailTilePanel.zul" />
-							</div>
-						</div>					
-						<div sclass="row">
 							<div sclass="col-lg-9 col-md-9 col-xs-12">
-								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/patienthistoryDetailTilePanel.zul" />
 								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/calendar.zul" />
-							</div>							
-			                <div sclass="col-lg-3 col-md-3 col-xs-12">
+								<include currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/eventsTilePanel.zul" />
+							</div>								
+							<div sclass="col-lg-3 col-md-3 col-xs-12">
 			                	<include if="${not empty vm.patientHistory.patient}" currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
-								<include if="${not empty vm.patientHistory.attperson}" currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
-				                <include if="${not empty vm.patientHistory.nurse}" currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
-				                <include if="${not empty vm.patientHistory.medicalExpert}" currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />			                	
-			                </div>
-		                </div>
+			                	<include if="${not empty vm.patientHistory.attperson}" currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
+			                	<include if="${not empty vm.patientHistory.nurse}" currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
+								<include if="${not empty vm.patientHistory.medicalExpert}" currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />
+								<include if="${not empty vm.patientHistory.doctor}" rankName="Леч. врач" currentDoctor="${vm.patientHistory.doctor}" src="/WEB-INF/zk/include/doctorTilePanel.zul" />
+								<include if="${not empty vm.patientHistory.masterDoctor}" rankName="Глав. специалист" currentDoctor="${vm.patientHistory.masterDoctor}" src="/WEB-INF/zk/include/doctorTilePanel.zul" />
+			                </div>							
+						</div>	                
 	                </div>
 	                
 	                <n:hr class="whiter" />
@@ -85,7 +83,7 @@
 	                <div sclass="block-area">
 	                	<div sclass="row">
 	                		<div sclass="col-lg-4 col-md-4 col-xs-12">
-
+								
 	                		</div>
 	                		
 	                		<div sclass="col-lg-4 col-md-4 col-xs-12">

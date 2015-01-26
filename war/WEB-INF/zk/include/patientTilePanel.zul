@@ -8,13 +8,10 @@
 				<n:ul
 					class="dropdown-menu animated pull-right text-right">
 					<n:li>
-						<n:a class="tile-info-toggle" href="">
+						<a sclass="tile-info-toggle" href="" onClick="@command('editPatientItem')">
 							Редактировать
-						</n:a>
-					</n:li>
-					<n:li>
-						<n:a href="">Открыть карточку</n:a>
-					</n:li>
+						</a>
+					</n:li>					
 				</n:ul>
 			</n:div>
 			<div sclass="p-b-10 p-l-10 p-r-10">
