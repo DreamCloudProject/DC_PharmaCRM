@@ -24,6 +24,36 @@
 					<button id="addNewPatient" zclass="btn btn-success" label="Добавить пациента" onClick="@command('addNewPatient')" />										
 				</n:div>
 			</n:div>
+		</n:div>
+	
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран пациент</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="PatientListbox" emptyMessage="Пациент не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentPatientsList)" zclass="listview" >
+						<template name="model" var="patient">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-smile-o fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${patient.lastname} ${patient.firstname} ${patient.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">	
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Родственник"></label>
 												
@@ -41,6 +71,36 @@
 					<button id="addNewAttPerson" zclass="btn btn-success" label="Добавить родственника" onClick="@command('addNewAttPerson')" />										
 				</n:div>
 			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран родственник</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="AttPersonListbox" emptyMessage="Родственник не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentAttPersonsList)" zclass="listview" >
+						<template name="model" var="attPerson">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-user fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${attPerson.lastname} ${attPerson.firstname} ${attPerson.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />		
+		
+		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Менеджер"></label>
 												
@@ -58,6 +118,36 @@
 					<button id="addNewNurse" zclass="btn btn-success" label="Добавить менеджера" onClick="@command('addNewNurse')" />										
 				</n:div>
 			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран менеджер</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="NurseListbox" emptyMessage="Менеджер не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >
+						<template name="model" var="nurse">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-medkit fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${nurse.lastname} ${nurse.firstname} ${nurse.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Мед. эксперт"></label>
 												
@@ -75,6 +165,36 @@
 					<button id="addNewMedicalExpert" zclass="btn btn-success" label="Добавить мед. эксперта" onClick="@command('addNewMedicalExpert')" />										
 				</n:div>
 			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран мед. эксперт</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="MedicalExpertListbox" emptyMessage="Мед. эксперт не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentMedicalExpertsList)" zclass="listview" >
+						<template name="model" var="medicalExpert">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-user-md fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${medicalExpert.lastname} ${medicalExpert.firstname} ${medicalExpert.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+				
+		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Леч. врач"></label>
 												
@@ -92,6 +212,36 @@
 					<button id="addNewDoctor" zclass="btn btn-success" label="Добавить врача" onClick="@command('addNewDoctor')" />										
 				</n:div>
 			</n:div>
+		</n:div>		
+				
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран врач</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="DoctorListbox" emptyMessage="Врач не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctorsList)" zclass="listview" >
+						<template name="model" var="doctor">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-user-md fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${doctor.lastname} ${doctor.firstname} ${doctor.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+				
+		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Глав. специалист"></label>
 												
@@ -109,7 +259,36 @@
 					<button id="addNewMasterDoctor" zclass="btn btn-success" label="Добавить глав. специалиста" onClick="@command('addNewMasterDoctor')" />										
 				</n:div>
 			</n:div>
-			
+		</n:div>
+		
+		<n:div class="block-area">			
+			<n:h3 class="block-title">Выбран главный специалист</n:h3>
+			<n:div class="form-group">               
+				<n:div class="col-md-12">
+					<listbox id="MasterDoctorListbox" emptyMessage="Глав. специалист не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentMasterDoctorsList)" zclass="listview" >
+						<template name="model" var="md">
+							<listitem>
+								<listcell>
+									<n:div class="media p-l-5">
+										<n:div class="pull-left">
+											<n:i class="fa fa-user-md fa-2x"></n:i>
+										</n:div>
+										<n:div class="media-body">
+											<n:span class="news-title"><label value="${md.lastname} ${md.firstname} ${md.middlename}"/></n:span>
+											<n:div class="clearfix"></n:div>		
+										</n:div>
+									</n:div>						
+								</listcell>						
+							</listitem>
+						</template>				
+					</listbox>							
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:hr class="whiter m-t-20" />
+		
+		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Куратор"></label>
 												
@@ -166,168 +345,6 @@
 					</n:span>								
 				</n:div>
 			</n:div>		
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран пациент</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="PatientListbox" emptyMessage="Пациент не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentPatientsList)" zclass="listview" >
-						<template name="model" var="patient">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-smile-o fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${patient.lastname} ${patient.firstname} ${patient.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран родственник</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="AttPersonListbox" emptyMessage="Родственник не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentAttPersonsList)" zclass="listview" >
-						<template name="model" var="attPerson">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-user fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${attPerson.lastname} ${attPerson.firstname} ${attPerson.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран менеджер</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="NurseListbox" emptyMessage="Менеджер не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentNursesList)" zclass="listview" >
-						<template name="model" var="nurse">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-medkit fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${nurse.lastname} ${nurse.firstname} ${nurse.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран мед. эксперт</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="MedicalExpertListbox" emptyMessage="Мед. эксперт не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentMedicalExpertsList)" zclass="listview" >
-						<template name="model" var="medicalExpert">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-user-md fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${medicalExpert.lastname} ${medicalExpert.firstname} ${medicalExpert.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран врач</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="DoctorListbox" emptyMessage="Врач не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctorsList)" zclass="listview" >
-						<template name="model" var="doctor">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-user-md fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${doctor.lastname} ${doctor.firstname} ${doctor.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
-		</n:div>
-		
-		<n:hr class="whiter m-t-20" />
-		
-		<n:div class="block-area">			
-			<n:h3 class="block-title">Выбран главный специалист</n:h3>
-			<n:div class="form-group">               
-				<n:div class="col-md-12">
-					<listbox id="MasterDoctorListbox" emptyMessage="Глав. специалист не добавлен" mold="paging" sclass="m-b-10" model="@load(vm.currentMasterDoctorsList)" zclass="listview" >
-						<template name="model" var="md">
-							<listitem>
-								<listcell>
-									<n:div class="media p-l-5">
-										<n:div class="pull-left">
-											<n:i class="fa fa-user-md fa-2x"></n:i>
-										</n:div>
-										<n:div class="media-body">
-											<n:span class="news-title"><label value="${md.lastname} ${md.firstname} ${md.middlename}"/></n:span>
-											<n:div class="clearfix"></n:div>		
-										</n:div>
-									</n:div>						
-								</listcell>						
-							</listitem>
-						</template>				
-					</listbox>							
-				</n:div>
-			</n:div>
 		</n:div>
 		
 		<n:hr class="whiter m-t-20" />

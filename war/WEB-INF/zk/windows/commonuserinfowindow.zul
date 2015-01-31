@@ -92,6 +92,13 @@
 				<n:div class="col-md-10">
 					<textbox value="@load(vm.contactInfoItem.postalCode) @save(vm.contactInfoItem.postalCode,before='save')" placeholder="..." maxlength="20" sclass="form-control input-sm"/>
 				</n:div>
+			</n:div>
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Электронный адрес"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.contactInfoItem.email) @save(vm.contactInfoItem.email,before='save')" placeholder="..." maxlength="255" sclass="form-control input-sm"/>
+				</n:div>
 			</n:div>	
 		</n:div>
 		

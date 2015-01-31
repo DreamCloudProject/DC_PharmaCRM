@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,11 +24,12 @@ CREATE TABLE `contact_info` (
   `country` varchar(255) DEFAULT NULL,
   `region` int(11) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`contact_id`),
   UNIQUE KEY `contact_id_UNIQUE` (`contact_id`),
   KEY `fk_region_idx` (`region`),
   CONSTRAINT `fk_region` FOREIGN KEY (`region`) REFERENCES `regions` (`region_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -55,6 +55,8 @@ public class ContactInfo implements Serializable {
 	
 	@Column(name="postal_code")
 	private String postalCode;
+
+	private String email;
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="contactInfo")
 	private List<Address> addressList;
@@ -92,6 +94,14 @@ public class ContactInfo implements Serializable {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Region getRegion() {

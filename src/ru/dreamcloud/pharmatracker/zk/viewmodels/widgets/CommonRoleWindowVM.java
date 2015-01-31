@@ -112,10 +112,6 @@ public class CommonRoleWindowVM {
 		return roleAccessLevels;
 	}
 
-	public void setRoleAccessLevels(List<RoleAccessLevel> roleAccessLevels) {
-		this.roleAccessLevels = roleAccessLevels;
-	}
-
 	/**************************************
 	 * Property itemsToUnlink
 	 ***************************************/

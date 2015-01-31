@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,13 +32,14 @@ CREATE TABLE `patients` (
   `birthdate` datetime DEFAULT NULL,
   `diagnosis` int(11) DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
+  `disability` enum('GROUP1','GROUP2','GROUP3','CHILDREN') DEFAULT NULL,
   PRIMARY KEY (`patient_id`),
   UNIQUE KEY `patient_id_UNIQUE` (`patient_id`),
   KEY `fk_contact_info_idx` (`contact_info`),
   KEY `fk_diagnosis_idx` (`diagnosis`),
   CONSTRAINT `fk_contact_info_patient` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_diagnosis` FOREIGN KEY (`diagnosis`) REFERENCES `diagnosis` (`diagnosis_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -62,6 +65,10 @@ public class Patient implements Serializable {
 	@OneToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
 	@JoinColumn(name="contact_info")
 	private ContactInfo contactInfo;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="disability")
+	private DisabilityGroup disability;
 	
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="patient")
 	private List<PatientHistory> patientHistories;
@@ -126,6 +133,14 @@ public class Patient implements Serializable {
 		this.contactInfo = contactInfo;
 	}	
 	
+	public DisabilityGroup getDisability() {
+		return disability;
+	}
+
+	public void setDisability(DisabilityGroup disability) {
+		this.disability = disability;
+	}
+
 	public List<PatientHistory> getPatientHistories() {
 		return patientHistories;
 	}

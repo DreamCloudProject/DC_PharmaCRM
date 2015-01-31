@@ -64,6 +64,15 @@
 						</n:div>
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
+								Инвалидность:
+							</n:strong>
+							<label sclass="control-label col-md-8 col-xs-6"
+								value="@load(not empty vm.currentPatient.disability ? vm.currentPatient.disability.name : 'Не заполнено')">
+							</label>							
+						</n:div>
+						<n:hr class="whiter m-t-10 m-b-10"/>
+						<n:div class="form-group">
+							<n:strong class="col-md-4 col-xs-6">
 								Населенный пункт:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
@@ -76,6 +85,14 @@
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
 								value="@load(not empty vm.currentPatient.contactInfo.country ? vm.currentPatient.contactInfo.country : 'Не заполнено')">
+							</label>
+						</n:div>
+						<n:div class="form-group">
+							<n:strong class="col-md-4 col-xs-6">
+								Электронный адрес:
+							</n:strong>
+							<label sclass="control-label col-md-8 col-xs-6"
+								value="@load(not empty vm.currentPatient.contactInfo.email ? vm.currentPatient.contactInfo.email : 'Не заполнено')">
 							</label>
 						</n:div>
 					</n:div>

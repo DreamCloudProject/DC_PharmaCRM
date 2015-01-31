@@ -1,10 +1,8 @@
 package ru.dreamcloud.pharmatracker.zk.viewmodels;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.persistence.indirection.IndirectList;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -15,11 +13,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Listbox;
 
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.PatientHistoryStatus;
-import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.pharmatracker.zk.services.SearchService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 

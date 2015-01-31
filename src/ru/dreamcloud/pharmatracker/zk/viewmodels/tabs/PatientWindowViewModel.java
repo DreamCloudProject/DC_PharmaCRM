@@ -22,10 +22,12 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.pharmatracker.model.Address;
 import ru.dreamcloud.pharmatracker.model.ContactInfo;
 import ru.dreamcloud.pharmatracker.model.Diagnosis;
+import ru.dreamcloud.pharmatracker.model.DisabilityGroup;
 import ru.dreamcloud.pharmatracker.model.Patient;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
+import ru.dreamcloud.pharmatracker.model.authentication.RoleAccessLevel;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientWindowViewModel {
@@ -148,6 +150,15 @@ public class PatientWindowViewModel {
 
 	public void setDiagnosesList(List<Diagnosis> diagnosesList) {
 		this.diagnosesList = diagnosesList;
+	}
+	
+	/**************************************
+	 * Property disabilityGroups
+	 ***************************************/	
+	private List<DisabilityGroup> disabilityGroups = Arrays.asList(DisabilityGroup.values());	
+
+	public List<DisabilityGroup> getDisabilityGroups() {
+		return disabilityGroups;
 	}
 
 	/**************************************
