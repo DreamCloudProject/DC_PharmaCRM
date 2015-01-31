@@ -1,6 +1,7 @@
 package ru.dreamcloud.pharmatracker.zk.viewmodels.widgets;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,8 +23,10 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonRule;
+import ru.dreamcloud.pharmatracker.model.authentication.RoleAccessLevel;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class CommonRoleWindowVM {
@@ -101,6 +104,19 @@ public class CommonRoleWindowVM {
 	}
 	
 	/**************************************
+	 * Property roleAccessLevels
+	 ***************************************/	
+	private List<RoleAccessLevel> roleAccessLevels = Arrays.asList(RoleAccessLevel.values());	
+	
+	public List<RoleAccessLevel> getRoleAccessLevels() {
+		return roleAccessLevels;
+	}
+
+	public void setRoleAccessLevels(List<RoleAccessLevel> roleAccessLevels) {
+		this.roleAccessLevels = roleAccessLevels;
+	}
+
+	/**************************************
 	 * Property itemsToUnlink
 	 ***************************************/
 	private List<Object> itemsToUnlink;
@@ -134,7 +150,7 @@ public class CommonRoleWindowVM {
 		boolean presence = false;
 		List<CommonRole> allRolesList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonRole", null));
 		for (CommonRole commonRole : allRolesList) {
-			if(commonRole.getTitle().equals(currentRoleItem.getTitle())){
+			if((commonRole.getTitle().equals(currentRoleItem.getTitle())) && (commonRole.getRoleId() != currentRoleItem.getRoleId())){
 				presence = true;
 				break;
 			}
@@ -142,19 +158,18 @@ public class CommonRoleWindowVM {
 		if(presence){
 			Clients.showNotification("Роль с таким названием уже есть! Переименуйте и повторите попытку...", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);
 		} else {
-			DataSourceLoader.getInstance().mergeRecord(currentRoleItem);
-		}
-		
-		
-		if (actionType.equals("NEW")) {			
-			Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		}
+			DataSourceLoader.getInstance().mergeRecord(currentRoleItem);			
+			
+			if (actionType.equals("NEW")) {			
+				Clients.showNotification("Запись успешно добавлена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}
 
-		if (actionType.equals("EDIT")) {			
-			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		}		
-		BindUtils.postGlobalCommand(null, null, "search", params);
-		win.detach();
+			if (actionType.equals("EDIT")) {			
+				Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
+			}		
+			BindUtils.postGlobalCommand(null, null, "search", params);
+			win.detach();
+		}
 	}
 	
     @Command

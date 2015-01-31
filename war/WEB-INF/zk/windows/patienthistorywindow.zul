@@ -120,7 +120,7 @@
 						</template>				
 					</listbox>
 					<n:span if="${empty vm.allCuratorsList}" class="form-control">
-						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью куратор"/></n:small>
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с правами сотрудника компании"/></n:small>
 					</n:span>					
 				</n:div>				
 			</n:div>
@@ -134,7 +134,7 @@
 						</template>				
 					</listbox>
 					<n:span if="${empty vm.allLawyersList}" class="form-control">
-						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с ролью юрист"/></n:small>
+						<n:small class="text-muted"><label value="Не добавлено ни одного пользователя с правами сотрудника компании"/></n:small>
 					</n:span>					
 				</n:div>				
 			</n:div>						

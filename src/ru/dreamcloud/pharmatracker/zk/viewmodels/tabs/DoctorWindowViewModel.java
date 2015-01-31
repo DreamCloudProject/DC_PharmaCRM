@@ -22,6 +22,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.pharmatracker.model.Address;
 import ru.dreamcloud.pharmatracker.model.ContactInfo;
 import ru.dreamcloud.pharmatracker.model.Doctor;
+import ru.dreamcloud.pharmatracker.model.DoctorRank;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
@@ -156,6 +157,19 @@ public class DoctorWindowViewModel {
 	}
 	
 	/**************************************
+	 * Property rankType
+	 ***************************************/
+	private DoctorRank rankType;	
+	
+	public DoctorRank getRankType() {
+		return rankType;
+	}
+
+	public void setRankType(DoctorRank rankType) {
+		this.rankType = rankType;
+	}
+
+	/**************************************
 	 * Property itemsToRemove
 	 ***************************************/
 	
@@ -168,9 +182,11 @@ public class DoctorWindowViewModel {
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
 					 @ExecutionArgParam("doctorItem") Doctor currentItem,
-					 @ExecutionArgParam("actionType") String currentAction) {
+					 @ExecutionArgParam("actionType") String currentAction,
+					 @ExecutionArgParam("rankType") DoctorRank rankType) {
 		Selectors.wireComponents(view, this, false);
 		setActionType(currentAction);
+		setRankType(rankType);
 		itemsToRemove = new ArrayList<Object>();
 		addressItem = new Address();
 		phoneItem = new PhoneNumber();
@@ -196,7 +212,8 @@ public class DoctorWindowViewModel {
 	@Command
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("searchTerm", new String());
+		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
+		
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
@@ -209,8 +226,14 @@ public class DoctorWindowViewModel {
 		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
-		
+		params.put("searchTerm", new String());
+		paramsToRefresh.put("doctor", currentDoctorItem);
 		BindUtils.postGlobalCommand(null, null, "search", params);
+		if(rankType == DoctorRank.MASTER_DOCTOR){
+			BindUtils.postGlobalCommand(null, null, "refreshMasterDoctorTilePanel", paramsToRefresh);
+		} else {
+			BindUtils.postGlobalCommand(null, null, "refreshDoctorTilePanel", paramsToRefresh);
+		}		
 		win.detach();
 	}
 	

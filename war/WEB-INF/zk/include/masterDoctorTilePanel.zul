@@ -1,20 +1,19 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk xmlns:w="client" xmlns:n="native">
-	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.AttpersonTilePanelVM')">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.MasterDoctorTilePanelVM')">
 		<n:article class="tile">
-			<n:h2 class="tile-title">Родственник</n:h2>
+			<n:h2 class="tile-title">Глав. специалист</n:h2>
 			<n:div class="tile-config dropdown">
-				<n:a data-toggle="dropdown" href="" class="tile-menu">
-				</n:a>
-				<n:ul
-					class="dropdown-menu animated pull-right text-right">
+				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
+				<n:ul class="dropdown-menu animated pull-right text-right">
 					<n:li>
-						<a class="tile-info-toggle" href="" onClick="@command('editAttPersonItem')">
+						<a class="tile-info-toggle" href="" onClick="@command('editDoctorItem')">
 							Редактировать
 						</a>
 					</n:li>
 				</n:ul>
 			</n:div>
+
 			<div sclass="p-b-10 p-l-10 p-r-10">
 				<div sclass="row">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
@@ -25,30 +24,27 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.lastname ? vm.currentAttendantPerson.lastname : 'Не заполнено')">
+								value="@load(not empty vm.currentDoctor.lastname ? vm.currentDoctor.lastname : 'Не заполнено')">
 							</label>
 						</n:div>
-						<n:br />
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Имя:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.firstname ? vm.currentAttendantPerson.firstname : 'Не заполнено')">
+								value="@load(not empty vm.currentDoctor.firstname ? vm.currentDoctor.firstname : 'Не заполнено')">
 							</label>
 						</n:div>
-						<n:br />
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Отчество:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.middlename ? vm.currentAttendantPerson.middlename : 'Не заполнено')">
+								value="@load(not empty vm.currentDoctor.middlename ? vm.currentDoctor.middlename : 'Не заполнено')">
 							</label>
 						</n:div>
-						<n:br />
 						<n:hr class="whiter m-t-10 m-b-10" />
 						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
@@ -56,7 +52,7 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.contactInfo.city ? vm.currentAttendantPerson.contactInfo.city : 'Не заполнено')">
+								value="@load(not empty vm.currentDoctor.contactInfo.city ? vm.currentDoctor.contactInfo.city : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:div class="form-group">
@@ -65,11 +61,12 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.contactInfo.country ? vm.currentAttendantPerson.contactInfo.country : 'Не заполнено')">
+								value="@load(not empty vm.currentDoctor.contactInfo.country ? vm.currentDoctor.contactInfo.country : 'Не заполнено')">
 							</label>
 						</n:div>
 					</n:div>
 				</div>
+				
 				<div sclass="row">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
 						<n:hr class="whiter m-t-10"/>
@@ -77,7 +74,7 @@
 							Адреса
 						</n:h3>
 						<!-- Addresses -->
-						<listbox emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.currentAttendantPerson.contactInfo.addressList)" zclass="listview">
+						<listbox emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctor.contactInfo.addressList)" zclass="listview">
 							<template name="model" var="address">
 								<listitem>
 									<listcell>
@@ -105,11 +102,11 @@
 								</listitem>
 							</template>				
 						</listbox>
-						<n:hr class="whiter m-t-10"/>
+						<n:hr class="whiter m-t-10" />
 						<n:h3 class="block-title">
 							Телефоны
 						</n:h3>
-						<listbox emptyMessage="Не добавлено ни одного телефона" mold="paging" sclass="m-b-10" model="@load(vm.currentAttendantPerson.contactInfo.phonesList)" zclass="listview" >
+						<listbox emptyMessage="Не добавлено ни одного телефона" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctor.contactInfo.phonesList)" zclass="listview" >
 							<template name="model" var="phone">
 								<listitem>
 									<listcell>
@@ -122,7 +119,7 @@
 									</listcell>						
 								</listitem>
 							</template>				
-						</listbox>						
+						</listbox>
 					</n:div>				
 				</div>
 			</div>

@@ -22,5 +22,5 @@ public enum PhoneType {
     
     public String getIcon(){
         return icon;
-      }
+    }
 }

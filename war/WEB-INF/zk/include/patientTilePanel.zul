@@ -23,7 +23,7 @@
 								Фамилия:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.lastname}">
+								value="@load(not empty vm.currentPatient.lastname ? vm.currentPatient.lastname : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:br />
@@ -32,7 +32,7 @@
 								Имя:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.firstname}">
+								value="@load(not empty vm.currentPatient.firstname ? vm.currentPatient.firstname : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:br />
@@ -41,7 +41,7 @@
 								Отчество:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.middlename}">
+								value="@load(not empty vm.currentPatient.middlename ? vm.currentPatient.middlename : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:br />
@@ -53,73 +53,86 @@
 
 						</n:div>
 						<n:br />
-						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentPatient.diagnosis) 
-																|| (not empty vm.currentPatient.contactInfo.city) 
-																|| (not empty vm.currentPatient.contactInfo.country)}"/>
-						<n:div class="form-group" if="${not empty vm.currentPatient.diagnosis}">
+						<n:hr class="whiter m-t-10 m-b-10"/>
+						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Диагноз:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.diagnosis.title}">
+								value="@load(not empty vm.currentPatient.diagnosis.title ? vm.currentPatient.diagnosis.title : 'Не заполнено')">
 							</label>							
 						</n:div>
-						<n:div class="form-group" if="${not empty vm.currentPatient.contactInfo.city}">
+						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Населенный пункт:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.contactInfo.city}">
+								value="@load(not empty vm.currentPatient.contactInfo.city ? vm.currentPatient.contactInfo.city : 'Не заполнено')">
 							</label>
 						</n:div>						
-						<n:div class="form-group" if="${not empty vm.currentPatient.contactInfo.country}">
+						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Страна:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentPatient.contactInfo.country}">
+								value="@load(not empty vm.currentPatient.contactInfo.country ? vm.currentPatient.contactInfo.country : 'Не заполнено')">
 							</label>
 						</n:div>
 					</n:div>
 				</div>
 				<div sclass="row">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentPatient.contactInfo.addressList}"/>
-						<n:h3 class="block-title"
-							if="${not empty vm.currentPatient.contactInfo.addressList}">
+						<n:hr class="whiter m-t-10"/>
+						<n:h3 class="block-title">
 							Адреса
-						</n:h3>
+						</n:h3>						
 						<!-- Addresses -->
-						<n:address
-							forEach="${vm.currentPatient.contactInfo.addressList}">
-							<n:strong>${each.title}</n:strong>
-							<n:br />
-							<n:span if="${not empty each.street}">
-								ул. ${each.street}
-							</n:span>
-							<n:span if="${not empty each.corpsNumber}">
-								корп. ${each.corpsNumber}
-							</n:span>
-							<n:span if="${not empty each.homeNumber}">
-								д. ${each.homeNumber}
-							</n:span>
-							<n:span
-								if="${not empty each.apartmentNumber}">
-								кв. ${each.apartmentNumber}
-							</n:span>
-							<n:br />
-						</n:address>
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentPatient.contactInfo.phonesList}"/>
-						<n:h3 class="block-title"
-							if="${not empty vm.currentPatient.contactInfo.phonesList}">
+						<listbox emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.currentPatient.contactInfo.addressList)" zclass="listview">
+							<template name="model" var="address">
+								<listitem>
+									<listcell>
+										<n:address>
+											<n:strong>											
+												<label value="@load(address.title)"/>
+											</n:strong>
+											<n:br />
+											<n:span if="${not empty address.street}">
+												ул. <label value="@load(address.street)"/>
+											</n:span>
+											<n:span if="${not empty address.corpsNumber}">
+												корп. <label value="@load(address.corpsNumber)"/>
+											</n:span>
+											<n:span if="${not empty address.homeNumber}">
+												д. <label value="@load(address.homeNumber)"/>
+											</n:span>
+											<n:span
+												if="${not empty address.apartmentNumber}">
+												кв. <label value="@load(address.apartmentNumber)"/>
+											</n:span>
+											<n:br />
+										</n:address>					
+									</listcell>						
+								</listitem>
+							</template>				
+						</listbox>
+						<n:hr class="whiter m-t-10"/>
+						<n:h3 class="block-title">
 							Телефоны
 						</n:h3>
-						<n:address forEach="${vm.currentPatient.contactInfo.phonesList}">
-							<n:abbr if="${not empty each.phoneType.name}" title="${each.phoneType.name}">
-								${each.phoneType.name}: 
-							</n:abbr>
-							${each.phoneNumber}
-						</n:address>
+						<listbox emptyMessage="Не добавлено ни одного телефона" mold="paging" sclass="m-b-10" model="@load(vm.currentPatient.contactInfo.phonesList)" zclass="listview" >
+							<template name="model" var="phone">
+								<listitem>
+									<listcell>
+										<n:address>
+											<n:abbr if="${not empty phone.phoneType.name}" title="@load(phone.phoneType.name)">
+												<label value="@load(phone.phoneType.name)"/>: 
+											</n:abbr>
+											<label value="@load(phone.phoneNumber)"/>
+										</n:address>					
+									</listcell>						
+								</listitem>
+							</template>				
+						</listbox>
 					</n:div>
 				</div>
 			</div>

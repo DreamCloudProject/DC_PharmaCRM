@@ -2,7 +2,7 @@
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.DoctorTilePanelVM')">
 		<n:article class="tile">
-			<n:h2 class="tile-title">${vm.rankName}</n:h2>
+			<n:h2 class="tile-title">Леч. врач</n:h2>
 			<n:div class="tile-config dropdown">
 				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
 				<n:ul class="dropdown-menu animated pull-right text-right">
@@ -24,7 +24,7 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentDoctor.lastname}">
+								value="@load(not empty vm.currentDoctor.lastname ? vm.currentDoctor.lastname : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:div class="form-group">
@@ -33,7 +33,7 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentDoctor.firstname}">
+								value="@load(not empty vm.currentDoctor.firstname ? vm.currentDoctor.firstname : 'Не заполнено')">
 							</label>
 						</n:div>
 						<n:div class="form-group">
@@ -42,29 +42,26 @@
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentDoctor.middlename}">
+								value="@load(not empty vm.currentDoctor.middlename ? vm.currentDoctor.middlename : 'Не заполнено')">
 							</label>
 						</n:div>
-						<n:hr class="whiter m-t-10 m-b-10" if="${(not empty vm.currentDoctor.contactInfo.city) 
-																|| (not empty vm.currentDoctor.contactInfo.country)}"/>
-						<n:div class="form-group"
-							if="${not empty vm.currentDoctor.contactInfo.city}">
+						<n:hr class="whiter m-t-10 m-b-10" />
+						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Населенный пункт:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentDoctor.contactInfo.city}">
+								value="@load(not empty vm.currentDoctor.contactInfo.city ? vm.currentDoctor.contactInfo.city : 'Не заполнено')">
 							</label>
 						</n:div>
-						<n:div class="form-group"
-							if="${not empty vm.currentDoctor.contactInfo.country}">
+						<n:div class="form-group">
 							<n:strong class="col-md-4 col-xs-6">
 								Страна:
 							</n:strong>
 							<label
 								sclass="control-label col-md-8 col-xs-6"
-								value="${vm.currentDoctor.contactInfo.country}">
+								value="@load(not empty vm.currentDoctor.contactInfo.country ? vm.currentDoctor.contactInfo.country : 'Не заполнено')">
 							</label>
 						</n:div>
 					</n:div>
@@ -72,43 +69,57 @@
 				
 				<div sclass="row">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentDoctor.contactInfo.addressList}"/>
-						<n:h3 class="block-title" if="${not empty vm.currentDoctor.contactInfo.addressList}">
+						<n:hr class="whiter m-t-10"/>
+						<n:h3 class="block-title">
 							Адреса
 						</n:h3>
 						<!-- Addresses -->
-						<n:address forEach="${vm.currentDoctor.contactInfo.addressList}">
-							<n:strong>${each.title}</n:strong>
-							<n:br />
-							<n:span if="${not empty each.street}">
-								ул. ${each.street}
-							</n:span>
-							<n:span
-								if="${not empty each.corpsNumber}">
-								корп. ${each.corpsNumber}
-							</n:span>
-							<n:span if="${not empty each.homeNumber}">
-								д. ${each.homeNumber}
-							</n:span>
-							<n:span
-								if="${not empty each.apartmentNumber}">
-								кв. ${each.apartmentNumber}
-							</n:span>
-							<n:br />
-						</n:address>
-						<n:hr class="whiter m-t-10" if="${not empty vm.currentDoctor.contactInfo.phonesList}"/>
-						<n:h3 class="block-title" if="${not empty vm.currentDoctor.contactInfo.phonesList}">
+						<listbox emptyMessage="Не добавлено ни одного адреса" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctor.contactInfo.addressList)" zclass="listview">
+							<template name="model" var="address">
+								<listitem>
+									<listcell>
+										<n:address>
+											<n:strong>											
+												<label value="@load(address.title)"/>
+											</n:strong>
+											<n:br />
+											<n:span if="${not empty address.street}">
+												ул. <label value="@load(address.street)"/>
+											</n:span>
+											<n:span if="${not empty address.corpsNumber}">
+												корп. <label value="@load(address.corpsNumber)"/>
+											</n:span>
+											<n:span if="${not empty address.homeNumber}">
+												д. <label value="@load(address.homeNumber)"/>
+											</n:span>
+											<n:span
+												if="${not empty address.apartmentNumber}">
+												кв. <label value="@load(address.apartmentNumber)"/>
+											</n:span>
+											<n:br />
+										</n:address>					
+									</listcell>						
+								</listitem>
+							</template>				
+						</listbox>
+						<n:hr class="whiter m-t-10" />
+						<n:h3 class="block-title">
 							Телефоны
 						</n:h3>
-						<n:address
-							forEach="${vm.currentDoctor.contactInfo.phonesList}">
-							<n:abbr
-								if="${not empty each.phoneType.name}"
-								title="${each.phoneType.name}">
-								${each.phoneType.name}:
-							</n:abbr>
-							${each.phoneNumber}
-						</n:address>
+						<listbox emptyMessage="Не добавлено ни одного телефона" mold="paging" sclass="m-b-10" model="@load(vm.currentDoctor.contactInfo.phonesList)" zclass="listview" >
+							<template name="model" var="phone">
+								<listitem>
+									<listcell>
+										<n:address>
+											<n:abbr if="${not empty phone.phoneType.name}" title="@load(phone.phoneType.name)">
+												<label value="@load(phone.phoneType.name)"/>: 
+											</n:abbr>
+											<label value="@load(phone.phoneNumber)"/>
+										</n:address>					
+									</listcell>						
+								</listitem>
+							</template>				
+						</listbox>
 					</n:div>				
 				</div>
 			</div>

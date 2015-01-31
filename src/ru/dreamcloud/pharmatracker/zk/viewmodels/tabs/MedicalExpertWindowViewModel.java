@@ -196,7 +196,8 @@ public class MedicalExpertWindowViewModel {
 	@Command
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("searchTerm", new String());
+		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
+		
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
@@ -209,8 +210,10 @@ public class MedicalExpertWindowViewModel {
 		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
-		
+		params.put("searchTerm", new String());
+		paramsToRefresh.put("medicalExpert", currentMedicalExpertItem);
 		BindUtils.postGlobalCommand(null, null, "search", params);
+		BindUtils.postGlobalCommand(null, null, "refreshMedicalExpertTilePanel", paramsToRefresh);
 		win.detach();
 	}
 	

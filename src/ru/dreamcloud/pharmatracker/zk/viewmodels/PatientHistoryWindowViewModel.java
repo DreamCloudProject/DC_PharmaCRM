@@ -31,6 +31,7 @@ import ru.dreamcloud.pharmatracker.model.PatientHistoryStatus;
 import ru.dreamcloud.pharmatracker.model.Project;
 import ru.dreamcloud.pharmatracker.model.Resolution;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
+import ru.dreamcloud.pharmatracker.model.authentication.RoleAccessLevel;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientHistoryWindowViewModel {
@@ -329,7 +330,7 @@ public class PatientHistoryWindowViewModel {
 	 * Property allCuratorsList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Куратор'"));
+	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.roleAccessLevel="+RoleAccessLevel.class.getName()+".ADMIN"));
 	
 	public List<CommonUserInfo> getAllCuratorsList() {
 		return allCuratorsList;
@@ -376,7 +377,7 @@ public class PatientHistoryWindowViewModel {
 	 * Property allLawyersList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.title='Юрист'"));
+	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.roleAccessLevel="+RoleAccessLevel.class.getName()+".ADMIN"));
 	
 	public List<CommonUserInfo> getAllLawyersList() {
 		return allLawyersList;
@@ -785,7 +786,7 @@ public class PatientHistoryWindowViewModel {
     		currentCuratorsList.add(curatorItem);
 			Clients.showNotification("Куратор с именем "+curatorItem.getLastname()+" "+curatorItem.getFirstname()+" "+curatorItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-    		Clients.showNotification("Куратора с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Куратор'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
+    		Clients.showNotification("Куратора с таким именем нет в базе данных!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
     	}		
 	}
 	
@@ -798,7 +799,7 @@ public class PatientHistoryWindowViewModel {
     		currentLawyersList.add(lawyerItem);
 			Clients.showNotification("Юрист с именем "+lawyerItem.getLastname()+" "+lawyerItem.getFirstname()+" "+lawyerItem.getMiddlename()+" добавлен! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
     	} else {
-    		Clients.showNotification("Юриста с таким именем нет в базе данных! Сначала заведите пользователя с ролью 'Юрист'.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
+    		Clients.showNotification("Юриста с таким именем нет в базе данных!", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);    		
     	}		
 	}
 	

@@ -209,8 +209,8 @@ public class PatientWindowViewModel {
 	
 	@Command
 	public void save() {
-		final HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("searchTerm", new String());
+		final HashMap<String, Object> params = new HashMap<String, Object>();		
+		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
@@ -222,9 +222,11 @@ public class PatientWindowViewModel {
 
 		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		}		
-		
-		BindUtils.postGlobalCommand(null, null, "search", params);
+		}
+		params.put("searchTerm", new String());
+		paramsToRefresh.put("patient", currentPatientItem);
+		BindUtils.postGlobalCommand(null, null, "search", params);		
+		BindUtils.postGlobalCommand(null, null, "refreshPatientTilePanel", paramsToRefresh);
 		win.detach();
 	}
 	

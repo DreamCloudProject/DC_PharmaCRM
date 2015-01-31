@@ -196,7 +196,8 @@ public class AttPersonWindowViewModel {
 	@Command
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("searchTerm", new String());
+		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
+		
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
 		contactInfoItem.setPhonesList(phonesList);
@@ -210,7 +211,10 @@ public class AttPersonWindowViewModel {
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		
+		params.put("searchTerm", new String());
+		paramsToRefresh.put("attPerson", currentAttPersonItem);
 		BindUtils.postGlobalCommand(null, null, "search", params);
+		BindUtils.postGlobalCommand(null, null, "refreshAttPersonTilePanel", paramsToRefresh);
 		win.detach();
 	}
 	

@@ -14,7 +14,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.pharmatracker.model.Doctor;
 import ru.dreamcloud.pharmatracker.model.DoctorRank;
 
-public class DoctorTilePanelVM {
+public class MasterDoctorTilePanelVM {
 	
 	/**************************************
 	  Property currentDoctor	 
@@ -43,7 +43,7 @@ public class DoctorTilePanelVM {
     	final HashMap<String, Object> params = new HashMap<String, Object>();
     	params.put("doctorItem", currentDoctor);
     	params.put("actionType", "EDIT");
-    	params.put("rankType", DoctorRank.SLAVE_DOCTOR);
+    	params.put("rankType", DoctorRank.MASTER_DOCTOR);
         Window window = (Window)Executions.createComponents("/WEB-INF/zk/windows/doctorwindow.zul", null, params);
         window.doModal();
     }
@@ -51,7 +51,7 @@ public class DoctorTilePanelVM {
 	@GlobalCommand
 	@Command
 	@NotifyChange("currentDoctor")
-	public void refreshDoctorTilePanel(@BindingParam("doctor") Doctor doctor){
+	public void refreshMasterDoctorTilePanel(@BindingParam("doctor") Doctor doctor){
 		currentDoctor = doctor;
 	}
 }
