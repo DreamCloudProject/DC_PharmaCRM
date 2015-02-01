@@ -25,6 +25,7 @@ import ru.dreamcloud.pharmatracker.model.MedicalExpert;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
+import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class MedicalExpertWindowViewModel {
@@ -156,6 +157,24 @@ public class MedicalExpertWindowViewModel {
 	}
 	
 	/**************************************
+	  Property authService	 
+	***************************************/
+	private AuthenticationService authService;
+	
+	/**************************************
+	  Property viewContactInfo	 
+	***************************************/
+	private Boolean viewContactInfo;	
+
+	public Boolean getViewContactInfo() {
+		return viewContactInfo;
+	}
+
+	public void setViewContactInfo(Boolean viewContactInfo) {
+		this.viewContactInfo = viewContactInfo;
+	}
+	
+	/**************************************
 	 * Property itemsToRemove
 	 ***************************************/
 	
@@ -175,6 +194,9 @@ public class MedicalExpertWindowViewModel {
 		addressItem = new Address();
 		phoneItem = new PhoneNumber();
 		contactInfoItem = new ContactInfo();
+		
+		authService = new AuthenticationService();
+		viewContactInfo = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewContactInfoDisabled");
 		
 		if (this.actionType.equals("NEW")) {
 			currentMedicalExpertItem = new MedicalExpert();

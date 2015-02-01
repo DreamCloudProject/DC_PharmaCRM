@@ -6,9 +6,8 @@
 			<n:h2 class="tile-title">Менеджер</n:h2>
 			<n:div class="tile-config dropdown">
 				<n:a data-toggle="dropdown" href="" class="tile-menu"></n:a>
-				<n:ul
-					class="dropdown-menu animated pull-right text-right">
-					<n:li>
+				<n:ul class="dropdown-menu animated pull-right text-right">
+					<n:li if="${vm.editPermission}">
 						<a class="tile-info-toggle" href="" onClick="@command('editNurseItem')">
 							Редактировать
 						</a>
@@ -82,7 +81,7 @@
 						</n:div>
 					</n:div>
 				</div>
-				<div sclass="row">
+				<div sclass="row" if="${vm.viewContactInfo}">
 					<n:div class="col-lg-12 col-md-12 col-xs-12">
 						<n:hr class="whiter m-t-10"/>					
 						<n:h3 class="block-title">

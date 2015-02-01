@@ -73,9 +73,9 @@
 			</n:div>
 		</n:div>
 					
-		<n:hr class="whiter m-t-20" />
+		<n:hr class="whiter m-t-20" if="${vm.viewContactInfo}"/>
 		
-		<n:div class="block-area">
+		<n:div class="block-area" if="${vm.viewContactInfo}">
 			<n:h3 class="block-title">Форма добавления нового адреса</n:h3>
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Адрес"></label>
@@ -111,9 +111,9 @@
 			</n:div>
 		</n:div>
 		
-		<n:hr class="whiter m-t-20" />
+		<n:hr class="whiter m-t-20" if="${vm.viewContactInfo}"/>
 		
-		<n:div class="block-area">			
+		<n:div class="block-area" if="${vm.viewContactInfo}">			
 			<n:h3 class="block-title">Список адресов</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">
@@ -148,9 +148,9 @@
 			</n:div>
 		</n:div>
 		
-		<n:hr class="whiter m-t-20" />
+		<n:hr class="whiter m-t-20" if="${vm.viewContactInfo}"/>
 		
-		<n:div class="block-area">			
+		<n:div class="block-area" if="${vm.viewContactInfo}">			
 			<n:h3 class="block-title">Форма добавления нового номера телефона</n:h3>
 			<n:div class="form-group">
 				<label sclass="control-label col-md-2" value="Телефон"></label>		
@@ -175,9 +175,9 @@
 			</n:div>
 		</n:div>
 				
-		<n:hr class=" whiter m-t-20" />
+		<n:hr class=" whiter m-t-20" if="${vm.viewContactInfo}"/>
 		
-		<n:div class="block-area">
+		<n:div class="block-area" if="${vm.viewContactInfo}">
 			<n:h3 class="block-title">Список телефонов</n:h3>
 			<n:div class="form-group">               
 				<n:div class="col-md-12">

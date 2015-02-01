@@ -1,0 +1,58 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.PatientHistoryEventsListVM')">
+		<n:h2 class="tile-title" if="${vm.viewDocuments}">
+			Документы по событиям
+		</n:h2>
+		<n:div class="listview list-container" if="${vm.viewDocuments}">
+             <n:div class="accordion">
+                 <n:div class="panel-group block" id="accordion">
+					<listbox emptyMessage="${labels.messages.tableEmptyMessage}" mold="paging" pageSize="10" model="@load(vm.eventsList)" selectedItem="@bind(vm.selected)" sclass="tile">
+						<template name="model" var="phEvent">
+							<listitem>
+								<listcell>
+									<n:div class="panel panel-default">
+										<n:div class="panel-heading">
+											<n:h3 class="panel-title">
+												<n:a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${phEvent.eventId}">
+													Событие №${phEvent.eventId}: <n:small><label value="@load(phEvent.title)"/></n:small>
+												</n:a>
+											</n:h3>
+										</n:div>
+										<n:div id="collapse${phEvent.eventId}" class="panel-collapse collapse">
+											<listbox id="DocumentsListbox${phEvent.eventId}" emptyMessage="Не добавлено ни одного документа" mold="paging" sclass="m-b-10" model="@load(phEvent.documents)" zclass="listview">
+												<template name="model" var="document">
+													<listitem>
+														<listcell>
+															<n:div class="media p-l-5">
+																<n:div class="pull-left">
+																	<n:i class="fa ${(not empty document.extension.iconName) ? document.extension.iconName : 'fa-file'} fa-2x"></n:i>
+																</n:div>
+																<n:div class="media-body">
+																	<n:span class="news-title"><label value="@load(document.title)"/></n:span>
+																	<n:div class="clearfix"></n:div>
+																	<n:span>
+																		<n:small class="text-muted"><label value="@load(document.description)"/></n:small>
+																	</n:span>
+																	<n:br/>
+																	<n:div class="attrs" if="${document.postedByUser != null}">Создано пользователем: ${document.postedByUser.login}</n:div>
+																	<n:div class="list-options">
+																		<button sclass="btn btn-success" label="Открыть" onClick="@command('openDocument', documentItem=document)" />																			
+																	</n:div>
+																</n:div>
+															</n:div>						
+														</listcell>						
+													</listitem>
+												</template>				
+											</listbox>
+										</n:div>
+									</n:div>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+                 </n:div>
+             </n:div>
+		</n:div>
+	</div>
+</zk>

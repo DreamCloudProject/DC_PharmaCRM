@@ -276,7 +276,7 @@ public class EventWindowViewModel  {
 		authenticationService = new AuthenticationService();		
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
-		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole, "Документы");
+		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"ViewDocumentsDisabled");
 		createPermission = authenticationService.checkAccessRights(currentUserRole,"CreateDisabled");
 		editPermission = authenticationService.checkAccessRights(currentUserRole,"EditDisabled");
 		deletePermission = authenticationService.checkAccessRights(currentUserRole,"DeleteDisabled");
@@ -344,6 +344,7 @@ public class EventWindowViewModel  {
 			BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
 			BindUtils.postGlobalCommand(null, null, "refreshNotificationsCount", null);
 			BindUtils.postGlobalCommand(null, null, "refreshPatientHistoryEvents", null);
+			BindUtils.postGlobalCommand(null, null, "refreshSidebarEventsList", null);
 			win.detach();
 		} else {
 			Clients.showNotification("Некорректный период события. Измените дату или время начала/окончания события.", Clients.NOTIFICATION_TYPE_ERROR, null, "top_center" ,4100);

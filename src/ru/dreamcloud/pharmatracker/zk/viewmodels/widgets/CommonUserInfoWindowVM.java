@@ -258,7 +258,9 @@ public class CommonUserInfoWindowVM {
 		contactInfoItem.setPhonesList(phonesList);
 		currentUserInfoItem.setContactInfo(contactInfoItem);
 		try {
-			currentUserInfoItem.setPassword(authService.hashToMd5(password));
+			if(!currentUserInfoItem.getPassword().equals(password)){
+				currentUserInfoItem.setPassword(authService.hashToMd5(password));
+			}			
 			DataSourceLoader.getInstance().mergeRecord(currentUserInfoItem);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

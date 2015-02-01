@@ -299,6 +299,10 @@
 	color: #fff;
 }
 
+.z-label, .z-radio-content, .z-checkbox-content{
+	font-size: 12px;
+}
+
 .z-datebox-button{
 	height: 28px;
 	border: 1px solid #5C5C5C;

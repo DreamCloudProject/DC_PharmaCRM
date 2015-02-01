@@ -1,5 +1,5 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
-<?page id="patientHistoryDetailPage" complete="true"?>
+<?page id="PatientHistoryDetailPage" complete="true"?>
 <!DOCTYPE html>
 <n:html xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute">
 	<!--[if IE 9 ]><html class="ie9"><![endif]-->
@@ -40,7 +40,7 @@
 	
 			<n:section id="main" class="p-relative" role="main">
 	
-				<include currentPage="index" src="/WEB-INF/zk/include/sidebar.zul" />
+				<include currentPage="index" currentPatientHistory="${vm.patientHistory}" src="/WEB-INF/zk/include/sidebar.zul" />
 	
 				<!-- Content -->
 				<n:section id="content" class="container">

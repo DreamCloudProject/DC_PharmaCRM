@@ -26,6 +26,9 @@
 					</n:ul>
 					<n:h4 class="m-0">${vm.currentProfile.lastname} ${vm.currentProfile.firstname}</n:h4>
 					${vm.currentProfile.login}					
+				</n:div>
+				<n:div class="s-widget m-b-25" if="${vm.isVisibleEventsList}">
+					<include src="/WEB-INF/zk/include/patientHistoryEventsList.zul" currentPatientHistory="${vm.currentPatientHistory}"/>
 				</n:div>				
 			</n:div>
 	

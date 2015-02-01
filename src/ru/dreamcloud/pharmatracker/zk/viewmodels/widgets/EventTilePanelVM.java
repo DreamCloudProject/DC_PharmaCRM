@@ -163,7 +163,7 @@ public class EventTilePanelVM {
 			createPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"CreateDisabled");
 			editPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"EditDisabled");
 			deletePermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"DeleteDisabled");			
-			viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "Документы");
+			viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewDocumentsDisabled");
 			
 			refreshPatientHistoryEvents();
 		}

@@ -25,6 +25,7 @@ import ru.dreamcloud.pharmatracker.model.ContactInfo;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
+import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class AttPersonWindowViewModel {
@@ -156,6 +157,25 @@ public class AttPersonWindowViewModel {
 	}
 	
 	/**************************************
+	  Property authService	 
+	***************************************/
+	private AuthenticationService authService;
+	
+	/**************************************
+	  Property viewContactInfo	 
+	***************************************/
+	private Boolean viewContactInfo;	
+
+	public Boolean getViewContactInfo() {
+		return viewContactInfo;
+	}
+
+	public void setViewContactInfo(Boolean viewContactInfo) {
+		this.viewContactInfo = viewContactInfo;
+	}
+	
+	
+	/**************************************
 	 * Property itemsToRemove
 	 ***************************************/
 	
@@ -175,6 +195,9 @@ public class AttPersonWindowViewModel {
 		addressItem = new Address();
 		phoneItem = new PhoneNumber();
 		contactInfoItem = new ContactInfo();
+		
+		authService = new AuthenticationService();
+		viewContactInfo = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewContactInfoDisabled");
 		
 		if (this.actionType.equals("NEW")) {
 			currentAttPersonItem = new AttendantPerson();
