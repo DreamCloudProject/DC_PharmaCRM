@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 
+import ru.dreamcloud.pharmatracker.model.Document;
+import ru.dreamcloud.pharmatracker.model.DocumentAccess;
+import ru.dreamcloud.pharmatracker.model.Event;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonRule;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
+import ru.dreamcloud.pharmatracker.model.authentication.RoleAccessLevel;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class AuthenticationService implements Serializable {
@@ -103,6 +108,50 @@ public class AuthenticationService implements Serializable {
 			}
 		}
 		return result;
+	}
+	
+	public List<DocumentAccess> getRequiredAccessLevels(CommonRole role){		
+		List<DocumentAccess> requiredLevels = new ArrayList<DocumentAccess>();
+		requiredLevels.add(DocumentAccess.FOR_ALL);		
+		if(role != null){
+			RoleAccessLevel ral = role.getRoleAccessLevel();
+			switch (ral) {
+			case GUEST:				
+				requiredLevels = new ArrayList<DocumentAccess>();
+				requiredLevels.add(DocumentAccess.FOR_ALL);				
+				break;
+			case USER:				
+				requiredLevels = new ArrayList<DocumentAccess>();
+				requiredLevels.add(DocumentAccess.FOR_ALL);				
+				break;
+			case EMPLOYEE:				
+				requiredLevels = new ArrayList<DocumentAccess>();
+				requiredLevels.add(DocumentAccess.FOR_ALL);
+				requiredLevels.add(DocumentAccess.FOR_EMPLOYEES);
+				break;
+			case OWNER:
+				requiredLevels = new ArrayList<DocumentAccess>();
+				requiredLevels.add(DocumentAccess.FOR_ALL);
+				requiredLevels.add(DocumentAccess.FOR_EMPLOYEES);
+				requiredLevels.add(DocumentAccess.FOR_OWNERS);
+				break;
+			default:				
+				break;
+			}
+		}
+		return requiredLevels;
+	}
+	
+	public List<Event> getFilteredEventsList(List<Event> events, List<DocumentAccess> reqLevels){
+		List<Event> filteredEvents = new ArrayList<Event>();
+		for (Event event : events) {			
+			List<Document> docsList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("Document", "where e.event.eventId="+event.getEventId()+" and e.documentAccess IN :args", reqLevels));
+			if(docsList.size() != 0){
+				event.setDocuments(docsList);
+				filteredEvents.add(event);
+			}			
+		}
+		return filteredEvents;
 	}
 	
     public void logout() {

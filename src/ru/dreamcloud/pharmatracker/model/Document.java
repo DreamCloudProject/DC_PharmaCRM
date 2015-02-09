@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,13 +32,14 @@ CREATE TABLE `documents` (
   `event` int(11) DEFAULT NULL,
   `extension` int(11) DEFAULT NULL,
   `posted_by_user` int(11) DEFAULT NULL,
+  `access_level` enum('FOR_ALL','FOR_EMPLOYEES','FOR_OWNERS') DEFAULT NULL,
   PRIMARY KEY (`document_id`),
   KEY `fk_extension_document` (`extension`),
   KEY `fk_event_document` (`event`),
   KEY `fk_postedbyuser_document_idx` (`posted_by_user`),
-  CONSTRAINT `fk_postedbyuser_document` FOREIGN KEY (`posted_by_user`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_event_document` FOREIGN KEY (`event`) REFERENCES `events` (`event_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_extension_document` FOREIGN KEY (`extension`) REFERENCES `extensions` (`extension_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_extension_document` FOREIGN KEY (`extension`) REFERENCES `extensions` (`extension_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_postedbyuser_document` FOREIGN KEY (`posted_by_user`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 
@@ -72,6 +75,10 @@ public class Document implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "posted_by_user")
 	private CommonUserInfo postedByUser;
+	
+	@Enumerated(EnumType.STRING)	
+	@Column(name="access_level")
+	private DocumentAccess documentAccess;
 	
 	public Document() {
 		// TODO Auto-generated constructor stub
@@ -147,6 +154,14 @@ public class Document implements Serializable{
 
 	public void setPostedByUser(CommonUserInfo postedByUser) {
 		this.postedByUser = postedByUser;
+	}
+
+	public DocumentAccess getDocumentAccess() {
+		return documentAccess;
+	}
+
+	public void setDocumentAccess(DocumentAccess documentAccess) {
+		this.documentAccess = documentAccess;
 	}	
 
 }

@@ -93,17 +93,16 @@
 												<label value="@load(address.title)"/>
 											</n:strong>
 											<n:br />
-											<n:span if="${not empty address.street}">
+											<n:span if="${not empty address.street}" class="z-label">
 												ул. <label value="@load(address.street)"/>
 											</n:span>
-											<n:span if="${not empty address.corpsNumber}">
+											<n:span if="${not empty address.corpsNumber}" class="z-label">
 												корп. <label value="@load(address.corpsNumber)"/>
 											</n:span>
-											<n:span if="${not empty address.homeNumber}">
+											<n:span if="${not empty address.homeNumber}" class="z-label">
 												д. <label value="@load(address.homeNumber)"/>
 											</n:span>
-											<n:span
-												if="${not empty address.apartmentNumber}">
+											<n:span if="${not empty address.apartmentNumber}" class="z-label">
 												кв. <label value="@load(address.apartmentNumber)"/>
 											</n:span>
 											<n:br />

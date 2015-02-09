@@ -105,6 +105,13 @@
 										<n:div class="pull-left">
 											<n:i class="fa ${(not empty document.extension.iconName) ? document.extension.iconName : 'fa-file'} fa-2x"></n:i>
 										</n:div>
+										<n:div class="pull-left" >
+											<combobox inplace="true" model="@load(vm.documentAccessLevels)" selectedItem="@bind(document.documentAccess)" hflex="1" >
+						                        <template name="model">
+						                            <comboitem label="@load(each.name)" value="@load(each)" />
+						                        </template>
+						                    </combobox>
+						                </n:div>
 										<n:div class="media-body">
 											<n:span class="news-title"><label value="@load(document.title)"/></n:span>
 											<n:div class="clearfix"></n:div>
@@ -112,7 +119,7 @@
 												<n:small class="text-muted"><label value="@load(document.description)"/></n:small>
 											</n:span>
 											<n:br/>
-											<n:div class="attrs" if="${document.postedByUser != null}">Создано пользователем: ${document.postedByUser.login}</n:div>
+											<n:div class="block attrs" if="${document.postedByUser != null}">Создано пользователем: ${document.postedByUser.login}</n:div>				
 											<n:div class="list-options">
 												<button if="${vm.actionType == 'EDIT'}" sclass="btn btn-success" label="Открыть" onClick="@command('openDocument', documentItem=document)" />
 												<button if="${vm.createPermission and vm.editPermission}" sclass="btn btn-success" label="Удалить" onClick="@command('removeDocument', documentItem=document)" />

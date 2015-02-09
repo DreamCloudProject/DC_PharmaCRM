@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -29,11 +31,11 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Window;
 
 import ru.dreamcloud.pharmatracker.model.Document;
+import ru.dreamcloud.pharmatracker.model.DocumentAccess;
 import ru.dreamcloud.pharmatracker.model.Event;
 import ru.dreamcloud.pharmatracker.model.EventReason;
 import ru.dreamcloud.pharmatracker.model.Extension;
@@ -239,6 +241,28 @@ public class EventWindowViewModel  {
 	}
 	
 	/**************************************
+	 * Property requiredDocumentLevels
+	 ***************************************/
+	private List<DocumentAccess> requiredDocumentLevels;	
+
+	public List<DocumentAccess> getRequiredDocumentLevels() {
+		return requiredDocumentLevels;
+	}
+
+	public void setRequiredDocumentLevels(List<DocumentAccess> requiredDocumentLevels) {
+		this.requiredDocumentLevels = requiredDocumentLevels;
+	}
+
+	/**************************************
+	 * Property documentAccessLevels
+	 ***************************************/	
+	private List<DocumentAccess> documentAccessLevels = Arrays.asList(DocumentAccess.values());	
+	
+	public List<DocumentAccess> getDocumentAccessLevels() {
+		return documentAccessLevels;
+	}
+
+	/**************************************
 	 * Property itemsToRemove
 	 ***************************************/
 	
@@ -280,6 +304,7 @@ public class EventWindowViewModel  {
 		createPermission = authenticationService.checkAccessRights(currentUserRole,"CreateDisabled");
 		editPermission = authenticationService.checkAccessRights(currentUserRole,"EditDisabled");
 		deletePermission = authenticationService.checkAccessRights(currentUserRole,"DeleteDisabled");
+		requiredDocumentLevels = authenticationService.getRequiredAccessLevels(currentUserRole);		 
 		
 		if(Sessions.getCurrent().getAttribute("currentPatientHistory") != null){
 			setPatientHistoryItem((PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory"));
@@ -307,7 +332,7 @@ public class EventWindowViewModel  {
 		if (this.actionType.equals("EDIT")) {
 			currentEvent = currentItem;
 			currentUserInfo = currentItem.getUserInfo();
-			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Document", "where e.event.eventId="+currentEvent.getEventId()));
+			documentList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("Document", "where e.event.eventId="+currentEvent.getEventId()+" and e.documentAccess IN :args", requiredDocumentLevels));
 		}
 		refreshNotificationCreateFlag();
     }
@@ -369,6 +394,7 @@ public class EventWindowViewModel  {
 		documentItem.setExtension(extList.get(0));
 		documentItem.setPostedByUser(authenticationService.getCurrentProfile());
 		documentItem.setEvent(currentEvent);
+		documentItem.setDocumentAccess(DocumentAccess.FOR_ALL);
 		documentList.add(documentItem);
 		documentItem = new Document();
 		Clients.showNotification("Документ прикреплен к событию! Для сохранения изменений нажмите кнопку 'Сохранить'.", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);

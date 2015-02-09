@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zul.Filedownload;
 
 import ru.dreamcloud.pharmatracker.model.Document;
+import ru.dreamcloud.pharmatracker.model.DocumentAccess;
 import ru.dreamcloud.pharmatracker.model.Event;
 import ru.dreamcloud.pharmatracker.model.MessageType;
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
@@ -65,6 +66,19 @@ public class PatientHistoryEventsListVM {
 	public void setCurrentPatientHistory(PatientHistory currentPatientHistory) {
 		this.currentPatientHistory = currentPatientHistory;
 	}
+	
+	/**************************************
+	 * Property requiredDocumentLevels
+	 ***************************************/
+	private List<DocumentAccess> requiredDocumentLevels;	
+
+	public List<DocumentAccess> getRequiredDocumentLevels() {
+		return requiredDocumentLevels;
+	}
+
+	public void setRequiredDocumentLevels(List<DocumentAccess> requiredDocumentLevels) {
+		this.requiredDocumentLevels = requiredDocumentLevels;
+	}
 
 	/**************************************
 	 * Property eventsList
@@ -82,9 +96,12 @@ public class PatientHistoryEventsListVM {
 	public void init(@ExecutionArgParam("currentPatientHistory") PatientHistory patientHistory) {
 		authService = new AuthenticationService();
 		viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewDocumentsDisabled");
+		requiredDocumentLevels = authService.getRequiredAccessLevels(authService.getCurrentProfile().getRole());
 		if(patientHistory != null){
 			currentPatientHistory = patientHistory;
-			eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));			
+			//eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));
+			List<Event> eventsListToFilter = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));
+			eventsList = authService.getFilteredEventsList(eventsListToFilter, requiredDocumentLevels);
 		}
 	}
 	
@@ -104,7 +121,9 @@ public class PatientHistoryEventsListVM {
     @Command
     @NotifyChange("eventsList")
     public void refreshSidebarEventsList(@BindingParam("searchTerm") String term) {    	
-    	eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));    	
+    	//eventsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));
+    	List<Event> eventsListToFilter = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Event", "where e.patientHistory.patientHistoriesId="+currentPatientHistory.getPatientHistoriesId()));
+		eventsList = authService.getFilteredEventsList(eventsListToFilter, requiredDocumentLevels);
     }
 
 }
