@@ -22,7 +22,7 @@ CREATE TABLE `districts` (
   `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`district_id`),
   UNIQUE KEY `district_id_UNIQUE` (`district_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity

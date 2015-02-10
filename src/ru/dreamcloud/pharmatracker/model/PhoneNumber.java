@@ -8,13 +8,13 @@ delimiter $$
 
 CREATE TABLE `phone_numbers` (
   `phone_id` int(11) NOT NULL AUTO_INCREMENT,
-  `phone_number` varchar(45) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
   `phone_type` enum('HOME','MOBILE','WORK') DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
   PRIMARY KEY (`phone_id`),
-  KEY `fk_contact_info_phone_idx` (`contact_info`),
+  KEY `fk_contact_info_phone` (`contact_info`),
   CONSTRAINT `fk_contact_info_phone` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity

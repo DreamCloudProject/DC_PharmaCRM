@@ -26,7 +26,7 @@ CREATE TABLE `regions` (
   UNIQUE KEY `region_id_UNIQUE` (`region_id`),
   KEY `fk_district_idx` (`district`),
   CONSTRAINT `fk_district` FOREIGN KEY (`district`) REFERENCES `districts` (`district_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity

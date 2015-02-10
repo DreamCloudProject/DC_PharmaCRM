@@ -26,7 +26,7 @@ CREATE TABLE `common_user_info` (
   KEY `fk_contact_info_user_info_idx` (`contact_info`),
   CONSTRAINT `fk_contact_info_user_info` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_role_user_info` FOREIGN KEY (`role`) REFERENCES `common_roles` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
  */
 @Entity
 @Table(name="common_user_info")

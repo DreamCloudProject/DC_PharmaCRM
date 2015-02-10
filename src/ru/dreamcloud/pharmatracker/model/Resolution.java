@@ -29,7 +29,7 @@ CREATE TABLE `resolutions` (
   UNIQUE KEY `title_UNIQUE` (`title`),
   KEY `fk_project_resolution_idx` (`project`),
   CONSTRAINT `fk_project_resolution` FOREIGN KEY (`project`) REFERENCES `projects` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
 @Entity

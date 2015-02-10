@@ -11,7 +11,7 @@ CREATE TABLE `common_rules` (
   `rule_id` int(11) NOT NULL AUTO_INCREMENT,
   `component_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`rule_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 @Entity
 @Table(name = "common_rules")

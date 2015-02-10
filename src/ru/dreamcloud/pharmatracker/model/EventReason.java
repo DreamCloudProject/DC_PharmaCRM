@@ -10,10 +10,11 @@ import javax.persistence.*;
 delimiter $$
 
 CREATE TABLE `event_reasons` (
-  `event_reason_id` int(11) NOT NULL,
+  `event_reason_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`event_reason_id`)
+  PRIMARY KEY (`event_reason_id`),
+  UNIQUE KEY `event_reason_id_UNIQUE` (`event_reason_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 */
 
