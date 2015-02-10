@@ -20,6 +20,7 @@ import org.zkoss.zul.Window;
 
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
+import ru.dreamcloud.pharmatracker.model.authentication.RoleAccessLevel;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientHistoryWindowAdditionalVM {
@@ -44,7 +45,7 @@ public class PatientHistoryWindowAdditionalVM {
 	 * Property allLawyersList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", null));
+	private List<CommonUserInfo> allLawyersList;
 	
 	public List<CommonUserInfo> getAllLawyersList() {
 		return allLawyersList;
@@ -54,7 +55,7 @@ public class PatientHistoryWindowAdditionalVM {
 	 * Property allCuratorsList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", null));
+	private List<CommonUserInfo> allCuratorsList;
 	
 	public List<CommonUserInfo> getAllCuratorsList() {
 		return allCuratorsList;
@@ -68,6 +69,10 @@ public class PatientHistoryWindowAdditionalVM {
 	public void init(@ContextParam(ContextType.VIEW) Component view, 
 					 @ExecutionArgParam("patientHistoryItem") PatientHistory currentItem) {
 		Selectors.wireComponents(view, this, false);
+		List<RoleAccessLevel> args = new ArrayList<RoleAccessLevel>();
+		args.add(RoleAccessLevel.EMPLOYEE);
+		allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
+		allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
 		PatientHistory ph = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, currentItem.getPatientHistoriesId());
 		patientHistory = ph;
 	}

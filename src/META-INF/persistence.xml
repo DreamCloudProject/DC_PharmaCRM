@@ -25,9 +25,9 @@
 		<class>ru.dreamcloud.pharmatracker.model.Doctor</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharma_crm"/>
-			<property name="javax.persistence.jdbc.user" value="pharma"/>
-			<property name="javax.persistence.jdbc.password" value="pharma"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/another_life_db"/>
+			<property name="javax.persistence.jdbc.user" value="alifeuser"/>
+			<property name="javax.persistence.jdbc.password" value="AnotherLifeDBUser"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>

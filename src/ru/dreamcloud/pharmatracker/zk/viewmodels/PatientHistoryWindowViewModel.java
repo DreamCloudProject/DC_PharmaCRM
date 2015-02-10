@@ -330,7 +330,7 @@ public class PatientHistoryWindowViewModel {
 	 * Property allCuratorsList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.roleAccessLevel="+RoleAccessLevel.class.getName()+".ADMIN"));
+	private List<CommonUserInfo> allCuratorsList;
 	
 	public List<CommonUserInfo> getAllCuratorsList() {
 		return allCuratorsList;
@@ -377,7 +377,7 @@ public class PatientHistoryWindowViewModel {
 	 * Property allLawyersList
 	 ***************************************/
 	
-	private List<CommonUserInfo> allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("CommonUserInfo", "where e.role.roleAccessLevel="+RoleAccessLevel.class.getName()+".ADMIN"));
+	private List<CommonUserInfo> allLawyersList;
 	
 	public List<CommonUserInfo> getAllLawyersList() {
 		return allLawyersList;
@@ -480,6 +480,10 @@ public class PatientHistoryWindowViewModel {
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
+		List<RoleAccessLevel> args = new ArrayList<RoleAccessLevel>();
+		args.add(RoleAccessLevel.EMPLOYEE);
+		allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
+		allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
 		currentPatientHistory = new PatientHistory();
 		patientItem = new Patient();		
 		itemsToUnlink = new ArrayList<Object>();
