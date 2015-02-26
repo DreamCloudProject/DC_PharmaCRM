@@ -38,7 +38,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 /**
  * Servlet implementation class PDFPrinterServlet
  */
-@WebServlet("/services/print")
+/*@WebServlet("/services/print")*/
 public class PDFPrinterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
