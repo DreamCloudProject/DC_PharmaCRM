@@ -211,6 +211,9 @@ public class EventTilePanelVM {
 						}
 						patientHistoryItem.setEvents(eventsList);
 						BindUtils.postGlobalCommand(null, null, "refreshCalendar", null);
+						BindUtils.postGlobalCommand(null, null, "refreshNotificationsCount", null);
+						BindUtils.postGlobalCommand(null, null, "refreshPatientHistoryEvents", null);
+						BindUtils.postGlobalCommand(null, null, "refreshSidebarEventsList", null);
 						Clients.showNotification("Запись успешно удалена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 					}
 				} else {
