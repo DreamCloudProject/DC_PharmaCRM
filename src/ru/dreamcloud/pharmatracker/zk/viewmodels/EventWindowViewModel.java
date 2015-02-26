@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -47,6 +46,7 @@ import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonRole;
 import ru.dreamcloud.pharmatracker.model.authentication.CommonUserInfo;
 import ru.dreamcloud.pharmatracker.zk.services.AuthenticationService;
+import ru.dreamcloud.pharmatracker.zk.services.LiteratorService;
 import ru.dreamcloud.pharmatracker.zk.services.SchedulerService;
 import ru.dreamcloud.util.jpa.DataSourceLoader;
 
@@ -59,6 +59,11 @@ public class EventWindowViewModel  {
 	 * Property authenticationService
 	 ***************************************/
 	private AuthenticationService authenticationService;
+	
+	/**************************************
+	 * Property literatorService
+	 ***************************************/
+	private LiteratorService literatorService;
 	
 	/**************************************
 	 * Property schedulerService
@@ -297,7 +302,8 @@ public class EventWindowViewModel  {
 		itemsToRemove = new ArrayList<Object>();
 		uploadFilesList = new HashMap<File, InputStream>();
 		documentItem = new Document();		
-		authenticationService = new AuthenticationService();		
+		authenticationService = new AuthenticationService();
+		literatorService = new LiteratorService();
 		schedulerService = (SchedulerService)session.getAttribute("schedulerService");
 		CommonRole currentUserRole = authenticationService.getCurrentProfile().getRole();
 		isVisibleFormDocuments = authenticationService.checkAccessRights(currentUserRole,"ViewDocumentsDisabled");
@@ -380,7 +386,7 @@ public class EventWindowViewModel  {
 	@NotifyChange({"documentItem","documentList"})
 	public void addNewDocument(@BindingParam("file")Media file) {		
 		String filePath = Labels.getLabel("uploadedContentDir")+"patienthistories/"+patientHistoryItem.getPatient().getFullname()
-				+"/ph-"+patientHistoryItem.getPatientHistoriesId()+"/"+file.getName();
+				+"/ph-"+patientHistoryItem.getPatientHistoriesId()+"/"+literatorService.transliterate(file.getName());
 		File newFile = new File(filePath);
 		List<Extension> extList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Extension", "where e.extensionName = '"+file.getFormat().toUpperCase()+"'"));							
 		uploadFilesList.put(newFile, file.getStreamData());
