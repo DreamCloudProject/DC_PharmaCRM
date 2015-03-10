@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `another_life_db`
+-- База данных: `different_life_db`
 --
-CREATE DATABASE `another_life_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `another_life_db`;
+CREATE DATABASE `different_life_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `different_life_db`;
 -- --------------------------------------------------------
 
 --
