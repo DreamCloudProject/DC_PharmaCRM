@@ -258,7 +258,7 @@ public class CommonUserInfoWindowVM {
 		contactInfoItem.setPhonesList(phonesList);
 		currentUserInfoItem.setContactInfo(contactInfoItem);
 		try {
-			if(!currentUserInfoItem.getPassword().equals(password)){
+			if( (currentUserInfoItem.getPassword() == null) || (!currentUserInfoItem.getPassword().equals(password)) ){
 				currentUserInfoItem.setPassword(authService.hashToMd5(password));
 			}			
 			DataSourceLoader.getInstance().mergeRecord(currentUserInfoItem);
