@@ -72,7 +72,7 @@
 								Электронный адрес:
 							</n:strong>
 							<label sclass="control-label col-md-8 col-xs-6"
-								value="@load(not empty vm.currentAttendantPerson.contactInfo.email ? vm.currentAttendantPersonr.contactInfo.email : 'Не заполнено')">
+								value="@load(not empty vm.currentAttendantPerson.contactInfo.email ? vm.currentAttendantPerson.contactInfo.email : 'Не заполнено')">
 							</label>
 						</n:div>
 					</n:div>
