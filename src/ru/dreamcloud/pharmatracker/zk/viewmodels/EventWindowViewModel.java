@@ -331,7 +331,9 @@ public class EventWindowViewModel  {
 				currentEvent.setPostedByUser(authenticationService.getCurrentProfile());
 			} else {
 				currentEvent = currentItem;
+				currentEvent.setPostedByUser(authenticationService.getCurrentProfile());
 			}
+			
 			documentList = new ArrayList<Document>();
 		}
 		
