@@ -55,7 +55,7 @@ public class SchedulerService {
 					DataSourceLoader.getInstance().mergeRecord(notification);
 				}
 			} else {
-				if(notification.getNotificationType() == NotificationType.ACTIVE){
+				if((notification.getNotificationType() == NotificationType.ACTIVE) || (notification.getNotificationType() == NotificationType.NOT_ACTIVE)){
 					notification.setNotificationType(NotificationType.OVERDUE);
 					DataSourceLoader.getInstance().mergeRecord(notification);
 				}
