@@ -69,11 +69,11 @@
 							</div>								
 							<div sclass="col-lg-3 col-md-3 col-xs-12">
 			                	<include if="${not empty vm.patientHistory.patient}" currentPatient="${vm.patientHistory.patient}" src="/WEB-INF/zk/include/patientTilePanel.zul" />
-			                	<include if="${not empty vm.patientHistory.attperson}" currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
-			                	<include if="${not empty vm.patientHistory.nurse}" currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
-								<include if="${not empty vm.patientHistory.medicalExpert}" currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />
-								<include if="${not empty vm.patientHistory.doctor}" currentDoctor="${vm.patientHistory.doctor}" src="/WEB-INF/zk/include/doctorTilePanel.zul" />
-								<include if="${not empty vm.patientHistory.masterDoctor}" currentDoctor="${vm.patientHistory.masterDoctor}" src="/WEB-INF/zk/include/masterDoctorTilePanel.zul" />
+			                	<include visible="@bind(not empty vm.patientHistory.attperson)" currentAttendantPerson="${vm.patientHistory.attperson}" src="/WEB-INF/zk/include/attpersonTilePanel.zul" />
+			                	<include visible="@bind(not empty vm.patientHistory.nurse)" currentNurse="${vm.patientHistory.nurse}" src="/WEB-INF/zk/include/nurseTilePanel.zul" />
+								<include visible="@bind(not empty vm.patientHistory.medicalExpert)" currentMedicalExpert="${vm.patientHistory.medicalExpert}" src="/WEB-INF/zk/include/medicalexpertTilePanel.zul" />
+								<include visible="@bind(not empty vm.patientHistory.doctor)" currentDoctor="${vm.patientHistory.doctor}" src="/WEB-INF/zk/include/doctorTilePanel.zul" />
+								<include visible="@bind(not empty vm.patientHistory.masterDoctor)" currentDoctor="${vm.patientHistory.masterDoctor}" src="/WEB-INF/zk/include/masterDoctorTilePanel.zul" />
 			                </div>							
 						</div>	                
 	                </div>

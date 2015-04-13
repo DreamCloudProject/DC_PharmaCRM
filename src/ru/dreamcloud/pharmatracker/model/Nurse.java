@@ -96,7 +96,17 @@ public class Nurse implements Serializable {
 
 	@Transient
 	public String getFullname(){
-		return lastname + " " + firstname + " " + middlename;
+		String fullname = new String();
+		if(lastname != null){
+			fullname += lastname;
+		}
+		if(firstname != null){
+			fullname += " " + firstname;
+		}
+		if(middlename != null){
+			fullname += " " + middlename;
+		}		
+		return fullname;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Sessions;
 
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientHistoryDetailTilePanelVM {
 	
@@ -33,8 +34,8 @@ public class PatientHistoryDetailTilePanelVM {
 	@GlobalCommand
 	@Command
 	@NotifyChange("patientHistory")
-	public void refreshPatientHistory(@BindingParam("patientHistory") PatientHistory phItem){
-		this.patientHistory = phItem;
-		Sessions.getCurrent().setAttribute("currentPatientHistory", this.patientHistory);
+	public void refreshPatientHistory(@BindingParam("patientHistory") PatientHistory phItem){		
+		patientHistory = phItem;
+		Sessions.getCurrent().setAttribute("currentPatientHistory", patientHistory);
 	}
 }

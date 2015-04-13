@@ -104,7 +104,14 @@ public class MasterDoctorTilePanelVM {
 	  Methods	 
 	***************************************/
 	@Init
-	public void init(@ExecutionArgParam("currentDoctor") Doctor doctor) {		
+	public void init(@ExecutionArgParam("currentDoctor") Doctor doctor) {
+		authService = new AuthenticationService();
+		createPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"CreateDisabled");
+		editPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"EditDisabled");
+		deletePermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"DeleteDisabled");			
+		viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewDocumentsDisabled");
+		viewContactInfo = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewContactInfoDisabled");
+		
 		currentDoctor = doctor;
 	}
 	
@@ -123,13 +130,6 @@ public class MasterDoctorTilePanelVM {
 	@Command
 	@NotifyChange("currentDoctor")
 	public void refreshMasterDoctorTilePanel(@BindingParam("doctor") Doctor doctor){
-		authService = new AuthenticationService();
-		createPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"CreateDisabled");
-		editPermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"EditDisabled");
-		deletePermission = authService.checkAccessRights(authService.getCurrentProfile().getRole(),"DeleteDisabled");			
-		viewDocuments = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewDocumentsDisabled");
-		viewContactInfo = authService.checkAccessRights(authService.getCurrentProfile().getRole(), "ViewContactInfoDisabled");
-		
 		currentDoctor = doctor;
 	}
 }

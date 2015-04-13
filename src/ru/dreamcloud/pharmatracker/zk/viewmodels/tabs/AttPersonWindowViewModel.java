@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
@@ -22,6 +23,7 @@ import org.zkoss.zul.Window;
 import ru.dreamcloud.pharmatracker.model.Address;
 import ru.dreamcloud.pharmatracker.model.AttendantPerson;
 import ru.dreamcloud.pharmatracker.model.ContactInfo;
+import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
@@ -219,7 +221,7 @@ public class AttPersonWindowViewModel {
 	@Command
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
-		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
+		HashMap<String, Object> paramsToRefresh;
 		
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
@@ -234,10 +236,21 @@ public class AttPersonWindowViewModel {
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
 		}		
 		
-		params.put("searchTerm", new String());
+		paramsToRefresh = new HashMap<String, Object>();
 		paramsToRefresh.put("attPerson", currentAttPersonItem);
-		BindUtils.postGlobalCommand(null, null, "search", params);
 		BindUtils.postGlobalCommand(null, null, "refreshAttPersonTilePanel", paramsToRefresh);
+		
+		paramsToRefresh = new HashMap<String, Object>();
+		PatientHistory ph = (PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory");
+		PatientHistory phItemToSend = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, ph.getPatientHistoriesId());
+		phItemToSend.setAttperson(currentAttPersonItem);
+		paramsToRefresh.put("patientHistory", phItemToSend);		
+		BindUtils.postGlobalCommand(null, null, "refreshPatientHistory", paramsToRefresh);
+		BindUtils.postGlobalCommand(null, null, "refreshPatientHistoryPage", paramsToRefresh);
+		
+		params.put("searchTerm", new String());		
+		BindUtils.postGlobalCommand(null, null, "search", params);
+		
 		win.detach();
 	}
 	

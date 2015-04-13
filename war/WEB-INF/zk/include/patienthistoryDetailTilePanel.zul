@@ -10,7 +10,7 @@
 					<n:h4>Статус: <n:span class="label label-default">${vm.patientHistory.patientHistoryStatus.name}</n:span></n:h4>
 				</n:div>
 			</n:div>
-			<n:div class="media">
+			<div zclass="media" visible="@bind(not empty vm.patientHistory.resolution)">
 				<n:div class="pull-left">
 					<n:i class="fa fa-chevron-circle-right fa-2x"></n:i>
 				</n:div>
@@ -21,7 +21,7 @@
 						<n:small class="text-muted"><label value="@load(vm.patientHistory.resolution.description)"/></n:small>
 					</n:span>								
 				</n:div>
-			</n:div>
+			</div>
 			<n:div class="media">
 				<n:div class="pull-left">
 					<n:i class="fa fa-flag fa-2x"></n:i>
@@ -34,7 +34,7 @@
 					</n:span>								
 				</n:div>
 			</n:div>
-			<n:div class="media">
+			<div zclass="media" visible="@bind(not empty vm.patientHistory.curator)" >
 				<n:div class="pull-left">
 					<n:i class="fa fa-user fa-2x"></n:i>
 				</n:div>
@@ -45,8 +45,8 @@
 						<n:small class="text-muted"><label value="@load(vm.patientHistory.curator.login)"/></n:small>
 					</n:span>								
 				</n:div>
-			</n:div>
-			<n:div class="media">
+			</div>
+			<div zclass="media" visible="@bind(not empty vm.patientHistory.lawyer)" >
 				<n:div class="pull-left">
 					<n:i class="fa fa-user fa-2x"></n:i>
 				</n:div>
@@ -57,7 +57,7 @@
 						<n:small class="text-muted"><label value="@load(vm.patientHistory.lawyer.login)"/></n:small>
 					</n:span>								
 				</n:div>
-			</n:div>
+			</div>
 		</n:article>
 	</div>
 </zk>

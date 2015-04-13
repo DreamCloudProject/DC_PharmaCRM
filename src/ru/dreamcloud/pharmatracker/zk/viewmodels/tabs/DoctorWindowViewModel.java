@@ -14,6 +14,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
@@ -23,6 +24,7 @@ import ru.dreamcloud.pharmatracker.model.Address;
 import ru.dreamcloud.pharmatracker.model.ContactInfo;
 import ru.dreamcloud.pharmatracker.model.Doctor;
 import ru.dreamcloud.pharmatracker.model.DoctorRank;
+import ru.dreamcloud.pharmatracker.model.PatientHistory;
 import ru.dreamcloud.pharmatracker.model.PhoneNumber;
 import ru.dreamcloud.pharmatracker.model.PhoneType;
 import ru.dreamcloud.pharmatracker.model.Region;
@@ -234,7 +236,7 @@ public class DoctorWindowViewModel {
 	@Command
 	public void save() {
 		final HashMap<String, Object> params = new HashMap<String, Object>();
-		final HashMap<String, Object> paramsToRefresh = new HashMap<String, Object>();
+		HashMap<String, Object> paramsToRefresh;
 		
 		clearAllRemovedItems();
 		contactInfoItem.setAddressList(addressList);
@@ -247,15 +249,27 @@ public class DoctorWindowViewModel {
 
 		if (actionType.equals("EDIT")) {			
 			Clients.showNotification("Запись успешно сохранена!", Clients.NOTIFICATION_TYPE_INFO, null, "top_center" ,4100);
-		}		
-		params.put("searchTerm", new String());
-		paramsToRefresh.put("doctor", currentDoctorItem);
-		BindUtils.postGlobalCommand(null, null, "search", params);
+		}
+		
+		paramsToRefresh = new HashMap<String, Object>();		
+		paramsToRefresh.put("doctor", currentDoctorItem);		
 		if(rankType == DoctorRank.MASTER_DOCTOR){
 			BindUtils.postGlobalCommand(null, null, "refreshMasterDoctorTilePanel", paramsToRefresh);
 		} else {
 			BindUtils.postGlobalCommand(null, null, "refreshDoctorTilePanel", paramsToRefresh);
-		}		
+		}
+		
+		paramsToRefresh = new HashMap<String, Object>();
+		PatientHistory ph = (PatientHistory)Sessions.getCurrent().getAttribute("currentPatientHistory");
+		PatientHistory phItemToSend = (PatientHistory)DataSourceLoader.getInstance().getRecord(PatientHistory.class, ph.getPatientHistoriesId());
+		phItemToSend.setDoctor(currentDoctorItem);
+		paramsToRefresh.put("patientHistory", phItemToSend);		
+		BindUtils.postGlobalCommand(null, null, "refreshPatientHistory", paramsToRefresh);
+		BindUtils.postGlobalCommand(null, null, "refreshPatientHistoryPage", paramsToRefresh);
+		
+		params.put("searchTerm", new String());
+		BindUtils.postGlobalCommand(null, null, "search", params);
+		
 		win.detach();
 	}
 	

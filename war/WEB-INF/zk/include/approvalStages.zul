@@ -24,6 +24,9 @@
 														<label value="@load(phItem.project.title)" />
 													</n:small>																												
 												</n:span>
+												<n:div class="list-options">
+													<button zclass="btn btn-success" label="Просмотреть" onClick="@command('viewPatientHistory', phItem=phItem)" />
+												</n:div>
 											</n:div>
 										</n:div>
 									</listcell>

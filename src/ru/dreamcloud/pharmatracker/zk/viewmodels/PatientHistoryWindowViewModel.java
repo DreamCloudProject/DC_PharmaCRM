@@ -492,13 +492,9 @@ public class PatientHistoryWindowViewModel {
 	@Command
 	@NotifyChange("currentPatientHistory")
 	public void save() {
-		if((currentPatientHistory.getAttperson() != null)
-				&&(currentPatientHistory.getMedicalExpert() != null)
-				&&(currentPatientHistory.getNurse() != null)
-				&&(currentPatientHistory.getPatient() != null)
-				&&(currentPatientHistory.getDoctor() != null)
-				&&(currentPatientHistory.getMasterDoctor() != null)
-				&&(currentPatientHistory.getProject() != null)){
+		if((currentPatientHistory.getPatient() != null)	
+				&& (currentPatientHistory.getProject() != null) 
+				&& (currentPatientHistory.getResolution() != null)){
 			List<Resolution> resolutionList = new ArrayList(DataSourceLoader.getInstance().fetchRecords("Resolution", "where e.project.projectId="+currentPatientHistory.getProject().getProjectId()));
 			Resolution selectedResolution = currentPatientHistory.getResolution();
 			if(containsResolution(resolutionList, selectedResolution)){

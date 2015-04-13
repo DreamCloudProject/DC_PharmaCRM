@@ -58,7 +58,7 @@
 				<label zclass="control-label col-md-2" value="Родственник"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)" constraint="no empty">
+					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)">
 						<template name="model">
         					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
     					</template>
@@ -105,7 +105,7 @@
 				<label zclass="control-label col-md-2" value="Менеджер"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)" constraint="no empty">
+					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)">
 						<template name="model">
         					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
     					</template>
@@ -152,7 +152,7 @@
 				<label zclass="control-label col-md-2" value="Мед. эксперт"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="MedicalExpertCombobox" placeholder="..." selectedItem="@bind(vm.medicalExpertItem)" value="@bind(vm.newMedicalExpertItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allMedicalExpertsList)" constraint="no empty">
+					<combobox id="MedicalExpertCombobox" placeholder="..." selectedItem="@bind(vm.medicalExpertItem)" value="@bind(vm.newMedicalExpertItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allMedicalExpertsList)">
 						<template name="model">
         					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
     					</template>
@@ -199,7 +199,7 @@
 				<label zclass="control-label col-md-2" value="Леч. врач"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="DoctorCombobox" placeholder="..." selectedItem="@bind(vm.doctorItem)" value="@bind(vm.newDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)" constraint="no empty">
+					<combobox id="DoctorCombobox" placeholder="..." selectedItem="@bind(vm.doctorItem)" value="@bind(vm.newDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
 						<template name="model">
         					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
     					</template>
@@ -246,7 +246,7 @@
 				<label zclass="control-label col-md-2" value="Глав. специалист"></label>
 												
 				<n:div class="col-md-10">
-					<combobox id="MasterDoctorCombobox" placeholder="..." selectedItem="@bind(vm.masterDoctorItem)" value="@bind(vm.newMasterDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)" constraint="no empty">
+					<combobox id="MasterDoctorCombobox" placeholder="..." selectedItem="@bind(vm.masterDoctorItem)" value="@bind(vm.newMasterDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
 						<template name="model">
         					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each}"/>
     					</template>

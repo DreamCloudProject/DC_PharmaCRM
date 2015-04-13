@@ -3,8 +3,111 @@
 	<window id="PatientHistoryWindowAdditional" title="${labels.pages.detail.patienthistory.messages.windowTitleEdit}"
 		border="none" apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.PatientHistoryWindowAdditionalVM')"
-		width="100%" height="260px"
-		contentStyle="position:relative; overflow:auto">
+		width="100%" height="460px"
+		contentStyle="position:relative; overflow:auto">	
+		
+		<n:div class="block-area">	
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Родственник"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="AttPersonCombobox" placeholder="..." selectedItem="@bind(vm.attPersonItem)" value="@bind(vm.newAttPersonItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allAttPersonsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each.fullname}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="removeAttPerson" zclass="btn btn-success" label="Открепить родственника" onClick="@command('removeAttPerson')" />										
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">	
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Менеджер"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="NurseCombobox" placeholder="..." selectedItem="@bind(vm.nurseItem)" value="@bind(vm.newNurseItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allNursesList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each.fullname}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="removeNurse" zclass="btn btn-success" label="Открепить менеджера" onClick="@command('removeNurse')" />										
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Мед. эксперт"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="MedicalExpertCombobox" placeholder="..." selectedItem="@bind(vm.medicalExpertItem)" value="@bind(vm.newMedicalExpertItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allMedicalExpertsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each.fullname}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="removeMedicalExpert" zclass="btn btn-success" label="Открепить мед. эксперта" onClick="@command('removeMedicalExpert')" />										
+				</n:div>
+			</n:div>
+		</n:div>	
+		
+		<n:div class="block-area">	
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Леч. врач"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="DoctorCombobox" placeholder="..." selectedItem="@bind(vm.doctorItem)" value="@bind(vm.newDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each.fullname}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="removeDoctor" zclass="btn btn-success" label="Открепить леч. врача" onClick="@command('removeDoctor')" />										
+				</n:div>
+			</n:div>
+		</n:div>
+		
+		<n:div class="block-area">	
+			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Глав. специалист"></label>
+												
+				<n:div class="col-md-10">
+					<combobox id="MasterDoctorCombobox" placeholder="..." selectedItem="@bind(vm.masterDoctorItem)" value="@bind(vm.newMasterDoctorItemFullname)" maxlength="512" autodrop="true" buttonVisible="false" model="@load(vm.allDoctorsList)">
+						<template name="model">
+        					<comboitem label="${each.lastname} ${each.firstname} ${each.middlename}" value="${each.fullname}"/>
+    					</template>
+					</combobox>					
+				</n:div>				
+			</n:div>
+			<n:div class="form-group">
+				<div sclass="col-md-2"></div>                    
+				<n:div class="col-md-10">
+					<button id="removeMasterDoctor" zclass="btn btn-success" label="Открепить глав. специалиста" onClick="@command('removeMasterDoctor')" />										
+				</n:div>
+			</n:div>
+		</n:div>		
+		
+		<n:hr class="whiter m-t-20" />
+		
 		<n:div class="block-area">
 			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Куратор"></label>

@@ -1,8 +1,12 @@
 package ru.dreamcloud.pharmatracker.zk.viewmodels;
 
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -10,6 +14,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 
 import ru.dreamcloud.pharmatracker.model.PatientHistory;
+import ru.dreamcloud.util.jpa.DataSourceLoader;
 
 public class PatientHistoryViewModel {
 	/**************************************
@@ -36,6 +41,14 @@ public class PatientHistoryViewModel {
 		} else {
 			Executions.sendRedirect(Labels.getLabel("panels.index.URL"));
 		}
-    }    
+    }
+	
+	@GlobalCommand
+	@Command
+	@NotifyChange("patientHistory")
+	public void refreshPatientHistoryPage(@BindingParam("patientHistory") PatientHistory phItem){
+		patientHistory = phItem;
+		Sessions.getCurrent().setAttribute("currentPatientHistory", patientHistory);
+	}
 
 }
