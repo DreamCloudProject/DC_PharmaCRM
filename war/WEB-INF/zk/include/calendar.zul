@@ -2,7 +2,29 @@
 <zk xmlns:w="client" xmlns:n="native">
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ru.dreamcloud.pharmatracker.zk.viewmodels.widgets.CalendarVM')">
 		<div sclass="row">
-			<div sclass="col-lg-12 text-center">
+			<div sclass="pull-left clearfix">
+				<div sclass="p-relative p-10">
+					<!-- Calendar Views -->
+					<n:ul class="calendar-actions list-inline clearfix">
+						<n:li class="p-r-0">
+							<a onClick="@command('changeToYear',calendars=EventCalendar)" sclass="tooltips" tooltiptext="Месяц">
+								<n:i class="sa-list-month"></n:i>
+							</a>
+						</n:li>
+						<n:li class="p-r-0">
+							<a onClick="@command('changeToWeek',calendars=EventCalendar)" sclass="tooltips" tooltiptext="Неделя">
+								<n:i class="sa-list-week"></n:i>
+							</a>
+						</n:li>
+						<n:li class="p-r-0">
+							<a onClick="@command('changeToDay',calendars=EventCalendar)" sclass="tooltips" tooltiptext="День">
+								<n:i class="sa-list-day"></n:i>
+							</a>
+						</n:li>
+					</n:ul>
+				</div>
+			</div>
+			<div sclass="pull-right text-center">
 				<a onClick="EventCalendar.previousPage()"><n:i class="fa fa-angle-left fa-2x"></n:i></a>
 				<a onClick="EventCalendar.nextPage()"><n:i class="fa fa-angle-right fa-2x"></n:i></a>
 			</div>

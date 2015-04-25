@@ -105,6 +105,24 @@ public class CalendarVM {
 		return calendarEvents;
 	}
 	
+	//control page display
+	@Command
+    public void changeToDay(@BindingParam("calendars")Calendars cal){
+		cal.setMold("default");
+		cal.setDays(1);
+    }
+	
+	@Command
+    public void changeToWeek(@BindingParam("calendars")Calendars cal){
+		cal.setMold("default");
+		cal.setDays(7);
+    }
+	
+	@Command
+    public void changeToYear(@BindingParam("calendars")Calendars cal){
+		cal.setMold("month");
+    }
+	
 	@Command
 	public void createEvent(@BindingParam("calendarEvent")CalendarsEvent event){
 		if(authService.checkAccessRights(authService.getCurrentProfile().getRole(),"Create")){

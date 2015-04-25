@@ -74,6 +74,8 @@
 .z-paging-button,
 .z-window-header,
 .z-calendars-month-header .z-calendars-day-of-week,
+.z-calendars-month-header .z-calendars-day-of-week-inner,
+.z-calendars-timezone,
 .z-listheader-content {
 	font-family: 'open-sans-light', sans-serif;
 }
@@ -125,12 +127,14 @@
 	border-top: 1px solid rgba(187, 187, 187, 0.1);
 }
 
+.z-calendars-timezone,
 .z-calendars-month-date{
 	font-size: 12px;
 	color: #fff;
 	opacity: 0.7;
 }
 
+.z-calendars-week-header .z-calendars-day-of-week-inner,
 .z-calendars-month-header .z-calendars-day-of-week {
 	font-size: 16px;
 	text-transform: uppercase;
@@ -144,12 +148,20 @@
 	border: none;
 }
 
+.z-calendars-week-header-arrow {
+  border-top: 5px solid #888;
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-right: 5px solid rgba(0, 0, 0, 0);
+}
+
+.z-calendars-week-header-cnt,
 .z-calendars-month-date,
 .z-calendars-month-header {
 	background: rgba(0,0,0,0.3);
 }
 
 .z-calevent-inner,
+.z-calendars-day-of-week-inner.z-calendars-week-today,
 .z-calendars-month-date{
 	border: none !important;
 }
@@ -179,6 +191,7 @@
 .z-calendars-b2, 
 .z-calendars-b3,
 .z-calendars-month-body,
+.z-calendars-daylong-body,
 .z-grid,
 .z-grid-header,
 .z-listitem .z-listcell,
@@ -187,6 +200,7 @@
 .z-calevent-cnt,
 .z-calevent-b3,
 .z-calevent-t3,
+.z-calendars-day-of-week-inner.z-calendars-week-today,
 .z-listbox-odd.z-listitem {
 	background: none !important;	
 }
@@ -221,7 +235,8 @@
 	width: 100%;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
+.z-calendars-daylong-body,
+.z-calendars-daylong-evt,
 .z-listbox-paging-bottom .z-paging, 
 .z-listbox-paging-top .z-paging {
 	border: none;
