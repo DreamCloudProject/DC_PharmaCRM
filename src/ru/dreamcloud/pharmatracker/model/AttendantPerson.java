@@ -14,10 +14,11 @@ CREATE TABLE `attendant_persons` (
   `middlename` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
+  `commentary` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`att_person_id`),
   KEY `fk_contact_info_attperson_idx` (`contact_info`),
   CONSTRAINT `fk_contact_info_attperson` FOREIGN KEY (`contact_info`) REFERENCES `contact_info` (`contact_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -39,6 +40,8 @@ public class AttendantPerson implements Serializable {
 	private String lastname;
 
 	private String middlename;
+	
+	private String commentary;
 	
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy="attperson")
 	private List<PatientHistory> patientHistories;
@@ -100,6 +103,14 @@ public class AttendantPerson implements Serializable {
 
 	public void setPatientHistories(List<PatientHistory> patientHistories) {
 		this.patientHistories = patientHistories;
+	}	
+
+	public String getCommentary() {
+		return commentary;
+	}
+
+	public void setCommentary(String commentary) {
+		this.commentary = commentary;
 	}
 
 	@Transient

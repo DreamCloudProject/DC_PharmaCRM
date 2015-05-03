@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `attendant_persons` (
   `middlename` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `contact_info` int(11) DEFAULT NULL,
+  `commentary` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`att_person_id`),
   KEY `fk_contact_info_attperson_idx` (`contact_info`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

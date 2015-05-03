@@ -15,7 +15,7 @@
 										<n:div class="panel-heading">
 											<n:h3 class="panel-title">
 												<n:a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${phEvent.eventId}">
-													Событие №${phEvent.eventId}: <n:small><label value="@load(phEvent.title)"/></n:small>
+													Событие №${phEvent.eventNumber}: <n:small><label value="@load(phEvent.title)"/></n:small>
 												</n:a>
 											</n:h3>
 										</n:div>

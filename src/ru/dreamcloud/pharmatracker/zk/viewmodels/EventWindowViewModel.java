@@ -352,7 +352,13 @@ public class EventWindowViewModel  {
 		params.put("searchTerm", new String());
 		clearAllRemovedItems();		
 		currentEvent.setDocuments(documentList);
-		currentEvent.setPatientHistory(patientHistoryItem);
+		if (actionType.equals("NEW")) {
+			Integer eventNumber = patientHistoryItem.getEventCurrentCount()+1;
+			patientHistoryItem.setEventCurrentCount(eventNumber);
+			DataSourceLoader.getInstance().mergeRecord(patientHistoryItem);
+			currentEvent.setEventNumber(eventNumber);
+		}
+		currentEvent.setPatientHistory(patientHistoryItem);	
 		currentEvent.setUserInfo(currentUserInfo);
 		if((currentEvent.getDateTimeStart().before(currentEvent.getDateTimePlan()))){
 			

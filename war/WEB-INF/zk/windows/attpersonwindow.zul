@@ -30,6 +30,13 @@
 				</n:div>
 			</n:div>
 			<n:div class="form-group">
+				<label zclass="control-label col-md-2" value="Комментарий"></label>
+		
+				<n:div class="col-md-10">
+					<textbox value="@load(vm.currentAttPersonItem.commentary) @save(vm.currentAttPersonItem.commentary,before='save')" placeholder="..." rows="5" maxlength="1024" sclass="form-control input-sm"/>
+				</n:div>
+			</n:div>
+			<n:div class="form-group">
 				<label zclass="control-label col-md-2" value="Населенный пункт"></label>
 		
 				<n:div class="col-md-10">

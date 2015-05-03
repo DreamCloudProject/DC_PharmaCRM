@@ -37,6 +37,7 @@ CREATE TABLE `events` (
   `event_reason` int(11) DEFAULT NULL,
   `user_info` int(11) DEFAULT NULL,
   `posted_by_user` int(11) DEFAULT NULL,
+  `event_number` int(11) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   UNIQUE KEY `event_id_UNIQUE` (`event_id`),
   KEY `fk_ph_event_idx` (`patient_history`),
@@ -47,8 +48,7 @@ CREATE TABLE `events` (
   CONSTRAINT `fk_ph_event` FOREIGN KEY (`patient_history`) REFERENCES `patient_histories` (`patient_histories_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_postedbyuser_event` FOREIGN KEY (`posted_by_user`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_event` FOREIGN KEY (`user_info`) REFERENCES `common_user_info` (`user_info_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8$$
 */
 
 @Entity
@@ -78,6 +78,9 @@ public class Event implements Serializable{
 	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinColumn(name = "patient_history")
 	private PatientHistory patientHistory;
+	
+	@Column(name="event_number")
+	private Integer eventNumber;
 	
 	@Column(name="notification_create_flag")
 	private String notificationCreateFlag;
@@ -170,6 +173,14 @@ public class Event implements Serializable{
 
 	public void setPatientHistory(PatientHistory patientHistory) {
 		this.patientHistory = patientHistory;
+	}	
+
+	public Integer getEventNumber() {
+		return eventNumber;
+	}
+
+	public void setEventNumber(Integer eventNumber) {
+		this.eventNumber = eventNumber;
 	}
 
 	public String getNotificationCreateFlag() {

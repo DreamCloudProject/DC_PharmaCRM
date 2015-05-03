@@ -485,6 +485,7 @@ public class PatientHistoryWindowViewModel {
 		allCuratorsList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
 		allLawyersList = new ArrayList(DataSourceLoader.getInstance().fetchRecordsWithArrays("CommonUserInfo", "where e.role.roleAccessLevel IN :args", args));
 		currentPatientHistory = new PatientHistory();
+		currentPatientHistory.setEventCurrentCount(1);
 		patientItem = new Patient();		
 		itemsToUnlink = new ArrayList<Object>();
 	}

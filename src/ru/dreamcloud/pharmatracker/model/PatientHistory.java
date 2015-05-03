@@ -23,6 +23,7 @@ CREATE TABLE `patient_histories` (
   `doctor` int(11) DEFAULT NULL,
   `master_doctor` int(11) DEFAULT NULL,
   `status` enum('OPEN','CLOSED') DEFAULT NULL,
+  `event_current_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`patient_histories_id`),
   UNIQUE KEY `patient_histories_id_UNIQUE` (`patient_histories_id`),
   KEY `fk_resolution_idx` (`resolution`),
@@ -45,7 +46,7 @@ CREATE TABLE `patient_histories` (
   CONSTRAINT `fk_patient_ph` FOREIGN KEY (`patient`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_project_ph` FOREIGN KEY (`project`) REFERENCES `projects` (`project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_resolution_ph` FOREIGN KEY (`resolution`) REFERENCES `resolutions` (`resolution_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8$$
 */
 @Entity
 @Table(name="patient_histories")
@@ -100,6 +101,9 @@ public class PatientHistory implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name="status")
 	private PatientHistoryStatus patientHistoryStatus;
+	
+	@Column(name = "event_current_count")
+	private Integer eventCurrentCount;	
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy="patientHistory")
     private List<Event> events;
@@ -193,6 +197,14 @@ public class PatientHistory implements Serializable {
 
 	public void setMasterDoctor(Doctor masterDoctor) {
 		this.masterDoctor = masterDoctor;
+	}	
+
+	public Integer getEventCurrentCount() {
+		return eventCurrentCount;
+	}
+
+	public void setEventCurrentCount(Integer eventCurrentCount) {
+		this.eventCurrentCount = eventCurrentCount;
 	}
 
 	public PatientHistoryStatus getPatientHistoryStatus() {

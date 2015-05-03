@@ -25,7 +25,7 @@
 												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
 											</n:div>
 											<n:div class="media-body">
-												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventId}: </n:span><label value="@load(record.title)"/></n:span>
+												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventNumber}: </n:span><label value="@load(record.title)"/></n:span>
 												<n:div class="clearfix"></n:div>
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
@@ -69,7 +69,7 @@
 												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
 											</n:div>
 											<n:div class="media-body">
-												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventId}: </n:span><label value="@load(record.title)"/></n:span>
+												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventNumber}: </n:span><label value="@load(record.title)"/></n:span>
 												<n:div class="clearfix"></n:div>
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
@@ -113,7 +113,7 @@
 												<n:i class="fa fa-arrow-circle-o-right fa-2x"></n:i>
 											</n:div>
 											<n:div class="media-body">
-												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventId}: </n:span><label value="@load(record.title)"/></n:span>
+												<n:span class="news-title"><n:span class="f-bold">Событие № ${record.eventNumber}: </n:span><label value="@load(record.title)"/></n:span>
 												<n:div class="clearfix"></n:div>
 												<n:span>
 													<n:small class="text-muted"><label value="@load(record.eventReason.title)"/></n:small>
